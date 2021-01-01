@@ -1,0 +1,13 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_launcher
+id mainButton1
+id mainEditText1
+id mainListView1
+id media_controller
+id videoView
+id video_layout
+layout main
+string app_name
+string hello_world
+style AppTheme

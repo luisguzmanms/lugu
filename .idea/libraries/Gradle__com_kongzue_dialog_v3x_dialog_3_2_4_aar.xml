@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.kongzue.dialog_v3x:dialog:3.2.4@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d5da01f8f691b4b838fbd7c3fba0db15/jetified-dialog-3.2.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d5da01f8f691b4b838fbd7c3fba0db15/jetified-dialog-3.2.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d5da01f8f691b4b838fbd7c3fba0db15/jetified-dialog-3.2.4/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kongzue.dialog_v3x/dialog/3.2.4/44b0289f026a81dc0877221db6262f82d562aea3/dialog-3.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

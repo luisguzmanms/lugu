@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PelisPlusHD.iml" filepath="$PROJECT_DIR$/.idea/modules/PelisPlusHD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LearnerApp/PelisPlusHD.LearnerApp.iml" filepath="$PROJECT_DIR$/.idea/modules/LearnerApp/PelisPlusHD.LearnerApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/PelisPlusHD.YoutubeExtractor2.iml" filepath="$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/PelisPlusHD.YoutubeExtractor2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adblockwebview/PelisPlusHD.adblockwebview.iml" filepath="$PROJECT_DIR$/.idea/modules/adblockwebview/PelisPlusHD.adblockwebview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/PelisPlusHD.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/PelisPlusHD.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/numberPicker/PelisPlusHD.numberPicker.iml" filepath="$PROJECT_DIR$/.idea/modules/numberPicker/PelisPlusHD.numberPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/playerbase/PelisPlusHD.playerbase.iml" filepath="$PROJECT_DIR$/.idea/modules/playerbase/PelisPlusHD.playerbase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/youtubeExtractor/PelisPlusHD.youtubeExtractor.iml" filepath="$PROJECT_DIR$/.idea/modules/youtubeExtractor/PelisPlusHD.youtubeExtractor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/youtubejextractor/PelisPlusHD.youtubejextractor.iml" filepath="$PROJECT_DIR$/.idea/modules/youtubejextractor/PelisPlusHD.youtubejextractor.iml" />
+    </modules>
+  </component>
+</project>

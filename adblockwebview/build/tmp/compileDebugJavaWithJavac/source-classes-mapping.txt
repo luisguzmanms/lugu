@@ -1,0 +1,34 @@
+com/amnix/adblockwebview/util/ClipboardUtils.java
+ com.amnix.adblockwebview.util.ClipboardUtils
+com/amnix/adblockwebview/presenter/IWebViewPresenter.java
+ com.amnix.adblockwebview.presenter.IWebViewPresenter
+com/amnix/adblockwebview/presenter/WebViewPresenterImpl.java
+ com.amnix.adblockwebview.presenter.WebViewPresenterImpl
+ com.amnix.adblockwebview.presenter.WebViewPresenterImpl$1
+ com.amnix.adblockwebview.presenter.WebViewPresenterImpl$2
+ com.amnix.adblockwebview.presenter.WebViewPresenterImpl$3
+ com.amnix.adblockwebview.presenter.WebViewPresenterImpl$4
+ com.amnix.adblockwebview.presenter.WebViewPresenterImpl$5
+ com.amnix.adblockwebview.presenter.WebViewPresenterImpl$View
+com/amnix/adblockwebview/util/UrlUtils.java
+ com.amnix.adblockwebview.util.UrlUtils
+com/amnix/adblockwebview/BuildConfig.java
+ com.amnix.adblockwebview.BuildConfig
+com/amnix/adblockwebview/util/FileUtils.java
+ com.amnix.adblockwebview.util.FileUtils
+com/amnix/adblockwebview/util/AdBlocker.java
+ com.amnix.adblockwebview.util.AdBlocker
+ com.amnix.adblockwebview.util.AdBlocker$1
+com/amnix/adblockwebview/util/PermissionUtils.java
+ com.amnix.adblockwebview.util.PermissionUtils
+com/amnix/adblockwebview/ui/AdBlocksWebViewActivity.java
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$1
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$2
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$MyWebChromeClient
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$MyWebChromeClient$1
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$MyWebChromeClient$2
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$MyWebChromeClient$3
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$MyWebViewClient
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$NotifyDownloadedTask
+ com.amnix.adblockwebview.ui.AdBlocksWebViewActivity$NotifyDownloadedTask$1

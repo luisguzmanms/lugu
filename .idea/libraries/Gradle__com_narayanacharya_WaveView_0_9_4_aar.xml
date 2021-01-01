@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.narayanacharya:WaveView:0.9.4@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ec24b2568a9e904b745cae9e1e9732d7/jetified-WaveView-0.9.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ec24b2568a9e904b745cae9e1e9732d7/jetified-WaveView-0.9.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ec24b2568a9e904b745cae9e1e9732d7/jetified-WaveView-0.9.4/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.narayanacharya/WaveView/0.9.4/63c76c79244dde2ac67d95447b4e5d918ee8a9b9/WaveView-0.9.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.narayanacharya/WaveView/0.9.4/b3d86fd38a8ed5076bf6421941bf0e2db04fe7d3/WaveView-0.9.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.eightbitlab:bottomnavigationbar:0.9.6@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7637edb39f2de3cc021ea94c8b77abc5/jetified-bottomnavigationbar-0.9.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7637edb39f2de3cc021ea94c8b77abc5/jetified-bottomnavigationbar-0.9.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7637edb39f2de3cc021ea94c8b77abc5/jetified-bottomnavigationbar-0.9.6/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.eightbitlab/bottomnavigationbar/0.9.6/7a7a28d4b43eb49c67190a9140569523563d2c49/bottomnavigationbar-0.9.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.eightbitlab/bottomnavigationbar/0.9.6/3d9ca7c0fc855bcf4e2e9f492ee83d355950d23d/bottomnavigationbar-0.9.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

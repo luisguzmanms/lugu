@@ -111,7 +111,7 @@ import static com.lamesa.lugu.otros.statics.constantes.mixAdClic;
 public class act_main extends AppCompatActivity {
 
 
-    // test commmit
+    // act_main
     public static List<ModelCategoria> mlistCategoria;
     public static RecyclerView mrvBusqueda;
     public static AdapterCategoria mAdapterCategoria;

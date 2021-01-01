@@ -113,38 +113,22 @@ public class act_main extends AppCompatActivity {
 
     // act_main2
     public static List<ModelCategoria> mlistCategoria;
-    public static RecyclerView mrvBusqueda;
     public static AdapterCategoria mAdapterCategoria;
-    public static RecyclerView mrvDestacado;
     public static RecyclerView mrvCategoria;
-    public static RecyclerView mrvFilmPeliculas;
-    public static RecyclerView mrvFilmSeries;
     public static LinearLayout contenidoCargando;
     public static NestedScrollView contenidoHome;
     public static LinearLayout contenidoSearch;
     public static TinyDB tinyDB;
     public static ArrayList<String> mlistUrls;
     public static SpinKitView animacionCargandoTop;
-    public static TextView tvTituloBusqueda;
     public static EditText etBuscar;
     private TextView mtvVerPeliculas;
     private TextView mtvVerSeries;
-    private ImageView ivLimpiarBusqueda;
-    private BottomNavigationView bottomNavigation;
-    private ImageView ivAtrasSearch;
     private ImageView ivMenu;
     private ImageView ivLogo;
-    public static int anchoItemFilm = 125;
-    private FrameLayout flPeliculas;
-    private FrameLayout flSeries;
-    public static RecyclerView mrvFilmNetflix;
     private TextView mtvVerNetflix;
-    public static RecyclerView mrvFilmEstrenos;
-    private FrameLayout flEstrenos;
-    private FrameLayout flNetflix;
     private TextView mtvVerEstrenos;
     public static ImageView ivFondoGif;
-    private PlayPauseView playPause;
     public static AndExoPlayerView andExoPlayerView;
     public static MediaNotificationManager mediaNotificationManager;
     public static List<ModelCancion> mlistCancion;
@@ -508,11 +492,7 @@ public class act_main extends AppCompatActivity {
         mtvVerNetflix = findViewById(R.id.tvVerNetflix);
         mtvVerEstrenos = findViewById(R.id.tvVerEstrenos);
         ivLogo = findViewById(R.id.ivLogo);
-        flPeliculas = findViewById(R.id.flPeliculas);
-        flSeries = findViewById(R.id.flSeries);
-        flEstrenos = findViewById(R.id.flEstrenos);
-        flNetflix = findViewById(R.id.flNetflix);
-        flNetflix = findViewById(R.id.flNetflix);
+
 
         tvCancion = findViewById(R.id.tv_cancion);
         tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
@@ -621,10 +601,6 @@ public class act_main extends AppCompatActivity {
                     case R.id.ivLogo:
 
                         AbrirPagina(act_main.this);
-                        //  SubirFilmPelicula(act_main.this);
-                        playPause.setState(PlayPauseView.STATE_PAUSE);
-                        // videoView.pause();
-                        playPause.fadeIn();
 
                         break;
 

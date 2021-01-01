@@ -11,7 +11,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/LearnerApp" />
+            <option value="$PROJECT_DIR$/LuguApp" />
             <option value="$PROJECT_DIR$/YoutubeExtractor2" />
             <option value="$PROJECT_DIR$/adblockwebview" />
             <option value="$PROJECT_DIR$/library" />

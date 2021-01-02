@@ -9,7 +9,7 @@ public enum EnumLoop {
 
     private String valueStr;
 
-    private Integer value;
+    private final Integer value;
 
     EnumLoop(String valueStr, Integer value) {
         this.valueStr = valueStr;

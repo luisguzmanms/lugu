@@ -30,10 +30,7 @@ public class RegexUtils
         Matcher mat = pat.matcher(input);
 
 
-        if (mat.find()) {
-            return true;
-        } else
-            return false;
+        return mat.find();
 
 	}
 	

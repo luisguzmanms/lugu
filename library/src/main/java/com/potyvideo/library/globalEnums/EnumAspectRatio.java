@@ -12,7 +12,7 @@ public enum EnumAspectRatio {
 
     private String valueStr;
 
-    private Integer value;
+    private final Integer value;
 
     EnumAspectRatio(String valueStr, Integer value) {
         this.valueStr = valueStr;

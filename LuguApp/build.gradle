@@ -207,6 +207,9 @@ dependencies {
 
     implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
 
+    // https://github.com/MatteoBattilana/WeatherView
+    implementation 'com.github.MatteoBattilana:WeatherView:3.0.0'
+
 }
 
 

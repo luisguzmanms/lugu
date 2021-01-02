@@ -456,7 +456,7 @@ public class SysMediaPlayer extends BaseInternalPlayer {
                 }
             };
 
-    private MediaPlayer.OnCompletionListener mCompletionListener =
+    private final MediaPlayer.OnCompletionListener mCompletionListener =
             new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
                     updateStatus(STATE_PLAYBACK_COMPLETE);
@@ -466,7 +466,7 @@ public class SysMediaPlayer extends BaseInternalPlayer {
             };
 
     private int startSeekPos;
-    private MediaPlayer.OnInfoListener mInfoListener =
+    private final MediaPlayer.OnInfoListener mInfoListener =
             new MediaPlayer.OnInfoListener() {
                 public boolean onInfo(MediaPlayer mp, int arg1, int arg2) {
                     switch (arg1) {
@@ -519,7 +519,7 @@ public class SysMediaPlayer extends BaseInternalPlayer {
                 }
             };
 
-    private MediaPlayer.OnSeekCompleteListener mOnSeekCompleteListener = new MediaPlayer.OnSeekCompleteListener() {
+    private final MediaPlayer.OnSeekCompleteListener mOnSeekCompleteListener = new MediaPlayer.OnSeekCompleteListener() {
         @Override
         public void onSeekComplete(MediaPlayer mp) {
             PLog.d(TAG,"EVENT_CODE_SEEK_COMPLETE");
@@ -527,7 +527,7 @@ public class SysMediaPlayer extends BaseInternalPlayer {
         }
     };
 
-    private MediaPlayer.OnErrorListener mErrorListener =
+    private final MediaPlayer.OnErrorListener mErrorListener =
             new MediaPlayer.OnErrorListener() {
                 public boolean onError(MediaPlayer mp, int framework_err, int impl_err) {
                     PLog.d(TAG, "Error: " + framework_err + "," + impl_err);
@@ -567,7 +567,7 @@ public class SysMediaPlayer extends BaseInternalPlayer {
                 }
             };
 
-    private MediaPlayer.OnBufferingUpdateListener mBufferingUpdateListener =
+    private final MediaPlayer.OnBufferingUpdateListener mBufferingUpdateListener =
             new MediaPlayer.OnBufferingUpdateListener() {
                 public void onBufferingUpdate(MediaPlayer mp, int percent) {
                     submitBufferingUpdate(percent, null);

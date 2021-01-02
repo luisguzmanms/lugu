@@ -10,7 +10,7 @@ import android.util.LruCache;
  */
 public class RecordCache {
 
-    private LruCache<String, Integer> mLruCache;
+    private final LruCache<String, Integer> mLruCache;
 
     public RecordCache(int maxCacheCount){
         mLruCache = new LruCache<String,Integer>(maxCacheCount * 4){

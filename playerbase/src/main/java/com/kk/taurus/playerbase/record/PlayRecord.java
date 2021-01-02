@@ -11,7 +11,7 @@ class PlayRecord {
     private final String TAG = "PlayRecord";
     private static PlayRecord i;
 
-    private RecordInvoker mRecordInvoker;
+    private final RecordInvoker mRecordInvoker;
 
     private PlayRecord(){
         mRecordInvoker = new RecordInvoker(PlayRecordManager.getConfig());

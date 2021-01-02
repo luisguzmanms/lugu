@@ -35,10 +35,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class GroupValue implements ValueInter {
 
-    private Map<String,Object> mValueMap;
-    private Map<IReceiverGroup.OnGroupValueUpdateListener, String[]> mListenerKeys;
+    private final Map<String,Object> mValueMap;
+    private final Map<IReceiverGroup.OnGroupValueUpdateListener, String[]> mListenerKeys;
 
-    private List<IReceiverGroup.OnGroupValueUpdateListener> mOnGroupValueUpdateListeners;
+    private final List<IReceiverGroup.OnGroupValueUpdateListener> mOnGroupValueUpdateListeners;
 
     public GroupValue(){
         mValueMap = new ConcurrentHashMap<>();

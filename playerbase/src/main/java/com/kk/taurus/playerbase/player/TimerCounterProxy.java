@@ -31,14 +31,14 @@ import com.kk.taurus.playerbase.log.PLog;
 public class TimerCounterProxy {
 
     private final int MSG_CODE_COUNTER = 1;
-    private int counterInterval;
+    private final int counterInterval;
 
     //proxy state, default use it.
     private boolean useProxy = true;
 
     private OnCounterUpdateListener onCounterUpdateListener;
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()){
+    private final Handler mHandler = new Handler(Looper.getMainLooper()){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);

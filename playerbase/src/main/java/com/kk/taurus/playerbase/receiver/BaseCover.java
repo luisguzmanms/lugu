@@ -30,7 +30,7 @@ import com.kk.taurus.playerbase.assist.InterEvent;
 public abstract class BaseCover extends BaseReceiver implements
         ICover, ICoverHandle, View.OnAttachStateChangeListener {
 
-    private View mCoverView;
+    private final View mCoverView;
 
     public BaseCover(Context context) {
         super(context);

@@ -36,7 +36,7 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
     final String TAG = "RenderSurfaceView";
 
     private IRenderCallback mRenderCallback;
-    private RenderMeasure mRenderMeasure;
+    private final RenderMeasure mRenderMeasure;
     private boolean isReleased;
 
     public RenderSurfaceView(Context context) {
@@ -122,7 +122,7 @@ public class RenderSurfaceView extends SurfaceView implements IRender {
 
     private static final class InternalRenderHolder implements IRenderHolder{
 
-        private WeakReference<SurfaceHolder> mSurfaceHolder;
+        private final WeakReference<SurfaceHolder> mSurfaceHolder;
 
         public InternalRenderHolder(SurfaceHolder surfaceHolder){
             this.mSurfaceHolder = new WeakReference<>(surfaceHolder);

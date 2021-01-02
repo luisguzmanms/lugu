@@ -14,7 +14,7 @@ public class ContextUtils
 	}
 	public static  void CopytoClip(String x){
 
-        ((ClipboardManager)context.getSystemService(context.CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("clipboard", x));    
+        ((ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("clipboard", x));
 
 		Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show(); 
 

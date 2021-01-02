@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import com.github.matteobattilana.weather.PrecipType;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
@@ -70,6 +71,7 @@ import static com.lamesa.lugu.activity.act_main.tvCancion;
 import static com.lamesa.lugu.activity.act_main.tvCategoria;
 import static com.lamesa.lugu.activity.act_main.waveBlack;
 import static com.lamesa.lugu.activity.act_main.waveColor;
+import static com.lamesa.lugu.activity.act_main.weatherView;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
@@ -93,8 +95,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private boolean isPreparing = false;
     private TypedArray typedArray = null;
     private boolean currPlayWhenReady = false;
-    private boolean showController = true;
-    private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
+    private final boolean showController = true;
+    private final EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
     private EnumLoop currLoop = EnumLoop.Finite;
 
@@ -113,6 +115,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
     private ExoPlayerCallBack exoPlayerCallBack;
     private boolean isPlaying = false;
+    private String source;
 
 
     public class ComponentListener implements Player.EventListener {
@@ -269,8 +272,12 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             System.out.println("newlofi error.getMessage() "+error.getMessage());
             setLogInfo(mContext, "AndExoPlayerView.onPlayerError", error.getMessage(),true);
 
+            // volver a reproducir
+            andExoPlayerView.setSource(source);
+
             if (exoPlayerCallBack != null)
                 exoPlayerCallBack.onError();
+
         }
 
         @Override
@@ -393,6 +400,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     }
 
     public void setSource(String source) {
+        this.source = source;
         MediaSource mediaSource = buildMediaSource(source, null);
         if (mediaSource != null) {
             if (simpleExoPlayer != null) {
@@ -414,6 +422,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             }
         }
     }
+
+
 
     public void setSource(String source, HashMap<String, String> extraHeaders) {
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);
@@ -524,8 +534,6 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             simpleExoPlayer = null;
         }
     }
-
-
 
     public void setPlayWhenReady(boolean playWhenReady) {
         this.currPlayWhenReady = playWhenReady;
@@ -654,8 +662,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             // First Hide other objects (listview or recyclerview), better hide them using Gone.
             hideSystemUi();
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();
-            params.width = params.MATCH_PARENT;
-            params.height = params.MATCH_PARENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
             playerView.setLayoutParams(params);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // unhide your objects here.
@@ -780,10 +788,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
                 // reproducir
                 if(andExoPlayerView!=null) {
-
                     andExoPlayerView.setPlayWhenReady(true);
-                    Toast.makeText(mContext, "setPlayWhenReady", Toast.LENGTH_SHORT).show();
-
                 }
                 if(waveColor!=null && waveBlack!=null){
                     waveBlack.play();
@@ -801,7 +806,20 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PLAY);
                 }
 
+                if(weatherView!=null){
+                    Random random = new Random();
+                    int numRandom = random.nextInt(2);
+                    switch (numRandom){
+                        case 0:
+                            weatherView.setWeatherData(PrecipType.RAIN);
+                            break;
+                        case 1:
+                            weatherView.setWeatherData(PrecipType.SNOW);
+                            break;
 
+                    }
+
+                }
 
                 break;
 
@@ -834,6 +852,11 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
                 if(mediaNotificationManager!=null) {
                     mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PAUSE);
+                }
+
+
+                if(weatherView!=null){
+                    weatherView.setWeatherData(PrecipType.CLEAR);
                 }
 
 
@@ -886,6 +909,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
             case MediaNotificationManager.STATE_STOP:
 
+
                 if(mediaNotificationManager!=null) {
                     mediaNotificationManager.cancelNotify();
                 }
@@ -906,16 +930,17 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     waveColor.pause();
                 }
 
+
                 break;
+
+
+
 
 
         }
 
 
     }
-
-
-
 
 
 }

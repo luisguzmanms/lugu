@@ -210,14 +210,14 @@ public class AdBlocksWebViewActivity extends AppCompatActivity implements WebVie
     @SuppressLint("SetJavaScriptEnabled")
     private void bindView() {
         // Toolbar
-        mTvTitle = (TextView) findViewById(R.id.toolbar_tv_title);
-        mTvUrl = (TextView) findViewById(R.id.toolbar_tv_url);
+        mTvTitle = findViewById(R.id.toolbar_tv_title);
+        mTvUrl = findViewById(R.id.toolbar_tv_url);
         findViewById(R.id.toolbar_root).setBackgroundColor(getIntent().getIntExtra(EXTRA_COLOR, Color.BLACK));
 
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.a_web_viewer_coordinatorlayout);
-        mProgressBar = (ProgressBar) findViewById(R.id.a_web_viewer_pb);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.a_web_viewer_srl);
-        mWebView = (WebView) findViewById(R.id.a_web_viewer_wv);
+        mCoordinatorLayout = findViewById(R.id.a_web_viewer_coordinatorlayout);
+        mProgressBar = findViewById(R.id.a_web_viewer_pb);
+        mSwipeRefreshLayout = findViewById(R.id.a_web_viewer_srl);
+        mWebView = findViewById(R.id.a_web_viewer_wv);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         WebSettings webSettings = mWebView.getSettings();
@@ -235,7 +235,7 @@ public class AdBlocksWebViewActivity extends AppCompatActivity implements WebVie
         mWebView.setDownloadListener(this);
         mWebView.setOnCreateContextMenuListener(this);
 
-        mBtnMore = (AppCompatImageButton) findViewById(R.id.toolbar_btn_more);
+        mBtnMore = findViewById(R.id.toolbar_btn_more);
 
         //noinspection ConstantConditions
         findViewById(R.id.toolbar_btn_close).setOnClickListener(this);
@@ -256,9 +256,9 @@ public class AdBlocksWebViewActivity extends AppCompatActivity implements WebVie
         mPopupMenu.setOutsideTouchable(true);
         mPopupMenu.setFocusable(true);
 
-        mLlControlButtons = (RelativeLayout) view.findViewById(R.id.popup_menu_rl_arrows);
-        mBtnBack = (AppCompatImageButton) view.findViewById(R.id.popup_menu_btn_back);
-        mBtnFoward = (AppCompatImageButton) view.findViewById(R.id.popup_menu_btn_forward);
+        mLlControlButtons = view.findViewById(R.id.popup_menu_rl_arrows);
+        mBtnBack = view.findViewById(R.id.popup_menu_btn_back);
+        mBtnFoward = view.findViewById(R.id.popup_menu_btn_forward);
 
         mBtnBack.setOnClickListener(this);
         mBtnFoward.setOnClickListener(this);
@@ -583,7 +583,7 @@ public class AdBlocksWebViewActivity extends AppCompatActivity implements WebVie
             }
         }
 
-        private Map<String, Boolean> loadedUrls = new HashMap<>();
+        private final Map<String, Boolean> loadedUrls = new HashMap<>();
 
         @SuppressWarnings("deprecation")
         @Override
@@ -605,7 +605,7 @@ public class AdBlocksWebViewActivity extends AppCompatActivity implements WebVie
         mPresenter.onBackPressed(mPopupMenu, mWebView);
     }
 
-    private BroadcastReceiver mDownloadReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mDownloadReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();

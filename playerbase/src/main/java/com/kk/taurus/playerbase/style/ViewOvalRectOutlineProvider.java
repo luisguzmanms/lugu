@@ -32,7 +32,7 @@ import com.kk.taurus.playerbase.utils.RectUtils;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class ViewOvalRectOutlineProvider extends ViewOutlineProvider {
 
-    private Rect mRect;
+    private final Rect mRect;
 
     public ViewOvalRectOutlineProvider(Rect rect){
         this.mRect = rect;

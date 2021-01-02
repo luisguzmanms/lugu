@@ -281,11 +281,7 @@ public class Firebase extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
 
-        if (user != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return user != null;
     }
 
     //endregion

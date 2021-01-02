@@ -42,7 +42,7 @@ public class RenderTextureView extends TextureView implements IRender {
     final String TAG = "RenderTextureView";
 
     private IRenderCallback mRenderCallback;
-    private RenderMeasure mRenderMeasure;
+    private final RenderMeasure mRenderMeasure;
 
     private SurfaceTexture mSurfaceTexture;
 
@@ -170,8 +170,8 @@ public class RenderTextureView extends TextureView implements IRender {
 
     private static final class InternalRenderHolder implements IRenderHolder{
 
-        private WeakReference<Surface> mSurfaceRefer;
-        private WeakReference<RenderTextureView> mTextureRefer;
+        private final WeakReference<Surface> mSurfaceRefer;
+        private final WeakReference<RenderTextureView> mTextureRefer;
 
         public InternalRenderHolder(RenderTextureView textureView, SurfaceTexture surfaceTexture){
             mTextureRefer = new WeakReference<>(textureView);

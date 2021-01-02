@@ -10,7 +10,7 @@ public enum EnumPlayerSize {
 
     private String valueStr;
 
-    private Integer value;
+    private final Integer value;
 
     EnumPlayerSize(String valueStr, Integer value) {
         this.valueStr = valueStr;

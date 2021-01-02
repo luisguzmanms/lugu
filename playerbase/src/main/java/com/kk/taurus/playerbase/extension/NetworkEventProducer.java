@@ -44,13 +44,13 @@ public class NetworkEventProducer extends BaseEventProducer {
 
     private static final int MSG_CODE_NETWORK_CHANGE = 100;
 
-    private Context mAppContext;
+    private final Context mAppContext;
 
     private NetChangeBroadcastReceiver mBroadcastReceiver;
 
     private int mState;
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()){
+    private final Handler mHandler = new Handler(Looper.getMainLooper()){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -115,8 +115,8 @@ public class NetworkEventProducer extends BaseEventProducer {
 
     public static class NetChangeBroadcastReceiver extends BroadcastReceiver {
 
-        private Handler handler;
-        private WeakReference<Context> mContextRefer;
+        private final Handler handler;
+        private final WeakReference<Context> mContextRefer;
 
         public NetChangeBroadcastReceiver(Context context, Handler handler){
             mContextRefer = new WeakReference<>(context);
@@ -132,7 +132,7 @@ public class NetworkEventProducer extends BaseEventProducer {
             }
         }
 
-        private Runnable mDelayRunnable = new Runnable() {
+        private final Runnable mDelayRunnable = new Runnable() {
             @Override
             public void run() {
                 if(mContextRefer!=null && mContextRefer.get()!=null){

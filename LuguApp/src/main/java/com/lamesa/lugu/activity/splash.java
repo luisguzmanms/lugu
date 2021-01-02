@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -55,9 +58,19 @@ public class splash extends AppCompatActivity {
         tinydb = new TinyDB(this);
 
 
-        CardView cvLogo = findViewById(R.id.cvLogo);
 
-        cvLogo.setOnClickListener(new View.OnClickListener() {
+        ImageView ivFondoSplash = findViewById(R.id.iv_fondoSplash);
+
+
+        Glide.with(this)
+                .load("https://cdnb.artstation.com/p/assets/images/images/033/272/069/large/estevao-chromiec-chromi-5-act-2-1080p.jpg?1609011818")
+                //   .error(R.drawable.ic_alert)
+                //.placeholder(R.drawable.placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .into(ivFondoSplash);
+
+
+        ivFondoSplash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -89,8 +102,9 @@ public class splash extends AppCompatActivity {
             @Override
             public void run() {
 
-                DialogoPase(splash.this, tinydb);
-
+               // DialogoPase(splash.this, tinydb);
+               startActivity(new Intent(splash.this, act_main.class));
+               finish();
 
             }
         }, 2000);
@@ -219,8 +233,6 @@ public class splash extends AppCompatActivity {
         }
 
     }
-
-
 
 
 
@@ -410,9 +422,7 @@ public class splash extends AppCompatActivity {
             }
         });
 
-    };
-
-
+    }
 
 
     private void AgregarFilm(Context mContext, String nombreFileCSV){

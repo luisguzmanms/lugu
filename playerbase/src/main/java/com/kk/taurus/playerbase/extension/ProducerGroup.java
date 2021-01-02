@@ -26,9 +26,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class ProducerGroup implements IProducerGroup {
 
-    private ReceiverEventSender mEventSender;
+    private final ReceiverEventSender mEventSender;
 
-    private List<BaseEventProducer> mEventProducers;
+    private final List<BaseEventProducer> mEventProducers;
 
     public ProducerGroup(ReceiverEventSender eventSender){
         this.mEventSender = eventSender;

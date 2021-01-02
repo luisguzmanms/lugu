@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\luis4\\GitHub\\lugu\\LuguApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "outputFile": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\luis4\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\luis4\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

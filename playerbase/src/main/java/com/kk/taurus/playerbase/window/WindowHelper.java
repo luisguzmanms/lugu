@@ -34,10 +34,10 @@ import com.kk.taurus.playerbase.utils.PUtils;
  */
 public class WindowHelper implements IWindow {
 
-    private View mWindowView;
+    private final View mWindowView;
 
-    private WindowManager.LayoutParams wmParams;
-    private WindowManager wm;
+    private final WindowManager.LayoutParams wmParams;
+    private final WindowManager wm;
 
     private boolean isWindowShow;
 
@@ -45,7 +45,7 @@ public class WindowHelper implements IWindow {
 
     private AnimatorSet mShowAnimatorSet;
     private AnimatorSet mCloseAnimatorSet;
-    private boolean defaultAnimation;
+    private final boolean defaultAnimation;
 
     private OnWindowListener mOnWindowListener;
 
@@ -245,11 +245,8 @@ public class WindowHelper implements IWindow {
                 mDownY = ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if(Math.abs(ev.getRawX() - mDownX) > MIN_MOVE_DISTANCE
-                        || Math.abs(ev.getRawY() - mDownY) > MIN_MOVE_DISTANCE){
-                    return true;
-                }
-                return false;
+                return Math.abs(ev.getRawX() - mDownX) > MIN_MOVE_DISTANCE
+                        || Math.abs(ev.getRawY() - mDownY) > MIN_MOVE_DISTANCE;
         }
         return false;
     }

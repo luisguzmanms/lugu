@@ -47,7 +47,7 @@ public class WindowVideoView extends BaseVideoView implements IWindow {
         mWindowHelper.setOnWindowListener(mInternalWindowListener);
     }
 
-    private OnWindowListener mInternalWindowListener =
+    private final OnWindowListener mInternalWindowListener =
             new OnWindowListener() {
         @Override
         public void onShow() {

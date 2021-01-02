@@ -73,6 +73,7 @@ public class ActionReceiver extends BroadcastReceiver {
 	private void ActionStop() {
 		if(mediaNotificationManager!=null){
 			mediaNotificationManager.cancelNotify();
+			andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_STOP);
 		}
 	}
 

@@ -56,6 +56,8 @@ import com.kongzue.dialog.v3.TipDialog;
 import com.kongzue.dialog.v3.WaitDialog;
 import com.lamesa.lugu.BuildConfig;
 import com.lamesa.lugu.R;
+import com.lamesa.lugu.adapter.AdapterFavoritos;
+import com.lamesa.lugu.adapter.AdapterHistorial;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.otros.numberPicker.NumberPicker;
 import com.lamesa.lugu.otros.statics.Animacion;
@@ -313,7 +315,7 @@ public class metodos {
 
 
         String obligatorio = "Actualización obligatoria";
-        String titulo = "¡Actualización disponible! \nversión " + String.valueOf(version);
+        String titulo = "¡Actualización disponible! \nversión " + version;
         if (cancelable) {
             obligatorio = "(Actualización opcional)";
         } else {
@@ -714,7 +716,7 @@ public class metodos {
         MessageDialog.build((AppCompatActivity) mContext)
                 .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
                 .setOkButton("SI")
-                .setMessage("")
+                .setMessage("Esta acción no se puede deshacer")
                 .setTitle(titulo)
                 .setCancelButton("CERRAR")
                 .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
@@ -724,11 +726,22 @@ public class metodos {
                     public boolean onClick(BaseDialog baseDialog, View v) {
                         // eliminar contenido
                         mList.removeAll(mList);
+
                         tinyDB.putListModelCancion(keyTinyDB, mList);
                         TipDialog.show((AppCompatActivity) mContext,"Contenido eliminado.", TipDialog.TYPE.SUCCESS);
-                        if(bottomNavigationHis_Fav!=null) {
-                            bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
+                        if(keyTinyDB.contains(TBlistFavoritos)){
+                            UpdateAdapterFavoritos(mContext);
+                            if(bottomNavigationHis_Fav!=null) {
+                                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
+                            }
+                        } else if(keyTinyDB.contains(TBlistHistorial)) {
+                            UpdateAdapterHistorial(mContext);
+                            if(bottomNavigationHis_Fav!=null) {
+                                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
+                            }
                         }
+
+
                         return false;
                     }
                 })
@@ -1001,7 +1014,7 @@ public class metodos {
 
 
         List<String[]> list = new ArrayList<String[]>();
-        String next[] = {};
+        String[] next = {};
 
         try {
             InputStreamReader csvStreamReader = new InputStreamReader(
@@ -1309,8 +1322,10 @@ public class metodos {
         Collections.reverse(tinyListHistorial);
         tinyDB.putListModelCancion(TBlistHistorial,  EliminarDuplicadosModelCancion(tinyListHistorial));
 
-        // actualizar lista de hitorial
-        UpdateAdapterHistorial(mContext);
+        //region actualizar lista de historial
+        mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+        bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
+        //endregion
 
     }
 
@@ -1329,17 +1344,20 @@ public class metodos {
                 // Collections para que se muestre de primeras las ultimas agregadas
             Collections.reverse(tinyListFavoritos);
 
-                for(ModelCancion cancion : tinyListCancionxCategoria){
-                if(cancion.getId().equals(idCancionSonando)){
-                    tinyListFavoritos.add(cancion);
+
+            for(int i = 0; i<tinyListCancionxCategoria.size(); i++) {
+                if (tinyListCancionxCategoria.get(i).getId().equals(idCancionSonando)) {
+                    tinyListFavoritos.add(tinyListCancionxCategoria.get(i));
                     Toast.makeText(mContext, "Se agregó a favoritos", Toast.LENGTH_SHORT).show();
+                    break;
                 }
-                }
+            }
+
                 // guardar lista en tiny db y sin duplicados
                 tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
 
                 // actualizar lista de favoritos
-                UpdateAdapterFavoritos(mContext);
+              //  UpdateAdapterFavoritos(mContext);
 
                 // cambiar icono de ivLikeDislike a like
 
@@ -1347,7 +1365,10 @@ public class metodos {
                 ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_like));
                 ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
-                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
+            //region actualizar lista de favoritos
+            mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+            bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
+            //endregion
 
 
 
@@ -1369,7 +1390,7 @@ public class metodos {
                 // guardar lista en tiny db y sin duplicados
                 tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
                 // actualizar lista de favoritos
-                UpdateAdapterFavoritos(mContext);
+              //  UpdateAdapterFavoritos(mContext);
 
                 // cambiar icono de ivLikeDislike a like
 
@@ -1377,7 +1398,10 @@ public class metodos {
                 ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_dislike));
                 ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
+                //region actualizar lista de favoritos
+                mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
                 bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
+                //endregion
 
             }
 
@@ -1422,11 +1446,11 @@ public class metodos {
 
 
         if(mAdapterHistorial!=null && mrvHistorial!=null) {
-            /*
+
             mAdapterHistorial = new AdapterHistorial(mContext, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
             mrvHistorial.setAdapter(mAdapterHistorial);
             mAdapterHistorial.notifyDataSetChanged();
-             */
+
             mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
         } else {
             Toast.makeText(mContext, "NULO", Toast.LENGTH_SHORT).show();
@@ -1437,14 +1461,13 @@ public class metodos {
     public static void UpdateAdapterFavoritos(Context mContext){
 
         if(mAdapterFavoritos!=null && mrvFavoritos!=null) {
-            /*
-            mAdapterHistorial = new AdapterHistorial(mContext, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
-            mrvHistorial.setAdapter(mAdapterHistorial);
-            mAdapterHistorial.notifyDataSetChanged();
 
-             */
+            mAdapterFavoritos = new AdapterFavoritos(mContext, tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+            mrvFavoritos.setAdapter(mAdapterFavoritos);
+            mAdapterFavoritos.notifyDataSetChanged();
 
-            mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+         //   mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+
         } else {
             Toast.makeText(mContext, "NULO", Toast.LENGTH_SHORT).show();
         }

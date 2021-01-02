@@ -30,8 +30,8 @@ import java.util.List;
 public abstract class AbsCoverContainer implements ICoverStrategy {
 
     protected Context mContext;
-    private List<BaseCover> mCovers;
-    private ViewGroup mContainerRoot;
+    private final List<BaseCover> mCovers;
+    private final ViewGroup mContainerRoot;
 
     public AbsCoverContainer(Context context){
         this.mContext = context;

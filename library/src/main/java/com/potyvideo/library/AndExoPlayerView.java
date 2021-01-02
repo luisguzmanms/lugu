@@ -64,8 +64,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private boolean isPreparing = false;
     private TypedArray typedArray = null;
     private boolean currPlayWhenReady = false;
-    private boolean showController = true;
-    private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
+    private final boolean showController = true;
+    private final EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
     private EnumLoop currLoop = EnumLoop.Finite;
 
@@ -531,8 +531,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             // First Hide other objects (listview or recyclerview), better hide them using Gone.
             hideSystemUi();
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();
-            params.width = params.MATCH_PARENT;
-            params.height = params.MATCH_PARENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
             playerView.setLayoutParams(params);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // unhide your objects here.

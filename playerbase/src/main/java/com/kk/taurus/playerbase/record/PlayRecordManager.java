@@ -72,9 +72,9 @@ public class PlayRecordManager {
      */
     public static class RecordConfig{
 
-        private int maxRecordCount;
-        private RecordKeyProvider recordKeyProvider;
-        private OnRecordCallBack onRecordCallBack;
+        private final int maxRecordCount;
+        private final RecordKeyProvider recordKeyProvider;
+        private final OnRecordCallBack onRecordCallBack;
 
         RecordConfig(int maxRecordCount, RecordKeyProvider recordKeyProvider, OnRecordCallBack onRecordCallBack) {
             this.maxRecordCount = maxRecordCount;

@@ -62,8 +62,9 @@ public class MediaNotificationManager {
     public static MediaControllerCompat.TransportControls transportControls;
 
 
-    private String strAppName, strCancionNombre;
-    private Resources resources;
+    private final String strAppName;
+    private String strCancionNombre;
+    private final Resources resources;
     private static NotificationManagerCompat notificationManager;
     private MediaSessionCompat.Callback mediasSessionCallback;
     public static NotificationManager manager;
@@ -72,7 +73,7 @@ public class MediaNotificationManager {
 
     public MediaNotificationManager(Context mContext) {
 
-        this.mContext = mContext;
+        MediaNotificationManager.mContext = mContext;
         this.resources = mContext.getResources();
 
         strAppName = resources.getString(R.string.app_name);
@@ -97,26 +98,26 @@ public class MediaNotificationManager {
         //image = Bitmap.CreateScaledBitmap(image, (int)(image.Width * multiplier), (int)(image.Height * multiplier), false);
         switch (playbackStatus) {
             case STATE_PLAY:
-                setLogInfo(mContext,"MediaNotificationManager.startNotify","STATE_PLAY",false);
+                setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_PLAY", false);
                 icon = R.drawable.ic_pause_white;
                 intentPlayPause.setAction(ACTION_PAUSE);
                 actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
                 break;
             case STATE_BUFFERING:
-                setLogInfo(mContext,"MediaNotificationManager.startNotify","STATE_BUFFERING",false);
+                setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_BUFFERING", false);
                 contentTitle = "Cargando...";
                 contentText = "...";
                 break;
             case STATE_PAUSE:
-                setLogInfo(mContext,"MediaNotificationManager.startNotify","STATE_PAUSE",false);
+                setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_PAUSE", false);
                 icon = R.drawable.ic_play_white;
                 intentPlayPause.setAction(ACTION_PLAY);
                 actionPlayPause = PendingIntent.getBroadcast(mContext, 2, intentPlayPause, 0);
                 break;
             case STATE_STOP:
-                setLogInfo(mContext,"MediaNotificationManager.startNotify","STATE_STOP",false);
+                setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_STOP", false);
 
-               // this.cancelNotify();
+                // this.cancelNotify();
                 break;
 
             default:
@@ -149,7 +150,6 @@ public class MediaNotificationManager {
         PendingIntent actionFavorito = PendingIntent.getBroadcast(mContext, 3, intentFavorito, 0);
 
 
-
         Intent intentMainActivity = new Intent(mContext, act_main.class);
         intentMainActivity.setAction(Intent.ACTION_MAIN);
         intentMainActivity.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -158,12 +158,12 @@ public class MediaNotificationManager {
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, 0);
 
 
-
-        notificationManager.cancel(NOTIFICATION_ID);
+        // notificationManager.cancel(NOTIFICATION_ID);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);channel = new NotificationChannel(PRIMARY_CHANNEL, PRIMARY_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
+            manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            channel = new NotificationChannel(PRIMARY_CHANNEL, PRIMARY_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             manager.createNotificationChannel(channel);
 
@@ -197,11 +197,11 @@ public class MediaNotificationManager {
 
         // this.startForeground(NOTIFICATION_ID, builder.build());
 
-        // mostrar notificacion solo si se cargo los datos de la cancion en tinydb
-        if (!tinyDB.getString(TBnombreCancionSonando).isEmpty() && !tinyDB.getString(TBartistaCancionSonando).isEmpty()) {
-            notificationManager.notify(String.valueOf(NOTIFICATION_ID), 1, builder.build());
-        }
 
+
+        //region cargar imagen en notification
+
+        /*
         Glide.with(mContext)
                 .asBitmap()
                 .load("https://cdnb.artstation.com/p/assets/images/images/022/740/889/large/hiromi-_11-concept3-min.jpg?1576528739")
@@ -221,6 +221,16 @@ public class MediaNotificationManager {
                         setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
                     }
                 });
+
+         */
+
+        //endregion
+
+
+        // mostrar notificacion solo si se cargo los datos de la cancion en tinydb
+        if (!tinyDB.getString(TBnombreCancionSonando).isEmpty() && !tinyDB.getString(TBartistaCancionSonando).isEmpty()) {
+            notificationManager.notify(String.valueOf(NOTIFICATION_ID), 1, builder.build());
+        }
 
 
     }

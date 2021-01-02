@@ -35,7 +35,7 @@ import com.kk.taurus.playerbase.touch.OnTouchGestureListener;
 
 public final class EventDispatcher implements IEventDispatcher{
 
-    private IReceiverGroup mReceiverGroup;
+    private final IReceiverGroup mReceiverGroup;
 
     public EventDispatcher(IReceiverGroup receiverGroup){
         this.mReceiverGroup = receiverGroup;

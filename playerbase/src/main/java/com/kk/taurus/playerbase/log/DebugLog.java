@@ -92,9 +92,9 @@ public class DebugLog {
                 break;
             case OnPlayerEventListener.PLAYER_EVENT_ON_TIMER_UPDATE:
                 value = "PLAYER_EVENT_ON_TIMER_UPDATE"
-                        + (bundle!=null?(", curr = " + String.valueOf(bundle.getInt(EventKey.INT_ARG1))
-                        + ",duration = " + String.valueOf(bundle.getInt(EventKey.INT_ARG2))
-                        + ",bufferPercentage = " + String.valueOf(bundle.getInt(EventKey.INT_ARG3))):"");
+                        + (bundle!=null?(", curr = " + bundle.getInt(EventKey.INT_ARG1)
+                        + ",duration = " + bundle.getInt(EventKey.INT_ARG2)
+                        + ",bufferPercentage = " + bundle.getInt(EventKey.INT_ARG3)):"");
                 break;
             case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_ROTATION_CHANGED:
                 value = "PLAYER_EVENT_ON_VIDEO_ROTATION_CHANGED";

@@ -241,7 +241,7 @@ public class BaseVideoView extends FrameLayout implements IVideoView, IStyleSett
         this.mOnReceiverEventListener = onReceiverEventListener;
     }
 
-    private OnReceiverEventListener mInternalReceiverEventListener =
+    private final OnReceiverEventListener mInternalReceiverEventListener =
             new OnReceiverEventListener() {
         @Override
         public void onReceiverEvent(int eventCode, Bundle bundle) {
@@ -258,7 +258,7 @@ public class BaseVideoView extends FrameLayout implements IVideoView, IStyleSett
     };
 
     //Internal StateGetter for SuperContainer
-    private StateGetter mInternalStateGetter = new StateGetter() {
+    private final StateGetter mInternalStateGetter = new StateGetter() {
         @Override
         public PlayerStateGetter getPlayerStateGetter() {
             return mInternalPlayerStateGetter;
@@ -266,7 +266,7 @@ public class BaseVideoView extends FrameLayout implements IVideoView, IStyleSett
     };
 
     //Internal PlayerStateGetter for StateGetter
-    private PlayerStateGetter mInternalPlayerStateGetter =
+    private final PlayerStateGetter mInternalPlayerStateGetter =
             new PlayerStateGetter() {
         @Override
         public int getState() {
@@ -472,7 +472,7 @@ public class BaseVideoView extends FrameLayout implements IVideoView, IStyleSett
         }
     }
 
-    private OnPlayerEventListener mInternalPlayerEventListener =
+    private final OnPlayerEventListener mInternalPlayerEventListener =
             new OnPlayerEventListener() {
         @Override
         public void onPlayerEvent(int eventCode, Bundle bundle) {
@@ -529,7 +529,7 @@ public class BaseVideoView extends FrameLayout implements IVideoView, IStyleSett
         }
     };
 
-    private OnErrorEventListener mInternalErrorEventListener =
+    private final OnErrorEventListener mInternalErrorEventListener =
             new OnErrorEventListener() {
         @Override
         public void onErrorEvent(int eventCode, Bundle bundle) {
@@ -548,7 +548,7 @@ public class BaseVideoView extends FrameLayout implements IVideoView, IStyleSett
             renderHolder.bindPlayer(mPlayer);
     }
 
-    private IRender.IRenderCallback mRenderCallback = new IRender.IRenderCallback() {
+    private final IRender.IRenderCallback mRenderCallback = new IRender.IRenderCallback() {
         @Override
         public void onSurfaceCreated(IRender.IRenderHolder renderHolder, int width, int height) {
             PLog.d(TAG,"onSurfaceCreated : width = " + width + ", height = " + height);

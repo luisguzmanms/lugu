@@ -9,7 +9,7 @@ public enum EnumResizeMode {
 
     private String valueStr;
 
-    private Integer value;
+    private final Integer value;
 
     EnumResizeMode(String valueStr, Integer value) {
         this.valueStr = valueStr;

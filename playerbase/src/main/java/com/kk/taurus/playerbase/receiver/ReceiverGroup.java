@@ -31,13 +31,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public final class ReceiverGroup implements IReceiverGroup{
 
     //receiver key value collection
-    private Map<String, IReceiver> mReceivers;
+    private final Map<String, IReceiver> mReceivers;
     //receiver array for loop
-    private List<IReceiver> mReceiverArray;
+    private final List<IReceiver> mReceiverArray;
     //receiver items change listener
-    private List<OnReceiverGroupChangeListener> mOnReceiverGroupChangeListeners;
+    private final List<OnReceiverGroupChangeListener> mOnReceiverGroupChangeListeners;
 
-    private GroupValue mGroupValue;
+    private final GroupValue mGroupValue;
 
     public ReceiverGroup(){
         this(null);

@@ -55,14 +55,14 @@ public final class RelationAssist implements AssistPlay {
 
     private final String TAG = "RelationAssist";
 
-    private Context mContext;
+    private final Context mContext;
 
-    private AVPlayer mPlayer;
+    private final AVPlayer mPlayer;
 
     /**
      * SuperContainer for ReceiverGroup and Render.
      */
-    private SuperContainer mSuperContainer;
+    private final SuperContainer mSuperContainer;
 
     /**
      * ReceiverGroup from out setting.
@@ -124,7 +124,7 @@ public final class RelationAssist implements AssistPlay {
     }
 
     //Internal StateGetter for SuperContainer
-    private StateGetter mInternalStateGetter = new StateGetter() {
+    private final StateGetter mInternalStateGetter = new StateGetter() {
         @Override
         public PlayerStateGetter getPlayerStateGetter() {
             return mInternalPlayerStateGetter;
@@ -132,7 +132,7 @@ public final class RelationAssist implements AssistPlay {
     };
 
     //Internal PlayerStateGetter for StateGetter
-    private PlayerStateGetter mInternalPlayerStateGetter =
+    private final PlayerStateGetter mInternalPlayerStateGetter =
             new PlayerStateGetter() {
         @Override
         public int getState() {
@@ -160,7 +160,7 @@ public final class RelationAssist implements AssistPlay {
         }
     };
 
-    private OnPlayerEventListener mInternalPlayerEventListener =
+    private final OnPlayerEventListener mInternalPlayerEventListener =
             new OnPlayerEventListener() {
         @Override
         public void onPlayerEvent(int eventCode, Bundle bundle) {
@@ -212,7 +212,7 @@ public final class RelationAssist implements AssistPlay {
         }
     }
 
-    private OnErrorEventListener mInternalErrorEventListener =
+    private final OnErrorEventListener mInternalErrorEventListener =
             new OnErrorEventListener() {
         @Override
         public void onErrorEvent(int eventCode, Bundle bundle) {
@@ -231,7 +231,7 @@ public final class RelationAssist implements AssistPlay {
         this.mOnEventAssistHandler = onEventAssistHandler;
     }
 
-    private OnReceiverEventListener mInternalReceiverEventListener =
+    private final OnReceiverEventListener mInternalReceiverEventListener =
             new OnReceiverEventListener() {
         @Override
         public void onReceiverEvent(int eventCode, Bundle bundle) {
@@ -418,7 +418,7 @@ public final class RelationAssist implements AssistPlay {
         }
     }
 
-    private IRender.IRenderCallback mRenderCallback =
+    private final IRender.IRenderCallback mRenderCallback =
             new IRender.IRenderCallback() {
         @Override
         public void onSurfaceCreated(IRender.IRenderHolder renderHolder,

@@ -12,7 +12,7 @@ import com.kk.taurus.playerbase.player.IPlayerProxy;
  */
 public class RecordProxyPlayer implements IPlayerProxy {
 
-    private PlayValueGetter mPlayValueGetter;
+    private final PlayValueGetter mPlayValueGetter;
 
     private DataSource mDataSource;
 

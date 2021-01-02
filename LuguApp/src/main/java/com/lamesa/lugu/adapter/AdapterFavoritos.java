@@ -12,12 +12,21 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lamesa.lugu.R;
+import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.otros.TinyDB;
+import com.lamesa.lugu.otros.statics.Animacion;
 
 import java.util.List;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.activity.act_main.ContenedorVacio;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
+import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
+import static com.lamesa.lugu.activity.act_main.mrvHistorial;
+import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tvVacio;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
@@ -34,19 +43,19 @@ import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
 
 public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyViewHolder> {
 
-    private Context mContext;
-    private List<ModelCancion> mListFavoritos;
+    private final Context mContext;
+    private final List<ModelCancion> mListFavoritos;
 
     //   private InterstitialAd mInterstitialAd;
 
     private int lastPosition = -1;
-    private TinyDB tinyDB;
 
 
-    public AdapterFavoritos(Context mContext, List<ModelCancion> mListFavoritos) {
+
+    public AdapterFavoritos(Context mContext, List<ModelCancion> mlistfavoritos) {
 
         this.mContext = mContext;
-        this.mListFavoritos = mListFavoritos;
+        this.mListFavoritos = mlistfavoritos;
 
     }
 
@@ -67,7 +76,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         view = mInflater.inflate(R.layout.item_favorito, parent, false);
 
 
-        tinyDB = new TinyDB(mContext);
+       // tinyDB = new TinyDB(mContext);
 
 
         return new MyViewHolder(view);
@@ -131,13 +140,35 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         }
 
 
+
+        if (mrvHistorial != null) {
+            mrvHistorial.setVisibility(GONE);
+        }
+
+
+        if (tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class)==null) {
+            tvVacio.setText("Sin favoritos.");
+            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(mContext));
+            ContenedorVacio.setVisibility(VISIBLE);
+            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(mContext));
+        } else {
+            ContenedorVacio.setVisibility(GONE);
+            if (mrvFavoritos != null) {
+                mrvFavoritos.startAnimation(Animacion.exit_ios_anim(mContext));
+                mrvFavoritos.setVisibility(VISIBLE);
+                mrvFavoritos.startAnimation(Animacion.enter_ios_anim(mContext));
+            }
+
+        }
+
+
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView cdCancionFavoritos;
-        private TextView tvCancion;
-        private TextView tvArtista;
+        private final CardView cdCancionFavoritos;
+        private final TextView tvCancion;
+        private final TextView tvArtista;
 
 
         public MyViewHolder(View itemView) {

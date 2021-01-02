@@ -28,8 +28,8 @@ import com.kk.taurus.playerbase.touch.BaseGestureCallbackHandler;
 
 public class ContainerTouchHelper{
 
-    private GestureDetector mGestureDetector;
-    private BaseGestureCallbackHandler mGestureCallback;
+    private final GestureDetector mGestureDetector;
+    private final BaseGestureCallbackHandler mGestureCallback;
 
     public ContainerTouchHelper(Context context, BaseGestureCallbackHandler gestureCallback){
         this.mGestureCallback = gestureCallback;

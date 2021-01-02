@@ -33,7 +33,7 @@ import android.view.View;
 
 public final class StyleSetter implements IStyleSetter {
 
-    private View mView;
+    private final View mView;
 
     public StyleSetter(View view){
         this.mView = view;

@@ -60,7 +60,7 @@ public final class AVPlayer implements IPlayer{
 
     private IDataProvider.OnProviderListener mOnProviderListener;
 
-    private TimerCounterProxy mTimerCounterProxy;
+    private final TimerCounterProxy mTimerCounterProxy;
 
     private int mDecoderPlanId;
 
@@ -202,7 +202,7 @@ public final class AVPlayer implements IPlayer{
         }
     }
 
-    private TimerCounterProxy.OnCounterUpdateListener mOnCounterUpdateListener =
+    private final TimerCounterProxy.OnCounterUpdateListener mOnCounterUpdateListener =
             new TimerCounterProxy.OnCounterUpdateListener() {
         @Override
         public void onCounter() {
@@ -225,7 +225,7 @@ public final class AVPlayer implements IPlayer{
                 OnPlayerEventListener.PLAYER_EVENT_ON_TIMER_UPDATE, bundle);
     }
 
-    private OnPlayerEventListener mInternalPlayerEventListener =
+    private final OnPlayerEventListener mInternalPlayerEventListener =
             new OnPlayerEventListener() {
         @Override
         public void onPlayerEvent(int eventCode, Bundle bundle) {
@@ -249,7 +249,7 @@ public final class AVPlayer implements IPlayer{
         }
     };
 
-    private OnErrorEventListener mInternalErrorEventListener =
+    private final OnErrorEventListener mInternalErrorEventListener =
             new OnErrorEventListener() {
         @Override
         public void onErrorEvent(int eventCode, Bundle bundle) {
@@ -260,7 +260,7 @@ public final class AVPlayer implements IPlayer{
         }
     };
 
-    private OnBufferingListener mInternalBufferingListener =
+    private final OnBufferingListener mInternalBufferingListener =
             new OnBufferingListener() {
         @Override
         public void onBufferingUpdate(int bufferPercentage, Bundle extra) {
@@ -313,7 +313,7 @@ public final class AVPlayer implements IPlayer{
             this.mDataProvider.setOnProviderListener(mInternalProviderListener);
     }
 
-    private IDataProvider.OnProviderListener mInternalProviderListener =
+    private final IDataProvider.OnProviderListener mInternalProviderListener =
             new IDataProvider.OnProviderListener() {
         @Override
         public void onProviderDataStart() {

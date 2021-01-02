@@ -38,7 +38,7 @@ public class PlayerConfig {
     private static int defaultPlanId = DEFAULT_PLAN_ID;
 
     //decoder plans arrays.
-    private static SparseArrayCompat<DecoderPlan> mPlans;
+    private static final SparseArrayCompat<DecoderPlan> mPlans;
 
     //Whether or not use the default NetworkEventProducer.
     //default state false.

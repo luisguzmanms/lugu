@@ -45,7 +45,7 @@ import java.util.Map;
 
 public class TinyDB {
 
-    private SharedPreferences preferences;
+    private final SharedPreferences preferences;
     private String DEFAULT_APP_IMAGEDATA_DIRECTORY;
     private String lastImagePath = "";
 
@@ -354,11 +354,7 @@ public class TinyDB {
         ArrayList<Boolean> newList = new ArrayList<Boolean>();
 
         for (String item : myList) {
-            if (item.equals("true")) {
-                newList.add(true);
-            } else {
-                newList.add(false);
-            }
+            newList.add(item.equals("true"));
         }
 
         return newList;

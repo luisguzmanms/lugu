@@ -7,9 +7,9 @@ import com.kk.taurus.playerbase.entity.DataSource;
  */
 public class RecordInvoker {
 
-    private OnRecordCallBack mCallBack;
+    private final OnRecordCallBack mCallBack;
 
-    private RecordCache mRecordCache;
+    private final RecordCache mRecordCache;
 
     public RecordInvoker(PlayRecordManager.RecordConfig config){
         this.mCallBack = config.getOnRecordCallBack();

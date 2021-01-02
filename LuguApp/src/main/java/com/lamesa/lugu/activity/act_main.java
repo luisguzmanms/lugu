@@ -37,6 +37,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.github.matteobattilana.weather.WeatherView;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -91,6 +92,8 @@ import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
 import static com.lamesa.lugu.otros.metodos.SolicitarFilm;
+import static com.lamesa.lugu.otros.metodos.UpdateAdapterHistorial;
+import static com.lamesa.lugu.otros.metodos.UpdateAdapterFavoritos;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.initFirebase;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
@@ -109,7 +112,7 @@ import static com.lamesa.lugu.otros.statics.constantes.mixAdClic;
 public class act_main extends AppCompatActivity {
 
 
-    // act_ma
+
     public static List<ModelCategoria> mlistCategoria;
     public static AdapterCategoria mAdapterCategoria;
     public static RecyclerView mrvCategoria;
@@ -151,17 +154,18 @@ public class act_main extends AppCompatActivity {
     public static WaveView waveBlack;
     public static ImageView ivLikeDislike;
     public static TextView tvCategoria;
-    private LinearLayout ContenedorVacio;
-    private TextView tvVacio;
+    public static  LinearLayout ContenedorVacio;
+    public static  TextView tvVacio;
     public static ImageView ivSleep;
     public static TextView tvSleep;
     public static ImageView ivOpcionBucle;
+    public static WeatherView weatherView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_main2);
+        setContentView(R.layout.activity_act_main);
 
         // iniciar notificacion de musica
         mediaNotificationManager = new MediaNotificationManager(this);
@@ -181,7 +185,7 @@ public class act_main extends AppCompatActivity {
         // Traer todas las listas desde Firebase
         new CargarListas().execute();
 
-       // CargarAdMain();  // solo en releaseeeeeeeeeeeeeeeeeeeeeeeeeee
+        // CargarAdMain();  // solo en releaseeeeeeeeeeeeeeeeeeeeeeeeeee
 
         CheckIsFavorite(act_main.this, tinyDB.getString(TBidCancionSonando));
 
@@ -322,7 +326,7 @@ public class act_main extends AppCompatActivity {
         if (numPosibilidad2 == 20) {
             DialogSettings.theme = DialogSettings.THEME.DARK;
             DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
-            MessageDialog.show((AppCompatActivity) act_main.this, "INFORMACIÓN", "Recuerda, si una pelicula o serie no funciona por algún motivo reportalo con la respectiva razón. \n\n*Los videos no se almacenan con nuestros datos ni tenemos control de ellos, por lo tanto solucionar esta clase de inconvenientes es unicamente posible con los reportes* \n\nGracias por tú colaboración, sigue disfrutando del contenido. :)", "VALE").setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN)).setButtonOrientation(LinearLayout.VERTICAL).setOnOtherButtonClickListener(new OnDialogButtonClickListener() {
+            MessageDialog.show(act_main.this, "INFORMACIÓN", "Recuerda, si una pelicula o serie no funciona por algún motivo reportalo con la respectiva razón. \n\n*Los videos no se almacenan con nuestros datos ni tenemos control de ellos, por lo tanto solucionar esta clase de inconvenientes es unicamente posible con los reportes* \n\nGracias por tú colaboración, sigue disfrutando del contenido. :)", "VALE").setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN)).setButtonOrientation(LinearLayout.VERTICAL).setOnOtherButtonClickListener(new OnDialogButtonClickListener() {
                 @Override
                 public boolean onClick(BaseDialog baseDialog, View v) {
                     Toast.makeText(act_main.this, "¡Gracias!", Toast.LENGTH_SHORT).show();
@@ -520,58 +524,39 @@ public class act_main extends AppCompatActivity {
         tvSleep = findViewById(R.id.tv_sleep);
 
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
-        OpcionReproductor(act_main.this,tinyDB.getString(TBmodoReproductor));
+        //region guardar ivOpcionBucle segun el icono
+        if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_bucle).getConstantState()) {
+            // guardar modo de reproductor REPRODUCTOR_BUCLE
+           tinyDB.putString(TBmodoReproductor,REPRODUCTOR_BUCLE);
+
+        } else if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_aleatorio).getConstantState()) {
+            // guardar modo de reproductor REPRODUCTOR_ALEATORIO
+            tinyDB.putString(TBmodoReproductor,REPRODUCTOR_ALEATORIO);
+        }
+        //endregion
+
+        OpcionReproductor(act_main.this, tinyDB.getString(TBmodoReproductor));
+
+        weatherView = findViewById(R.id.weather_view);
+
 
         bottomNavigationHis_Fav = findViewById(R.id.bottomNavigationHis_Fav);
         bottomNavigationHis_Fav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
 
                     case R.id.navigation_historial:
                         menuItem.setChecked(true);
-                        if(mrvFavoritos!=null) {
-                            mrvFavoritos.setVisibility(GONE);
-                        }
 
-                        if(mrvHistorial!=null) {
-                            mrvHistorial.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                            mrvHistorial.setVisibility(VISIBLE);
-                            mrvHistorial.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                        }
-
-
-                        if(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()){
-                            if(ContenedorVacio!=null && tvVacio!=null){
-                                tvVacio.setText("Sin recientes.");
-                                ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                                ContenedorVacio.setVisibility(VISIBLE);
-                                ContenedorVacio.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                            }
-                        }
+                        mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
 
                         break;
 
                     case R.id.navigation_favoritos:
                         menuItem.setChecked(true);
 
-                        if(mrvHistorial!=null) {
-                            mrvHistorial.setVisibility(GONE);
-                        }
-                        if(mrvFavoritos!=null) {
-                            mrvFavoritos.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                            mrvFavoritos.setVisibility(VISIBLE);
-                            mrvFavoritos.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                        }
-
-                        if(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty()){
-                            if(ContenedorVacio!=null && tvVacio!=null){
-                                tvVacio.setText("Sin favoritos.");
-                                ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                                ContenedorVacio.setVisibility(VISIBLE);
-                                ContenedorVacio.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                            }
-                        }
+                        mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
 
                         break;
 
@@ -581,6 +566,24 @@ public class act_main extends AppCompatActivity {
             }
         });
 
+        bottomNavigationHis_Fav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_historial:
+
+                        UpdateAdapterHistorial(act_main.this);
+
+                        break;
+
+                    case R.id.navigation_favoritos:
+
+                        UpdateAdapterFavoritos(act_main.this);
+
+                        break;
+                }
+            }
+        });
 
         // listener para las vistas
         View.OnClickListener listener = new View.OnClickListener() {
@@ -596,7 +599,6 @@ public class act_main extends AppCompatActivity {
                         AbrirPagina(act_main.this);
 
                         break;
-
 
 
                     case R.id.ivMenu:
@@ -685,7 +687,7 @@ public class act_main extends AppCompatActivity {
                                         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
                                         DialogSettings.backgroundColor = getResources().getColor(R.color.black);
 
-                                        MessageDialog.show((AppCompatActivity) act_main.this, "DMCA", "" +
+                                        MessageDialog.show(act_main.this, "DMCA", "" +
                                                 "" +
                                                 "No multimedia file is being hosted by us on this app.\n" +
                                                 "\n" +
@@ -722,17 +724,9 @@ public class act_main extends AppCompatActivity {
                     case R.id.iv_playPause:
 
 
-
-   Toast.makeText(act_main.this, "iv_playPause", Toast.LENGTH_SHORT).show();
-
-                        Toast.makeText(act_main.this, ivPlayPause.getDrawable().getConstantState().toString(), Toast.LENGTH_LONG).show();
-
-
                         // cambiar icono entre play y pause
-                        if (ivPlayPause.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_play).getConstantState())) {
+                        if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_play).getConstantState()) {
                             // reproducir
-                            Toast.makeText(act_main.this, "XZC", Toast.LENGTH_SHORT).show();
-
                             // comprobar si es la primera vez que se da clic a play
                             if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
                                 andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PLAY);
@@ -751,8 +745,6 @@ public class act_main extends AppCompatActivity {
                         } else if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_pausa).getConstantState()) {
                             // pausar
                             andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
-                        } else {
-                            Toast.makeText(act_main.this, "Ningun iconco", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -765,13 +757,13 @@ public class act_main extends AppCompatActivity {
                         if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
                             if (ivLikeDislike.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.learn_ic_like).getConstantState()) {
                                 // Quitar de lista de favoritos
-                              //  Toast.makeText(act_main.this, "learn_ic_like", Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(act_main.this, "learn_ic_like", Toast.LENGTH_SHORT).show();
                                 GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), false);
 
 
                             } else if (ivLikeDislike.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.learn_ic_dislike).getConstantState()) {
                                 // Guardar en favoritos
-                              //  Toast.makeText(act_main.this, "learn_ic_dislike", Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(act_main.this, "learn_ic_dislike", Toast.LENGTH_SHORT).show();
                                 GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), true);
 
                             }
@@ -808,12 +800,12 @@ public class act_main extends AppCompatActivity {
 
                         if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_bucle).getConstantState()) {
                             // activar modo aleatorio
-                            OpcionReproductor(act_main.this,REPRODUCTOR_ALEATORIO);
+                            OpcionReproductor(act_main.this, REPRODUCTOR_ALEATORIO);
                             Toast.makeText(act_main.this, "Modo Aleatorio activado", Toast.LENGTH_SHORT).show();
 
                         } else if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_aleatorio).getConstantState()) {
                             // activar modo bucle
-                            OpcionReproductor(act_main.this,REPRODUCTOR_BUCLE);
+                            OpcionReproductor(act_main.this, REPRODUCTOR_BUCLE);
                             Toast.makeText(act_main.this, "Modo Bucle activado", Toast.LENGTH_SHORT).show();
 
                         }
@@ -848,7 +840,7 @@ public class act_main extends AppCompatActivity {
                 DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
                 DialogSettings.theme = DialogSettings.THEME.DARK;
 
-                InputDialog.show((AppCompatActivity) act_main.this, "¿Que te ha parecido PelisPlsHD?", "Cuentanos que te ha gustado de esta aplicaciòn, sientase libre de opinar", "ENVIAR", "CERRAR")
+                InputDialog.show(act_main.this, "¿Que te ha parecido PelisPlsHD?", "Cuentanos que te ha gustado de esta aplicaciòn, sientase libre de opinar", "ENVIAR", "CERRAR")
                         .setCancelable(false)
                         .setOnOkButtonClickListener(new OnInputDialogButtonClickListener() {
                             @Override
@@ -871,12 +863,10 @@ public class act_main extends AppCompatActivity {
         });
 
 
-
-
         // cargar gif de fondo
-        ivFondoGif = (ImageView) findViewById(R.id.iv_fondoGif);
+        ivFondoGif = findViewById(R.id.iv_fondoGif);
         Glide.with(this)
-                .load("https://cdnb.artstation.com/p/assets/images/images/022/740/889/large/hiromi-_11-concept3-min.jpg?1576528739")
+                .load("https://cdnb.artstation.com/p/assets/images/images/033/272/069/large/estevao-chromiec-chromi-5-act-2-1080p.jpg?1609011818")
                 //   .error(R.drawable.ic_alert)
                 //.placeholder(R.drawable.placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade(200))
@@ -884,15 +874,15 @@ public class act_main extends AppCompatActivity {
 
         Glide.with(this)
                 .asBitmap()
-                .load("https://cdnb.artstation.com/p/assets/images/images/022/740/889/large/hiromi-_11-concept3-min.jpg?1576528739")
+                .load("https://cdnb.artstation.com/p/assets/images/images/033/272/069/large/estevao-chromiec-chromi-5-act-2-1080p.jpg?1609011818")
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                     //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
+                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
 
                         // TODO Do some work: pass this bitmap
 
-                      //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
 
                         Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
                             public void onGenerated(Palette palette) {
@@ -949,7 +939,6 @@ public class act_main extends AppCompatActivity {
 
                 }
 
-                ;
             };
             thread.start();
 

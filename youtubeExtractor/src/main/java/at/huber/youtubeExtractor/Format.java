@@ -10,15 +10,15 @@ public class Format {
         MP3, AAC, VORBIS, OPUS, NONE
     }
 
-    private int itag;
-    private String ext;
-    private int height;
-    private int fps;
+    private final int itag;
+    private final String ext;
+    private final int height;
+    private final int fps;
     private VCodec vCodec;
     private ACodec aCodec;
-    private int audioBitrate;
-    private boolean isDashContainer;
-    private boolean isHlsContent;
+    private final int audioBitrate;
+    private final boolean isDashContainer;
+    private final boolean isHlsContent;
 
     Format(int itag, String ext, int height, VCodec vCodec, ACodec aCodec, boolean isDashContainer) {
         this.itag = itag;

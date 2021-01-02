@@ -170,7 +170,7 @@ public class SuperContainer extends FrameLayout implements OnTouchGestureListene
         return mProducerGroup.removeEventProducer(eventProducer);
     }
 
-    private DelegateReceiverEventSender mDelegateReceiverEventSender =
+    private final DelegateReceiverEventSender mDelegateReceiverEventSender =
             new DelegateReceiverEventSender() {
         @Override
         public void sendEvent(int eventCode, Bundle bundle,
@@ -218,7 +218,7 @@ public class SuperContainer extends FrameLayout implements OnTouchGestureListene
 
     //dynamic attach a receiver when user add it
     //detach a receiver when user remove it.
-    private IReceiverGroup.OnReceiverGroupChangeListener mInternalReceiverGroupChangeListener =
+    private final IReceiverGroup.OnReceiverGroupChangeListener mInternalReceiverGroupChangeListener =
             new IReceiverGroup.OnReceiverGroupChangeListener() {
         @Override
         public void onReceiverAdd(String key, IReceiver receiver) {
@@ -259,7 +259,7 @@ public class SuperContainer extends FrameLayout implements OnTouchGestureListene
     }
 
     //receiver event listener, a bridge for some receivers communication.
-    private OnReceiverEventListener mInternalReceiverEventListener =
+    private final OnReceiverEventListener mInternalReceiverEventListener =
             new OnReceiverEventListener() {
         @Override
         public void onReceiverEvent(int eventCode, Bundle bundle) {

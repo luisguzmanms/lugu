@@ -7,17 +7,27 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lamesa.lugu.R;
+import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.otros.TinyDB;
+import com.lamesa.lugu.otros.statics.Animacion;
 
 import java.util.List;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.activity.act_main.ContenedorVacio;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
+import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
+import static com.lamesa.lugu.activity.act_main.mrvHistorial;
+import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tvVacio;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
@@ -33,13 +43,13 @@ import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 
 public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyViewHolder> {
 
-    private Context mContext;
-    private List<ModelCancion> mListHistorial;
+    private final Context mContext;
+    private final List<ModelCancion> mListHistorial;
 
     //   private InterstitialAd mInterstitialAd;
 
     private int lastPosition = -1;
-    private TinyDB tinyDB;
+
 
 
     public AdapterHistorial(Context mContext, List<ModelCancion> mListHistorial) {
@@ -65,8 +75,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.item_historial, parent, false);
 
-
-        tinyDB = new TinyDB(mContext);
 
 
         return new MyViewHolder(view);
@@ -177,14 +185,40 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         }
 
 
+        if (mrvFavoritos != null) {
+            mrvFavoritos.setVisibility(GONE);
+        }
+
+        if (mrvHistorial != null) {
+            mrvHistorial.startAnimation(Animacion.exit_ios_anim(mContext));
+            mrvHistorial.setVisibility(VISIBLE);
+            mrvHistorial.startAnimation(Animacion.enter_ios_anim(mContext));
+        }
+
+        // comprobar que la lista de histoirla no esté vacia
+        if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
+         //   Toast.makeText(mContext, "lista vacia", Toast.LENGTH_SHORT).show();
+            mrvHistorial.setVisibility(GONE);
+            ContenedorVacio.setVisibility(VISIBLE);
+            tvVacio.setText("Sin recientes.");
+            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(mContext));
+            ContenedorVacio.setVisibility(VISIBLE);
+            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(mContext));
+        } else {
+            mrvHistorial.setVisibility(VISIBLE);
+            ContenedorVacio.setVisibility(GONE);
+
+        }
+
+
     }
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView cdCancionHistorial;
-        private TextView tvCancion;
-        private TextView tvArtista;
+        private final CardView cdCancionHistorial;
+        private final TextView tvCancion;
+        private final TextView tvArtista;
 
 
         public MyViewHolder(View itemView) {

@@ -30,7 +30,7 @@ import com.kk.taurus.playerbase.log.PLog;
 
 public abstract class BaseReceiver implements IReceiver, StateGetter {
 
-    private Context mContext;
+    private final Context mContext;
     private OnReceiverEventListener mOnReceiverEventListener;
 
     private IReceiverGroup mHostGroup;

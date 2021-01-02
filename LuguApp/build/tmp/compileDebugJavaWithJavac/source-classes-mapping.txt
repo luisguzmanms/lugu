@@ -7,14 +7,15 @@ com/lamesa/lugu/activity/act_main.java
  com.lamesa.lugu.activity.act_main$3
  com.lamesa.lugu.activity.act_main$4
  com.lamesa.lugu.activity.act_main$5
- com.lamesa.lugu.activity.act_main$5$1
- com.lamesa.lugu.activity.act_main$5$1$1
- com.lamesa.lugu.activity.act_main$5$1$2
  com.lamesa.lugu.activity.act_main$6
  com.lamesa.lugu.activity.act_main$6$1
- com.lamesa.lugu.activity.act_main$6$2
+ com.lamesa.lugu.activity.act_main$6$1$1
+ com.lamesa.lugu.activity.act_main$6$1$2
  com.lamesa.lugu.activity.act_main$7
  com.lamesa.lugu.activity.act_main$7$1
+ com.lamesa.lugu.activity.act_main$7$2
+ com.lamesa.lugu.activity.act_main$8
+ com.lamesa.lugu.activity.act_main$8$1
  com.lamesa.lugu.activity.act_main$CargarListas
  com.lamesa.lugu.activity.act_main$CargarListas$1
  com.lamesa.lugu.activity.act_main$CargarListas$1$1
@@ -140,8 +141,8 @@ com/lamesa/lugu/BuildConfig.java
  com.lamesa.lugu.BuildConfig
 com/lamesa/lugu/player/library/utils/PublicFunctions.java
  com.lamesa.lugu.player.library.utils.PublicFunctions
-com/lamesa/lugu/player/library/utils/PathUtil.java
- com.lamesa.lugu.player.library.utils.PathUtil
+com/lamesa/lugu/player/MediaNotificationManager.java
+ com.lamesa.lugu.player.MediaNotificationManager
 com/lamesa/lugu/adapter/AdapterHistorial.java
  com.lamesa.lugu.adapter.AdapterHistorial
  com.lamesa.lugu.adapter.AdapterHistorial$1
@@ -149,9 +150,8 @@ com/lamesa/lugu/adapter/AdapterHistorial.java
  com.lamesa.lugu.adapter.AdapterHistorial$MyViewHolder
 com/lamesa/lugu/otros/statics/constantes.java
  com.lamesa.lugu.otros.statics.constantes
-com/lamesa/lugu/otros/numberPicker/Scroller.java
- com.lamesa.lugu.otros.numberPicker.Scroller
- com.lamesa.lugu.otros.numberPicker.Scroller$ViscousFluidInterpolator
+com/lamesa/lugu/receiver/ActionReceiver.java
+ com.lamesa.lugu.receiver.ActionReceiver
 com/lamesa/lugu/App.java
  com.lamesa.lugu.App
  com.lamesa.lugu.App$1
@@ -165,8 +165,8 @@ com/lamesa/lugu/otros/constantes.java
  com.lamesa.lugu.otros.constantes
 com/lamesa/lugu/player/library/globalInterfaces/ExoPlayerCallBack.java
  com.lamesa.lugu.player.library.globalInterfaces.ExoPlayerCallBack
-com/lamesa/lugu/receiver/ActionReceiver.java
- com.lamesa.lugu.receiver.ActionReceiver
-com/lamesa/lugu/player/MediaNotificationManager.java
- com.lamesa.lugu.player.MediaNotificationManager
- com.lamesa.lugu.player.MediaNotificationManager$1
+com/lamesa/lugu/player/library/utils/PathUtil.java
+ com.lamesa.lugu.player.library.utils.PathUtil
+com/lamesa/lugu/otros/numberPicker/Scroller.java
+ com.lamesa.lugu.otros.numberPicker.Scroller
+ com.lamesa.lugu.otros.numberPicker.Scroller$ViscousFluidInterpolator

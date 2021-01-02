@@ -163,6 +163,7 @@ attr andexo_loop
 attr andexo_play_when_ready
 attr andexo_resize_mode
 attr andexo_show_controller
+attr angle
 attr arrowHeadLength
 attr arrowShaftLength
 attr autoCompleteTextViewStyle
@@ -378,6 +379,7 @@ attr fabCradleRoundedCornerRadius
 attr fabCradleVerticalOffset
 attr fabCustomSize
 attr fabSize
+attr fadeOutTime
 attr fastScrollEnabled
 attr fastScrollHorizontalThumbDrawable
 attr fastScrollHorizontalTrackDrawable
@@ -400,6 +402,7 @@ attr fontStyle
 attr fontVariationSettings
 attr fontWeight
 attr foregroundInsidePadding
+attr fps
 attr gapBetweenBars
 attr goIcon
 attr headerLayout
@@ -523,6 +526,7 @@ attr layout_maxWidth
 attr layout_optimizationLevel
 attr layout_scrollFlags
 attr layout_scrollInterpolator
+attr lifeTime
 attr liftOnScroll
 attr lineHeight
 attr lineSpacing
@@ -605,8 +609,10 @@ attr np_value
 attr np_wheelItemCount
 attr np_width
 attr np_wrapSelectorWheel
+attr numParticles
 attr numberPickerStyle
 attr numericModifiers
+attr orientationMode
 attr overlapAnchor
 attr paddingBottomNoButtons
 attr paddingEnd
@@ -689,6 +695,7 @@ attr spinnerStyle
 attr splitTrack
 attr srcCompat
 attr stackFromEnd
+attr startingWeather
 attr state_above_anchor
 attr state_collapsed
 attr state_collapsible
@@ -1842,6 +1849,7 @@ dimen abc_text_size_title_material_toolbar
 dimen activity_horizontal_margin
 dimen activity_vertical_margin
 dimen app_bar_height
+dimen big_confetti_size
 dimen bottom_bar_elevation
 dimen bottom_bar_icon_size
 dimen bottom_bar_icon_top_margin_active
@@ -1864,8 +1872,14 @@ dimen compat_button_padding_vertical_material
 dimen compat_control_corner_material
 dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
+dimen confetti_default_elevation
+dimen default_confetti_size
 dimen default_corner_radius
+dimen default_explosion_radius
 dimen default_shadow_radius
+dimen default_velocity_fast
+dimen default_velocity_normal
+dimen default_velocity_slow
 dimen design_appbar_elevation
 dimen design_bottom_navigation_active_item_max_width
 dimen design_bottom_navigation_active_item_min_width
@@ -2525,7 +2539,9 @@ id CTRL
 id ChasingDots
 id Circle
 id CubeGrid
+id DISABLE
 id DoubleBounce
+id ENABLE
 id FUNCTION
 id FadingCircle
 id Fill
@@ -2536,9 +2552,12 @@ id MultiplePulse
 id MultiplePulseRing
 id Pulse
 id PulseRing
+id RAIN
 id RotatingCircle
 id RotatingPlane
 id SHIFT
+id SNOW
+id SUN
 id SYM
 id ThreeBounce
 id WanderingCubes
@@ -2715,7 +2734,6 @@ id country_list
 id cross_device_linking_body
 id custom
 id customPanel
-id cvLogo
 id cv_categoria
 id dark
 id decor_content_parent
@@ -2831,7 +2849,6 @@ id imageView24
 id imageView4
 id imageView7
 id imageView8
-id imageView9
 id imgFondoDestacado10
 id imgFondoDestacado11
 id imgFondoDestacado12
@@ -2868,6 +2885,7 @@ id ivMore
 id ivProfile
 id ivVisto
 id iv_fondoGif
+id iv_fondoSplash
 id iv_imageVacio
 id iv_imagenFondo
 id iv_likeDislike
@@ -3149,6 +3167,7 @@ id viewpump_tag_id
 id visible
 id waveBlack
 id waveColor
+id weather_view
 id welcome_back_email_link_body
 id welcome_back_idp_button
 id welcome_back_idp_prompt
@@ -3220,7 +3239,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_act_main2
+layout activity_act_main
 layout activity_splash_screen
 layout bottom_bar_item
 layout bottom_menu_ios
@@ -4495,4 +4514,5 @@ styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable WaveView waveAmplitude waveBackgroundColor waveColor waveDensity waveFrequency waveNumberOfWaves wavePhaseShift wavePrimaryLineWidth waveSecondaryLineWidth waveXAxisPositionMultiplier
+styleable WeatherView angle fadeOutTime fps lifeTime numParticles orientationMode startingWeather
 xml file_provider_paths

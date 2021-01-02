@@ -25,7 +25,7 @@ public class CSVParsingExampleActivity extends Activity implements
 	/** Called when the activity is first created. */
 	private Spinner spMainSelectCategory;
 	private TextView tvMainSelectedCate;
-	private ArrayList<String> categoryList = new ArrayList<String>();
+	private final ArrayList<String> categoryList = new ArrayList<String>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class CSVParsingExampleActivity extends Activity implements
 		//tvMainSelectedCate = (TextView) findViewById(R.id.tvMainSelectedCate);
 
 		List<String[]> list = new ArrayList<String[]>();
-		String next[] = {};
+		String[] next = {};
 
 
 		try {

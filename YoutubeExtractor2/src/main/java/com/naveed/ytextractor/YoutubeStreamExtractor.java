@@ -42,7 +42,7 @@ public class YoutubeStreamExtractor extends AsyncTask<String,Void,Void>
 	String PlayerBaseRegex="(?<=PLAYER_JS_URL\":\").*?(?=\")";
 	ExtractorListner listener;
 	private ExtractorException Ex;
-	List<String> reasonUnavialable=Arrays.asList(new String[]{"This video is unavailable on this device.","Content Warning","who has blocked it on copyright grounds."});
+	List<String> reasonUnavialable=Arrays.asList("This video is unavailable on this device.","Content Warning","who has blocked it on copyright grounds.");
 	Handler han=new Handler(Looper.getMainLooper());
 	private Response response;
 	private YoutubeMeta ytmeta;

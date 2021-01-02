@@ -36,7 +36,7 @@ public class BundlePool {
 
     private static final int POOL_SIZE = 3;
 
-    private static List<Bundle> mPool;
+    private static final List<Bundle> mPool;
 
     static {
         mPool = new ArrayList<>();

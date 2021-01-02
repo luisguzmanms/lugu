@@ -48,8 +48,8 @@ import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 
 public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyViewHolder> {
 
-    private Context mContext;
-    private List<ModelCategoria> mListCategorias;
+    private final Context mContext;
+    private final List<ModelCategoria> mListCategorias;
 
     //   private InterstitialAd mInterstitialAd;
 
@@ -210,9 +210,9 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView rlCategoria;
-        private ImageView ivFondo;
-        private TextView tvCategoria;
+        private final CardView rlCategoria;
+        private final ImageView ivFondo;
+        private final TextView tvCategoria;
 
         public MyViewHolder(View itemView) {
             super(itemView);

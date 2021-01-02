@@ -2,7 +2,7 @@ package at.huber.youtubeExtractor;
 
 public class YtFile {
 
-    private Format format;
+    private final Format format;
     private String url = "";
 
     YtFile(Format format, String url) {

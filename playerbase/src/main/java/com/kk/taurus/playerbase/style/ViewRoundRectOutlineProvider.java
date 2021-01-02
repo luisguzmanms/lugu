@@ -30,7 +30,7 @@ import android.view.ViewOutlineProvider;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class ViewRoundRectOutlineProvider extends ViewOutlineProvider {
 
-    private float mRadius;
+    private final float mRadius;
     private Rect mRect;
 
     public ViewRoundRectOutlineProvider(float radius){

@@ -110,7 +110,7 @@ public class App extends Application {
         if (DiaActual != tbDiaIngreso) {
             // This method must be called on a background thread.
             class TestAsync extends AsyncTask<Void, Integer, Void> {
-                String TAG = getClass().getSimpleName();
+                final String TAG = getClass().getSimpleName();
 
                 protected void onPreExecute() {
                     super.onPreExecute();

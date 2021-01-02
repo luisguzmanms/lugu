@@ -40,9 +40,9 @@ import com.kk.taurus.playerbase.style.StyleSetter;
 @SuppressLint("ViewConstructor")
 public class FloatWindow extends FrameLayout implements IWindow, IStyleSetter{
 
-    private IStyleSetter mStyleSetter;
+    private final IStyleSetter mStyleSetter;
 
-    private WindowHelper mWindowHelper;
+    private final WindowHelper mWindowHelper;
 
     private OnWindowListener onWindowListener;
 
@@ -56,7 +56,7 @@ public class FloatWindow extends FrameLayout implements IWindow, IStyleSetter{
         mWindowHelper.setOnWindowListener(mInternalWindowListener);
     }
 
-    private OnWindowListener mInternalWindowListener =
+    private final OnWindowListener mInternalWindowListener =
             new OnWindowListener() {
                 @Override
                 public void onShow() {

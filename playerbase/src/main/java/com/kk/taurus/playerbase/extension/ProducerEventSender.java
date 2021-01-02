@@ -22,7 +22,7 @@ import com.kk.taurus.playerbase.receiver.IReceiverGroup;
 
 public final class ProducerEventSender implements ReceiverEventSender {
     
-    private DelegateReceiverEventSender mEventSender;
+    private final DelegateReceiverEventSender mEventSender;
 
     public ProducerEventSender(DelegateReceiverEventSender eventSender){
         this.mEventSender = eventSender;

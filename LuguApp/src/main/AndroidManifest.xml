@@ -85,19 +85,7 @@
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
 
 
-        <activity
-            android:name="com.lamesa.lugu.video.WindowVideoViewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/LearnerAppTheme"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.lamesa.lugu.video.FloatWindowActivity"
-            android:launchMode="singleTask"
-            android:hardwareAccelerated="true"
-            android:theme="@style/LearnerAppTheme"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"/>
+
 
         <meta-data
             android:name="preloaded_fonts"
@@ -125,7 +113,11 @@
         </receiver>
 
 
-        <receiver android:name="com.lamesa.lugu.receiver.ActionReceiver" />
+        <receiver android:name="com.lamesa.lugu.receiver.ActionReceiver">
+        <intent-filter>
+            <action android:name="android.intent.action.MEDIA_BUTTON" />
+        </intent-filter>
+        </receiver>
 
 
     </application>

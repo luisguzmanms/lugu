@@ -48,7 +48,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="com.lamesa.netfilms.App"
+        android:name="com.lamesa.lugu.App"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -80,7 +80,7 @@
         </provider>
 
         <activity
-            android:name="com.lamesa.netfilms.activity.splash"
+            android:name="com.lamesa.lugu.activity.splash"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/LearnerAppTheme"
@@ -92,31 +92,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.lamesa.netfilms.activity.act_main"
+            android:name="com.lamesa.lugu.activity.act_main"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/LearnerAppTheme"
             android:windowSoftInputMode="adjustPan|adjustResize" />
-        <activity
-            android:name="com.lamesa.netfilms.video.WindowVideoViewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/LearnerAppTheme" />
-        <activity
-            android:name="com.lamesa.netfilms.video.FloatWindowActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/LearnerAppTheme" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name="com.lamesa.netfilms.service.fcm"
+            android:name="com.lamesa.lugu.service.fcm"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -136,7 +123,11 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.lamesa.netfilms.receiver.ActionReceiver" />
+        <receiver android:name="com.lamesa.lugu.receiver.ActionReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name="com.amnix.adblockwebview.ui.AdBlocksWebViewActivity"

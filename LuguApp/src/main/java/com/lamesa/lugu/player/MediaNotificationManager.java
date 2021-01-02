@@ -83,7 +83,7 @@ public class MediaNotificationManager {
 
     public void startNotify(String playbackStatus) {
 
-        final Bitmap[] largeIcon = {BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher_foreground)};
+        final Bitmap[] largeIcon = {BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher)};
 
         int icon = R.drawable.ic_pause_white;
         Intent intentPlayPause = new Intent(mContext, ActionReceiver.class);
@@ -116,7 +116,7 @@ public class MediaNotificationManager {
             case STATE_STOP:
                 setLogInfo(mContext,"MediaNotificationManager.startNotify","STATE_STOP",false);
 
-                this.cancelNotify();
+               // this.cancelNotify();
                 break;
 
             default:
@@ -213,7 +213,7 @@ public class MediaNotificationManager {
                         // TODO Do some work: pass this bitmap
                         Bitmap bitmapIcon = Bitmap.createScaledBitmap(largeIcon[0], 150, 120, false);
                         builder.setLargeIcon(bitmapIcon);
-                        notificationManager.notify(String.valueOf(NOTIFICATION_ID), 1, builder.build());
+                       notificationManager.notify(String.valueOf(NOTIFICATION_ID), 1, builder.build());
                     }
 
                     @Override
@@ -229,6 +229,7 @@ public class MediaNotificationManager {
 
     public void cancelNotify() {
         setLogInfo(mContext,"MediaNotificationManager.cancelNotify.","Cancelar notificación",false);
+
 
         if(notificationManager!=null) {
             notificationManager.cancelAll();

@@ -1,23 +1,25 @@
 package com.lamesa.lugu.receiver;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.lamesa.lugu.R;
+import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
 
+import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.activity.act_main.andExoPlayerView;
+import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
-import static com.lamesa.lugu.otros.metodos.PlayOrPause;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.player.MediaNotificationManager.transportControls;
-
 
 
 public class ActionReceiver extends BroadcastReceiver {
-
 
 	@Override
 	public void onReceive(Context mContext, Intent intent) {
@@ -29,7 +31,7 @@ public class ActionReceiver extends BroadcastReceiver {
 			case MediaNotificationManager.ACTION_STOP:
 				ActionStop();
 				Toast.makeText(mContext, MediaNotificationManager.ACTION_STOP, Toast.LENGTH_SHORT).show();
-				transportControls.stop();
+
 				break;
 
 			case MediaNotificationManager.ACTION_FAVORITE:
@@ -40,13 +42,13 @@ public class ActionReceiver extends BroadcastReceiver {
 			case MediaNotificationManager.ACTION_PLAY:
 				ActionPlay(mContext);
 				Toast.makeText(mContext, MediaNotificationManager.ACTION_PLAY, Toast.LENGTH_SHORT).show();
-				transportControls.play();
+
 				break;
 
 			case MediaNotificationManager.ACTION_PAUSE:
 				ActionPause(mContext);
 				Toast.makeText(mContext, MediaNotificationManager.ACTION_PAUSE, Toast.LENGTH_SHORT).show();
-				transportControls.pause();
+
 				break;
 
 		}
@@ -59,18 +61,13 @@ public class ActionReceiver extends BroadcastReceiver {
 		 */
 	}
 
+	@SuppressLint("UseCompatLoadingForDrawables")
 	private void ActionPause(Context mContext) {
-		PlayOrPause(mContext,MediaNotificationManager.STATE_PAUSE);
-		if(mediaNotificationManager!=null){
-			mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PAUSE);
-		}
+		andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
 	}
 
 	private void ActionPlay(Context mContext) {
-		PlayOrPause(mContext,MediaNotificationManager.STATE_PLAY);
-		if(mediaNotificationManager!=null){
-			mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PLAY);
-		}
+		andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PLAY);
 	}
 
 	private void ActionStop() {
@@ -82,7 +79,5 @@ public class ActionReceiver extends BroadcastReceiver {
 	private void ActionFavorito(Context mContext) {
 		GuardarCancionFavoritos(mContext, tinyDB.getString(TBidCancionSonando), true);
 	}
-
-
 
 }

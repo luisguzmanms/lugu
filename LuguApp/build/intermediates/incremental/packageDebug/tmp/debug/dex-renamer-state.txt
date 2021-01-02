@@ -1,4 +1,4 @@
-#Thu Dec 31 16:40:20 COT 2020
+#Fri Jan 01 19:17:51 COT 2021
 path.3=classes4.dex
 path.2=classes3.dex
 path.1=classes2.dex
@@ -7,7 +7,7 @@ renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.3=C\:\\AndroidProjects\\lofi\\LearnerApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes4.dex
-base.2=C\:\\AndroidProjects\\lofi\\LearnerApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes3.dex
-base.1=C\:\\AndroidProjects\\lofi\\LearnerApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes2.dex
-base.0=C\:\\AndroidProjects\\lofi\\LearnerApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
+base.3=C\:\\Users\\luis4\\GitHub\\lugu\\LuguApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes4.dex
+base.2=C\:\\Users\\luis4\\GitHub\\lugu\\LuguApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes3.dex
+base.1=C\:\\Users\\luis4\\GitHub\\lugu\\LuguApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes2.dex
+base.0=C\:\\Users\\luis4\\GitHub\\lugu\\LuguApp\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex

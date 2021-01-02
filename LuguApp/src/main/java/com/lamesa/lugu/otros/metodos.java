@@ -1,6 +1,7 @@
 package com.lamesa.lugu.otros;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -1267,7 +1268,7 @@ public class metodos {
             setLogInfo(mContext,"ReproducirCancion","Inicia ExoPlayerView.setSource",false);
             andExoPlayerView.setSource(linkCancion);
             // reproducir
-            PlayOrPause(mContext,MediaNotificationManager.STATE_PLAY);
+            andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PLAY);
         }
 
     }
@@ -1450,130 +1451,6 @@ public class metodos {
 
     }
 
-    public static void PlayOrPause(Context mContext, String state){
-
-        switch (state){
-
-
-            case MediaNotificationManager.STATE_PLAY:
-
-                    // reproducir
-                if(andExoPlayerView!=null) {
-
-                        andExoPlayerView.setPlayWhenReady(true);
-                        Toast.makeText(mContext, "setPlayWhenReady", Toast.LENGTH_SHORT).show();
-
-                }
-                    if(waveColor!=null && waveBlack!=null){
-                        waveBlack.play();
-                        waveColor.play();
-                    }
-
-                if(ivPlayPause!=null) {
-                    ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
-                    ivPlayPause.setVisibility(VISIBLE);
-                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
-                    ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
-                }
-
-
-
-                break;
-
-            case MediaNotificationManager.STATE_PAUSE:
-
-                    // pausar
-                if(andExoPlayerView!=null) {
-                    andExoPlayerView.pausePlayer();
-                }
-                    if(waveColor!=null && waveBlack!=null){
-                        waveBlack.pause();
-                        waveColor.pause();
-                    }
-
-                    if(ivPlayPause!=null) {
-                        ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
-                        ivPlayPause.setVisibility(VISIBLE);
-                        ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
-                        ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
-                    }
-
-
-                break;
-
-            case MediaNotificationManager.STATE_BUFFERING:
-
-                if(spinBuffering!=null) {
-                    if(ivPlayPause!=null) {
-                        ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
-                        ivPlayPause.setVisibility(View.INVISIBLE);
-                        ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
-                    }
-
-                    spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
-                    spinBuffering.setVisibility(VISIBLE);
-                    spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
-                }
-
-
-
-                break;
-
-
-            case MediaNotificationManager.STATE_READY:
-
-
-                // ocultar mstate buffering
-
-                if(spinBuffering!=null) {
-                    spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
-                    spinBuffering.setVisibility(GONE);
-                    spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
-                }
-
-
-                if(ivPlayPause!=null) {
-                    ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
-                    ivPlayPause.setVisibility(VISIBLE);
-                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
-                    ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
-                }
-
-
-
-                break;
-
-
-            case MediaNotificationManager.STATE_STOP:
-
-                if(mediaNotificationManager!=null) {
-                    mediaNotificationManager.cancelNotify();
-                }
-
-                if(andExoPlayerView!=null){
-                    andExoPlayerView.pausePlayer();
-                }
-
-                if(ivPlayPause!=null) {
-                    ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
-                    ivPlayPause.setVisibility(VISIBLE);
-                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
-                    ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
-                }
-
-                if(waveColor!=null && waveBlack!=null){
-                    waveBlack.pause();
-                    waveColor.pause();
-                }
-
-                break;
-
-
-        }
-
-
-    }
-
     public static void EncenderAutoApagado(Context mContext, int minutos){
 
 
@@ -1633,7 +1510,7 @@ public class metodos {
                     tvSleep.setVisibility(GONE);
                 }
 
-                PlayOrPause(mContext, MediaNotificationManager.STATE_STOP);
+                andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_STOP);
 
             }
 

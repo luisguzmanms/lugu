@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="@string/app_name"
+                        android:text="LUGU"
                         android:textColor="@color/learn_colorPrimary"
                         android:textSize="24dp" />
 
@@ -219,7 +219,7 @@
                             android:maxLines="2"
                             android:text="For you, with love :,)"
                             android:textColor="@color/learn_gradient_grey_1"
-                            android:textSize="28dp"
+                            android:textSize="24sp"
                             android:textStyle="bold" />
 
                         <TextView

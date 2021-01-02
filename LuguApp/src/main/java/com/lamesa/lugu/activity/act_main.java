@@ -1,6 +1,7 @@
 package com.lamesa.lugu.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -66,7 +66,6 @@ import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
 import com.lamesa.lugu.player.library.AndExoPlayerView;
-import com.lamesa.lugu.utils.PlayPauseView;
 import com.narayanacharya.waveview.WaveView;
 
 import org.json.JSONException;
@@ -91,7 +90,6 @@ import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
-import static com.lamesa.lugu.otros.metodos.PlayOrPause;
 import static com.lamesa.lugu.otros.metodos.SolicitarFilm;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.initFirebase;
@@ -183,7 +181,7 @@ public class act_main extends AppCompatActivity {
         // Traer todas las listas desde Firebase
         new CargarListas().execute();
 
-        CargarAdMain();  // solo en releaseeeeeeeeeeeeeeeeeeeeeeeeeee
+       // CargarAdMain();  // solo en releaseeeeeeeeeeeeeeeeeeeeeeeeeee
 
         CheckIsFavorite(act_main.this, tinyDB.getString(TBidCancionSonando));
 
@@ -210,8 +208,6 @@ public class act_main extends AppCompatActivity {
         tinyDB.putBoolean(TBreproduciendoRadio, false);
         super.onDestroy();
     }
-
-
 
     private void SolicitarPermisos(Context mContext) {
 
@@ -506,9 +502,7 @@ public class act_main extends AppCompatActivity {
         pbCargandoRadio = findViewById(R.id.pb_cargandoradio);
 
         ivPlayPause = findViewById(R.id.iv_playPause);
-        if (andExoPlayerView.isPlaying()) {
-            PlayOrPause(act_main.this, MediaNotificationManager.STATE_READY);
-        }
+
 
         spinBuffering = findViewById(R.id.spinBuffering);
 
@@ -545,9 +539,7 @@ public class act_main extends AppCompatActivity {
                             mrvHistorial.setVisibility(VISIBLE);
                             mrvHistorial.startAnimation(Animacion.enter_ios_anim(act_main.this));
                         }
-                        if(mAdapterHistorial!=null) {
-                            mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
-                        }
+
 
                         if(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()){
                             if(ContenedorVacio!=null && tvVacio!=null){
@@ -592,6 +584,7 @@ public class act_main extends AppCompatActivity {
 
         // listener para las vistas
         View.OnClickListener listener = new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
 
@@ -729,16 +722,20 @@ public class act_main extends AppCompatActivity {
                     case R.id.iv_playPause:
 
 
-                        //    Toast.makeText(act_main.this, "iv_playPause", Toast.LENGTH_SHORT).show();
+
+   Toast.makeText(act_main.this, "iv_playPause", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(act_main.this, ivPlayPause.getDrawable().getConstantState().toString(), Toast.LENGTH_LONG).show();
 
 
                         // cambiar icono entre play y pause
-                        if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_play).getConstantState()) {
+                        if (ivPlayPause.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_play).getConstantState())) {
                             // reproducir
+                            Toast.makeText(act_main.this, "XZC", Toast.LENGTH_SHORT).show();
 
                             // comprobar si es la primera vez que se da clic a play
                             if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
-                                PlayOrPause(act_main.this, MediaNotificationManager.STATE_PLAY);
+                                andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PLAY);
                                 // reproducir la ultima cancion reproducida unicamente si se incia la app sin clickear alguna lista
                                 if (!andExoPlayerView.isPlaying()) {
                                     // comprobar que si haya una cancion guardada
@@ -753,7 +750,9 @@ public class act_main extends AppCompatActivity {
 
                         } else if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_pausa).getConstantState()) {
                             // pausar
-                            PlayOrPause(act_main.this, MediaNotificationManager.STATE_PAUSE);
+                            andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+                        } else {
+                            Toast.makeText(act_main.this, "Ningun iconco", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -911,8 +910,8 @@ public class act_main extends AppCompatActivity {
                     }
                 });
 
-    }
 
+    }
 
     private class CargarListas extends AsyncTask<Void, Integer, String> {
         String TAG = getClass().getSimpleName();

@@ -59,16 +59,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static com.lamesa.lugu.activity.act_main.andExoPlayerView;
 import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
+import static com.lamesa.lugu.activity.act_main.spinBuffering;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvArtista;
 import static com.lamesa.lugu.activity.act_main.tvCancion;
 import static com.lamesa.lugu.activity.act_main.tvCategoria;
+import static com.lamesa.lugu.activity.act_main.waveBlack;
+import static com.lamesa.lugu.activity.act_main.waveColor;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
-import static com.lamesa.lugu.otros.metodos.PlayOrPause;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
@@ -126,10 +129,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                 case Player.STATE_BUFFERING:
                     stateString = "ExoPlayer.STATE_BUFFERING -";
                     setLogInfo(mContext,"ComponentListener.Player.STATE_BUFFERING","Player.STATE_BUFFERING",false);
-                    PlayOrPause(mContext,MediaNotificationManager.STATE_BUFFERING);
-                    if(mediaNotificationManager!=null) {
-                        mediaNotificationManager.startNotify(MediaNotificationManager.STATE_BUFFERING);
-                    }
+                    PlayOrPause(MediaNotificationManager.STATE_BUFFERING);
+
                     break;
                 case Player.STATE_READY:
 
@@ -170,7 +171,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     GuardarCancionHistorial(mContext, tinyDB.getString(TBidCancionSonando));
 
                     // ocultar icono de buffering
-                    PlayOrPause(mContext,MediaNotificationManager.STATE_READY);
+                    PlayOrPause(MediaNotificationManager.STATE_READY);
                     // reproducir cancion y animar icono a pausa
 
                     // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
@@ -728,7 +729,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         }
 
          */
-        PlayOrPause(mContext,MediaNotificationManager.STATE_BUFFERING);
+        PlayOrPause(MediaNotificationManager.STATE_BUFFERING);
         if(pbCargandoRadio!=null){
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
             pbCargandoRadio.setVisibility(VISIBLE);
@@ -768,6 +769,151 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         if (linearLayoutLoading != null)
             linearLayoutLoading.setVisibility(GONE);
     }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void PlayOrPause(String state)   {
+
+        switch (state){
+
+
+            case MediaNotificationManager.STATE_PLAY:
+
+                // reproducir
+                if(andExoPlayerView!=null) {
+
+                    andExoPlayerView.setPlayWhenReady(true);
+                    Toast.makeText(mContext, "setPlayWhenReady", Toast.LENGTH_SHORT).show();
+
+                }
+                if(waveColor!=null && waveBlack!=null){
+                    waveBlack.play();
+                    waveColor.play();
+                }
+
+                if(ivPlayPause!=null) {
+                    ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
+                    ivPlayPause.setVisibility(VISIBLE);
+                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
+                    ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
+                }
+
+                if(mediaNotificationManager!=null) {
+                    mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PLAY);
+                }
+
+
+
+                break;
+
+            case MediaNotificationManager.STATE_PAUSE:
+
+                // pausar
+                if(andExoPlayerView!=null) {
+                    andExoPlayerView.pausePlayer();
+                }
+
+                if(waveColor!=null && waveBlack!=null){
+                    waveBlack.pause();
+                    waveColor.pause();
+                }
+
+
+                    if(ivPlayPause!=null) {
+                        ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
+                        ivPlayPause.setVisibility(VISIBLE);
+                        ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                        ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
+                    }
+
+                if(spinBuffering!=null) {
+                    spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
+                    spinBuffering.setVisibility(GONE);
+                    spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
+                }
+
+
+                if(mediaNotificationManager!=null) {
+                    mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PAUSE);
+                }
+
+
+                break;
+
+            case MediaNotificationManager.STATE_BUFFERING:
+
+                if(spinBuffering!=null) {
+                    if(ivPlayPause!=null) {
+                        ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
+                        ivPlayPause.setVisibility(View.INVISIBLE);
+                        ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
+                    }
+
+                    spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
+                    spinBuffering.setVisibility(VISIBLE);
+                    spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
+                }
+
+                if(mediaNotificationManager!=null) {
+                    mediaNotificationManager.startNotify(MediaNotificationManager.STATE_BUFFERING);
+                }
+
+                break;
+
+
+            case MediaNotificationManager.STATE_READY:
+
+
+                // ocultar mstate buffering
+
+                if(spinBuffering!=null) {
+                    spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
+                    spinBuffering.setVisibility(GONE);
+                    spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
+                }
+
+
+                if(ivPlayPause!=null) {
+                    ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
+                    ivPlayPause.setVisibility(VISIBLE);
+                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
+                    ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
+                }
+
+
+
+                break;
+
+
+            case MediaNotificationManager.STATE_STOP:
+
+                if(mediaNotificationManager!=null) {
+                    mediaNotificationManager.cancelNotify();
+                }
+
+                if(andExoPlayerView!=null){
+                    andExoPlayerView.pausePlayer();
+                }
+
+                if(ivPlayPause!=null) {
+                    ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
+                    ivPlayPause.setVisibility(VISIBLE);
+                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                    ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
+                }
+
+                if(waveColor!=null && waveBlack!=null){
+                    waveBlack.pause();
+                    waveColor.pause();
+                }
+
+                break;
+
+
+        }
+
+
+    }
+
 
 
 

@@ -62,7 +62,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_recat_black"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/icon_sinfondo" />
+                app:srcCompat="@mipmap/ic_launcher_foreground"/>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -73,9 +73,9 @@
             android:layout_below="@id/rvDestacado"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/josefinsans_semibold"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="center"
-            android:text="PPLUS"
+            android:text="LUGU"
             android:textColor="@color/learn_gradient_grey_1"
             android:textSize="36sp"
             android:textStyle="bold" />
@@ -90,7 +90,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="@font/josefinsans_semibold"
             android:gravity="center"
-            android:text="PelisPlusHD"
+            android:text="Lofi Music"
             android:textColor="@color/edit_base_line_color"
             android:textSize="14sp"
             android:textStyle="bold" />

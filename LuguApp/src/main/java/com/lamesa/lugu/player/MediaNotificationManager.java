@@ -84,8 +84,10 @@ public class MediaNotificationManager {
 
     public void startNotify(String playbackStatus) {
 
-        final Bitmap[] largeIcon = {BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher)};
+        // large icon
+        final Bitmap[] bitmapIcon = {BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher)};
 
+        
         int icon = R.drawable.ic_pause_white;
         Intent intentPlayPause = new Intent(mContext, ActionReceiver.class);
         intentPlayPause.setAction(STATE_PAUSE);
@@ -167,12 +169,9 @@ public class MediaNotificationManager {
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             manager.createNotificationChannel(channel);
 
-
         }
 
-
         // Load bitmap from image url on background thread and display image notification
-
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, PRIMARY_CHANNEL);
         builder.setAutoCancel(false);
@@ -196,8 +195,6 @@ public class MediaNotificationManager {
                 .setCancelButtonIntent(stopAction));
 
         // this.startForeground(NOTIFICATION_ID, builder.build());
-
-
 
         //region cargar imagen en notification
 
@@ -226,7 +223,6 @@ public class MediaNotificationManager {
 
         //endregion
 
-
         // mostrar notificacion solo si se cargo los datos de la cancion en tinydb
         if (!tinyDB.getString(TBnombreCancionSonando).isEmpty() && !tinyDB.getString(TBartistaCancionSonando).isEmpty()) {
             notificationManager.notify(String.valueOf(NOTIFICATION_ID), 1, builder.build());
@@ -235,11 +231,8 @@ public class MediaNotificationManager {
 
     }
 
-
-
     public void cancelNotify() {
         setLogInfo(mContext,"MediaNotificationManager.cancelNotify.","Cancelar notificación",false);
-
 
         if(notificationManager!=null) {
             notificationManager.cancelAll();

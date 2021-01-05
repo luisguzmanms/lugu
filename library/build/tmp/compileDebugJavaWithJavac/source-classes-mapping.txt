@@ -1,22 +1,22 @@
-com/potyvideo/library/BuildConfig.java
- com.potyvideo.library.BuildConfig
+com/potyvideo/library/globalEnums/EnumAspectRatio.java
+ com.potyvideo.library.globalEnums.EnumAspectRatio
 com/potyvideo/library/utils/PublicValues.java
  com.potyvideo.library.utils.PublicValues
 com/potyvideo/library/utils/PathUtil.java
  com.potyvideo.library.utils.PathUtil
-com/potyvideo/library/globalInterfaces/ExoPlayerCallBack.java
- com.potyvideo.library.globalInterfaces.ExoPlayerCallBack
-com/potyvideo/library/utils/PublicFunctions.java
- com.potyvideo.library.utils.PublicFunctions
-com/potyvideo/library/globalEnums/EnumAspectRatio.java
- com.potyvideo.library.globalEnums.EnumAspectRatio
 com/potyvideo/library/globalEnums/EnumResizeMode.java
  com.potyvideo.library.globalEnums.EnumResizeMode
 com/potyvideo/library/globalEnums/EnumLoop.java
  com.potyvideo.library.globalEnums.EnumLoop
+com/potyvideo/library/globalInterfaces/ExoPlayerCallBack.java
+ com.potyvideo.library.globalInterfaces.ExoPlayerCallBack
 com/potyvideo/library/globalEnums/EnumPlayerSize.java
  com.potyvideo.library.globalEnums.EnumPlayerSize
+com/potyvideo/library/utils/PublicFunctions.java
+ com.potyvideo.library.utils.PublicFunctions
 com/potyvideo/library/AndExoPlayerView.java
  com.potyvideo.library.AndExoPlayerView
  com.potyvideo.library.AndExoPlayerView$1
  com.potyvideo.library.AndExoPlayerView$ComponentListener
+com/potyvideo/library/BuildConfig.java
+ com.potyvideo.library.BuildConfig

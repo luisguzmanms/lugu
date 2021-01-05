@@ -1,5 +1,3 @@
-at/huber/youtubeExtractor/BuildConfig.java
- at.huber.youtubeExtractor.BuildConfig
 at/huber/youtubeExtractor/YouTubeExtractor.java
  at.huber.youtubeExtractor.YouTubeExtractor
  at.huber.youtubeExtractor.YouTubeExtractor$1
@@ -12,5 +10,7 @@ at/huber/youtubeExtractor/Format.java
  at.huber.youtubeExtractor.Format$VCodec
 at/huber/youtubeExtractor/VideoMeta.java
  at.huber.youtubeExtractor.VideoMeta
+at/huber/youtubeExtractor/BuildConfig.java
+ at.huber.youtubeExtractor.BuildConfig
 at/huber/youtubeExtractor/YtFile.java
  at.huber.youtubeExtractor.YtFile

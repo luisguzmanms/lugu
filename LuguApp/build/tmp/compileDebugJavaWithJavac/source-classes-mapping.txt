@@ -39,9 +39,6 @@ com/lamesa/lugu/mesa/fire.java
  com.lamesa.lugu.mesa.fire$6
  com.lamesa.lugu.mesa.fire$7
  com.lamesa.lugu.mesa.fire$8
-com/lamesa/lugu/service/fcm.java
- com.lamesa.lugu.service.fcm
- com.lamesa.lugu.service.fcm$1
 com/lamesa/lugu/player/library/globalEnums/EnumPlayerSize.java
  com.lamesa.lugu.player.library.globalEnums.EnumPlayerSize
 com/lamesa/lugu/otros/numberPicker/NumberPicker.java
@@ -82,6 +79,9 @@ com/lamesa/lugu/otros/metodos.java
  com.lamesa.lugu.otros.metodos
  com.lamesa.lugu.otros.metodos$1
  com.lamesa.lugu.otros.metodos$10
+ com.lamesa.lugu.otros.metodos$10$1
+ com.lamesa.lugu.otros.metodos$10$2
+ com.lamesa.lugu.otros.metodos$10$3
  com.lamesa.lugu.otros.metodos$11
  com.lamesa.lugu.otros.metodos$12
  com.lamesa.lugu.otros.metodos$13
@@ -89,6 +89,7 @@ com/lamesa/lugu/otros/metodos.java
  com.lamesa.lugu.otros.metodos$15
  com.lamesa.lugu.otros.metodos$16
  com.lamesa.lugu.otros.metodos$17
+ com.lamesa.lugu.otros.metodos$18
  com.lamesa.lugu.otros.metodos$2
  com.lamesa.lugu.otros.metodos$3
  com.lamesa.lugu.otros.metodos$3$1
@@ -99,13 +100,8 @@ com/lamesa/lugu/otros/metodos.java
  com.lamesa.lugu.otros.metodos$7
  com.lamesa.lugu.otros.metodos$8
  com.lamesa.lugu.otros.metodos$9
- com.lamesa.lugu.otros.metodos$9$1
- com.lamesa.lugu.otros.metodos$9$2
- com.lamesa.lugu.otros.metodos$9$3
 com/lamesa/lugu/player/library/utils/PublicValues.java
  com.lamesa.lugu.player.library.utils.PublicValues
-com/lamesa/lugu/utils/PlayPauseView.java
- com.lamesa.lugu.utils.PlayPauseView
 com/lamesa/lugu/activity/splash.java
  com.lamesa.lugu.activity.splash
  com.lamesa.lugu.activity.splash$1

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class ModelCategoria implements Serializable {
 
+    String id;
     String imagen;
     String nombre;
 
@@ -12,8 +13,9 @@ public class ModelCategoria implements Serializable {
 
     }
 
-    public ModelCategoria(String imagen, String nombre)  {
+    public ModelCategoria(String id, String imagen, String nombre)  {
 
+        this.id  = id;
         this.imagen = imagen;
         this.nombre = nombre;
 
@@ -36,5 +38,13 @@ public class ModelCategoria implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

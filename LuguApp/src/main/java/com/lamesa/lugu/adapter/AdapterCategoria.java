@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -132,6 +133,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                 for (int i = 0; i < tinyListCancionxCategoria.size() ; i++) {
                     setLogInfo(mContext, "Clic Categoria","tinyListCancionxCategoria == "+tinyListCancionxCategoria.get(i).getCancion(), false);
                 }
+
 
                 if(tinyListCancionxCategoria!=null && tinyListCancionxCategoria.size() !=0 ) {
 

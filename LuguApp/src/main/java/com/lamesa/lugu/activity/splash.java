@@ -47,16 +47,12 @@ import static com.lamesa.lugu.otros.metodos.ListaCSV;
 
 public class splash extends AppCompatActivity {
 
-
     private TinyDB tinydb;
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         tinydb = new TinyDB(this);
-
 
 
         ImageView ivFondoSplash = findViewById(R.id.iv_fondoSplash);
@@ -117,9 +113,7 @@ public class splash extends AppCompatActivity {
 
 
     }
-
-
-
+    
     private void DialogoPase(Context mContext, TinyDB tiniDB){
 
 
@@ -185,10 +179,6 @@ public class splash extends AppCompatActivity {
         }
     }
 
-
-
-
-
     private void EliminarDato(Context mContext){
 
         WaitDialog.show((AppCompatActivity) mContext, "Eliminando dato...").setCancelable(true);
@@ -234,9 +224,6 @@ public class splash extends AppCompatActivity {
 
     }
 
-
-
-
     private void SubirVideoFilmPel(Context mContext){
 
        // List<modelAddVideoFilm> mlistAddFilm = new ArrayList<>();
@@ -264,9 +251,6 @@ public class splash extends AppCompatActivity {
 
 
     }
-
-
-
 
     private void SubirVideo(Context mContext, String id, String idioma, String idEpisodio, String nombreEpisodio, String linkVideo){
 

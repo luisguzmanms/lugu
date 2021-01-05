@@ -88,8 +88,6 @@ public class Firebase extends AppCompatActivity {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
-
-
         WaitDialog.show((AppCompatActivity) mContext, "Enviando sugerencia...").setCancelable(true);
 
 
@@ -100,7 +98,7 @@ public class Firebase extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm a");
         String fecha = df.format(Calendar.getInstance().getTime());
 
-        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("otros").child("reportes").child("sugerencia");
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("otro").child("reporte").child("sugerencia");
         mref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -280,7 +278,6 @@ public class Firebase extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-
         return user != null;
     }
 
@@ -323,7 +320,6 @@ public class Firebase extends AppCompatActivity {
 
 
     }
-
 
     public static void getListaCanciones(Context mContext, List<ModelCategoria> mlistCategoria, List<ModelCancion> mlistCancion, TinyDB tinyDB) {
 
@@ -392,19 +388,13 @@ public class Firebase extends AppCompatActivity {
 
                 // si la cancion contiene alguna categoria guardarla en la respectiva lista de categoria
                 for (ModelCategoria categoria : mlistCategorias){
-                    if(cancion.getCategoria().toLowerCase().trim().contains(categoria.getNombre().toLowerCase().trim())){
+                    if(cancion.getCategoria().toLowerCase().trim().contains(categoria.getId().toLowerCase().trim())){
                         List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(categoria.getNombre().toLowerCase().trim(), ModelCancion.class);
                         tinyListCancionxCategoria.add(cancion);
                         tinyDB.putListModelCancion(categoria.getNombre().toLowerCase().trim(), EliminarDuplicadosModelCancion(tinyListCancionxCategoria));
                     }
                 }
-
-
             }
-
-
-
-
         }
 
 

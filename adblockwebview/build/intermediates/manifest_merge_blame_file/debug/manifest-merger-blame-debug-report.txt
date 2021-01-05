@@ -6,42 +6,42 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="14"
-8-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml
+8-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml
+9-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.VIBRATE" />
-11-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:4:5-66
-11-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:4:22-63
+11-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:4:5-66
+11-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:4:22-63
 12    <uses-permission android:name="android.permission.INTERNET" />
-12-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:5:5-67
-12-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:5:22-64
+12-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:5:5-67
+12-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:5:22-64
 13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-13-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:6:5-81
-13-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:6:22-78
+13-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:6:5-81
+13-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:6:22-78
 14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-14-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:7:5-80
-14-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:7:22-77
+14-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:7:5-80
+14-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:7:22-77
 15    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-15-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:8:5-88
-15-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:8:22-85
+15-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:8:5-88
+15-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:8:22-85
 16
 17    <application
-17-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:10:5-18:19
+17-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:10:5-18:19
 18        android:allowBackup="true"
-18-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:11:9-35
+18-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:11:9-35
 19        android:label="@string/app_name"
-19-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:12:9-41
+19-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:12:9-41
 20        android:supportsRtl="true" >
-20-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:13:9-35
+20-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:13:9-35
 21        <activity
-21-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:14:9-17:62
+21-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:14:9-17:62
 22            android:name="com.amnix.adblockwebview.ui.AdBlocksWebViewActivity"
-22-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:15:13-55
+22-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:15:13-55
 23            android:configChanges="orientation|screenSize"
-23-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:17:13-59
+23-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:17:13-59
 24            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-24-->C:\Users\luisguzman\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:16:13-69
+24-->C:\Users\luis4\GitHub\lugu\adblockwebview\src\main\AndroidManifest.xml:16:13-69
 25    </application>
 26
 27</manifest>

@@ -50,7 +50,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3040756318290255~8298479348"/>
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -92,16 +92,6 @@
             android:resource="@array/preloaded_fonts" />
 
 
-
-
-        <service android:name="com.lamesa.lugu.service.fcm"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-
         <!-- A receiver that will receive media buttons and send as
           intents to your MediaBrowserServiceCompat implementation.
           Required on pre-Lollipop. More information at
@@ -118,6 +108,7 @@
             <action android:name="android.intent.action.MEDIA_BUTTON" />
         </intent-filter>
         </receiver>
+
 
 
     </application>

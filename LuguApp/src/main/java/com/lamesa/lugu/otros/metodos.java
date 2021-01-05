@@ -574,8 +574,6 @@ public class metodos {
                 Bundle params = new Bundle();
                 params.putString("Fecha", fecha);
 
-
-
                 mFirebaseAnalytics.logEvent(mixCompartirApp, params);
                 mixpanel.track(mixCompartirApp, props);
                 Amplitude.getInstance().logEvent(mixCompartirApp, props);
@@ -593,14 +591,14 @@ public class metodos {
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.app_name) + " - " + "La mejor alternativa de Netflix totalmente gratis");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.app_name) + " - " + "Relajate con la mejor musica Lofi");
             String infoApp = "Disfruta de: " + saltoDeLinea + "*Ver peliculas y series" + saltoDeLinea + "*Añadir a tus favoritos" + saltoDeLinea + "*Videos en calidad HD" + saltoDeLinea + "*Ver video en ventana flotante" + saltoDeLinea + "y mucho mas..." + saltoDeLinea;
             String shareMessage = "Para mas información, descarga la app aqui:" + "\n\n";
             shareMessage = shareMessage + "https://repelisplusapp.page.link/verpelisonline";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 
+            mContext.startActivity(Intent.createChooser(shareIntent, "Share:"));
 
-            mContext.startActivity(Intent.createChooser(shareIntent, "Compartir con:"));
         } catch (Exception e) {
             //e.toString();
         }
@@ -684,11 +682,10 @@ public class metodos {
                     public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
                         if (inputStr.equals("")) {
                             TipDialog.show((AppCompatActivity) mContext, "El espacio no puede estar vacío", TipDialog.TYPE.ERROR);
-                            SolicitarFilm(mContext);
                             return false;
                         } else {
                             EnviarSugerencia(mContext, inputStr);
-                            return true;
+                            return false;
                         }
                     }
                 })
@@ -747,6 +744,35 @@ public class metodos {
                 })
                 .show();
     }
+
+    public static void DialogoSalir(Context mContext) {
+
+        String saltoDeLinea = "\n";
+        String titulo = "¿Salir de la aplicación?";
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+        MessageDialog.build((AppCompatActivity) mContext)
+                .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                .setOkButton("SI")
+                .setMessage("")
+                .setTitle(titulo)
+                .setCancelButton("NO")
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setCancelable(true)
+                .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+
+                        ((AppCompatActivity) mContext).finish();
+
+                        return false;
+                    }
+                })
+                .show();
+    }
+
 
     public static void DialogoEnviarReporte(Context mContext, String idFilm, String idEpisodio, String nombreEpisodio, String nombreFilm) {
 
@@ -1050,10 +1076,10 @@ public class metodos {
         if (mostrarSoloUnaVez == false) {
             String saltoDeLinea = "\n";
 
-            MessageDialog.show((AppCompatActivity) mContext, "Sobre PelisPlusHD", "PelisPlusHD app , es una aplicación que funciona como interfaz y buscador de series y peliculas que son alojadas por terceros.." + saltoDeLinea
+            MessageDialog.show((AppCompatActivity) mContext, "Sobre "+mContext.getResources().getString(R.string.app_name), mContext.getResources().getString(R.string.app_name)+", es una aplicación que funciona como interfaz y buscador de series y peliculas que son alojadas por terceros.." + saltoDeLinea
                     + saltoDeLinea +
                     "Esta app aun esta en desarrollo, se actualiza el contenido diareamente pero con el envio de peticiones, sugerencias y reportes ayudara a mantener esta aplicacíon en desarrollo, el uso de esta app es totalmente gratuito. " +
-                    "¡Bienvenido a PelisPlusHD, disfrutalo!" +
+                    "¡Bienvenido a "+mContext.getResources().getString(R.string.app_name)+", disfrutalo!" +
                     saltoDeLinea + saltoDeLinea +
                     "-Trabajando en:" + saltoDeLinea +
                     "* Modo offline (descargar episodios)" + saltoDeLinea +
@@ -1064,7 +1090,6 @@ public class metodos {
                     .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                         @Override
                         public boolean onClick(BaseDialog baseDialog, View v) {
-
 
                             return false;
                         }

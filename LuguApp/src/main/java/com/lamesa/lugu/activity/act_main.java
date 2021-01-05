@@ -64,7 +64,6 @@ import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
 import com.lamesa.lugu.otros.Firebase;
 import com.lamesa.lugu.otros.TinyDB;
-import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
 import com.lamesa.lugu.player.library.AndExoPlayerView;
 import com.narayanacharya.waveview.WaveView;
@@ -87,13 +86,14 @@ import static com.lamesa.lugu.otros.metodos.CargarHome;
 import static com.lamesa.lugu.otros.metodos.CargarInterAd;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.CompartirApp;
+import static com.lamesa.lugu.otros.metodos.DialogoSalir;
 import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
 import static com.lamesa.lugu.otros.metodos.SolicitarFilm;
-import static com.lamesa.lugu.otros.metodos.UpdateAdapterHistorial;
 import static com.lamesa.lugu.otros.metodos.UpdateAdapterFavoritos;
+import static com.lamesa.lugu.otros.metodos.UpdateAdapterHistorial;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.initFirebase;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
@@ -110,8 +110,6 @@ import static com.lamesa.lugu.otros.statics.constantes.TBreproduciendoRadio;
 import static com.lamesa.lugu.otros.statics.constantes.mixAdClic;
 
 public class act_main extends AppCompatActivity {
-
-
 
     public static List<ModelCategoria> mlistCategoria;
     public static AdapterCategoria mAdapterCategoria;
@@ -191,15 +189,9 @@ public class act_main extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
-
-        if (contenidoHome.getVisibility() == GONE) {
-            CargarHome(this);
-        } else {
-            super.onBackPressed();
-        }
+        DialogoSalir(act_main.this);
     }
 
     @Override
@@ -630,12 +622,11 @@ public class act_main extends AppCompatActivity {
                         opcionMenu.add("Solicitar pelicula/serie");
                         opcionMenu.add("Enviar sugerencia");
                         opcionMenu.add("Compartir aplicación");
-                        opcionMenu.add("Sobre PelisPlusHD");
+                        opcionMenu.add("Sobre "+act_main.this.getResources().getString(R.string.app_name));
                         opcionMenu.add("AVISO LEGAL - DMCA");
 
-//您自己的Adapter
 
-                        DialogSettings.style = DialogSettings.STYLE.STYLE_MATERIAL;
+                        DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
                         DialogSettings.theme = DialogSettings.THEME.DARK;
                         DialogSettings.backgroundColor = getResources().getColor(R.color.black);
 
@@ -674,11 +665,6 @@ public class act_main extends AppCompatActivity {
                                         AboutUS(act_main.this, tinyDB, false);
 
 
-                                        String youtubeLink = "https://www.youtube.com/watch?v=7LodLbe_XIA";
-
-                                        getLinkAndPlay(act_main.this, youtubeLink, 1);
-
-
                                         break;
 
                                     case 4:
@@ -692,8 +678,8 @@ public class act_main extends AppCompatActivity {
                                                 "No multimedia file is being hosted by us on this app.\n" +
                                                 "\n" +
                                                 "We are not associated with the list of contents found on remote servers. We have no connection or association with such content.\n" +
-                                                "The mp4, avi, mkv files that are available for download are not hosted on PelisPLsuHD app and are hosted on other servers (therefore, not our host service).\n" +
-                                                "This app (PelisPlusHD) functions as a movie search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to appbuho@gmail.com\n" +
+                                                "The mp3, jpg, png files that are available are not hosted on ("+act_main.this.getResources().getString(R.string.app_name)+") app and are hosted on other servers (therefore, not our host service).\n" +
+                                                "This app ("+act_main.this.getResources().getString(R.string.app_name)+") functions as a lofi music search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to appbuho@gmail.com\n" +
                                                 "In fact, we adhere to the rights of producers and artists. We assure you that your work will be safe and legal, which will result in a positive experience for each of you, whether you are a creator or a musical artist. Please note that if any person knowingly or intentionally misrepresents any material or activity listed in Section 512(f), it would be considered a violation of copyright law. Then, if you are doing so, you are liable for your own harm. But keep one thing in mind: Don’t make any false claims about the infringed content!\n" +
                                                 "\n" +
                                                 "The complete information contained in the legal notice may also be sent to the interested party providing the content that is being infringed.", "SI", "CANCELAR")
@@ -716,7 +702,7 @@ public class act_main extends AppCompatActivity {
                                 }
 
                             }
-                        }).setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("MENU");
+                        }).setCancelButtonText("CERRAR").setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("MENU");
 
 
                         break;

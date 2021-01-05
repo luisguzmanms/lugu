@@ -2,15 +2,11 @@
   <library name="Gradle: com.mixpanel.android:mixpanel-android:5.8.5@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b78696bd4e65d4514ba482df54a4e48/jetified-mixpanel-android-5.8.5/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8974a8ca6ceea6fc472b2a6a28fa2da4/jetified-mixpanel-android-5.8.5/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b78696bd4e65d4514ba482df54a4e48/jetified-mixpanel-android-5.8.5/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b78696bd4e65d4514ba482df54a4e48/jetified-mixpanel-android-5.8.5/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b78696bd4e65d4514ba482df54a4e48/jetified-mixpanel-android-5.8.5/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8974a8ca6ceea6fc472b2a6a28fa2da4/jetified-mixpanel-android-5.8.5/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8974a8ca6ceea6fc472b2a6a28fa2da4/jetified-mixpanel-android-5.8.5/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8974a8ca6ceea6fc472b2a6a28fa2da4/jetified-mixpanel-android-5.8.5/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mixpanel.android/mixpanel-android/5.8.5/2f90ec5e303b48b65de0b7ad524d20fc9a83c798/mixpanel-android-5.8.5-javadoc.jar!/" />

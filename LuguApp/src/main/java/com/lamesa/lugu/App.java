@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.multidex.MultiDexApplication;
+
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.MobileAds;
@@ -26,7 +28,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBdiaIngreso;
  * Created by Taurus on 2018/4/15.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
 
 
     public static final String MIXPANEL_TOKEN = "94d4dd4fb8715086668edd97834a08ee";

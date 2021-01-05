@@ -65,7 +65,7 @@ import com.lamesa.lugu.model.ModelCategoria;
 import com.lamesa.lugu.otros.Firebase;
 import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.player.MediaNotificationManager;
-import com.lamesa.lugu.player.library.AndExoPlayerView;
+import com.lamesa.lugu.player.library.MusicPlayer;
 import com.narayanacharya.waveview.WaveView;
 
 import org.json.JSONException;
@@ -82,7 +82,6 @@ import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.otros.metodos.AboutUS;
 import static com.lamesa.lugu.otros.metodos.AbrirPagina;
 import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
-import static com.lamesa.lugu.otros.metodos.CargarHome;
 import static com.lamesa.lugu.otros.metodos.CargarInterAd;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.CompartirApp;
@@ -128,7 +127,7 @@ public class act_main extends AppCompatActivity {
     private TextView mtvVerNetflix;
     private TextView mtvVerEstrenos;
     public static ImageView ivFondoGif;
-    public static AndExoPlayerView andExoPlayerView;
+    public static MusicPlayer musicPlayer;
     public static MediaNotificationManager mediaNotificationManager;
     public static List<ModelCancion> mlistCancion;
     public static TextView tvCancion;
@@ -165,10 +164,11 @@ public class act_main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_main);
 
-        // iniciar notificacion de musica
+
+        // INICAR MEDIANOTIFICACTION
         mediaNotificationManager = new MediaNotificationManager(this);
         // reproductor exoplayer
-        andExoPlayerView = findViewById(R.id.andExoPlayerView);
+        musicPlayer = findViewById(R.id.musicPlayer);
 
         SolicitarPermisos(this);
 
@@ -644,14 +644,14 @@ public class act_main extends AppCompatActivity {
                                     case 0:
 
                                         SolicitarFilm(act_main.this);
-                                        andExoPlayerView.setPlayWhenReady(true);
+                                        musicPlayer.setPlayWhenReady(true);
 
                                         break;
 
                                     case 1:
 
                                         DialogoSugerencia(act_main.this);
-                                        andExoPlayerView.pausePlayer();
+                                        musicPlayer.pausePlayer();
 
                                         break;
 
@@ -715,9 +715,9 @@ public class act_main extends AppCompatActivity {
                             // reproducir
                             // comprobar si es la primera vez que se da clic a play
                             if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
-                                andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+                                musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
                                 // reproducir la ultima cancion reproducida unicamente si se incia la app sin clickear alguna lista
-                                if (!andExoPlayerView.isPlaying()) {
+                                if (!musicPlayer.isPlaying()) {
                                     // comprobar que si haya una cancion guardada
                                     getLinkAndPlay(act_main.this, tinyDB.getString(TBlinkCancionSonando), 1);
                                     tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
@@ -730,7 +730,7 @@ public class act_main extends AppCompatActivity {
 
                         } else if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_pausa).getConstantState()) {
                             // pausar
-                            andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+                            musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
                         }
 
 
@@ -852,7 +852,7 @@ public class act_main extends AppCompatActivity {
         // cargar gif de fondo
         ivFondoGif = findViewById(R.id.iv_fondoGif);
         Glide.with(this)
-                .load("https://cdnb.artstation.com/p/assets/images/images/033/272/069/large/estevao-chromiec-chromi-5-act-2-1080p.jpg?1609011818")
+                .load("https://media3.giphy.com/media/HyOOyynWxMxig/giphy.gif?cid=ecf05e47amjm9t25j3phy9hwjtvetwx8np2ib83sp2zi9ash&rid=giphy.gif")
                 //   .error(R.drawable.ic_alert)
                 //.placeholder(R.drawable.placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade(200))
@@ -860,7 +860,7 @@ public class act_main extends AppCompatActivity {
 
         Glide.with(this)
                 .asBitmap()
-                .load("https://cdnb.artstation.com/p/assets/images/images/033/272/069/large/estevao-chromiec-chromi-5-act-2-1080p.jpg?1609011818")
+                .load("https://media3.giphy.com/media/HyOOyynWxMxig/giphy.gif?cid=ecf05e47amjm9t25j3phy9hwjtvetwx8np2ib83sp2zi9ash&rid=giphy.gif")
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

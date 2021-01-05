@@ -1,7 +1,6 @@
 package com.lamesa.lugu.otros;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -98,27 +97,22 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.andExoPlayerView;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
 import static com.lamesa.lugu.activity.act_main.contenidoHome;
 import static com.lamesa.lugu.activity.act_main.contenidoSearch;
 import static com.lamesa.lugu.activity.act_main.getListas;
 import static com.lamesa.lugu.activity.act_main.ivLikeDislike;
 import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
-import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.ivSleep;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
-import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
 import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
-import static com.lamesa.lugu.activity.act_main.spinBuffering;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvSleep;
-import static com.lamesa.lugu.activity.act_main.waveBlack;
-import static com.lamesa.lugu.activity.act_main.waveColor;
 import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
 import static com.lamesa.lugu.otros.Firebase.EnviarSugerencia;
 import static com.lamesa.lugu.otros.Firebase.ReportarEpisodio;
@@ -1257,7 +1251,7 @@ public class metodos {
                 @Override
                 public void onExtractionGoesWrong(final ExtractorException e) {
                     // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
-                    Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
                     setLogInfo(mContext,"getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong",e.getMessage(),true);
 
                     // al onExtractionGoesWrong, cargar otra cancion de la misma categoria seleccionanda por el usuario
@@ -1302,11 +1296,11 @@ public class metodos {
     }
     
     public static void ReproducirCancion(Context mContext,String linkCancion){
-        if(andExoPlayerView!=null) {
+        if(musicPlayer !=null) {
             setLogInfo(mContext,"ReproducirCancion","Inicia ExoPlayerView.setSource",false);
-            andExoPlayerView.setSource(linkCancion);
+            musicPlayer.setSource(linkCancion);
             // reproducir
-            andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+            musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
         }
 
     }
@@ -1558,7 +1552,7 @@ public class metodos {
                     tvSleep.setVisibility(GONE);
                 }
 
-                andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_STOP);
+                musicPlayer.PlayOrPause(MediaNotificationManager.STATE_STOP);
 
             }
 

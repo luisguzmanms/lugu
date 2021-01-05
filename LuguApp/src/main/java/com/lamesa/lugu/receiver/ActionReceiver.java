@@ -6,13 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.lamesa.lugu.R;
-import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
 
-import static android.view.View.VISIBLE;
-import static com.lamesa.lugu.activity.act_main.andExoPlayerView;
-import static com.lamesa.lugu.activity.act_main.ivPlayPause;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
@@ -63,17 +59,17 @@ public class ActionReceiver extends BroadcastReceiver {
 
 	@SuppressLint("UseCompatLoadingForDrawables")
 	private void ActionPause(Context mContext) {
-		andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+		musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
 	}
 
 	private void ActionPlay(Context mContext) {
-		andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+		musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
 	}
 
 	private void ActionStop() {
 		if(mediaNotificationManager!=null){
 			mediaNotificationManager.cancelNotify();
-			andExoPlayerView.PlayOrPause(MediaNotificationManager.STATE_STOP);
+			musicPlayer.PlayOrPause(MediaNotificationManager.STATE_STOP);
 		}
 	}
 

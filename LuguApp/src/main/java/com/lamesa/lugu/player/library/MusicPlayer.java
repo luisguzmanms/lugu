@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -60,7 +61,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static com.lamesa.lugu.activity.act_main.andExoPlayerView;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
@@ -86,7 +87,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 
 
-public class AndExoPlayerView extends LinearLayout implements View.OnClickListener {
+public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
     private Context mContext;
     private String currSource = "";
@@ -120,7 +121,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
     public class ComponentListener implements Player.EventListener {
 
-        String TAG = AndExoPlayerView.ComponentListener.class.getSimpleName();
+        String TAG = MusicPlayer.ComponentListener.class.getSimpleName();
 
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
@@ -275,7 +276,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             setLogInfo(mContext, "AndExoPlayerView.onPlayerError", error.getMessage(),true);
 
             // volver a reproducir
-            andExoPlayerView.setSource(source);
+            musicPlayer.setSource(source);
 
             if (exoPlayerCallBack != null)
                 exoPlayerCallBack.onError();
@@ -299,13 +300,13 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
     }
 
-    public AndExoPlayerView(Context context) {
+    public MusicPlayer(Context context) {
         super(context);
         this.mContext = context;
         initializeView(context);
     }
 
-    public AndExoPlayerView(Context context, @Nullable AttributeSet attrs) {
+    public MusicPlayer(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         typedArray = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -314,7 +315,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         initializeView(context);
     }
 
-    public AndExoPlayerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MusicPlayer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         typedArray = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -789,8 +790,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             case MediaNotificationManager.STATE_PLAY:
 
                 // reproducir
-                if(andExoPlayerView!=null) {
-                    andExoPlayerView.setPlayWhenReady(true);
+                if(musicPlayer !=null) {
+                    musicPlayer.setPlayWhenReady(true);
                 }
                 if(waveColor!=null && waveBlack!=null){
                     waveBlack.play();
@@ -828,8 +829,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             case MediaNotificationManager.STATE_PAUSE:
 
                 // pausar
-                if(andExoPlayerView!=null) {
-                    andExoPlayerView.pausePlayer();
+                if(musicPlayer !=null) {
+                    musicPlayer.pausePlayer();
                 }
 
                 if(waveColor!=null && waveBlack!=null){
@@ -916,8 +917,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     mediaNotificationManager.cancelNotify();
                 }
 
-                if(andExoPlayerView!=null){
-                    andExoPlayerView.pausePlayer();
+                if(musicPlayer !=null){
+                    musicPlayer.pausePlayer();
                 }
 
                 if(ivPlayPause!=null) {

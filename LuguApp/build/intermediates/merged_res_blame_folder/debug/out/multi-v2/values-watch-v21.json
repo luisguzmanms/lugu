@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\luis4\\GitHub\\lugu\\LuguApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v21\\values-watch-v21.xml",
+            "outputFile": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v21\\values-watch-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\luis4\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\values-watch-v21\\values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

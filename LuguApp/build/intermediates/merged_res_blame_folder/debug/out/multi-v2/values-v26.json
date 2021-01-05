@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\luis4\\GitHub\\lugu\\LuguApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v26\\values-v26.xml",
+            "outputFile": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v26\\values-v26.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\luis4\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",
@@ -15,7 +15,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\luis4\\.gradle\\caches\\transforms-2\\files-2.1\\75af2431fe4dd90a5be7dbdf5a6fd7a1\\jetified-firebase-ui-auth-5.1.0\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\52a0b2db48137f8708677845a065aa5d\\jetified-firebase-ui-auth-5.1.0\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,6,10,14",
                         "startColumns": "4,4,4,4",

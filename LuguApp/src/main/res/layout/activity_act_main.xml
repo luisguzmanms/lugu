@@ -91,8 +91,8 @@
             android:layout_marginBottom="0dp"
             android:orientation="vertical">
 
-            <com.lamesa.lugu.player.library.AndExoPlayerView
-                android:id="@+id/andExoPlayerView"
+            <com.lamesa.lugu.player.library.MusicPlayer
+                android:id="@+id/musicPlayer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:andexo_aspect_ratio="aspect_mp3"

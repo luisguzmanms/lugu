@@ -2308,6 +2308,7 @@ drawable gradient6
 drawable ic_aleatorio
 drawable ic_alert
 drawable ic_bucle
+drawable ic_delfin
 drawable ic_estrella
 drawable ic_favorite_black_24dp
 drawable ic_favorite_heart_button
@@ -2320,6 +2321,7 @@ drawable ic_launcher
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_lista
+drawable ic_lugu_silueta
 drawable ic_meda
 drawable ic_menu
 drawable ic_menu_vector
@@ -2628,7 +2630,6 @@ id adjust_width
 id alertTitle
 id all
 id always
-id andExoPlayerView
 id animacionCargando
 id animacionCargandoTop
 id anonymous_button
@@ -2926,6 +2927,7 @@ id mini
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
+id musicPlayer
 id name
 id name_layout
 id navigation_favoritos

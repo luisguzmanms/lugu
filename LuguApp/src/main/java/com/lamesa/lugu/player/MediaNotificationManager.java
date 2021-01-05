@@ -53,7 +53,7 @@ public class MediaNotificationManager {
 
 
     private final String PRIMARY_CHANNEL = "PRIMARY_ID";
-    private final String PRIMARY_CHANNEL_NAME = "LOFI RADIO";
+    private String PRIMARY_CHANNEL_NAME = "LOFI RADIO";
     public final int NOTIFICATION_ID = 25014;
 
 
@@ -77,6 +77,7 @@ public class MediaNotificationManager {
         this.resources = mContext.getResources();
 
         strAppName = resources.getString(R.string.app_name);
+        PRIMARY_CHANNEL_NAME = strAppName;
         notificationManager = NotificationManagerCompat.from(mContext);
         TinyDB tinyDB = new TinyDB(mContext);
 
@@ -180,8 +181,9 @@ public class MediaNotificationManager {
         builder.setContentInfo("content");
         builder.setContentIntent(pendingIntent);
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        builder.setSmallIcon(R.drawable.ic_wave);
+        builder.setSmallIcon(R.drawable.ic_delfin);
         builder.setSound(null);
+        builder.setOngoing(true);
         builder.setNotificationSilent();
         builder.addAction(icon, "play", actionPlayPause);
         builder.addAction(R.drawable.ic_favorite_black_24dp, "favorite", actionFavorito);

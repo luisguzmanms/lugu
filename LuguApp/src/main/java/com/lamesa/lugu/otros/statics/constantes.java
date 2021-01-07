@@ -28,16 +28,16 @@ public class constantes {
     public static String TBartistaCancionSonando = "TBartistaCancionSonando";
     public static String TBlinkCancionSonando = "TBlinkCancionSonando";
     public static String TBcategoriaCancionSonando = "TBcategoriaCancionSonando";
-    public static String TBimagenFondoCancionSonando = "TBimagenFondoCancionSonando";
+    public static String TBimagenFondo = "TBimagenFondo";
     public static String TBlistHistorial = "Historial";
     public static String TBlistFavoritos = "Favoritos";
     public static String TBnumeroCancionSonando = "TBnumeroCancionSonando";
-   public static String  TBmodelCancionSonando = "TBnumeroCancionSonando";
+    public static String TBmodelCancionSonando = "TBnumeroCancionSonando";
+    public static String TBlistImagenes  = "TBlistImagenes";
+    public static String TBpoliticas  = "TBpoliticas";
 
     public static boolean TBaboutPrimeraVez = true;
     public static String TBpase = "TBpase";
-
-
 
 
     public static String TBlistContenido = "TBlistContenido";
@@ -71,7 +71,7 @@ public class constantes {
     public static String mixReproductorClic = "ReproductorClic";
     public static String mixNotificacionClic = "NotificacionClic";
     public static String mixAdClic = "AdClic";
-
+   public static String mixPlaySong = "PlaySong";
 
 
     public static boolean NotiAbierta = false;

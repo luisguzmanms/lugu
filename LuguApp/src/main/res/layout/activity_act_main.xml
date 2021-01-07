@@ -133,8 +133,8 @@
                         android:id="@+id/iv_fondoGif"
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@color/learn_textColorGrey" />
+                        android:background="@color/fondo_blancoazul"
+                        android:scaleType="centerCrop"/>
 
                     <com.github.matteobattilana.weather.WeatherView
                         android:id="@+id/weather_view"
@@ -352,7 +352,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins_bold"
-                                android:text="Estilos"
+                                android:text="@string/estilos"
                                 android:textColor="@color/learn_gradient_grey_1"
                                 android:textSize="22dp" />
 
@@ -1211,7 +1211,7 @@
                 android:layout_marginBottom="0dp"
                 android:visibility="visible"
                 app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-3040756318290255/9276998023">
+                app:adUnitId="ca-app-pub-1553194436365145/3922025411">
 
             </com.google.android.gms.ads.AdView>
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_web_client_id" translatable="false">1096289172275-o6d3vsvhis570bvrfbbk7nh87kionnhm.apps.googleusercontent.com</string>
-    <string name="gcm_defaultSenderId" translatable="false">1096289172275</string>
-    <string name="google_api_key" translatable="false">AIzaSyBqi4jDi0lAbQ1EpihSEjW3MppKahlM_qA</string>
-    <string name="google_app_id" translatable="false">1:1096289172275:android:0524006b56e22e351adc46</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBqi4jDi0lAbQ1EpihSEjW3MppKahlM_qA</string>
-    <string name="google_storage_bucket" translatable="false">newlofi.appspot.com</string>
-    <string name="project_id" translatable="false">newlofi</string>
+    <string name="default_web_client_id" translatable="false">530796981061-m8q7qs1eqmduoskh0hloi3cs91e2puo6.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">530796981061</string>
+    <string name="google_api_key" translatable="false">AIzaSyCU_wMUVOduUBY3zJyBeaT6h8n3-VjUg40</string>
+    <string name="google_app_id" translatable="false">1:530796981061:android:131de3bfb42fa27f3aec2c</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCU_wMUVOduUBY3zJyBeaT6h8n3-VjUg40</string>
+    <string name="google_storage_bucket" translatable="false">lugulofi.appspot.com</string>
+    <string name="project_id" translatable="false">lugulofi</string>
 </resources>

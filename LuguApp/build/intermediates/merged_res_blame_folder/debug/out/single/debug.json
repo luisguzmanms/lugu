@@ -860,12 +860,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_volume_up_white.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\ic_volume_up_white.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_delfin.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_delfin.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_volume_up_white.png.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\ic_volume_up_white.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_rotate_first_reverse.xml.flat",

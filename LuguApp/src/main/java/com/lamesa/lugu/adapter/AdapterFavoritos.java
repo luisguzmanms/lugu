@@ -1,6 +1,7 @@
 package com.lamesa.lugu.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +12,22 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplitude.api.Amplitude;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.otros.statics.Animacion;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.ContenedorVacio;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
@@ -36,6 +43,8 @@ import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.mixFalloEpisodio;
+import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
 
 /**
  * Created by Aws on 28/01/2018.
@@ -97,6 +106,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
                 getLinkAndPlay(mContext, mListFavoritos.get(position).getLinkYT(),1);
 
 
+
                 //region guardar datos de la cancion sonando en TinyDB
                 tinyDB.putString(TBidCancionSonando, mListFavoritos.get(position).getId());
                 tinyDB.putString(TBnombreCancionSonando, mListFavoritos.get(position).getCancion());
@@ -105,6 +115,8 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
                 tinyDB.putString(TBlinkCancionSonando, mListFavoritos.get(position).getLinkYT());
                 tinyDB.putInt(TBnumeroCancionSonando, position);
                 //endregion
+
+
 
             }
         });
@@ -147,7 +159,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
 
 
         if (tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class)==null) {
-            tvVacio.setText("Sin favoritos.");
+            tvVacio.setText(R.string.sin_favoritos);
             ContenedorVacio.startAnimation(Animacion.exit_ios_anim(mContext));
             ContenedorVacio.setVisibility(VISIBLE);
             ContenedorVacio.startAnimation(Animacion.enter_ios_anim(mContext));

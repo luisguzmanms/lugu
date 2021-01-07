@@ -31,7 +31,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBdiaIngreso;
 public class App extends MultiDexApplication {
 
 
-    public static final String MIXPANEL_TOKEN = "94d4dd4fb8715086668edd97834a08ee";
+
 
     private static App instance;
 
@@ -57,31 +57,29 @@ public class App extends MultiDexApplication {
         super.onCreate();
 
         MobileAds.initialize(this,
-                "ca-app-pub-3040756318290255~8298479348");
+                "ca-app-pub-1553194436365145~2484820665");
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        Amplitude.getInstance().initialize(this, "37127656e47d666047e145f2c92ce8a4").enableForegroundTracking(this);
+
+
+
+        Amplitude.getInstance().initialize(this, "8461f9db2ddba9f48c66a867df909433").enableForegroundTracking(this);
         Amplitude.getInstance().enableLocationListening();
+
+
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        MobileAds.initialize(this,
-                "ca-app-pub-3040756318290255~8298479348");
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+
 
 // Initialize the library with your
 // Mixpanel project token, MIXPANEL_TOKEN, and a reference
 // to your application context.
-         mixpanel =
-                MixpanelAPI.getInstance(this, MIXPANEL_TOKEN);
+         mixpanel = MixpanelAPI.getInstance(this, "e96360802e958c55420b964f66ff0809");
 
 
 
@@ -94,11 +92,7 @@ public class App extends MultiDexApplication {
 
 
 
-
-
     }
-
-
 
     private void BorrarCache(Context mContext, TinyDB tinyDB){
         Calendar c = Calendar.getInstance();
@@ -147,7 +141,6 @@ public class App extends MultiDexApplication {
 
         }
     }
-
 
     public void CondiguracionDialogos() {
         DialogSettings.init();

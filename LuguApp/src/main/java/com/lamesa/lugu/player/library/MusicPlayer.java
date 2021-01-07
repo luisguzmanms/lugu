@@ -427,7 +427,6 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
     }
 
 
-
     public void setSource(String source, HashMap<String, String> extraHeaders) {
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);
         if (mediaSource != null) {
@@ -883,6 +882,8 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     mediaNotificationManager.startNotify(MediaNotificationManager.STATE_BUFFERING);
                 }
 
+
+                Toast.makeText(mContext, R.string.loading_song, Toast.LENGTH_SHORT).show();
                 break;
 
 

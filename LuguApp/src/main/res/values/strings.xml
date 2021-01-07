@@ -214,8 +214,53 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="zxz">zxz|</string>
-    <string name="catellano">Castellano</string>
-    <string name="latino">Latino</string>
-    <string name="subtitulado">Subtitulado</string>
+
+    <string name="iniciando_descarga">Initiating the download...</string>
+    <string name="intentando_denuevo">Trying it again...</string>
+    <string name="descargando">Downloading... %</string>
+    <string name="descarga_completa">Download successful.</string>
+    <string name="error_descarga">Error during the download process</string>
+    <string name="error_al_descragar">Download error, please try later.</string>
+    <string name="enviar">SEND</string>
+    <string name="cerrar">CLOSE</string>
+    <string name="elija_categoria">Select a style</string>
+    <string name="sin_cancion_reproduciendo">There is no playing song</string>
+    <string name="modo_aleatorio">Shuffle mode</string>
+    <string name="modo_bucle_on">Looping</string>
+    <string name="cargando">Loading...</string>
+    <string name="temporizador_apagado">SLEEP TIMER</string>
+    <string name="seleccione_tiempo">Select the time when the music will be turned off</string>
+    <string name="enviar_sugerencia">Send suggestions</string>
+    <string name="compartir_app">Share app</string>
+    <string name="aviso_legal">DMCA</string>
+    <string name="sin_recientes">Songs played</string>
+    <string name="sin_favoritos">Favorites</string>
+    <string name="estilos">Style</string>
+    <string name="enviar_sugenerencia">Send feedback</string>
+    <string name="msg_sugerencia">Here you can send any feedback you want \n\n This will help us implement improvements</string>
+    <string name="sugerencia">Feedback</string>
+    <string name="no_espacio_vacio">The text cannot be empty</string>
+    <string name="enviando_sugerencia">Sending feedback...</string>
+    <string name="sugerencia_enviada">Feedback succes.</string>
+    <string name="error_sugerencia">Error in sending the feedback.</string>
+    <string name="eliminado_favoritos">Song removed from favorites</string>
+    <string name="agrego_favoritos">Song added to favorites</string>
+    <string name="mas_info_descarga">For more information, download the app here:</string>
+    <string name="msg_shareapp">Relax with the best Lofi music</string>
+    <string name="apoyo_posible">*With your support it will be possible :,)*</string>
+    <string name="sobre_lugu">, is an application that seeks to make known the best lofi songs.. \\n\\n This app is still in development, the content is updated daily, but with the sending of suggestions will help to keep this application in development, the use of this app is totally free.</string>
+    <string name="accept_terms"><![CDATA[Accept Terms of Service & Privacy Policy?]]></string>
+    <string name="title_terms"><![CDATA[Terms of Service & Privacy Policy]]></string>
+    <string name="open_email">EMAIL</string>
+    <string name="act_disponible">"Update available! "</string>
+    <string name="act_obligatoria">(Mandatory update)</string>
+    <string name="necesaria_permiso">"(Storage and installation permit required from "</string>
+    <string name="nota_actualizar">Note: If the update is required and does NOT work, you can download the latest version from the website.</string>
+    <string name="acrualizar">UPDATE</string>
+    <string name="open_website">OPEN WEBSITE</string>
+    <string name="act_opcional">(Optional update)</string>
+    <string name="pausando">Pausing...</string>
+    <string name="reproduciendo">Playing...</string>
+    <string name="loading_song">Loading song...</string>
 
 </resources>

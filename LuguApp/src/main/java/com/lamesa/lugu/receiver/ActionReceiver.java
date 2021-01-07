@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.lamesa.lugu.R;
 import com.lamesa.lugu.player.MediaNotificationManager;
 
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
@@ -26,25 +27,23 @@ public class ActionReceiver extends BroadcastReceiver {
 		switch (action){
 			case MediaNotificationManager.ACTION_STOP:
 				ActionStop();
-				Toast.makeText(mContext, MediaNotificationManager.ACTION_STOP, Toast.LENGTH_SHORT).show();
-
 				break;
 
 			case MediaNotificationManager.ACTION_FAVORITE:
 				ActionFavorito(mContext);
-				Toast.makeText(mContext, MediaNotificationManager.ACTION_FAVORITE, Toast.LENGTH_SHORT).show();
+			//	Toast.makeText(mContext, MediaNotificationManager.ACTION_FAVORITE, Toast.LENGTH_SHORT).show();
+
 				break;
 
 			case MediaNotificationManager.ACTION_PLAY:
+				Toast.makeText(mContext, mContext.getResources().getString(R.string.reproduciendo) , Toast.LENGTH_SHORT).show();
 				ActionPlay(mContext);
-				Toast.makeText(mContext, MediaNotificationManager.ACTION_PLAY, Toast.LENGTH_SHORT).show();
 
 				break;
 
 			case MediaNotificationManager.ACTION_PAUSE:
+				Toast.makeText(mContext, mContext.getResources().getString(R.string.pausando), Toast.LENGTH_SHORT).show();
 				ActionPause(mContext);
-				Toast.makeText(mContext, MediaNotificationManager.ACTION_PAUSE, Toast.LENGTH_SHORT).show();
-
 				break;
 
 		}

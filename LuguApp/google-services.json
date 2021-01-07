@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1096289172275",
-    "project_id": "newlofi",
-    "storage_bucket": "newlofi.appspot.com"
+    "project_number": "530796981061",
+    "project_id": "lugulofi",
+    "storage_bucket": "lugulofi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1096289172275:android:0524006b56e22e351adc46",
+        "mobilesdk_app_id": "1:530796981061:android:131de3bfb42fa27f3aec2c",
         "android_client_info": {
-          "package_name": "com.newlofi.lofi"
+          "package_name": "com.lugumusic.lofi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1096289172275-o6d3vsvhis570bvrfbbk7nh87kionnhm.apps.googleusercontent.com",
+          "client_id": "530796981061-m8q7qs1eqmduoskh0hloi3cs91e2puo6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBqi4jDi0lAbQ1EpihSEjW3MppKahlM_qA"
+          "current_key": "AIzaSyCU_wMUVOduUBY3zJyBeaT6h8n3-VjUg40"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1096289172275-o6d3vsvhis570bvrfbbk7nh87kionnhm.apps.googleusercontent.com",
+              "client_id": "530796981061-m8q7qs1eqmduoskh0hloi3cs91e2puo6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

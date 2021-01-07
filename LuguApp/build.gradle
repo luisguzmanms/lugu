@@ -12,7 +12,7 @@ android {
     //applicationId "com.pelisplus.verseries"
 
     defaultConfig {
-        applicationId "com.newlofi.lofi"
+        applicationId "com.lugumusic.lofi"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -209,6 +209,9 @@ dependencies {
 
     // https://github.com/MatteoBattilana/WeatherView
     implementation 'com.github.MatteoBattilana:WeatherView:3.0.0'
+
+    // https://github.com/khirr/Android-Privacy-Policy
+    implementation 'com.github.khirr:Android-Privacy-Policy:1.0.1'
 
 }
 

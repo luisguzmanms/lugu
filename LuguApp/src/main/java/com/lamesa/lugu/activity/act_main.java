@@ -1,8 +1,8 @@
 package com.lamesa.lugu.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -43,19 +43,13 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
-import com.kongzue.dialog.interfaces.OnInputDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.util.TextInfo;
 import com.kongzue.dialog.v3.BottomMenu;
-import com.kongzue.dialog.v3.InputDialog;
 import com.kongzue.dialog.v3.MessageDialog;
-import com.kongzue.dialog.v3.TipDialog;
-import com.lamesa.lugu.BuildConfig;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.adapter.AdapterCategoria;
 import com.lamesa.lugu.adapter.AdapterFavoritos;
@@ -68,6 +62,8 @@ import com.lamesa.lugu.player.MediaNotificationManager;
 import com.lamesa.lugu.player.library.MusicPlayer;
 import com.narayanacharya.waveview.WaveView;
 
+import net.khirr.android.privacypolicy.PrivacyPolicyDialog;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -79,10 +75,11 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.splash.DialogoPoliticas;
+import static com.lamesa.lugu.otros.Firebase.getListaImagenes;
 import static com.lamesa.lugu.otros.metodos.AboutUS;
 import static com.lamesa.lugu.otros.metodos.AbrirPagina;
 import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
-import static com.lamesa.lugu.otros.metodos.CargarInterAd;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.CompartirApp;
 import static com.lamesa.lugu.otros.metodos.DialogoSalir;
@@ -95,14 +92,18 @@ import static com.lamesa.lugu.otros.metodos.UpdateAdapterFavoritos;
 import static com.lamesa.lugu.otros.metodos.UpdateAdapterHistorial;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.initFirebase;
+import static com.lamesa.lugu.otros.mob.inter.loadInterstitial;
+import static com.lamesa.lugu.otros.mob.inter.showInterstitial;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
 import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBreproduciendoRadio;
@@ -170,9 +171,11 @@ public class act_main extends AppCompatActivity {
         // reproductor exoplayer
         musicPlayer = findViewById(R.id.musicPlayer);
 
-        SolicitarPermisos(this);
+        // SolicitarPermisos(this);
 
         tinyDB = new TinyDB(this);
+        // imagen por defecto de fondo
+        tinyDB.putString(TBimagenFondo,"https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
 
         initFirebase(act_main.this, tinyDB);
 
@@ -183,9 +186,14 @@ public class act_main extends AppCompatActivity {
         // Traer todas las listas desde Firebase
         new CargarListas().execute();
 
-        // CargarAdMain();  // solo en releaseeeeeeeeeeeeeeeeeeeeeeeeeee
-
         CheckIsFavorite(act_main.this, tinyDB.getString(TBidCancionSonando));
+
+        // cargar adinter para ser mostrada
+        loadInterstitial(act_main.this);
+        // cargar banner
+        CargarBanner();
+
+        // Initialice your dialog, first param is your terms of service url, and second param is your privacy policy url
 
     }
 
@@ -205,35 +213,7 @@ public class act_main extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void SolicitarPermisos(Context mContext) {
-
-        PermissionListener permissionlistener = new PermissionListener() {
-
-
-            @Override
-            public void onPermissionGranted() {
-
-                //   TipDialog.show((AppCompatActivity) mContext, "Permisos concedidos.", TipDialog.TYPE.SUCCESS).setTipTime(60000).setCancelable(true);
-            }
-
-
-            //endregion
-
-
-            @Override
-            public void onPermissionDenied(List<String> deniedPermissions) {
-                TipDialog.show((AppCompatActivity) mContext, "Si no habilita los permisos de almacenamiento no se podra descargar nuevas actualizaciones, ni usar cache para la carga de videos mas rapida", TipDialog.TYPE.WARNING).setTipTime(60000).setCancelable(true);
-            }
-
-
-        };
-        TedPermission.with(mContext)
-                .setPermissionListener(permissionlistener).setDeniedMessage("Si no habilita los permisos de almacenamiento no se podra descargar nuevas actualizaciones, ni usar cache para la carga de videos mas rapida\n\nPuede tambien hacerlo manualmente en [Setting] > [Permission]")
-                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).
-                check();
-    }
-
-    private void CargarAdMain() {
+    private void CargarBanner() {
 
         //   new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("830648A2D5D5AF09D0FAED08D38E2353"));
         AdView mAdView = findViewById(R.id.adViewMain);
@@ -246,23 +226,19 @@ public class act_main extends AppCompatActivity {
             @Override
             public void onAdLoaded() {
                 // TODO Auto-generated method stub
-
-
                 super.onAdLoaded();
             }
 
             @Override
             public void onAdClosed() {
                 // TODO Auto-generated method stub
-
                 super.onAdClosed();
-
             }
 
             @Override
             public void onAdOpened() {
                 // TODO Auto-generated method stub
-                //region MIX mixEpisodioClic para estadisticas
+                //region MIX mixAdClic para estadisticas
                 JSONObject props = new JSONObject();
                 try {
                     props.put("TipoAd", "Banner");
@@ -300,32 +276,6 @@ public class act_main extends AppCompatActivity {
 
         });
 
-
-        String idAd = "ca-app-pub-3040756318290255/2989304154";
-
-        if (BuildConfig.APPLICATION_ID.toLowerCase().contains("mesa")) {
-            idAd = "ca-app-pub-3040756318290255/3714825369";
-        }
-
-
-        CargarInterAd(act_main.this, idAd, 10);
-
-
-        Random numRandom2 = new Random();
-        int numPosibilidad2 = numRandom2.nextInt(30);
-
-
-        if (numPosibilidad2 == 20) {
-            DialogSettings.theme = DialogSettings.THEME.DARK;
-            DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
-            MessageDialog.show(act_main.this, "INFORMACIÓN", "Recuerda, si una pelicula o serie no funciona por algún motivo reportalo con la respectiva razón. \n\n*Los videos no se almacenan con nuestros datos ni tenemos control de ellos, por lo tanto solucionar esta clase de inconvenientes es unicamente posible con los reportes* \n\nGracias por tú colaboración, sigue disfrutando del contenido. :)", "VALE").setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN)).setButtonOrientation(LinearLayout.VERTICAL).setOnOtherButtonClickListener(new OnDialogButtonClickListener() {
-                @Override
-                public boolean onClick(BaseDialog baseDialog, View v) {
-                    Toast.makeText(act_main.this, "¡Gracias!", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            });
-        }
 
     }
 
@@ -372,8 +322,6 @@ public class act_main extends AppCompatActivity {
         mrvFavoritos.setAdapter(mAdapterFavoritos);
 
         //endregion
-
-
 
         /*
         //region LISTA CONTENIDO
@@ -619,11 +567,11 @@ public class act_main extends AppCompatActivity {
 
 
                         List<String> opcionMenu = new ArrayList<>();
-                        opcionMenu.add("Solicitar pelicula/serie");
-                        opcionMenu.add("Enviar sugerencia");
-                        opcionMenu.add("Compartir aplicación");
-                        opcionMenu.add("Sobre "+act_main.this.getResources().getString(R.string.app_name));
-                        opcionMenu.add("AVISO LEGAL - DMCA");
+
+                        opcionMenu.add(getString(R.string.enviar_sugerencia));
+                        opcionMenu.add(getString(R.string.compartir_app));
+                        opcionMenu.add("About "+act_main.this.getResources().getString(R.string.app_name));
+                        opcionMenu.add(getString(R.string.aviso_legal));
 
 
                         DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
@@ -643,34 +591,27 @@ public class act_main extends AppCompatActivity {
 
                                     case 0:
 
-                                        SolicitarFilm(act_main.this);
-                                        musicPlayer.setPlayWhenReady(true);
+                                        DialogoSugerencia(act_main.this);
 
                                         break;
 
                                     case 1:
 
-                                        DialogoSugerencia(act_main.this);
-                                        musicPlayer.pausePlayer();
+                                        CompartirApp(act_main.this);
 
                                         break;
 
+
                                     case 2:
-                                        CompartirApp(act_main.this);
+
+                                        AboutUS(act_main.this, tinyDB, false);
+
                                         break;
 
                                     case 3:
 
-
-                                        AboutUS(act_main.this, tinyDB, false);
-
-
-                                        break;
-
-                                    case 4:
-
-                                        DialogSettings.theme = DialogSettings.THEME.DARK;
                                         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+                                        DialogSettings.theme = DialogSettings.THEME.DARK;
                                         DialogSettings.backgroundColor = getResources().getColor(R.color.black);
 
                                         MessageDialog.show(act_main.this, "DMCA", "" +
@@ -679,13 +620,22 @@ public class act_main extends AppCompatActivity {
                                                 "\n" +
                                                 "We are not associated with the list of contents found on remote servers. We have no connection or association with such content.\n" +
                                                 "The mp3, jpg, png files that are available are not hosted on ("+act_main.this.getResources().getString(R.string.app_name)+") app and are hosted on other servers (therefore, not our host service).\n" +
-                                                "This app ("+act_main.this.getResources().getString(R.string.app_name)+") functions as a lofi music search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to appbuho@gmail.com\n" +
+                                                "This app ("+act_main.this.getResources().getString(R.string.app_name)+") functions as a lofi music search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to lugulofimusic@gmail.com\n" +
                                                 "In fact, we adhere to the rights of producers and artists. We assure you that your work will be safe and legal, which will result in a positive experience for each of you, whether you are a creator or a musical artist. Please note that if any person knowingly or intentionally misrepresents any material or activity listed in Section 512(f), it would be considered a violation of copyright law. Then, if you are doing so, you are liable for your own harm. But keep one thing in mind: Don’t make any false claims about the infringed content!\n" +
                                                 "\n" +
                                                 "The complete information contained in the legal notice may also be sent to the interested party providing the content that is being infringed.", "SI", "CANCELAR")
-                                                .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
+                                                .setOkButton(getString(R.string.open_email)).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                                                     @Override
                                                     public boolean onClick(BaseDialog baseDialog, View v) {
+
+                                                        Intent intent = new Intent(Intent.ACTION_SEND);
+                                                        intent.setType("message/rfc822");
+                                                        intent.putExtra(Intent.EXTRA_EMAIL, "lugulofimusic@gmail.com");
+                                                        intent.putExtra(Intent.EXTRA_SUBJECT, "DMCA");
+                                                        intent.putExtra(Intent.EXTRA_STREAM, "");
+                                                        if (intent.resolveActivity(getPackageManager()) != null) {
+                                                            startActivity(intent);
+                                                        }
 
                                                         return false;
                                                     }
@@ -699,10 +649,11 @@ public class act_main extends AppCompatActivity {
 
 
                                         break;
+
                                 }
 
                             }
-                        }).setCancelButtonText("CERRAR").setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("MENU");
+                        }).setCancelButtonText(act_main.this.getResources().getString(R.string.cerrar)).setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("MENU");
 
 
                         break;
@@ -725,7 +676,7 @@ public class act_main extends AppCompatActivity {
                                 }
                             } else {
                                 // primera ves que se da clic a play
-                                Toast.makeText(act_main.this, "Elija una categoria", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(act_main.this, R.string.elija_categoria, Toast.LENGTH_SHORT).show();
                             }
 
                         } else if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_pausa).getConstantState()) {
@@ -755,7 +706,7 @@ public class act_main extends AppCompatActivity {
                             }
                         } else {
                             // primera ves que se da clic a favorito
-                            Toast.makeText(act_main.this, "No hay ninguna canción reproduciendoce", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(act_main.this, R.string.sin_cancion_reproduciendo, Toast.LENGTH_SHORT).show();
                         }
 
                         break;
@@ -765,6 +716,76 @@ public class act_main extends AppCompatActivity {
 
                         // comprobar si es la primera vez que se da clic a favorito
 
+                        showInterstitial(act_main.this);
+
+                      //  video.createAndLoadRewardedAd(act_main.this);
+
+                        /* si el anuncio de video cargó, mostrar :
+                        if (rewardedAd!=null && rewardedAd.isLoaded()) {
+                            Activity activityContext = act_main.this;
+                            RewardedAdCallback adCallback = new RewardedAdCallback() {
+                                @Override
+                                public void onRewardedAdOpened() {
+                                    // Ad opened.
+                                }
+
+                                @Override
+                                public void onRewardedAdClosed() {
+                                    // Ad closed.
+                                    video.onRewardedAdClosed(act_main.this);
+                                }
+
+                                @Override
+                                public void onUserEarnedReward(@NonNull RewardItem reward) {
+                                    // User earned reward.
+                                    if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_off).getConstantState()) {
+                                        // Iniciar dialogo de temporizador
+                                        DialogoTemporizador(act_main.this);
+
+                                    } else if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_on).getConstantState()) {
+                                        // apagar temporizador antes de iniciar uno nuevo
+                                        ApagarAutoApagado(act_main.this);
+                                        DialogoTemporizador(act_main.this);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onRewardedAdFailedToShow(AdError adError) {
+                                    // Ad failed to display.
+                                    video.onRewardedAdClosed(act_main.this);
+                                    if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_off).getConstantState()) {
+                                        // Iniciar dialogo de temporizador
+                                        DialogoTemporizador(act_main.this);
+
+                                    } else if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_on).getConstantState()) {
+                                        // apagar temporizador antes de iniciar uno nuevo
+                                        ApagarAutoApagado(act_main.this);
+                                        DialogoTemporizador(act_main.this);
+
+                                    }
+
+                                }
+                            };
+                            rewardedAd.show(activityContext, adCallback);
+                        } else {
+                            Toast.makeText(act_main.this, "The rewarded ad wasn't loaded yet.", Toast.LENGTH_SHORT).show();
+                            Log.d("TAG", "The rewarded ad wasn't loaded yet.");
+                            if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_off).getConstantState()) {
+                                // Iniciar dialogo de temporizador
+                                DialogoTemporizador(act_main.this);
+
+                            } else if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_on).getConstantState()) {
+                                // apagar temporizador antes de iniciar uno nuevo
+                                ApagarAutoApagado(act_main.this);
+                                DialogoTemporizador(act_main.this);
+
+                            }
+
+                        }
+
+                         */
+
                         if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_off).getConstantState()) {
                             // Iniciar dialogo de temporizador
                             DialogoTemporizador(act_main.this);
@@ -773,7 +794,6 @@ public class act_main extends AppCompatActivity {
                             // apagar temporizador antes de iniciar uno nuevo
                             ApagarAutoApagado(act_main.this);
                             DialogoTemporizador(act_main.this);
-
                         }
 
 
@@ -787,20 +807,18 @@ public class act_main extends AppCompatActivity {
                         if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_bucle).getConstantState()) {
                             // activar modo aleatorio
                             OpcionReproductor(act_main.this, REPRODUCTOR_ALEATORIO);
-                            Toast.makeText(act_main.this, "Modo Aleatorio activado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(act_main.this, R.string.modo_aleatorio, Toast.LENGTH_SHORT).show();
 
                         } else if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_aleatorio).getConstantState()) {
                             // activar modo bucle
                             OpcionReproductor(act_main.this, REPRODUCTOR_BUCLE);
-                            Toast.makeText(act_main.this, "Modo Bucle activado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(act_main.this, R.string.modo_bucle_on, Toast.LENGTH_SHORT).show();
 
                         }
-
 
                         break;
 
                 }
-
 
             }
         };
@@ -819,74 +837,62 @@ public class act_main extends AppCompatActivity {
         ivSleep.setOnClickListener(listener);
         ivOpcionBucle.setOnClickListener(listener);
 
-        ivLogo.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
 
-                DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
-                DialogSettings.theme = DialogSettings.THEME.DARK;
-
-                InputDialog.show(act_main.this, "¿Que te ha parecido PelisPlsHD?", "Cuentanos que te ha gustado de esta aplicaciòn, sientase libre de opinar", "ENVIAR", "CERRAR")
-                        .setCancelable(false)
-                        .setOnOkButtonClickListener(new OnInputDialogButtonClickListener() {
-                            @Override
-                            public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
-                                // Toast.makeText(act_main.this, "ok", Toast.LENGTH_SHORT).show();
-                                //  if(inputStr.contains(""))
-                                return false;
-                            }
-                        }).setOnOtherButtonClickListener(new OnInputDialogButtonClickListener() {
-                    @Override
-                    public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
-
-                        return false;
-                    }
-                });
-
-                return false;
-            }
-
-        });
 
 
         // cargar gif de fondo
         ivFondoGif = findViewById(R.id.iv_fondoGif);
+        // traer link de imagen
+        CargarImagenFondo();
+        // cargar imagen en fondo
         Glide.with(this)
-                .load("https://media3.giphy.com/media/HyOOyynWxMxig/giphy.gif?cid=ecf05e47amjm9t25j3phy9hwjtvetwx8np2ib83sp2zi9ash&rid=giphy.gif")
-                //   .error(R.drawable.ic_alert)
-                //.placeholder(R.drawable.placeholder)
-                .transition(DrawableTransitionOptions.withCrossFade(200))
-                .into(ivFondoGif);
+                    .load(tinyDB.getString(TBimagenFondo))
+                    //.error(R.drawable.ic_alert)
+                    .transition(DrawableTransitionOptions.withCrossFade(200))
+                    .into(ivFondoGif);
+            // extraer colores de imagenes
+            Glide.with(this)
+                    .asBitmap()
+                    .load(tinyDB.getString(TBimagenFondo))
+                    .into(new CustomTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
 
-        Glide.with(this)
-                .asBitmap()
-                .load("https://media3.giphy.com/media/HyOOyynWxMxig/giphy.gif?cid=ecf05e47amjm9t25j3phy9hwjtvetwx8np2ib83sp2zi9ash&rid=giphy.gif")
-                .into(new CustomTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
+                            // TODO Do some work: pass this bitmap
 
-                        // TODO Do some work: pass this bitmap
+                            //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
 
-                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
+                            Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
+                                public void onGenerated(Palette palette) {
+                                    // Do something with colors...
+                                    waveColor.setWaveColor(palette.getLightMutedColor(Color.WHITE));
+                                    tvCancion.setTextColor(palette.getMutedColor(Color.WHITE));
+                                    tvArtista.setTextColor(palette.getDarkVibrantColor(Color.WHITE));
+                                }
+                            });
+                        }
 
-                        Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
-                            public void onGenerated(Palette palette) {
-                                // Do something with colors...
-                                waveColor.setWaveColor(palette.getLightMutedColor(Color.WHITE));
-                                tvCancion.setTextColor(palette.getMutedColor(Color.WHITE));
-                                tvArtista.setTextColor(palette.getDarkVibrantColor(Color.WHITE));
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-                        // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
-                    }
-                });
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                            // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
+                        }
+                    });
 
 
+    }
+
+    private void CargarImagenFondo() {
+
+
+        // cargar una imagen random
+        if(!tinyDB.getListString(TBlistImagenes).isEmpty() && tinyDB.getListString(TBlistImagenes)!=null) {
+            Random random = new Random();
+            // obtener link alaeatorio
+            int numRandom = random.nextInt(tinyDB.getListString(TBlistImagenes).size());
+            // guardar link de imagen en tiny
+            tinyDB.putString(TBimagenFondo,tinyDB.getListString(TBlistImagenes).get(numRandom));
+        }
     }
 
     private class CargarListas extends AsyncTask<Void, Integer, String> {
@@ -895,7 +901,7 @@ public class act_main extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d(TAG + " PreExceute", "On pre Exceute......");
-            Toast.makeText(act_main.this, "Cargando...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(act_main.this, R.string.cargando, Toast.LENGTH_SHORT).show();
 
         }
 
@@ -950,6 +956,7 @@ public class act_main extends AppCompatActivity {
         Firebase.getListaCanciones(mContext, mlistCategoria, mlistCancion, tinyDB);
         Firebase.getListaCategorias(mContext, mlistCategoria, mAdapterCategoria);
         Firebase.getListaPorCategoria(mContext, mlistCategoria, mlistCancion, tinyDB);
+        getListaImagenes(tinyDB);
     }
 
 

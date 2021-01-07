@@ -1,6 +1,7 @@
 package com.lamesa.lugu.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,22 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplitude.api.Amplitude;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.otros.statics.Animacion;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.ContenedorVacio;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
@@ -36,6 +43,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
 
 /**
  * Created by Aws on 28/01/2018.
@@ -105,8 +113,8 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         holder.cdCancionHistorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getLinkAndPlay(mContext,mListHistorial.get(position).getLinkYT(),1);
 
+                getLinkAndPlay(mContext,mListHistorial.get(position).getLinkYT(),1);
 
                 // guardar datos de la cancion sonando en TinyDB
                 tinyDB.putString(TBidCancionSonando, mListHistorial.get(position).getId());
@@ -114,6 +122,8 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                 tinyDB.putString(TBartistaCancionSonando, mListHistorial.get(position).getArtista());
                 tinyDB.putString(TBcategoriaCancionSonando, TBlistHistorial);
                 tinyDB.putString(TBlinkCancionSonando, mListHistorial.get(position).getLinkYT());
+
+
 
             }
         });
@@ -200,7 +210,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
          //   Toast.makeText(mContext, "lista vacia", Toast.LENGTH_SHORT).show();
             mrvHistorial.setVisibility(GONE);
             ContenedorVacio.setVisibility(VISIBLE);
-            tvVacio.setText("Sin recientes.");
+            tvVacio.setText(R.string.sin_recientes);
             ContenedorVacio.startAnimation(Animacion.exit_ios_anim(mContext));
             ContenedorVacio.setVisibility(VISIBLE);
             ContenedorVacio.startAnimation(Animacion.enter_ios_anim(mContext));

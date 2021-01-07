@@ -18,6 +18,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.kongzue.dialog.v3.TipDialog;
 import com.kongzue.dialog.v3.WaitDialog;
+import com.lamesa.lugu.R;
 import com.lamesa.lugu.adapter.AdapterCategoria;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
@@ -35,6 +36,7 @@ import java.util.Random;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.otros.metodos.EliminarDuplicadosModelCancion;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
 import static com.lamesa.lugu.otros.statics.constantes.mixFalloEpisodio;
 import static com.lamesa.lugu.otros.statics.constantes.mixReporteFilm;
 
@@ -88,7 +90,7 @@ public class Firebase extends AppCompatActivity {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
-        WaitDialog.show((AppCompatActivity) mContext, "Enviando sugerencia...").setCancelable(true);
+        WaitDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.enviando_sugerencia)).setCancelable(true);
 
 
         DateFormat df2 = new SimpleDateFormat("MM-yyyy--HH-mm-ss");
@@ -106,14 +108,14 @@ public class Firebase extends AppCompatActivity {
                 dataSnapshot.getRef().child(nombreRandom).child("mensaje").setValue(mensaje);
 
                 WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
+                TipDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.sugerencia_enviada), TipDialog.TYPE.SUCCESS);
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Error al enviar la sugerencia.", TipDialog.TYPE.ERROR);
+                TipDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.error_sugerencia), TipDialog.TYPE.ERROR);
 
             }
         });
@@ -273,14 +275,6 @@ public class Firebase extends AppCompatActivity {
     }
 
 
-    public static boolean LoginDeUsuario() {
-        // NECESARIO PARA COMPROBAR EL INICIO DE SESION DE UN USUARIO
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        return user != null;
-    }
-
     //endregion
 
     public static void getListaCategorias(Context mContext, List<ModelCategoria> mlistCategoria, AdapterCategoria mAdapterCategoria) {
@@ -396,6 +390,45 @@ public class Firebase extends AppCompatActivity {
                 }
             }
         }
+
+
+    }
+
+    // traer imagenes gif
+    public static void getListaImagenes(TinyDB tinyDB) {
+
+
+        ArrayList<String> mlistImagenes = tinyDB.getListString(TBlistImagenes);
+
+        Query database = FirebaseDatabase.getInstance().getReference().child("data").child("imagen");
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mlistImagenes.removeAll(mlistImagenes);
+
+                for (DataSnapshot snapshot :
+                        dataSnapshot.getChildren()) {
+
+                    if (snapshot.exists()) {
+
+                        String linkImagen = snapshot.getValue().toString();
+                        mlistImagenes.add(linkImagen);
+                        System.out.println("linkImagen: " + linkImagen);
+
+                    }
+                }
+
+                tinyDB.putListString(TBlistImagenes,mlistImagenes);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
 
 
     }

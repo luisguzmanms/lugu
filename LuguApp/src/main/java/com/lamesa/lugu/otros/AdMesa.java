@@ -33,7 +33,7 @@ public class AdMesa {
             @Override
             public void onAdLoaded() {
                 // TODO Auto-generated method stub
-                showInterstitial();
+
             }
 
             @Override
@@ -88,24 +88,11 @@ public class AdMesa {
 
         });
 
-        loadInterstitial();
-
-    }
-
-    public static void loadInterstitial() {
-
-        mInterstitial.loadAd(new AdRequest.Builder().
-                addTestDevice("830648A2D5D5AF09D0FAED08D38E2353").//ca-app-pub-3940256099942544/1033173712
-                build());
 
     }
 
 
-    public static void showInterstitial() {
-        if (mInterstitial.isLoaded()) {
-            mInterstitial.show();
-        }
-    }
+
 
 
 

@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -97,7 +96,6 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
 import static com.lamesa.lugu.activity.act_main.contenidoHome;
 import static com.lamesa.lugu.activity.act_main.contenidoSearch;
@@ -107,16 +105,16 @@ import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
 import static com.lamesa.lugu.activity.act_main.ivSleep;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
-
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
 import static com.lamesa.lugu.activity.act_main.mrvHistorial;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvSleep;
 import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
 import static com.lamesa.lugu.otros.Firebase.EnviarSugerencia;
-import static com.lamesa.lugu.otros.Firebase.ReportarEpisodio;
 import static com.lamesa.lugu.otros.Firebase.ReportarFilm;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
@@ -131,6 +129,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.mixActualizarApp;
 import static com.lamesa.lugu.otros.statics.constantes.mixCompartirApp;
+import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
 import static com.lamesa.lugu.otros.statics.constantes.setDebugActivo;
 
 
@@ -157,7 +156,7 @@ public class metodos {
 
         try {
 
-            DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("otros");
+            DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("otro");
             mref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -178,35 +177,18 @@ public class metodos {
                             String mensaje = dataSnapshot.child("actualizacion").child("mensaje").getValue().toString();
 
 
-                            //si es version la mesa,, remplazar los valores
-                            if (BuildConfig.APPLICATION_ID.toLowerCase().contains("mesa")) {
-                                versionNueva = Integer.parseInt(dataSnapshot.child("actualizacion").child("app-lamesa").child("version").getValue().toString());
-                                estado = dataSnapshot.child("actualizacion").child("app-lamesa").child("estado").getValue(Boolean.class);
-                                urlDescarga = dataSnapshot.child("actualizacion").child("app-lamesa").child("urlDescarga").getValue(String.class);
-                                cancelable = dataSnapshot.child("actualizacion").child("app-lamesa").child("cancelable").getValue(Boolean.class);
-                                mensaje = dataSnapshot.child("actualizacion").child("app-lamesa").child("mensaje").getValue().toString();
-                            }
-
-
                             int versionActual = BuildConfig.VERSION_CODE;
 
                             if (estado == true && versionNueva > versionActual) {
 
                                 try {
-
-
                                     if (mContext != null) {
-                                        setDebug("metodos", "initFirebase", "d", "Mostrando dialogo de actualización...", setDebugActivo);
-
-
+                                        setLogInfo(mContext,"initFirebase","Abriendo dialogo para actualizar",false);
                                         DialogoActualizar(mContext, versionNueva, mensaje, urlDescarga, cancelable);
-
-
                                     }
                                 } catch (Resources.NotFoundException e) {
                                     e.printStackTrace();
                                 }
-
 
                             } else {
                                     /*
@@ -214,9 +196,7 @@ public class metodos {
                                     if (archivoUpdate.exists()){
                                         archivoUpdate.delete();
                                     }
-
                                      */
-
                             }
 
 
@@ -305,23 +285,22 @@ public class metodos {
     }
 
     public static void DialogoActualizar(Context mContext, int version, String mensaje, String urlDescarga, boolean cancelable) {
-        setDebug("metodos", "DialogoActualizar", "d", "Mostrando DialogoActualizar...", setDebugActivo);
+        setLogInfo(mContext,"DialogoActualizar", "Mostrando DialogoActualizar...", false);
 
-
-        String obligatorio = "Actualización obligatoria";
-        String titulo = "¡Actualización disponible! \nversión " + version;
+        String obligatorio = mContext.getString(R.string.act_obligatoria);;
+        String titulo = mContext.getString(R.string.act_disponible)+"\nversion : " + version;
         if (cancelable) {
-            obligatorio = "(Actualización opcional)";
+            obligatorio = mContext.getString(R.string.act_opcional);
         } else {
-            obligatorio = "(Actualización obligatoria)";
+            obligatorio = mContext.getString(R.string.act_obligatoria);
         }
 
         titulo = titulo + "\n" + obligatorio;
-        mensaje = mensaje + "\n(Es necesario el permiso de almacenamiento y de instalación desde " + mContext.getResources().getString(R.string.app_name) + ")"+"\n Nota: Si la actualización es obligatoria y NO funciona, puede descargar la ultima versión desde la pagina web.";
+        mensaje = mensaje + "\n"+mContext.getString(R.string.necesaria_permiso) + mContext.getResources().getString(R.string.app_name) + ")"+"\n+"+mContext.getString(R.string.nota_actualizar);
 
         DialogSettings.theme = DialogSettings.THEME.DARK;
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
-        MessageDialog.show((AppCompatActivity) mContext, titulo, mensaje, "ACTUALIZAR").setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN)).setButtonOrientation(LinearLayout.VERTICAL).setOtherButton("VISITAR PAGINA").setOnOtherButtonClickListener(new OnDialogButtonClickListener() {
+        MessageDialog.show((AppCompatActivity) mContext, titulo, mensaje, mContext.getString(R.string.acrualizar)).setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN)).setButtonOrientation(LinearLayout.VERTICAL).setOtherButton(mContext.getString(R.string.open_website)).setOnOtherButtonClickListener(new OnDialogButtonClickListener() {
             @Override
             public boolean onClick(BaseDialog baseDialog, View v) {
                 //    Toast.makeText(mContext, "sdasdasdd", Toast.LENGTH_SHORT).show();
@@ -340,11 +319,109 @@ public class metodos {
 
         if (urlDescarga.contains("http") || urlDescarga.contains("https")) {
 
+            //region DESCARGAR ARCHIVO
+
+            OkHttpClient client = new OkHttpClient.Builder().build();
+            DownloadManager manager = new DownloadManager.Builder().context(mContext)
+                    .downloader(OkHttpDownloader.create(client))
+                    .threadPoolSize(3)
+                    .logger(new Logger() {
+                        @Override
+                        public void log(String message) {
+                            Log.d("TAG", message);
+                        }
+                    })
+                    .build();
+
+
+             String destinoUpdate = mContext.getFilesDir()+ "/update.apk";
+
+           // String destinoUpdate = mContext.getCacheDir() + "/update.apk";
+            setLogInfo(mContext,"DescargarActualizacion","destinoUpdate: "+destinoUpdate,false);
+        //    Toast.makeText(mContext, destinoUpdate, Toast.LENGTH_SHORT).show();
+
+            DownloadRequest request =
+                    new DownloadRequest.Builder()
+                            .url(urlDescarga)
+                            .retryTime(5)
+                            .retryInterval(2, TimeUnit.SECONDS)
+                            .progressInterval(1, TimeUnit.SECONDS)
+                            .priority(Priority.HIGH)
+                            .allowedNetworkTypes(DownloadRequest.NETWORK_WIFI)
+                            .allowedNetworkTypes(DownloadRequest.NETWORK_MOBILE)
+                            .destinationFilePath(destinoUpdate)
+                            .downloadCallback(new DownloadCallback() {
+                                @Override
+                                public void onStart(int downloadId, long totalBytes) {
+                                    WaitDialog.dismiss();
+                                    WaitDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.iniciando_descarga));
+                                }
+
+                                @Override
+                                public void onRetry(int downloadId) {
+                                    WaitDialog.dismiss();
+                                    WaitDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.intentando_denuevo));
+                                }
+
+                                @Override
+                                public void onProgress(int downloadId, long bytesWritten, long totalBytes) {
+
+                                    if (totalBytes != 0) {
+
+                                        long porcentaje = ((bytesWritten * 100) / totalBytes);
+
+
+                                        WaitDialog.dismiss();
+                                        WaitDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.descargando) + porcentaje).setCancelable(false);
+                                        System.out.println("bytesWritten " + bytesWritten + "  totalBytes " + totalBytes);
+                                    } else {
+                                        // Toast.makeText(mContext, "Error en la descarga, enviando reporte..", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onSuccess(int downloadId, String filePath) {
+                                    WaitDialog.dismiss();
+                                    WaitDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.descarga_completa)).setCancelable(true).setTip(WaitDialog.TYPE.SUCCESS);
+                                    InstalarApp(mContext, new File(filePath));
+
+                                }
+
+                                @Override
+                                public void onFailure(int downloadId, int statusCode, String errMsg) {
+                                    WaitDialog.dismiss();
+                                    WaitDialog.show((AppCompatActivity) mContext, errMsg).setCancelable(true).setTip(WaitDialog.TYPE.ERROR);
+                                    Toast.makeText(mContext, mContext.getString(R.string.error_descarga) + errMsg, Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .build();
+
+
+            manager.add(request);
+
+
+                        /*
+
+                    // stop single
+                    manager.cancel(downloadId);
+                    // stop all
+                    manager.cancelAll();
+
+
+                     */
+
+
+        //endregion
+
+            /* Metodo de descargar app pidiendo permisos de almacenamiento
             PermissionListener permissionlistener = new PermissionListener() {
 
 
                 @Override
                 public void onPermissionGranted() {
+
                     //region DESCARGAR ARCHIVO
 
                     OkHttpClient client = new OkHttpClient.Builder().build();
@@ -360,14 +437,18 @@ public class metodos {
                             .build();
 
 
-                    File toInstall = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
+                    //  File toInstall = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
+
+                    File toInstall = new File(mContext.getCacheDir().getAbsolutePath());
 
                     if (!toInstall.exists()) {
                         toInstall.mkdirs();
                     }
 
-                    String destinoUpdate = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/update.apk";
+                    //  String destinoUpdate = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/update.apk";
 
+                    String destinoUpdate = mContext.getCacheDir().getAbsolutePath() + "/update.apk";
+                    Toast.makeText(mContext, destinoUpdate, Toast.LENGTH_SHORT).show();
 
                     DownloadRequest request =
                             new DownloadRequest.Builder()
@@ -423,7 +504,6 @@ public class metodos {
                                         public void onFailure(int downloadId, int statusCode, String errMsg) {
                                             WaitDialog.dismiss();
                                             WaitDialog.show((AppCompatActivity) mContext, errMsg).setCancelable(true).setTip(WaitDialog.TYPE.ERROR);
-                                            ReportarEpisodio(mContext, "Error en descarga, " + errMsg, "0001", "0", "", "", "");
                                             Toast.makeText(mContext, "Error en la descarga, " + errMsg, Toast.LENGTH_SHORT).show();
                                         }
                                     })
@@ -433,30 +513,18 @@ public class metodos {
                     manager.add(request);
 
 
-                        /*
 
-                    // stop single
-                    manager.cancel(downloadId);
-                    // stop all
-                    manager.cancelAll();
-
-
-                     */
+                    //endregion
 
                 }
-
-
-                //endregion
-
-
                 @Override
                 public void onPermissionDenied(List<String> deniedPermissions) {
-                    TipDialog.show((AppCompatActivity) mContext, "Son necesarios  permisos de almacenamiento para realizar la descarga.", TipDialog.TYPE.WARNING).setTipTime(60000).setCancelable(true);
+                    SolicitarPermisos(mContext);
+                    TipDialog.show((AppCompatActivity) mContext, "Son necesarios permisos de almacenamiento para realizar la descarga.", TipDialog.TYPE.WARNING).setTipTime(60000).setCancelable(true);
                 }
 
 
             };
-
 
             TedPermission.with(mContext)
                     .
@@ -472,17 +540,46 @@ public class metodos {
 
                             check();
 
+            */
 
         } else {
-            TipDialog.show((AppCompatActivity) mContext, "Error al descargar, por favor intente mas tarde.", TipDialog.TYPE.ERROR).setCancelable(true).setTipTime(10000);
+            TipDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.error_al_descragar), TipDialog.TYPE.ERROR).setCancelable(true).setTipTime(10000);
 
         }
 
     }
 
+
+    public static void SolicitarPermisos(Context mContext) {
+
+        PermissionListener permissionlistener = new PermissionListener() {
+
+
+            @Override
+            public void onPermissionGranted() {
+
+                //   TipDialog.show((AppCompatActivity) mContext, "Permisos concedidos.", TipDialog.TYPE.SUCCESS).setTipTime(60000).setCancelable(true);
+            }
+
+
+            //endregion
+
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                TipDialog.show((AppCompatActivity) mContext, "Si no habilita los permisos de almacenamiento no se podra descargar nuevas actualizaciones, ni usar cache para la carga de videos mas rapida", TipDialog.TYPE.WARNING).setTipTime(60000).setCancelable(true);
+            }
+
+
+        };
+        TedPermission.with(mContext)
+                .setPermissionListener(permissionlistener).setDeniedMessage("Si no habilita los permisos de almacenamiento no se podra descargar nuevas actualizaciones, ni usar cache para la carga de videos mas rapida\n\nPuede tambien hacerlo manualmente en [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).
+                check();
+    }
+
     public static void InstalarApp(Context mContext, File ubicacionApk) {
         File toInstall = ubicacionApk;
-
 
         //region MIX mixActualizarApp AMPLITUDE
 
@@ -498,7 +595,6 @@ public class metodos {
             params.putString("Fecha", fecha);
 
 
-
             mFirebaseAnalytics.logEvent(mixActualizarApp, params);
             mixpanel.track(mixActualizarApp, props);
             Amplitude.getInstance().logEvent(mixActualizarApp, props);
@@ -508,14 +604,8 @@ public class metodos {
 
 
 
-
-
-
-
-
         //endregion
-
-
+        
         if (toInstall.exists()) {
 
             Intent install;
@@ -549,8 +639,6 @@ public class metodos {
     }
 
     public static void CompartirApp(Context mContext) {
-
-
         try {
 
 
@@ -585,10 +673,9 @@ public class metodos {
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.app_name) + " - " + "Relajate con la mejor musica Lofi");
-            String infoApp = "Disfruta de: " + saltoDeLinea + "*Ver peliculas y series" + saltoDeLinea + "*Añadir a tus favoritos" + saltoDeLinea + "*Videos en calidad HD" + saltoDeLinea + "*Ver video en ventana flotante" + saltoDeLinea + "y mucho mas..." + saltoDeLinea;
-            String shareMessage = "Para mas información, descarga la app aqui:" + "\n\n";
-            shareMessage = shareMessage + "https://repelisplusapp.page.link/verpelisonline";
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.app_name) + " - " + mContext.getString(R.string.msg_shareapp));
+            String shareMessage = mContext.getString(R.string.mas_info_descarga) + "\n\n";
+            shareMessage = shareMessage + "";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 
             mContext.startActivity(Intent.createChooser(shareIntent, "Share:"));
@@ -596,15 +683,13 @@ public class metodos {
         } catch (Exception e) {
             //e.toString();
         }
-
-
     }
 
     public static void AbrirPagina(Context mContext) {
 
 
         try {
-            mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://repelisplusapp.page.link/verpelisonline")));
+            mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://lugumusic.page.link/website")));
         } catch (Exception e) {
             //e.toString();
         }
@@ -658,9 +743,9 @@ public class metodos {
     public static void DialogoSugerencia(Context mContext) {
 
         String saltoDeLinea = "\n";
-        String titulo = "Enviar sugerencia";
-        String mensaje = "Aqui puedes enviar cualquier sugerencia que desees" + saltoDeLinea + saltoDeLinea + "Esto nos ayudara a implementar nuevo contenido y/o mejoras";
-        String hintText = "Sugerencia";
+        String titulo = mContext.getString(R.string.enviar_sugenerencia);
+        String mensaje = mContext.getString(R.string.msg_sugerencia);
+        String hintText = mContext.getString(R.string.sugerencia);
 
 
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
@@ -671,11 +756,11 @@ public class metodos {
                 .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
                 .setTitle(titulo).setMessage(mensaje)
                 //  .setInputText("111111")
-                .setOkButton("ENVIAR", new OnInputDialogButtonClickListener() {
+                .setOkButton(mContext.getString(R.string.enviar), new OnInputDialogButtonClickListener() {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
                         if (inputStr.equals("")) {
-                            TipDialog.show((AppCompatActivity) mContext, "El espacio no puede estar vacío", TipDialog.TYPE.ERROR);
+                            TipDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.no_espacio_vacio), TipDialog.TYPE.ERROR);
                             return false;
                         } else {
                             EnviarSugerencia(mContext, inputStr);
@@ -683,7 +768,7 @@ public class metodos {
                         }
                     }
                 })
-                .setCancelButton("CERRAR")
+                .setCancelButton(mContext.getString(R.string.cerrar))
                 .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
                 .setHintText(hintText)
                 .setInputInfo(new InputInfo()
@@ -937,7 +1022,7 @@ public class metodos {
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
         //对于未实例化的布局：
-        MessageDialog.show((AppCompatActivity) mContext, "TEMPORIZADOR DE APAGADO", "Seleccione el tiempo en el cual la musicá se apagará","OK")
+        MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.temporizador_apagado), mContext.getString(R.string.seleccione_tiempo),"OK")
                 .setBackgroundColor(mContext.getResources().getColor(R.color.fondo_blank)).setCustomView(R.layout.layout_send_notifi, new MessageDialog.OnBindView() {
 
 
@@ -1070,17 +1155,10 @@ public class metodos {
         if (mostrarSoloUnaVez == false) {
             String saltoDeLinea = "\n";
 
-            MessageDialog.show((AppCompatActivity) mContext, "Sobre "+mContext.getResources().getString(R.string.app_name), mContext.getResources().getString(R.string.app_name)+", es una aplicación que funciona como interfaz y buscador de series y peliculas que son alojadas por terceros.." + saltoDeLinea
-                    + saltoDeLinea +
-                    "Esta app aun esta en desarrollo, se actualiza el contenido diareamente pero con el envio de peticiones, sugerencias y reportes ayudara a mantener esta aplicacíon en desarrollo, el uso de esta app es totalmente gratuito. " +
-                    "¡Bienvenido a "+mContext.getResources().getString(R.string.app_name)+", disfrutalo!" +
+            MessageDialog.show((AppCompatActivity) mContext, "About "+mContext.getResources().getString(R.string.app_name), mContext.getResources().getString(R.string.app_name)+mContext.getString(R.string.sobre_lugu)+
+                    "¡Welcome to "+mContext.getResources().getString(R.string.app_name)+", enjoy!" +
                     saltoDeLinea + saltoDeLinea +
-                    "-Trabajando en:" + saltoDeLinea +
-                    "* Modo offline (descargar episodios)" + saltoDeLinea +
-                    "* Notificaciones" + saltoDeLinea +
-                    "* Personalización" + saltoDeLinea +
-                    "* Login" + saltoDeLinea + saltoDeLinea + saltoDeLinea +
-                    "¨*Con tu apoyo será posible :,)*¨", "OK")
+                    mContext.getString(R.string.apoyo_posible), "OK")
                     .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                         @Override
                         public boolean onClick(BaseDialog baseDialog, View v) {
@@ -1094,10 +1172,7 @@ public class metodos {
                             return true;                    //位于“取消”位置的按钮点击后无法关闭对话框
                         }
                     });
-
         }
-
-
     }
 
     public static int CalcularNumeroColumnas(Context context, float columnWidthDp) { // For example columnWidthdp=180
@@ -1109,39 +1184,11 @@ public class metodos {
 
     public static void EnviarCambioFB(Context mContext) {
 
-        DialogSettings.theme = DialogSettings.THEME.DARK;
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
-
-
-        String saltoDeLinea = "\n";
-
-        MessageDialog.show((AppCompatActivity) mContext, "ENVIAR CAMBIOS A FB", "Se enviara la fecha a 'fechaCambiosData' y hara que los usuarios actualizen la lista contenido", "ENVIAR").setCancelButton("NO")
-                .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
-                    @Override
-                    public boolean onClick(BaseDialog baseDialog, View v) {
-
-                        DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("otros").child("utilidad").child("fechaCambiosData");
-                        // para la fecha
-                        DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm a");
-                        String fecha = df.format(Calendar.getInstance().getTime());
-                        mref.setValue(fecha);
-                        TipDialog.show((AppCompatActivity) mContext,"Fecha de cambio enviada.", TipDialog.TYPE.SUCCESS);
-
-                        return false;
-                    }
-                })
-                .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
-                    @Override
-                    public boolean onClick(BaseDialog baseDialog, View v) {
-                        Toast.makeText(mContext, "Vale.", Toast.LENGTH_SHORT).show();
-                        baseDialog.doDismiss();
-                        return true;                    //位于“取消”位置的按钮点击后无法关闭对话框
-
-                    }
-                });
-
-
-
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("otro").child("utilidad").child("fechaCambiosData");
+        // para la fecha
+        DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm a");
+        String fecha = df.format(Calendar.getInstance().getTime());
+        mref.setValue(fecha);
 
 
     }
@@ -1169,7 +1216,7 @@ public class metodos {
 
     public static void getLinkAndPlay(Context mContext, String linkYT, int opcion){
 
-
+        CargarInterAleatorio(mContext,5);
 
         if(pbCargandoRadio!=null){
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
@@ -1301,7 +1348,35 @@ public class metodos {
             musicPlayer.setSource(linkCancion);
             // reproducir
             musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+
+            //region MIX mixPlaySong para estadisticas
+            JSONObject props = new JSONObject();
+            try {
+                props.put("Id", tinyDB.getString(TBidCancionSonando));
+                props.put("Nombre", tinyDB.getString(TBnombreCancionSonando));
+                props.put("Artista", tinyDB.getString(TBartistaCancionSonando));
+                props.put("Categoria", tinyDB.getString(TBcategoriaCancionSonando));
+                props.put("LinkYT", tinyDB.getString(TBlinkCancionSonando));
+                Bundle params = new Bundle();
+                params.putString("Id", tinyDB.getString(TBidCancionSonando));
+                params.putString("Nombre", tinyDB.getString(TBnombreCancionSonando));
+                params.putString("Artista", tinyDB.getString(TBartistaCancionSonando));
+                params.putString("Categoria", tinyDB.getString(TBcategoriaCancionSonando));
+                params.putString("LinkYT", tinyDB.getString(TBlinkCancionSonando));
+
+
+                mFirebaseAnalytics.logEvent(mixPlaySong, params);
+                mixpanel.track(mixPlaySong, props);
+                Amplitude.getInstance().logEvent(mixPlaySong, props);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            //endregion
+
         }
+
 
     }
 
@@ -1367,7 +1442,7 @@ public class metodos {
             for(int i = 0; i<tinyListCancionxCategoria.size(); i++) {
                 if (tinyListCancionxCategoria.get(i).getId().equals(idCancionSonando)) {
                     tinyListFavoritos.add(tinyListCancionxCategoria.get(i));
-                    Toast.makeText(mContext, "Se agregó a favoritos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.agrego_favoritos, Toast.LENGTH_SHORT).show();
                     break;
                 }
             }
@@ -1401,7 +1476,7 @@ public class metodos {
                 for(int i = 0; i<tinyListFavoritos.size(); i++){
                     if (tinyListFavoritos.get(i).getId().equals(idCancionSonando)) {
                         tinyListFavoritos.remove(i);
-                        Toast.makeText(mContext, "Se eliminó de favoritos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, R.string.eliminado_favoritos, Toast.LENGTH_SHORT).show();
                     }
                 }
 

@@ -218,6 +218,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.exoplayer:exoplayer-smoothstreaming:2.11.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.media2:media2-exoplayer:1.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.MatteoBattilana:WeatherView:3.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.khirr:Android-Privacy-Policy:1.0.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-integration:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-library:1.3" level="project" />

@@ -20,6 +20,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
+import com.lamesa.lugu.otros.statics.Animacion;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,7 @@ import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.getListas;
 import static com.lamesa.lugu.activity.act_main.mlistCategoria;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tvCategoria;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
@@ -103,25 +105,11 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
             @Override
             public void onClick(View v) {
 
+                holder.rlCategoria.startAnimation(Animacion.fading_out_real(mContext));
+                holder.rlCategoria.setVisibility(View.VISIBLE);
+                holder.rlCategoria.startAnimation(Animacion.fade_in_real(mContext));
 
-                // aqui meotod para cargar cancion de la categoria seleccionada
-
-
-                //region MIX CategoriaClic
-                JSONObject props = new JSONObject();
-                try {
-                    props.put("Categoria", mlistCategoria.get(position).getNombre());
-                    Bundle params = new Bundle();
-                    params.putString("Categoria", mlistCategoria.get(position).getNombre());
-
-
-                    mFirebaseAnalytics.logEvent(mixCategoriaClic, params);
-                    mixpanel.track(mixCategoriaClic, props);
-                    Amplitude.getInstance().logEvent(mixCategoriaClic, props);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                // metodo para cargar cancion de la categoria seleccionada
 
 
                List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(mlistCategoria.get(position).getNombre().toLowerCase().trim(), ModelCancion.class);

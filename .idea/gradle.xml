@@ -12,12 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/LuguApp" />
             <option value="$PROJECT_DIR$/YoutubeExtractor2" />
-            <option value="$PROJECT_DIR$/adblockwebview" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/numberPicker" />
             <option value="$PROJECT_DIR$/playerbase" />
             <option value="$PROJECT_DIR$/youtubeExtractor" />
-            <option value="$PROJECT_DIR$/youtubejextractor" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

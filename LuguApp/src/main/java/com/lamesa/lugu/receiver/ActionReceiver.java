@@ -58,17 +58,23 @@ public class ActionReceiver extends BroadcastReceiver {
 
 	@SuppressLint("UseCompatLoadingForDrawables")
 	private void ActionPause(Context mContext) {
-		musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+		if(musicPlayer!=null) {
+			musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+		}
 	}
 
 	private void ActionPlay(Context mContext) {
-		musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+		if(musicPlayer!=null) {
+			musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+		}
 	}
 
 	private void ActionStop() {
 		if(mediaNotificationManager!=null){
 			mediaNotificationManager.cancelNotify();
-			musicPlayer.PlayOrPause(MediaNotificationManager.STATE_STOP);
+			if(musicPlayer!=null) {
+				musicPlayer.PlayOrPause(MediaNotificationManager.STATE_STOP);
+			}
 		}
 	}
 

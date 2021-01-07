@@ -11,7 +11,7 @@
       android:fillColor="@color/learn_colorPrimary"/>
   <path
       android:pathData="M479.18,288.821h-52.513c-18.13,0 -32.821,-14.69 -32.821,-32.821s14.69,-32.821 32.821,-32.821h52.513c18.13,0 32.82,14.69 32.82,32.821S497.31,288.821 479.18,288.821z"
-      android:fillColor="@color/learn_colorPrimaryDark"/>
+      android:fillColor="#E65353"/>
   <path
       android:pathData="M479.18,485.744H32.821C14.69,485.744 0,471.053 0,452.923c0,-18.13 14.69,-32.821 32.821,-32.821H479.18c18.13,0 32.82,14.69 32.82,32.821C512,471.053 497.31,485.744 479.18,485.744z"
       android:fillColor="@color/learn_colorPrimary"/>

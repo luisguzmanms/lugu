@@ -111,18 +111,12 @@ public class act_main extends AppCompatActivity {
     public static List<ModelCategoria> mlistCategoria;
     public static AdapterCategoria mAdapterCategoria;
     public static RecyclerView mrvCategoria;
-    public static LinearLayout contenidoCargando;
     public static NestedScrollView contenidoHome;
     public static LinearLayout contenidoSearch;
     public static TinyDB tinyDB;
-    public static ArrayList<String> mlistUrls;
-    public static SpinKitView animacionCargandoTop;
-    public static EditText etBuscar;
-    private TextView mtvVerPeliculas;
-    private TextView mtvVerSeries;
+
     private ImageView ivMenu;
     private ImageView ivLogo;
-    private TextView mtvVerNetflix;
     private TextView mtvVerEstrenos;
     public static ImageView ivFondoGif;
     public static MusicPlayer musicPlayer;
@@ -177,7 +171,6 @@ public class act_main extends AppCompatActivity {
         initFirebase(act_main.this, tinyDB);
 
         VistasHome();
-        etBuscar = findViewById(R.id.etBuscar);
         CargarRecyclerHome();
 
         // Traer todas las listas desde Firebase
@@ -321,113 +314,15 @@ public class act_main extends AppCompatActivity {
 
         //endregion
 
-        /*
-        //region LISTA CONTENIDO
-        if (mlistContenido == null) {
-            mlistContenido = new ArrayList<>();
-        }
-        //   getListaDeFirebase(this);
-
-        //endregion
-
-        //region LISTA NETFLIX
-        if (mlistNetflix == null) {
-            mlistNetflix = new ArrayList<>();
-        }
-
-        mrvFilmNetflix = findViewById(R.id.rvNetflix);
-        mrvFilmNetflix.setHasFixedSize(true);
-
-        mrvFilmNetflix.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mrvFilmNetflix.setItemAnimator(new DefaultItemAnimator());
-        mAdapterNetflix= new adapterFilm(this, mlistNetflix);
-        mrvFilmNetflix.setAdapter(mAdapterNetflix);
-
-        //   getListaDeFirebase(this);
-
-        //endregion
-
-
-
-        //region LISTA GENERO
-        mlistGenero = new ArrayList<>();
-
-        //endregion
-
-        //region LISTA DESTACADOS
-        mrvDestacado = findViewById(R.id.rvDestacado);
-        mrvDestacado.setHasFixedSize(true);
-        mrvDestacado.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mrvDestacado.setItemAnimator(new DefaultItemAnimator());
-        if (mlistDestacado == null) {
-            mlistDestacado = new ArrayList<>();
-        }
-        mAdapterDestacado = new adapterDestacado(this, mlistDestacado);
-        mrvDestacado.setAdapter(mAdapterDestacado);
-        //  getListaDestacados(this);
-        //endregion
-
-
-
-
-
-        //region LISTA SERIES
-        mrvFilmSeries = findViewById(R.id.rvSeries);
-        mrvFilmSeries.setHasFixedSize(true);
-
-        mrvFilmSeries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mrvFilmSeries.setItemAnimator(new DefaultItemAnimator());
-        if (mlistSeries == null) {
-            mlistSeries = new ArrayList<>();
-        }
-        mAdapterSerie = new adapterFilm(this, mlistSeries);
-        mrvFilmSeries.setAdapter(mAdapterSerie);
-        //   getListaDeFirebase(this);
-        //endregion
-
-
-        //region LISTA PELICULAS
-        mrvFilmPeliculas = findViewById(R.id.rvPeliculas);
-        mrvFilmPeliculas.setHasFixedSize(true);
-
-        mrvFilmPeliculas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mrvFilmPeliculas.setItemAnimator(new DefaultItemAnimator());
-        if (mlistPeliculas == null) {
-            mlistPeliculas = new ArrayList<>();
-        }
-        mAdapterPelicula = new adapterFilm(this, mlistPeliculas);
-        mrvFilmPeliculas.setAdapter(mAdapterPelicula);
-        //  getListaDeFirebase(this);
-        //endregion
-
-
-        //region LISTA FAVORITOS
-        mlistFavoritos = new ArrayList<>();
-
-        //endregion
-
-        */
-
-        //region LISTA URLS
-
-        mlistUrls = new ArrayList<>();
-
 
     }
 
     private void VistasHome() {
 
         contenidoHome = findViewById(R.id.contenidoHome);
-        contenidoSearch = findViewById(R.id.contenidoSearch);
-        contenidoCargando = findViewById(R.id.contenidoCargando);
-        animacionCargandoTop = findViewById(R.id.animacionCargandoTop);
-
 
         ivMenu = findViewById(R.id.ivMenu);
 
-        mtvVerPeliculas = findViewById(R.id.tvVerPeliculas);
-        mtvVerSeries = findViewById(R.id.tvVerSeries);
-        mtvVerNetflix = findViewById(R.id.tvVerNetflix);
         mtvVerEstrenos = findViewById(R.id.tvVerEstrenos);
         ivLogo = findViewById(R.id.ivLogo);
 
@@ -823,13 +718,9 @@ public class act_main extends AppCompatActivity {
 
 
         // asignar listener a views
-        mtvVerPeliculas.setOnClickListener(listener);
-        mtvVerSeries.setOnClickListener(listener);
         ivMenu.setOnClickListener(listener);
         ivLogo.setOnClickListener(listener);
-        mtvVerNetflix.setOnClickListener(listener);
         mtvVerEstrenos.setOnClickListener(listener);
-        animacionCargandoTop.setOnClickListener(listener);
         ivPlayPause.setOnClickListener(listener);
         ivLikeDislike.setOnClickListener(listener);
         ivSleep.setOnClickListener(listener);

@@ -262,5 +262,7 @@
     <string name="pausando">Pausing...</string>
     <string name="reproduciendo">Playing...</string>
     <string name="loading_song">Loading song...</string>
+    <string name="salir_app">¿Exit?</string>
+    <string name="yes">YES</string>
 
 </resources>

@@ -825,14 +825,14 @@ public class metodos {
     public static void DialogoSalir(Context mContext) {
 
         String saltoDeLinea = "\n";
-        String titulo = "¿Salir de la aplicación?";
+        String titulo = mContext.getString(R.string.salir_app);
 
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
         MessageDialog.build((AppCompatActivity) mContext)
                 .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
-                .setOkButton("SI")
+                .setOkButton(mContext.getResources().getColor(R.string.yes))
                 .setMessage("")
                 .setTitle(titulo)
                 .setCancelButton("NO")

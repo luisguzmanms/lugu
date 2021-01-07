@@ -268,12 +268,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-mdpi\\icon_sinfondo.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_flag.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_flag.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_lista.png.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_lista.png"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_flag.png.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_flag.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
@@ -338,10 +338,6 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_pop_out.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\pop_out.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_alert.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_alert.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_play_to_pause.xml.flat",
@@ -1054,5 +1050,9 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_star_black_24dp.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_star_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\xml_network_config.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\xml\\network_config.xml"
     }
 ]

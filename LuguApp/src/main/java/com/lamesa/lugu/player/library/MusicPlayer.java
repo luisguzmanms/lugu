@@ -426,7 +426,6 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
         }
     }
 
-
     public void setSource(String source, HashMap<String, String> extraHeaders) {
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);
         if (mediaSource != null) {

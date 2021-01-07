@@ -48,4 +48,6 @@
     <string name="pausando">Pausando...</string>
     <string name="reproduciendo">Reproduciendo...</string>
     <string name="loading_song">Cargando canción...</string>
+    <string name="yes">SI</string>
+    <string name="salir_app">¿Salir de la aplicación?</string>
 </resources>

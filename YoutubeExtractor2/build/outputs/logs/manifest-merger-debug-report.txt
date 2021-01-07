@@ -1,23 +1,23 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
+ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
 	package
 		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:3:5-37
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml
-		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
+		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml
-		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-11:12
+		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:1-10:12
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:2:11-69
@@ -26,11 +26,9 @@ ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidMan
 	android:name
 		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:4:22-64
 application
-ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:6:5-9:19
+ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:6:5-8:19
 	android:label
-		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:8:9-41
-	android:allowBackup
-		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:7:9-35
+		ADDED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml:7:9-41
 uses-sdk
 INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\luisguzman\GitHub\lugu\YoutubeExtractor2\src\main\AndroidManifest.xml

@@ -40,6 +40,7 @@ import com.kongzue.dialog.v3.MessageDialog;
 import com.kongzue.dialog.v3.TipDialog;
 import com.kongzue.dialog.v3.WaitDialog;
 import com.lamesa.lugu.R;
+import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.otros.TinyDB;
 
 import net.khirr.android.privacypolicy.PrivacyPolicyDialog;
@@ -47,6 +48,7 @@ import net.khirr.android.privacypolicy.PrivacyPolicyDialog;
 import java.util.List;
 import java.util.Random;
 
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBpase;
 import static com.lamesa.lugu.otros.metodos.ListaCSV;
@@ -78,24 +80,15 @@ public class splash extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                /*
-                 AgregarFilm(splash.this,"peliculas3-04-20.csv");
-                 AgregarFilm(splash.this,"series.csv");
-
-
-                 */
-
-
-               //  AgregarVideoSerie(splash.this, "guardar5.csv");
-
-
-              // EliminarDato(splash.this);
+                // AgregarCancion(splash.this,"lugu.csv");
 
 
             }
         });
 
         AppVersion();
+
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -108,8 +101,12 @@ public class splash extends AppCompatActivity {
                     DialogoPoliticas(splash.this);
                 }
 
+
+
             }
         }, 2000);
+
+
 
 
     }
@@ -517,7 +514,7 @@ public class splash extends AppCompatActivity {
 
     }
 
-    private void AgregarFilm(Context mContext, String nombreFileCSV){
+    private void AgregarCancion(Context mContext, String nombreFileCSV){
 
 
 
@@ -537,38 +534,17 @@ public class splash extends AppCompatActivity {
             for (int i = 0; i < listCSV.size(); i++) {
 
 
-                String id = listCSV.get(i)[0];
-                String nombre= listCSV.get(i)[1];
-                String sipnosis= listCSV.get(i)[2];
-                String tipo= listCSV.get(i)[3];
-                String calidad= listCSV.get(i)[4];
-                String categoria= listCSV.get(i)[5];
-                String ano= listCSV.get(i)[6];
-                String puntaje= listCSV.get(i)[7];
-                String imagen= listCSV.get(i)[8];
-                String red= listCSV.get(i)[9];
-                String estado = listCSV.get(i)[10];
-                String fechaActualizado= listCSV.get(i)[11];
+                String linkYT = listCSV.get(i)[0];
+                String id= listCSV.get(i)[1];
+                String cancion= listCSV.get(i)[2];
+                String artista= listCSV.get(i)[3];
+                String categoria= listCSV.get(i)[4];
 
-
-             //   modelAddFilm film = new modelAddFilm(id, nombre, sipnosis, tipo, calidad, categoria, ano, puntaje, imagen, red, estado, fechaActualizado);
-
-             //   mlistAddFilm.add(film);
+                ModelCancion modelCancion = new ModelCancion(id,artista,cancion,categoria,linkYT);
+                SubirCancion(mContext, modelCancion);
 
 
             }
-
-    //    System.out.println("jajajajajaja"+mlistAddFilm.get(12).getSipnosis());
-
-
-
-        /*
-        for (int i = 0; i < mlistAddFilm.size(); i++) {
-            System.out.println("LISTAAA " + mlistAddFilm.get(i).getId() + "-" + mlistAddFilm.get(i).getNombre() + "-" + mlistAddFilm.get(i).getCalidad() + "-" + mlistAddFilm.get(i).getFechaActualizado());
-            SubirFilm(mContext,mlistAddFilm.get(i).getId(),mlistAddFilm.get(i).getNombre(),mlistAddFilm.get(i).getSipnosis(),mlistAddFilm.get(i).getTipo(),mlistAddFilm.get(i).getCalidad(),mlistAddFilm.get(i).getCategoria(),mlistAddFilm.get(i).getAno(),mlistAddFilm.get(i).getPuntaje(),mlistAddFilm.get(i).getImagen(),mlistAddFilm.get(i).getRed(),mlistAddFilm.get(i).getEstado(),mlistAddFilm.get(i).getFechaActualizado());
-        }
-
-         */
 
 
 
@@ -623,34 +599,26 @@ public class splash extends AppCompatActivity {
 
     // subir item de lista a FB
 
-    private void SubirFilm(Context mContext, String idFIlm, String nombre, String sipnosis, String tipo, String calidad, String categoria, String ano, String puntaje, String imagen, String red, String estado, String fechaActualizado) {
+    private void SubirCancion(Context mContext, ModelCancion modelCancion) {
 
-        WaitDialog.show((AppCompatActivity) mContext, "Enviando film...").setCancelable(true);
+        WaitDialog.show((AppCompatActivity) mContext, "Enviando cancion...").setCancelable(true);
 
-
-
-        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child(String.valueOf(idFIlm));
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child("cancion").child(modelCancion.getId());
         mref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                dataSnapshot.getRef().child("info").child("ano").setValue(ano);
-                dataSnapshot.getRef().child("info").child("calidad").setValue(calidad);
-                dataSnapshot.getRef().child("info").child("categoria").setValue(categoria);
-                dataSnapshot.getRef().child("info").child("descrip").setValue(sipnosis);
-                dataSnapshot.getRef().child("info").child("id").setValue(idFIlm);
-                dataSnapshot.getRef().child("info").child("imagen").setValue(imagen);
-                dataSnapshot.getRef().child("info").child("nombre").setValue(nombre);
-                dataSnapshot.getRef().child("info").child("tipo").setValue(tipo);
-                dataSnapshot.getRef().child("info").child("puntaje").setValue(puntaje);
-                dataSnapshot.getRef().child("info").child("red").setValue(red);
-                dataSnapshot.getRef().child("info").child("estado").setValue(estado);
-                dataSnapshot.getRef().child("info").child("fechaActualizado").setValue(fechaActualizado);
+                dataSnapshot.getRef().child("linkYT").setValue(modelCancion.getLinkYT());
+                dataSnapshot.getRef().child("id").setValue(modelCancion.getId());
+                dataSnapshot.getRef().child("cancion").setValue(modelCancion.getCancion());
+                dataSnapshot.getRef().child("artista").setValue(modelCancion.getArtista());
+                dataSnapshot.getRef().child("categoria").setValue(modelCancion.getCategoria());
 
+
+                setLogInfo(mContext,"SubirCancion","Cancion subida :: "+modelCancion.getId()+" :: "+modelCancion.getCancion(),false);
 
                 WaitDialog.dismiss();
                 //  TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
-                System.out.println("FILM SUBIDO == "+idFIlm+" - "+nombre);
 
 
             }

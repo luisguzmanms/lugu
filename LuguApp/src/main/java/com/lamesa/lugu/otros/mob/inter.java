@@ -83,7 +83,7 @@ public class inter {
 
 	public static void CargarInterAleatorio(Context mContext, int numProbabilidad){
 		Random random = new Random();
-		int numRandom = random.nextInt(numProbabilidad);
+		int numRandom = random.nextInt(numProbabilidad+1);
 		if(numProbabilidad==numRandom){
 			showInterstitial(mContext);
 		}

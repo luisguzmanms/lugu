@@ -23,6 +23,8 @@ import com.lamesa.lugu.otros.statics.Animacion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -189,6 +191,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     public void setUpdateHistorial(List<ModelCancion> mListHistorial){
 
         this.mListHistorial.removeAll(this.mListHistorial);
+        Collections.reverse(mListHistorial);
         this.mListHistorial.addAll(mListHistorial);
         if(mAdapterHistorial!=null) {
             mAdapterHistorial.notifyDataSetChanged();

@@ -230,7 +230,7 @@
     <string name="cargando">Loading...</string>
     <string name="temporizador_apagado">SLEEP TIMER</string>
     <string name="seleccione_tiempo">Select the time when the music will be turned off</string>
-    <string name="enviar_sugerencia">Send suggestions</string>
+    <string name="enviar_sugerencia">Send feedback</string>
     <string name="compartir_app">Share app</string>
     <string name="aviso_legal">DMCA</string>
     <string name="sin_recientes">Songs played</string>

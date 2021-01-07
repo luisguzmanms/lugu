@@ -22,6 +22,7 @@ import com.lamesa.lugu.otros.statics.Animacion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -146,6 +147,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
     public void setUpdateFavoritos(List<ModelCancion> mListFavoritos){
 
         this.mListFavoritos.removeAll(this.mListFavoritos);
+        Collections.reverse(mListFavoritos);
         this.mListFavoritos.addAll(mListFavoritos);
         if(mAdapterFavoritos!=null) {
             mAdapterFavoritos.notifyDataSetChanged();

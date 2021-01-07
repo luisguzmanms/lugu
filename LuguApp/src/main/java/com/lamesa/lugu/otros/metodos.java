@@ -145,7 +145,7 @@ public class metodos {
 
 
     public static void CargarHome(Context mContext) {
-        if(contenidoHome.getVisibility()== GONE) {
+        if (contenidoHome.getVisibility() == GONE) {
             contenidoSearch.startAnimation(Animacion.alpha_out(mContext));
             contenidoSearch.setVisibility(GONE);
         }
@@ -183,7 +183,7 @@ public class metodos {
 
                                 try {
                                     if (mContext != null) {
-                                        setLogInfo(mContext,"initFirebase","Abriendo dialogo para actualizar",false);
+                                        setLogInfo(mContext, "initFirebase", "Abriendo dialogo para actualizar", false);
                                         DialogoActualizar(mContext, versionNueva, mensaje, urlDescarga, cancelable);
                                     }
                                 } catch (Resources.NotFoundException e) {
@@ -285,10 +285,11 @@ public class metodos {
     }
 
     public static void DialogoActualizar(Context mContext, int version, String mensaje, String urlDescarga, boolean cancelable) {
-        setLogInfo(mContext,"DialogoActualizar", "Mostrando DialogoActualizar...", false);
+        setLogInfo(mContext, "DialogoActualizar", "Mostrando DialogoActualizar...", false);
 
-        String obligatorio = mContext.getString(R.string.act_obligatoria);;
-        String titulo = mContext.getString(R.string.act_disponible)+"\nversion : " + version;
+        String obligatorio = mContext.getString(R.string.act_obligatoria);
+        ;
+        String titulo = mContext.getString(R.string.act_disponible) + "\nversion : " + version;
         if (cancelable) {
             obligatorio = mContext.getString(R.string.act_opcional);
         } else {
@@ -296,7 +297,7 @@ public class metodos {
         }
 
         titulo = titulo + "\n" + obligatorio;
-        mensaje = mensaje + "\n"+mContext.getString(R.string.necesaria_permiso) + mContext.getResources().getString(R.string.app_name) + ")"+"\n+"+mContext.getString(R.string.nota_actualizar);
+        mensaje = mensaje + "\n" + mContext.getString(R.string.necesaria_permiso) + mContext.getResources().getString(R.string.app_name) + ")" + "\n+" + mContext.getString(R.string.nota_actualizar);
 
         DialogSettings.theme = DialogSettings.THEME.DARK;
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
@@ -334,11 +335,11 @@ public class metodos {
                     .build();
 
 
-             String destinoUpdate = mContext.getFilesDir()+ "/update.apk";
+            String destinoUpdate = mContext.getFilesDir() + "/update.apk";
 
-           // String destinoUpdate = mContext.getCacheDir() + "/update.apk";
-            setLogInfo(mContext,"DescargarActualizacion","destinoUpdate: "+destinoUpdate,false);
-        //    Toast.makeText(mContext, destinoUpdate, Toast.LENGTH_SHORT).show();
+            // String destinoUpdate = mContext.getCacheDir() + "/update.apk";
+            setLogInfo(mContext, "DescargarActualizacion", "destinoUpdate: " + destinoUpdate, false);
+            //    Toast.makeText(mContext, destinoUpdate, Toast.LENGTH_SHORT).show();
 
             DownloadRequest request =
                     new DownloadRequest.Builder()
@@ -413,7 +414,7 @@ public class metodos {
                      */
 
 
-        //endregion
+            //endregion
 
             /* Metodo de descargar app pidiendo permisos de almacenamiento
             PermissionListener permissionlistener = new PermissionListener() {
@@ -603,9 +604,8 @@ public class metodos {
         }
 
 
-
         //endregion
-        
+
         if (toInstall.exists()) {
 
             Intent install;
@@ -662,8 +662,6 @@ public class metodos {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
 
 
             //endregion
@@ -804,15 +802,15 @@ public class metodos {
                         mList.removeAll(mList);
 
                         tinyDB.putListModelCancion(keyTinyDB, mList);
-                        TipDialog.show((AppCompatActivity) mContext,"Contenido eliminado.", TipDialog.TYPE.SUCCESS);
-                        if(keyTinyDB.contains(TBlistFavoritos)){
+                        TipDialog.show((AppCompatActivity) mContext, "Contenido eliminado.", TipDialog.TYPE.SUCCESS);
+                        if (keyTinyDB.contains(TBlistFavoritos)) {
                             UpdateAdapterFavoritos(mContext);
-                            if(bottomNavigationHis_Fav!=null) {
+                            if (bottomNavigationHis_Fav != null) {
                                 bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
                             }
-                        } else if(keyTinyDB.contains(TBlistHistorial)) {
+                        } else if (keyTinyDB.contains(TBlistHistorial)) {
                             UpdateAdapterHistorial(mContext);
-                            if(bottomNavigationHis_Fav!=null) {
+                            if (bottomNavigationHis_Fav != null) {
                                 bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
                             }
                         }
@@ -1016,15 +1014,14 @@ public class metodos {
      */
 
 
-    public static void DialogoTemporizador(Context mContext){
+    public static void DialogoTemporizador(Context mContext) {
 
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
         //对于未实例化的布局：
-        MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.temporizador_apagado), mContext.getString(R.string.seleccione_tiempo),"OK")
+        MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.temporizador_apagado), mContext.getString(R.string.seleccione_tiempo), "OK")
                 .setBackgroundColor(mContext.getResources().getColor(R.color.fondo_blank)).setCustomView(R.layout.layout_send_notifi, new MessageDialog.OnBindView() {
-
 
 
             @Override
@@ -1070,7 +1067,7 @@ public class metodos {
         }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
             @Override
             public boolean onClick(BaseDialog baseDialog, View v) {
-                if(numberPicker.getValue()>0) {
+                if (numberPicker.getValue() > 0) {
                     ApagarAutoApagado(mContext);
                     EncenderAutoApagado(mContext, numberPicker.getValue());
                 }
@@ -1155,8 +1152,8 @@ public class metodos {
         if (mostrarSoloUnaVez == false) {
             String saltoDeLinea = "\n";
 
-            MessageDialog.show((AppCompatActivity) mContext, "About "+mContext.getResources().getString(R.string.app_name), mContext.getResources().getString(R.string.app_name)+mContext.getString(R.string.sobre_lugu)+
-                    "¡Welcome to "+mContext.getResources().getString(R.string.app_name)+", enjoy!" +
+            MessageDialog.show((AppCompatActivity) mContext, "About " + mContext.getResources().getString(R.string.app_name), mContext.getResources().getString(R.string.app_name) + mContext.getString(R.string.sobre_lugu) +
+                    "¡Welcome to " + mContext.getResources().getString(R.string.app_name) + ", enjoy!" +
                     saltoDeLinea + saltoDeLinea +
                     mContext.getString(R.string.apoyo_posible), "OK")
                     .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
@@ -1193,7 +1190,7 @@ public class metodos {
 
     }
 
-    public static void CargarInterAd(Context mContext, String ad_unit_id, int cantidadAleatoria){
+    public static void CargarInterAd(Context mContext, String ad_unit_id, int cantidadAleatoria) {
 
         Random numRandom = new Random();
         int numPosibilidad = numRandom.nextInt(cantidadAleatoria);
@@ -1207,25 +1204,23 @@ public class metodos {
         }
 
 
-     //   Toast.makeText(mContext, String.valueOf(numPosibilidad), Toast.LENGTH_SHORT).show();
-
-
+        //   Toast.makeText(mContext, String.valueOf(numPosibilidad), Toast.LENGTH_SHORT).show();
 
 
     }
 
-    public static void getLinkAndPlay(Context mContext, String linkYT, int opcion){
+    public static void getLinkAndPlay(Context mContext, String linkYT, int opcion) {
 
-        CargarInterAleatorio(mContext,5);
+        CargarInterAleatorio(mContext, 3);
 
-        if(pbCargandoRadio!=null){
+        if (pbCargandoRadio != null) {
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
             pbCargandoRadio.setVisibility(VISIBLE);
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
         }
 
         if (opcion == 1) {
-            setLogInfo(mContext,"getLinkAndPlay.YouTubeExtractor","Inicia extracion opcion 1",false);
+            setLogInfo(mContext, "getLinkAndPlay.YouTubeExtractor", "Inicia extracion opcion 1", false);
 
             new YouTubeExtractor(mContext) {
 
@@ -1252,7 +1247,7 @@ public class metodos {
                                     System.out.println("newlofi downloadUrl itag == " + " ytFiles " + ytFiles.get(itag).getFormat().getAudioBitrate() + linkCancion);
 
                                     ReproducirCancion(mContext, linkCancion);
-                                   
+
                                     break;
                                 }
 
@@ -1270,24 +1265,24 @@ public class metodos {
             }.extract(linkYT, false, false);
 
 
-        } else if (opcion == 2){
+        } else if (opcion == 2) {
 
-            setLogInfo(mContext,"getLinkAndPlay.YoutubeStreamExtractor","Inicia extracion opcion 2",false);
-            new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner(){
+            setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "Inicia extracion opcion 2", false);
+            new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner() {
                 @Override
                 public void onExtractionDone(List<YTMedia> adativeStream, final List<YTMedia> muxedStream, List<YTSubtitles> subtitles, YoutubeMeta meta) {
-                    setLogInfo(mContext,"getLinkAndPlay.YoutubeStreamExtractor","onExtractionDone",false);
+                    setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "onExtractionDone", false);
                     //url to get subtitle
 
-                    for (YTMedia media:adativeStream) {
+                    for (YTMedia media : adativeStream) {
 
                         // solo extraer link de audio
-                        if (media.getAudioQuality() != null && media.getAudioQuality().contains("AUDIO")){
+                        if (media.getAudioQuality() != null && media.getAudioQuality().contains("AUDIO")) {
                             String linkCancion = media.getUrl();
-                            System.out.println("newlofi downloadUrl  media.getUrl() == "+media.getUrl());
-                            System.out.println("newlofi downloadUrl  media.getAudioQuality() == "+media.getAudioQuality());
-                            System.out.println("newlofi downloadUrl  media.getBitrate() == "+media.getBitrate());
-                            System.out.println("newlofi downloadUrl  media.getItag() == "+media.getItag());
+                            System.out.println("newlofi downloadUrl  media.getUrl() == " + media.getUrl());
+                            System.out.println("newlofi downloadUrl  media.getAudioQuality() == " + media.getAudioQuality());
+                            System.out.println("newlofi downloadUrl  media.getBitrate() == " + media.getBitrate());
+                            System.out.println("newlofi downloadUrl  media.getItag() == " + media.getItag());
                             // reproducir cancion
                             ReproducirCancion(mContext, linkCancion);
                             break;
@@ -1295,17 +1290,18 @@ public class metodos {
 
                     }
                 }
+
                 @Override
                 public void onExtractionGoesWrong(final ExtractorException e) {
                     // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
-                  //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
-                    setLogInfo(mContext,"getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong",e.getMessage(),true);
+                    //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
+                    setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", e.getMessage(), true);
 
                     // al onExtractionGoesWrong, cargar otra cancion de la misma categoria seleccionanda por el usuario
                     Random random = new Random();
                     List<ModelCancion> mlistCategoriaSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
 
-                    if(mlistCategoriaSonando.size() != 0 && mlistCategoriaSonando!=null) {
+                    if (mlistCategoriaSonando.size() != 0 && mlistCategoriaSonando != null) {
                         int numCancionSonar = random.nextInt(mlistCategoriaSonando.size());
 
                         // obetneer link de la nueva cancion seleccionada
@@ -1326,10 +1322,8 @@ public class metodos {
                     }
 
 
-
-
                     // ocultar progressBar de act_main
-                    if(pbCargandoRadio!=null){
+                    if (pbCargandoRadio != null) {
                         pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
                         pbCargandoRadio.setVisibility(GONE);
                         pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
@@ -1341,10 +1335,10 @@ public class metodos {
 
 
     }
-    
-    public static void ReproducirCancion(Context mContext,String linkCancion){
-        if(musicPlayer !=null) {
-            setLogInfo(mContext,"ReproducirCancion","Inicia ExoPlayerView.setSource",false);
+
+    public static void ReproducirCancion(Context mContext, String linkCancion) {
+        if (musicPlayer != null) {
+            setLogInfo(mContext, "ReproducirCancion", "Inicia ExoPlayerView.setSource", false);
             musicPlayer.setSource(linkCancion);
             // reproducir
             musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
@@ -1391,30 +1385,30 @@ public class metodos {
         String time = df.format(Calendar.getInstance().getTime());
         DateFormat df2 = new SimpleDateFormat("MM-yyyy--HH-mm-ss");
         String nombreRandom = df2.format(Calendar.getInstance().getTime()).replace(".", "");
-      //  String dato = errormsg = time + " | " + sp_get_childactivo(mContext) + " \n| " + TAG + " | \nmsg :: " + msg;
-      //  fuego.setData.StringFB(RUTA_PADRE + "admin" + "/logcat/info/" + nombreRandom, dato, mContext);
+        //  String dato = errormsg = time + " | " + sp_get_childactivo(mContext) + " \n| " + TAG + " | \nmsg :: " + msg;
+        //  fuego.setData.StringFB(RUTA_PADRE + "admin" + "/logcat/info/" + nombreRandom, dato, mContext);
         Log.d("setLogInfo", errormsg + TAG + " | msg :: " + msg);
     }
 
-    public static void GuardarCancionHistorial(Context mContext, String idCancionSonando){
+    public static void GuardarCancionHistorial(Context mContext, String idCancionSonando) {
         // agregar cancion a historial
 
         List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
         List<ModelCancion> tinyListHistorial = tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class);
 
-        for(ModelCancion cancion : tinyListCancionxCategoria){
-            if(cancion.getId().equals(idCancionSonando)){
+        for (ModelCancion cancion : tinyListCancionxCategoria) {
+            if (cancion.getId().equals(idCancionSonando)) {
                 tinyListHistorial.add(cancion);
             }
         }
-        if(tinyListHistorial.size()<=1){
+        if (tinyListHistorial.size() <= 1) {
             bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
         }
         // para que se muestre de primeras las ultimas agregadas
         // Collections.reverse(tinyListHistorial);
         // guardar lista en tiny db y sin duplicados
-        Collections.reverse(tinyListHistorial);
-        tinyDB.putListModelCancion(TBlistHistorial,  EliminarDuplicadosModelCancion(tinyListHistorial));
+       // Collections.reverse(tinyListHistorial);
+        tinyDB.putListModelCancion(TBlistHistorial, EliminarDuplicadosModelCancion(tinyListHistorial));
 
         //region actualizar lista de historial
         mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
@@ -1423,7 +1417,7 @@ public class metodos {
 
     }
 
-    public static void GuardarCancionFavoritos(Context mContext, String idCancionSonando, Boolean favorito){
+    public static void GuardarCancionFavoritos(Context mContext, String idCancionSonando, Boolean favorito) {
 
 
         // buscar  el numero de la cancion en la catergoria que está sonando
@@ -1431,15 +1425,15 @@ public class metodos {
         // obtener lista de favoritos desde tinydb
         List<ModelCancion> tinyListFavoritos = tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class);
 
-        if(favorito) {
+        if (favorito) {
             // agregar cancion a favoritos
 
 
-                // Collections para que se muestre de primeras las ultimas agregadas
-            Collections.reverse(tinyListFavoritos);
+            // Collections para que se muestre de primeras las ultimas agregadas
+           // Collections.reverse(tinyListFavoritos);
 
 
-            for(int i = 0; i<tinyListCancionxCategoria.size(); i++) {
+            for (int i = 0; i < tinyListCancionxCategoria.size(); i++) {
                 if (tinyListCancionxCategoria.get(i).getId().equals(idCancionSonando)) {
                     tinyListFavoritos.add(tinyListCancionxCategoria.get(i));
                     Toast.makeText(mContext, R.string.agrego_favoritos, Toast.LENGTH_SHORT).show();
@@ -1447,17 +1441,17 @@ public class metodos {
                 }
             }
 
-                // guardar lista en tiny db y sin duplicados
-                tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
+            // guardar lista en tiny db y sin duplicados
+            tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
 
-                // actualizar lista de favoritos
-              //  UpdateAdapterFavoritos(mContext);
+            // actualizar lista de favoritos
+            //  UpdateAdapterFavoritos(mContext);
 
-                // cambiar icono de ivLikeDislike a like
+            // cambiar icono de ivLikeDislike a like
 
-                ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
-                ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_like));
-                ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
+            ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
+            ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_like));
+            ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
             mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
@@ -1465,81 +1459,80 @@ public class metodos {
             //endregion
 
 
+        } else {
 
-            } else {
-
-                // eliminar de favoritos
+            // eliminar de favoritos
 
 
-                // si en la lista de favoritos se encuentra la cancion que esta sonando se eliminará
+            // si en la lista de favoritos se encuentra la cancion que esta sonando se eliminará
 
-                for(int i = 0; i<tinyListFavoritos.size(); i++){
-                    if (tinyListFavoritos.get(i).getId().equals(idCancionSonando)) {
-                        tinyListFavoritos.remove(i);
-                        Toast.makeText(mContext, R.string.eliminado_favoritos, Toast.LENGTH_SHORT).show();
-                    }
+            for (int i = 0; i < tinyListFavoritos.size(); i++) {
+                if (tinyListFavoritos.get(i).getId().equals(idCancionSonando)) {
+                    tinyListFavoritos.remove(i);
+                    Toast.makeText(mContext, R.string.eliminado_favoritos, Toast.LENGTH_SHORT).show();
                 }
-
-
-                // guardar lista en tiny db y sin duplicados
-                tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
-                // actualizar lista de favoritos
-              //  UpdateAdapterFavoritos(mContext);
-
-                // cambiar icono de ivLikeDislike a like
-
-                ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
-                ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_dislike));
-                ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
-
-                //region actualizar lista de favoritos
-                mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
-                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
-                //endregion
-
             }
+
+
+            // guardar lista en tiny db y sin duplicados
+            tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
+            // actualizar lista de favoritos
+            //  UpdateAdapterFavoritos(mContext);
+
+            // cambiar icono de ivLikeDislike a like
+
+            ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
+            ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_dislike));
+            ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
+
+            //region actualizar lista de favoritos
+            mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+            bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
+            //endregion
+
+        }
 
     }
 
-    public static void CheckIsFavorite(Context mContext, String idCancionSonando){
+    public static void CheckIsFavorite(Context mContext, String idCancionSonando) {
         // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
         // buscar  el numero de la cancion en la catergoria que está sonando
 
 
-            List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
-            // obtener lista de favoritos desde tinydb
-            List<ModelCancion> tinyListFavoritos = tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class);
+        List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
+        // obtener lista de favoritos desde tinydb
+        List<ModelCancion> tinyListFavoritos = tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class);
 
-            // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
-            if (tinyListFavoritos != null && tinyListFavoritos.size() > 0) {
-                ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_dislike));
-                for (ModelCancion cancionEnFavoritos : tinyListFavoritos) {
-                    System.out.println("tinyListCancionxCategoria cancion " + cancionEnFavoritos.getCancion());
-                    if (cancionEnFavoritos.getId().equals(idCancionSonando)) {
-                        ivLikeDislike.startAnimation(Animacion.anim_alpha_out(mContext));
-                        ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_like));
-                        ivLikeDislike.startAnimation(Animacion.anim_alpha_in(mContext));
-                        System.out.println("tinyListCancionxCategoria cancionSonando ===== cancion ");
-                    }
+        // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
+        if (tinyListFavoritos != null && tinyListFavoritos.size() > 0) {
+            ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_dislike));
+            for (ModelCancion cancionEnFavoritos : tinyListFavoritos) {
+                System.out.println("tinyListCancionxCategoria cancion " + cancionEnFavoritos.getCancion());
+                if (cancionEnFavoritos.getId().equals(idCancionSonando)) {
+                    ivLikeDislike.startAnimation(Animacion.anim_alpha_out(mContext));
+                    ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_like));
+                    ivLikeDislike.startAnimation(Animacion.anim_alpha_in(mContext));
+                    System.out.println("tinyListCancionxCategoria cancionSonando ===== cancion ");
                 }
+            }
         }
     }
 
-    public static List<ModelCancion> EliminarDuplicadosModelCancion(List<ModelCancion> mListModelCancion){
+    public static List<ModelCancion> EliminarDuplicadosModelCancion(List<ModelCancion> mListModelCancion) {
 
-            Map<String, ModelCancion> cleanMap = new LinkedHashMap<String, ModelCancion>();
-            for (int i = 0; i < mListModelCancion.size(); i++) {
-                cleanMap.put(mListModelCancion.get(i).getId(), mListModelCancion.get(i));
-            }
-            List<ModelCancion> list = new ArrayList<ModelCancion>(cleanMap.values());
-            return list;
+        Map<String, ModelCancion> cleanMap = new LinkedHashMap<String, ModelCancion>();
+        for (int i = 0; i < mListModelCancion.size(); i++) {
+            cleanMap.put(mListModelCancion.get(i).getId(), mListModelCancion.get(i));
+        }
+        List<ModelCancion> list = new ArrayList<ModelCancion>(cleanMap.values());
+        return list;
 
     }
 
-    public static void UpdateAdapterHistorial(Context mContext){
+    public static void UpdateAdapterHistorial(Context mContext) {
 
 
-        if(mAdapterHistorial!=null && mrvHistorial!=null) {
+        if (mAdapterHistorial != null && mrvHistorial != null) {
 
             mAdapterHistorial = new AdapterHistorial(mContext, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
             mrvHistorial.setAdapter(mAdapterHistorial);
@@ -1552,15 +1545,15 @@ public class metodos {
 
     }
 
-    public static void UpdateAdapterFavoritos(Context mContext){
+    public static void UpdateAdapterFavoritos(Context mContext) {
 
-        if(mAdapterFavoritos!=null && mrvFavoritos!=null) {
+        if (mAdapterFavoritos != null && mrvFavoritos != null) {
 
             mAdapterFavoritos = new AdapterFavoritos(mContext, tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
             mrvFavoritos.setAdapter(mAdapterFavoritos);
             mAdapterFavoritos.notifyDataSetChanged();
 
-         //   mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+            //   mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
 
         } else {
             Toast.makeText(mContext, "NULO", Toast.LENGTH_SHORT).show();
@@ -1568,11 +1561,11 @@ public class metodos {
 
     }
 
-    public static void EncenderAutoApagado(Context mContext, int minutos){
+    public static void EncenderAutoApagado(Context mContext, int minutos) {
 
 
         // cambiar icono sleep a encendido
-        if(ivSleep!=null){
+        if (ivSleep != null) {
             ivSleep.startAnimation(Animacion.exit_ios_anim(mContext));
             ivSleep.setVisibility(VISIBLE);
             ivSleep.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_moon_on));
@@ -1580,13 +1573,11 @@ public class metodos {
         }
 
 
-
         int minutes = minutos;
         int milliseconds = minutes * 60 * 1000;
 
 
         countDownTimer = new CountDownTimer(milliseconds, 1000) {
-
 
 
             @Override
@@ -1609,7 +1600,6 @@ public class metodos {
                  */
 
 
-
             }
 
             @Override
@@ -1617,13 +1607,13 @@ public class metodos {
 
                 // cambiar icono sleep a apagado
 
-                if(ivSleep!=null){
+                if (ivSleep != null) {
                     ivSleep.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivSleep.setVisibility(VISIBLE);
                     ivSleep.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_moon_off));
                     ivSleep.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
-                if(tvSleep!=null){
+                if (tvSleep != null) {
                     tvSleep.setVisibility(GONE);
                 }
 
@@ -1642,17 +1632,16 @@ public class metodos {
         tvSleep.startAnimation(Animacion.enter_ios_anim(mContext));
 
 
-
     }
 
-    public static void ApagarAutoApagado(Context mContext){
+    public static void ApagarAutoApagado(Context mContext) {
 
 
-        if (countDownTimer != null){
+        if (countDownTimer != null) {
             countDownTimer.cancel();
             tvSleep.setText("00:00:00");
             // cambiar icono sleep a apagado
-            if(ivSleep!=null){
+            if (ivSleep != null) {
                 ivSleep.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivSleep.setVisibility(VISIBLE);
                 ivSleep.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_moon_off));
@@ -1672,16 +1661,16 @@ public class metodos {
 
     public static void OpcionReproductor(Context mContext, String modoReproductor) {
 
-        tinyDB.putString(TBmodoReproductor,modoReproductor);
+        tinyDB.putString(TBmodoReproductor, modoReproductor);
 
-        if(tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)){
-            if(ivOpcionBucle!=null) {
+        if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
+            if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivOpcionBucle.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_bucle));
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
-        } else if(tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
-            if(ivOpcionBucle!=null) {
+        } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
+            if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivOpcionBucle.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_aleatorio));
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));

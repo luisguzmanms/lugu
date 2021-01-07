@@ -62,8 +62,6 @@ import com.lamesa.lugu.player.MediaNotificationManager;
 import com.lamesa.lugu.player.library.MusicPlayer;
 import com.narayanacharya.waveview.WaveView;
 
-import net.khirr.android.privacypolicy.PrivacyPolicyDialog;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,7 +73,6 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.splash.DialogoPoliticas;
 import static com.lamesa.lugu.otros.Firebase.getListaImagenes;
 import static com.lamesa.lugu.otros.metodos.AboutUS;
 import static com.lamesa.lugu.otros.metodos.AbrirPagina;
@@ -87,11 +84,11 @@ import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
-import static com.lamesa.lugu.otros.metodos.SolicitarFilm;
 import static com.lamesa.lugu.otros.metodos.UpdateAdapterFavoritos;
 import static com.lamesa.lugu.otros.metodos.UpdateAdapterHistorial;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.initFirebase;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.mob.inter.loadInterstitial;
 import static com.lamesa.lugu.otros.mob.inter.showInterstitial;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
@@ -152,8 +149,8 @@ public class act_main extends AppCompatActivity {
     public static WaveView waveBlack;
     public static ImageView ivLikeDislike;
     public static TextView tvCategoria;
-    public static  LinearLayout ContenedorVacio;
-    public static  TextView tvVacio;
+    public static LinearLayout ContenedorVacio;
+    public static TextView tvVacio;
     public static ImageView ivSleep;
     public static TextView tvSleep;
     public static ImageView ivOpcionBucle;
@@ -175,7 +172,7 @@ public class act_main extends AppCompatActivity {
 
         tinyDB = new TinyDB(this);
         // imagen por defecto de fondo
-        tinyDB.putString(TBimagenFondo,"https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
+        tinyDB.putString(TBimagenFondo, "https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
 
         initFirebase(act_main.this, tinyDB);
 
@@ -190,6 +187,7 @@ public class act_main extends AppCompatActivity {
 
         // cargar adinter para ser mostrada
         loadInterstitial(act_main.this);
+        CargarInterAleatorio(act_main.this,3);
         // cargar banner
         CargarBanner();
 
@@ -467,11 +465,11 @@ public class act_main extends AppCompatActivity {
         //region guardar ivOpcionBucle segun el icono
         if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_bucle).getConstantState()) {
             // guardar modo de reproductor REPRODUCTOR_BUCLE
-           tinyDB.putString(TBmodoReproductor,REPRODUCTOR_BUCLE);
+            tinyDB.putString(TBmodoReproductor, REPRODUCTOR_BUCLE);
 
         } else if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_aleatorio).getConstantState()) {
             // guardar modo de reproductor REPRODUCTOR_ALEATORIO
-            tinyDB.putString(TBmodoReproductor,REPRODUCTOR_ALEATORIO);
+            tinyDB.putString(TBmodoReproductor, REPRODUCTOR_ALEATORIO);
         }
         //endregion
 
@@ -518,7 +516,7 @@ public class act_main extends AppCompatActivity {
 
                     case R.id.navigation_favoritos:
 
-                        UpdateAdapterFavoritos(act_main.this);
+                         UpdateAdapterFavoritos(act_main.this);
 
                         break;
                 }
@@ -570,7 +568,7 @@ public class act_main extends AppCompatActivity {
 
                         opcionMenu.add(getString(R.string.enviar_sugerencia));
                         opcionMenu.add(getString(R.string.compartir_app));
-                        opcionMenu.add("About "+act_main.this.getResources().getString(R.string.app_name));
+                        opcionMenu.add("About " + act_main.this.getResources().getString(R.string.app_name));
                         opcionMenu.add(getString(R.string.aviso_legal));
 
 
@@ -619,27 +617,27 @@ public class act_main extends AppCompatActivity {
                                                 "No multimedia file is being hosted by us on this app.\n" +
                                                 "\n" +
                                                 "We are not associated with the list of contents found on remote servers. We have no connection or association with such content.\n" +
-                                                "The mp3, jpg, png files that are available are not hosted on ("+act_main.this.getResources().getString(R.string.app_name)+") app and are hosted on other servers (therefore, not our host service).\n" +
-                                                "This app ("+act_main.this.getResources().getString(R.string.app_name)+") functions as a lofi music search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to lugulofimusic@gmail.com\n" +
+                                                "The mp3, jpg, png files that are available are not hosted on (" + act_main.this.getResources().getString(R.string.app_name) + ") app and are hosted on other servers (therefore, not our host service).\n" +
+                                                "This app (" + act_main.this.getResources().getString(R.string.app_name) + ") functions as a lofi music search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to lugulofimusic@gmail.com\n" +
                                                 "In fact, we adhere to the rights of producers and artists. We assure you that your work will be safe and legal, which will result in a positive experience for each of you, whether you are a creator or a musical artist. Please note that if any person knowingly or intentionally misrepresents any material or activity listed in Section 512(f), it would be considered a violation of copyright law. Then, if you are doing so, you are liable for your own harm. But keep one thing in mind: Don’t make any false claims about the infringed content!\n" +
                                                 "\n" +
                                                 "The complete information contained in the legal notice may also be sent to the interested party providing the content that is being infringed.", "SI", "CANCELAR")
                                                 .setOkButton(getString(R.string.open_email)).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
-                                                    @Override
-                                                    public boolean onClick(BaseDialog baseDialog, View v) {
+                                            @Override
+                                            public boolean onClick(BaseDialog baseDialog, View v) {
 
-                                                        Intent intent = new Intent(Intent.ACTION_SEND);
-                                                        intent.setType("message/rfc822");
-                                                        intent.putExtra(Intent.EXTRA_EMAIL, "lugulofimusic@gmail.com");
-                                                        intent.putExtra(Intent.EXTRA_SUBJECT, "DMCA");
-                                                        intent.putExtra(Intent.EXTRA_STREAM, "");
-                                                        if (intent.resolveActivity(getPackageManager()) != null) {
-                                                            startActivity(intent);
-                                                        }
+                                                Intent intent = new Intent(Intent.ACTION_SEND);
+                                                intent.setType("message/rfc822");
+                                                intent.putExtra(Intent.EXTRA_EMAIL, "lugulofimusic@gmail.com");
+                                                intent.putExtra(Intent.EXTRA_SUBJECT, "DMCA");
+                                                intent.putExtra(Intent.EXTRA_STREAM, "");
+                                                if (intent.resolveActivity(getPackageManager()) != null) {
+                                                    startActivity(intent);
+                                                }
 
-                                                        return false;
-                                                    }
-                                                })
+                                                return false;
+                                            }
+                                        })
                                                 .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
                                                     @Override
                                                     public boolean onClick(BaseDialog baseDialog, View v) {
@@ -718,7 +716,7 @@ public class act_main extends AppCompatActivity {
 
                         showInterstitial(act_main.this);
 
-                      //  video.createAndLoadRewardedAd(act_main.this);
+                        //  video.createAndLoadRewardedAd(act_main.this);
 
                         /* si el anuncio de video cargó, mostrar :
                         if (rewardedAd!=null && rewardedAd.isLoaded()) {
@@ -838,46 +836,44 @@ public class act_main extends AppCompatActivity {
         ivOpcionBucle.setOnClickListener(listener);
 
 
-
-
         // cargar gif de fondo
         ivFondoGif = findViewById(R.id.iv_fondoGif);
         // traer link de imagen
         CargarImagenFondo();
         // cargar imagen en fondo
         Glide.with(this)
-                    .load(tinyDB.getString(TBimagenFondo))
-                    //.error(R.drawable.ic_alert)
-                    .transition(DrawableTransitionOptions.withCrossFade(200))
-                    .into(ivFondoGif);
-            // extraer colores de imagenes
-            Glide.with(this)
-                    .asBitmap()
-                    .load(tinyDB.getString(TBimagenFondo))
-                    .into(new CustomTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
+                .load(tinyDB.getString(TBimagenFondo))
+                //.error(R.drawable.ic_alert)
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .into(ivFondoGif);
+        // extraer colores de imagenes
+        Glide.with(this)
+                .asBitmap()
+                .load(tinyDB.getString(TBimagenFondo))
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
 
-                            // TODO Do some work: pass this bitmap
+                        // TODO Do some work: pass this bitmap
 
-                            //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
 
-                            Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
-                                public void onGenerated(Palette palette) {
-                                    // Do something with colors...
-                                    waveColor.setWaveColor(palette.getLightMutedColor(Color.WHITE));
-                                    tvCancion.setTextColor(palette.getMutedColor(Color.WHITE));
-                                    tvArtista.setTextColor(palette.getDarkVibrantColor(Color.WHITE));
-                                }
-                            });
-                        }
+                        Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
+                            public void onGenerated(Palette palette) {
+                                // Do something with colors...
+                                waveColor.setWaveColor(palette.getLightMutedColor(Color.WHITE));
+                                tvCancion.setTextColor(palette.getMutedColor(Color.WHITE));
+                                tvArtista.setTextColor(palette.getDarkVibrantColor(Color.WHITE));
+                            }
+                        });
+                    }
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
-                            // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
-                        }
-                    });
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
+                    }
+                });
 
 
     }
@@ -886,12 +882,12 @@ public class act_main extends AppCompatActivity {
 
 
         // cargar una imagen random
-        if(!tinyDB.getListString(TBlistImagenes).isEmpty() && tinyDB.getListString(TBlistImagenes)!=null) {
+        if (!tinyDB.getListString(TBlistImagenes).isEmpty() && tinyDB.getListString(TBlistImagenes) != null) {
             Random random = new Random();
             // obtener link alaeatorio
             int numRandom = random.nextInt(tinyDB.getListString(TBlistImagenes).size());
             // guardar link de imagen en tiny
-            tinyDB.putString(TBimagenFondo,tinyDB.getListString(TBlistImagenes).get(numRandom));
+            tinyDB.putString(TBimagenFondo, tinyDB.getListString(TBlistImagenes).get(numRandom));
         }
     }
 

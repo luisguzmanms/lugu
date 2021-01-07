@@ -151,6 +151,7 @@ public class act_main extends AppCompatActivity {
     public static WeatherView weatherView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -356,6 +357,7 @@ public class act_main extends AppCompatActivity {
         ivSleep = findViewById(R.id.iv_sleep);
         tvSleep = findViewById(R.id.tv_sleep);
 
+
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
         //region guardar ivOpcionBucle segun el icono
         if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_bucle).getConstantState()) {
@@ -429,7 +431,7 @@ public class act_main extends AppCompatActivity {
 
                     case R.id.ivLogo:
 
-                        AbrirPagina(act_main.this);
+                        AbrirPagina(act_main.this,"https://lugumusic.page.link/website");
 
                         break;
 
@@ -711,6 +713,8 @@ public class act_main extends AppCompatActivity {
 
                         break;
 
+
+
                 }
 
             }
@@ -725,6 +729,7 @@ public class act_main extends AppCompatActivity {
         ivLikeDislike.setOnClickListener(listener);
         ivSleep.setOnClickListener(listener);
         ivOpcionBucle.setOnClickListener(listener);
+
 
 
         // cargar gif de fondo

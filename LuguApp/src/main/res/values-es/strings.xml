@@ -50,4 +50,8 @@
     <string name="loading_song">Cargando canción...</string>
     <string name="yes">SI</string>
     <string name="salir_app">¿Salir de la aplicación?</string>
+    <string name="contenido_eliminado">Contenido eliminado.</string>
+    <string name="eliminar_lista">¿Desea eliminar el contenido de esta lista?</string>
+    <string name="accion_deshacer">Esta acción no se puede deshacer</string>
+
 </resources>

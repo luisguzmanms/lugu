@@ -305,7 +305,7 @@ public class metodos {
             @Override
             public boolean onClick(BaseDialog baseDialog, View v) {
                 //    Toast.makeText(mContext, "sdasdasdd", Toast.LENGTH_SHORT).show();
-                AbrirPagina(mContext);
+                AbrirPagina(mContext,"https://lugumusic.page.link/website");
                 return false;
             }
         }).setCancelable(cancelable).setOnOkButtonClickListener((baseDialog, v) -> {
@@ -683,11 +683,11 @@ public class metodos {
         }
     }
 
-    public static void AbrirPagina(Context mContext) {
+    public static void AbrirPagina(Context mContext,String pagina) {
 
 
         try {
-            mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://lugumusic.page.link/website")));
+            mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(pagina)));
         } catch (Exception e) {
             //e.toString();
         }
@@ -782,17 +782,17 @@ public class metodos {
     public static void DialogoEliminarLista(Context mContext, List<ModelCancion> mList, String keyTinyDB) {
 
         String saltoDeLinea = "\n";
-        String titulo = "¿De sea eliminar el contenido de esta lista?";
+        String titulo = mContext.getString(R.string.eliminar_lista);
 
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
         MessageDialog.build((AppCompatActivity) mContext)
                 .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
-                .setOkButton("SI")
-                .setMessage("Esta acción no se puede deshacer")
+                .setOkButton(mContext.getResources().getString(R.string.yes))
+                .setMessage(mContext.getString(R.string.accion_deshacer))
                 .setTitle(titulo)
-                .setCancelButton("CERRAR")
+                .setCancelButton("NO")
                 .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
                 .setCancelable(true)
                 .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
@@ -802,7 +802,7 @@ public class metodos {
                         mList.removeAll(mList);
 
                         tinyDB.putListModelCancion(keyTinyDB, mList);
-                        TipDialog.show((AppCompatActivity) mContext, "Contenido eliminado.", TipDialog.TYPE.SUCCESS);
+                        TipDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.contenido_eliminado), TipDialog.TYPE.SUCCESS);
                         if (keyTinyDB.contains(TBlistFavoritos)) {
                             UpdateAdapterFavoritos(mContext);
                             if (bottomNavigationHis_Fav != null) {
@@ -822,6 +822,39 @@ public class metodos {
                 .show();
     }
 
+    /*
+    public static void DialogoDonar(Context mContext) {
+
+        String saltoDeLinea = "\n";
+        String titulo = mContext.getString(R.string.donate)+" "+mContext.getString(R.string.app_name);
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+        MessageDialog.build((AppCompatActivity) mContext)
+                .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                .setOkButton(mContext.getResources().getString(R.string.yes))
+                .setMessage(mContext.getString(R.string.msg_donar))
+                .setTitle(titulo)
+                .setCancelButton("NO")
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setCancelable(true)
+                .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+                        // eliminar contenido
+
+                        AbrirPagina(mContext,"https://www.paypal.com/paypalme/lugumusic");
+
+
+                        return false;
+                    }
+                })
+                .show();
+    }
+
+     */
+
     public static void DialogoSalir(Context mContext) {
 
         String saltoDeLinea = "\n";
@@ -832,7 +865,7 @@ public class metodos {
 
         MessageDialog.build((AppCompatActivity) mContext)
                 .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
-                .setOkButton(mContext.getResources().getColor(R.string.yes))
+                .setOkButton(mContext.getResources().getString(R.string.yes))
                 .setMessage("")
                 .setTitle(titulo)
                 .setCancelButton("NO")
@@ -1211,7 +1244,7 @@ public class metodos {
 
     public static void getLinkAndPlay(Context mContext, String linkYT, int opcion) {
 
-        CargarInterAleatorio(mContext, 3);
+        CargarInterAleatorio(mContext, 8);
 
         if (pbCargandoRadio != null) {
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));

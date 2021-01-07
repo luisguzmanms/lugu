@@ -60,6 +60,7 @@
                         android:textColor="@color/learn_gradient_grey_2"
                         android:textSize="14dp" />
 
+
                     <ImageView
                         android:id="@+id/ivLogo"
                         android:layout_width="30dp"
@@ -496,7 +497,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="0dp"
                 android:visibility="visible"
-                app:adSize="SMART_BANNER"
+                app:adSize="BANNER"
                 app:adUnitId="ca-app-pub-1553194436365145/3922025411">
 
             </com.google.android.gms.ads.AdView>

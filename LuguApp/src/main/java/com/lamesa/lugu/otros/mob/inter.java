@@ -67,7 +67,7 @@ public class inter {
 			}
 			//endregion
 		} else {
-			Toast.makeText(mContext, "Ad did not load", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(mContext, "Ad did not load", Toast.LENGTH_SHORT).show();
 			loadInterstitial(mContext);
 		}
 	}

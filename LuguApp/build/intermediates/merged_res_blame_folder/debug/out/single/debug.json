@@ -4,10 +4,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_bg_circle_stroked.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_icon_sinfondo.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-xhdpi\\icon_sinfondo.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_item_favorito.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\item_favorito.xml"
     },
@@ -28,16 +24,8 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\anim_slide_top_out.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_icon_sinfondo.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\icon_sinfondo.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_more.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_more.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_stat_name.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-hdpi\\ic_stat_name.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_lugu_silueta.xml.flat",
@@ -64,10 +52,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_italic.ttf"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_icon2.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\icon2.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_poppins_semi_bold.ttf.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\poppins_semi_bold.ttf"
     },
@@ -80,28 +64,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_seekbar_thumb.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_wait_meme.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_wait_meme.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_josefinsans_semibolditalic.ttf.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_semibolditalic.ttf"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_scale_up.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\scale_up.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_stat_name.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-xxxhdpi\\ic_stat_name.png"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_medal.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_medal.png"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_icon_sinfondo.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-xxxhdpi\\icon_sinfondo.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_slideright.xml.flat",
@@ -116,12 +84,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_lightitalic.ttf"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_shadow_edittext_oscuro_black.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadow_edittext_oscuro_black.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_zoom_in.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\zoom_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_shadow_edittext_oscuro_black.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadow_edittext_oscuro_black.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_share_black_24dp.xml.flat",
@@ -136,16 +104,8 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\gradient5.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_pause_to_play.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\pause_to_play.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_shape_rounded.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\shape_rounded.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_prokit_logo.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_prokit_logo.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_icon_arrow_right.png.flat",
@@ -220,10 +180,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_lista.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_stat_name.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-xxhdpi\\ic_stat_name.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_bg_chat.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_bg_chat.xml"
     },
@@ -256,24 +212,8 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_user.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_fire.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_fire.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_crome.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_crome.png"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_icon_sinfondo.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-mdpi\\icon_sinfondo.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_lista.png.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_lista.png"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_flag.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_flag.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
@@ -308,10 +248,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadow_edittext_oscuro.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_meda.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_meda.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_bg_gradient_grey.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_bg_gradient_grey.xml"
     },
@@ -324,12 +260,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\ic_video_player_btn_pause.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_rotate_form.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\rotate_form.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_insert_emoticon_black_24dp.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_insert_emoticon_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_rotate_form.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\rotate_form.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_ropasans_regular.ttf.flat",
@@ -338,10 +274,6 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_pop_out.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\pop_out.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_play_to_pause.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\play_to_pause.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_learn_activity_congratulation.xml.flat",
@@ -436,10 +368,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_bg_circle_dotted.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_cup.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_cup.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_icon_close.png.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\icon_close.png"
     },
@@ -472,16 +400,16 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\scale_down.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learner_ic_fab_back.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learner_ic_fab_back.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_fontawesome.ttf.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\fontawesome.ttf"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_bg_gradient_badge.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_bg_gradient_badge.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_paypal.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_paypal.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_shadow_edittext_oscuro2.xml.flat",
@@ -542,10 +470,6 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learen_walk_bg.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learen_walk_bg.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\menu_learn_bottom_navigation.xml.flat",
@@ -612,10 +536,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\shape_replay.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_ondas.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_ondas.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_moon_on.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-mdpi\\ic_moon_on.xml"
     },
@@ -648,10 +568,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_stat_name.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-xhdpi\\ic_stat_name.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_key.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_key.xml"
     },
@@ -662,10 +578,6 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_launcher_background.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_telecope.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_telecope.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_shape_controller_bottom_gradient.xml.flat",
@@ -682,10 +594,6 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_layout_player_retry.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\layout_player_retry.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_estrella.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_estrella.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_brightness_white.png.flat",
@@ -760,10 +668,6 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\layout_full_login.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_icon_sinfondo.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-hdpi\\icon_sinfondo.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_learn_layout_animation_fall_down.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\learn_layout_animation_fall_down.xml"
     },
@@ -812,16 +716,8 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\poppins_bold.ttf"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_crown.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_crown.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_pop_in.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\pop_in.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_bag.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_bag.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_history.xml.flat",
@@ -964,16 +860,8 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\anim_slide_bottom_in_wallpaper.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_icon_sinfondo.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-xxhdpi\\icon_sinfondo.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_arrow_right.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_arrow_right.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_senales.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_senales.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_stop_white.xml.flat",
@@ -1020,16 +908,8 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadoe.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_stat_name.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable-mdpi\\ic_stat_name.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_selector_seek_bar_thumb.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\selector_seek_bar_thumb.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_wave.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_wave.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_circle_dot.xml.flat",

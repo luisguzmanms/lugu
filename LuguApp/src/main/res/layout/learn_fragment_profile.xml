@@ -15,15 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/learn_spacing_standard_new">
-            <com.iqonic.learnerapp.utils.LearnerCircleImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_100sdp"
-                app:civ_border_color="@color/learn_white"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="@dimen/learn_spacing_control"
-                app:civ_border_width="@dimen/learn_spacing_control_half"
-                android:padding="@dimen/learn_spacing_control_half" />
+
             <TextView
                 android:id="@+id/tvUserName"
                 style="@style/LearnHeadingBig"
@@ -48,7 +40,7 @@
                 android:layout_marginEnd="@dimen/learn_font_size_large"
                 android:text="@string/learn_lbl_390_290_points" />
             <LinearLayout
-                android:layout_toEndOf="@id/ivProfile"
+
                 android:layout_below="@id/tvStartNewChat"
                 android:layout_marginTop="@dimen/learn_spacing_control"
                 android:layout_marginStart="@dimen/learn_spacing_middle"
@@ -58,7 +50,6 @@
                     android:id="@+id/ivMedal1"
                     android:layout_width="@dimen/_27sdp"
                     android:layout_height="@dimen/_27sdp"
-                    android:src="@drawable/learn_ic_medal"
                     android:paddingTop="@dimen/learn_spacing_control_half"
                     android:paddingBottom="@dimen/learn_spacing_standard"
                     android:background="@drawable/learn_bg_circle_white"
@@ -68,7 +59,6 @@
                     android:id="@+id/ivMedal2"
                     android:layout_width="@dimen/_27sdp"
                     android:layout_height="@dimen/_27sdp"
-                    android:src="@drawable/learn_ic_crown"
                     android:layout_marginStart="@dimen/learn_spacing_medium"
                     android:paddingTop="@dimen/learn_spacing_control_half"
                     android:padding="@dimen/learn_spacing_medium"
@@ -79,7 +69,6 @@
                     android:id="@+id/ivMedal3"
                     android:layout_width="@dimen/_27sdp"
                     android:layout_height="@dimen/_27sdp"
-                    android:src="@drawable/learn_ic_cup"
                     android:layout_marginStart="@dimen/learn_spacing_medium"
                     android:paddingTop="@dimen/learn_spacing_control_half"
                     android:padding="@dimen/learn_spacing_medium"
@@ -90,7 +79,6 @@
                     android:id="@+id/ivMedal4"
                     android:layout_width="@dimen/_27sdp"
                     android:layout_height="@dimen/_27sdp"
-                    android:src="@drawable/learn_ic_flag"
                     android:layout_marginStart="@dimen/learn_spacing_medium"
                     android:padding="@dimen/learn_spacing_medium"
                     android:background="@drawable/learn_bg_circle_white"
@@ -168,7 +156,6 @@
                     android:background="@drawable/learn_shadoe"
                     android:src="@drawable/learn_ic_user"
                     android:padding="@dimen/_12sdp"
-                    android:tint="@color/learn_colorPrimary"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -252,7 +239,6 @@
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/learn_shadoe"
                     android:src="@drawable/learn_ic_key"
-                    android:tint="@color/learn_green"
                     android:padding="@dimen/_13sdp"
                     />
                 <TextView

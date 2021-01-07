@@ -205,13 +205,13 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                         // reproducir la misma cancion
                         setLogInfo(mContext,"Player.STATE_ENDED","REPRODUCTOR_BUCLE",false);
                         getLinkAndPlay(mContext, tinyDB.getString(TBlinkCancionSonando),1);
-                        Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
 
 
                     } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)){
                         // reproducir otra cancion de la misma lista
                         setLogInfo(mContext,"Player.STATE_ENDED","REPRODUCTOR_ALEATORIO",false);
-                        Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
                         List<ModelCancion> listSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
 
                         if(listSonando!=null && listSonando.size() !=0 ) {

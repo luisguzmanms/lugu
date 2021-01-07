@@ -264,5 +264,8 @@
     <string name="loading_song">Loading song...</string>
     <string name="salir_app">¿Exit?</string>
     <string name="yes">YES</string>
+    <string name="accion_deshacer">This action cannot be undone</string>
+    <string name="eliminar_lista">Do you want to remove the content from this list?</string>
+    <string name="contenido_eliminado">Deleted list.</string>
 
 </resources>

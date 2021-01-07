@@ -297,8 +297,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_delfin" />
-                            <entry key="sourceFile" value="D:\Descargas\delfin.svg" />
+                            <entry key="outputName" value="ic_paypal" />
+                            <entry key="sourceFile" value="D:\Descargas\paypal.svg" />
                           </map>
                         </option>
                       </PersistentState>

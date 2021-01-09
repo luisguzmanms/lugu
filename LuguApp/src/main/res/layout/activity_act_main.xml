@@ -297,6 +297,14 @@
                         app:srcCompat="@drawable/learn_ic_dislike" />
 
                     <ImageView
+                        android:id="@+id/iv_report"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="right|top"
+                        android:layout_margin="10dp"
+                        app:srcCompat="@drawable/ic_report" />
+
+                    <ImageView
                         android:id="@+id/iv_opcionBucle"
                         android:layout_width="25dp"
                         android:layout_height="25dp"

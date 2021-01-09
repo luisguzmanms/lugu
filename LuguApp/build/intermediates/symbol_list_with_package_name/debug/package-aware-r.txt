@@ -2836,6 +2836,7 @@ id iv_imagenFondo
 id iv_likeDislike
 id iv_opcionBucle
 id iv_playPause
+id iv_report
 id iv_sleep
 id labeled
 id largeLabel
@@ -3336,6 +3337,7 @@ string act_disponible
 string act_obligatoria
 string act_opcional
 string action_settings
+string activar
 string agrego_favoritos
 string apoyo_posible
 string app_name
@@ -3370,6 +3372,7 @@ string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
 string compartir_app
+string coneccion_lenta
 string contenido_eliminado
 string default_web_client_id
 string descarga_completa
@@ -3645,6 +3648,8 @@ string loading_song
 string mas_info_descarga
 string modo_aleatorio
 string modo_bucle_on
+string msg_opBateria
+string msg_report_song
 string msg_shareapp
 string msg_sugerencia
 string mtrl_chip_close_icon_content_description
@@ -3696,8 +3701,10 @@ string tedpermission_confirm
 string tedpermission_setting
 string temporizador_apagado
 string title_activity_learn_instructor_detail
+string title_report_song
 string title_retry
 string title_terms
+string titulo_opBateria
 string twitter_consumer_key
 string twitter_consumer_secret
 string window_play

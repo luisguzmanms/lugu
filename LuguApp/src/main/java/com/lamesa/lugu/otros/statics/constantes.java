@@ -72,7 +72,7 @@ public class constantes {
     public static String mixNotificacionClic = "NotificacionClic";
     public static String mixAdClic = "AdClic";
    public static String mixPlaySong = "PlaySong";
-
+   public static String mixOnPlayerError = "mixOnPlayerError";
 
     public static boolean NotiAbierta = false;
 

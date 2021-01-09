@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:37:9-45:20
+INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:41:9-49:20
 	android:grantUriPermissions
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:41:13-47
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:45:13-47
 	android:authorities
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:39:13-60
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:43:13-60
 	android:exported
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:40:13-37
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:44:13-37
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:38:13-62
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:42:13-62
 manifest
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
 MERGED from [:youtubeExtractor] C:\Users\luisguzman\GitHub\lugu\youtubeExtractor\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-16:12
 MERGED from [:jsevaluator-1.0:] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\113f3712461d8b25bd500429bf8badc2\jetified-jsevaluator-1.0\AndroidManifest.xml:2:1-16:12
 MERGED from [com.github.MatteoBattilana:WeatherView:3.0.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\642f617fea7c374373c7222692fb7915\jetified-WeatherView-3.0.0\AndroidManifest.xml:2:1-11:12
@@ -153,22 +153,22 @@ MERGED from [com.linsea:universalvideoview:1.1.0] C:\Users\luisguzman\.gradle\ca
 MERGED from [com.google.android.gms:play-services-ads-base:19.6.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\6f592277b0c1a13a128907cbc9733d27\jetified-play-services-ads-base-19.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:protolite-well-known-types:17.1.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\4bfa109d130b8e59ea16f90afba7404b\jetified-protolite-well-known-types-17.1.0\AndroidManifest.xml:2:1-11:12
 MERGED from [com.github.jinatonic.confetti:confetti:1.1.2] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\787fed1156e20cbbd0ffac306b978a65\jetified-confetti-1.1.2\AndroidManifest.xml:2:1-9:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
-INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
+INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
 	package
 		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:4:5-30
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:11-69
@@ -294,8 +294,12 @@ MERGED from [androidx.work:work-runtime:2.1.0] C:\Users\luisguzman\.gradle\cache
 MERGED from [androidx.work:work-runtime:2.1.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\af3228aab3de631dfa3f811abe29cfa1\work-runtime-2.1.0\AndroidManifest.xml:25:5-68
 	android:name
 		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:10:22-65
+uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:11:5-94
+	android:name
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:11:22-92
 application
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:14:5-92:19
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:15:5-96:19
 MERGED from [:youtubeExtractor] C:\Users\luisguzman\GitHub\lugu\youtubeExtractor\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-14:19
 MERGED from [:youtubeExtractor] C:\Users\luisguzman\GitHub\lugu\youtubeExtractor\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-14:19
 MERGED from [:jsevaluator-1.0:] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\113f3712461d8b25bd500429bf8badc2\jetified-jsevaluator-1.0\AndroidManifest.xml:11:5-14:19
@@ -425,101 +429,107 @@ MERGED from [com.google.android.gms:play-services-ads-base:19.6.0] C:\Users\luis
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.3.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\3a33a4f55f731eef3c25cfaec981df38\core-1.3.0\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:22:9-35
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:23:9-35
 	android:label
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:18:9-41
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:19:9-41
 	android:hardwareAccelerated
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:16:9-43
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:17:9-43
 	tools:ignore
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:24:9-48
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:25:9-48
 	android:roundIcon
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:21:9-54
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:22:9-54
 	android:allowBackup
 		ADDED from [:jsevaluator-1.0:] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\113f3712461d8b25bd500429bf8badc2\jetified-jsevaluator-1.0\AndroidManifest.xml:12:9-35
 	android:largeHeap
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:19:9-33
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:20:9-33
 	android:icon
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:17:9-43
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:18:9-43
 	android:networkSecurityConfig
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:23:9-60
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:24:9-60
 	android:usesCleartextTraffic
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:20:9-44
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:21:9-44
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:15:9-43
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:16:9-43
+uses-library#org.apache.http.legacy
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:27:9-29:40
+	android:required
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:29:13-37
+	android:name
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:28:13-50
 meta-data#io.sentry.dsn
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:27:9-93
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:31:9-93
 	android:value
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:27:49-90
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:31:49-90
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:27:20-48
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:31:20-48
 meta-data#firebase_performance_logcat_enabled
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:29:13-31:40
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:33:13-35:40
 	android:value
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:31:17-37
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:35:17-37
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:30:17-67
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:34:17-67
 meta-data#com.google.android.gms.ads.APPLICATION_ID
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:33:9-35:69
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:37:9-39:69
 	android:value
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:35:13-67
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:39:13-67
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:34:13-69
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:38:13-69
 activity#com.lamesa.lugu.activity.splash
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:48:9-59:20
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:52:9-63:20
 	android:screenOrientation
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:50:13-49
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:54:13-49
 	android:windowSoftInputMode
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:53:13-65
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:57:13-65
 	android:configChanges
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:51:13-59
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:55:13-59
 	android:theme
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:52:13-51
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:56:13-51
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:49:13-59
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:53:13-59
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:54:13-58:29
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:58:13-62:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:55:17-69
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:59:17-69
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:55:25-66
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:59:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:57:17-77
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:61:17-77
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:57:27-74
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:61:27-74
 activity#com.lamesa.lugu.activity.act_main
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:61:9-65:77
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:65:9-69:77
 	android:screenOrientation
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:62:13-49
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:66:13-49
 	android:windowSoftInputMode
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:65:13-65
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:69:13-65
 	android:configChanges
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:63:13-59
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:67:13-59
 	android:theme
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:64:13-51
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:68:13-51
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:61:19-67
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:65:19-67
 meta-data#preloaded_fonts
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:68:9-70:57
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:72:9-74:57
 	android:resource
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:70:13-54
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:74:13-54
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:69:13-43
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:73:13-43
 receiver#androidx.media.session.MediaButtonReceiver
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:77:9-81:20
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:81:9-85:20
 	android:enabled
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:77:77-99
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:81:77-99
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:77:19-76
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:81:19-76
 intent-filter#action:name:android.intent.action.MEDIA_BUTTON
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:78:13-80:29
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:82:13-84:29
 action#android.intent.action.MEDIA_BUTTON
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:79:17-77
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:83:17-77
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:79:25-74
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:83:25-74
 receiver#com.lamesa.lugu.receiver.ActionReceiver
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:84:9-88:20
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:88:9-92:20
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:84:19-73
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:88:19-73
 uses-sdk
 INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
@@ -813,11 +823,11 @@ INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.x
 		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:42:13-44:63
+ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:46:13-48:63
 	android:resource
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:44:17-60
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:48:17-60
 	android:name
-		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:43:17-67
+		ADDED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:47:17-67
 meta-data#com.google.android.gms.version
 ADDED from [com.firebaseui:firebase-ui-auth:5.1.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\52a0b2db48137f8708677845a065aa5d\jetified-firebase-ui-auth-5.1.0\AndroidManifest.xml:16:9-18:69
 MERGED from [com.google.android.gms:play-services-basement:17.3.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\9c0c779f0c2f6c5a6aef03ea462278c1\jetified-play-services-basement-17.3.0\AndroidManifest.xml:23:9-25:69
@@ -1097,7 +1107,7 @@ ADDED from [com.coolerfall:android-http-download-manager:1.6.2] C:\Users\luisguz
 	android:name
 		ADDED from [com.coolerfall:android-http-download-manager:1.6.2] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\8b06f642974293726dfbb016e6126a57\jetified-android-http-download-manager-1.6.2\AndroidManifest.xml:9:22-78
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-94:12 reason: com.coolerfall.download requested WRITE_EXTERNAL_STORAGE
+IMPLIED from C:\Users\luisguzman\GitHub\lugu\LuguApp\src\main\AndroidManifest.xml:2:1-98:12 reason: com.coolerfall.download requested WRITE_EXTERNAL_STORAGE
 meta-data#com.google.firebase.components:com.google.firebase.crashlytics.CrashlyticsRegistrar
 ADDED from [com.google.firebase:firebase-crashlytics:17.3.0] C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\f1586e812cafee70df71f2bd66fa9c49\jetified-firebase-crashlytics-17.3.0\AndroidManifest.xml:18:13-20:85
 	android:value

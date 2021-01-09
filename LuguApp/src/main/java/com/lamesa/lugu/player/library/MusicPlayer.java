@@ -4,11 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import com.amplitude.api.Amplitude;
 import com.github.matteobattilana.weather.PrecipType;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -56,11 +57,16 @@ import com.lamesa.lugu.player.library.globalInterfaces.ExoPlayerCallBack;
 import com.lamesa.lugu.player.library.utils.PublicFunctions;
 import com.lamesa.lugu.player.library.utils.PublicValues;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
@@ -85,7 +91,8 @@ import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-
+import static com.lamesa.lugu.otros.statics.constantes.mixActualizarApp;
+import static com.lamesa.lugu.otros.statics.constantes.mixOnPlayerError;
 
 public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
@@ -117,6 +124,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
     private ExoPlayerCallBack exoPlayerCallBack;
     private boolean isPlaying = false;
     private String source;
+    private int intentosError = 0;
 
 
     public class ComponentListener implements Player.EventListener {
@@ -138,7 +146,9 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     break;
                 case Player.STATE_READY:
 
-                   isPlaying = true;
+                    // si se reproduce, los intentos de eroores es igual a 0
+                    intentosError = 0;
+                    isPlaying = true;
 
 
                     if (isPreparing) {
@@ -269,17 +279,47 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
         @Override
         public void onPlayerError(ExoPlaybackException error) {
+            intentosError = intentosError + 1;
             showRetry();
 
-            Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_SHORT).show();
-            System.out.println("newlofi error.getMessage() "+error.getMessage());
+            if(error.getMessage().contains("Unable to connect")) {
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
+            }
+
+            //region MIX mixonPlayerError para estadisticas
+            JSONObject props = new JSONObject();
+            try {
+                props.put("Error", error.getMessage());
+                Bundle params = new Bundle();
+                params.putString("Fecha", error.getMessage());
+
+
+                mFirebaseAnalytics.logEvent(mixOnPlayerError, params);
+                mixpanel.track(mixOnPlayerError, props);
+                Amplitude.getInstance().logEvent(mixOnPlayerError, props);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //endregion
+
+
             setLogInfo(mContext, "AndExoPlayerView.onPlayerError", error.getMessage(),true);
 
-            // volver a reproducir
-            musicPlayer.setSource(source);
 
-            if (exoPlayerCallBack != null)
+
+            // si el numero de intentos es igual a 3, reproducir nuevamente la cancion
+         if(IntentosPlay() < 3){
+             // volver a reproducir
+             musicPlayer.setSource(source);
+         } else {
+             PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+             PlayOrPause(MediaNotificationManager.STATE_PLAY);
+         }
+
+
+            if (exoPlayerCallBack != null) {
                 exoPlayerCallBack.onError();
+            }
 
         }
 
@@ -298,6 +338,13 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
         }
 
+    }
+
+    private int IntentosPlay() {
+
+        intentosError = intentosError + 1;
+
+        return intentosError;
     }
 
     public MusicPlayer(Context context) {

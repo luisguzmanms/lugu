@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -54,6 +58,7 @@ import com.kongzue.dialog.v3.TipDialog;
 import com.kongzue.dialog.v3.WaitDialog;
 import com.lamesa.lugu.BuildConfig;
 import com.lamesa.lugu.R;
+import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.adapter.AdapterFavoritos;
 import com.lamesa.lugu.adapter.AdapterHistorial;
 import com.lamesa.lugu.model.ModelCancion;
@@ -79,7 +84,6 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -92,8 +96,10 @@ import at.huber.youtubeExtractor.YouTubeExtractor;
 import at.huber.youtubeExtractor.YtFile;
 import okhttp3.OkHttpClient;
 
+import static android.content.Context.POWER_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static androidx.core.content.ContextCompat.getSystemService;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
@@ -105,6 +111,7 @@ import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
 import static com.lamesa.lugu.activity.act_main.ivSleep;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
+import static com.lamesa.lugu.activity.act_main.mlistCancion;
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
 import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
@@ -143,6 +150,81 @@ public class metodos {
     public static CountDownTimer countDownTimer;
     public static NumberPicker numberPicker;
 
+
+    public static void DialogoReport(Context mContext) {
+
+
+        String saltoDeLinea = "\n";
+        String titulo = mContext.getString(R.string.title_report_song);
+        String mensaje = mContext.getString(R.string.msg_report_song);
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+
+                MessageDialog.build((AppCompatActivity) mContext)
+                        .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                        .setTitle(titulo).setMessage(mensaje)
+                        .setOkButton("EMAIL", new OnDialogButtonClickListener()  {
+                            @Override
+                            public boolean onClick(BaseDialog baseDialog, View v) {
+
+                                Intent intent = new Intent(Intent.ACTION_SEND);
+                                intent.setType("message/rfc822");
+                                intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
+                                intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT SONG");
+                                intent.putExtra(Intent.EXTRA_TEXT, "Report:\n\n song: "+tinyDB.getString(TBnombreCancionSonando)+"\nartist: "+tinyDB.getString(TBartistaCancionSonando)+" \n------------------------------------\nMessage:\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n");
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                if (intent.resolveActivity(mContext.getPackageManager()) != null) {
+                                    mContext.startActivity(intent);
+                                }
+
+                                return false;
+                            }
+                        })
+                        .setCancelButton(mContext.getString(R.string.cerrar))
+                        .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                        .setCancelable(true)
+                        .show();
+
+    }
+
+    public static void DialogoOpBateria(Context mContext) {
+
+
+        String saltoDeLinea = "\n";
+        String titulo = mContext.getString(R.string.titulo_opBateria);
+        String mensaje = mContext.getString(R.string.msg_opBateria);
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PowerManager powerManager = (PowerManager) mContext.getApplicationContext().getSystemService(POWER_SERVICE);
+            String packageName = "com.lugumusic.lofi";
+            Intent i = new Intent();
+            if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
+
+                MessageDialog.build((AppCompatActivity) mContext)
+                        .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                        .setTitle(titulo).setMessage(mensaje)
+                        .setOkButton(mContext.getString(R.string.activar), new OnDialogButtonClickListener()  {
+                            @Override
+                            public boolean onClick(BaseDialog baseDialog, View v) {
+                                i.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                                i.setData(Uri.parse("package:" + packageName));
+                                mContext.startActivity(i);
+                                return false;
+                            }
+                        })
+                        .setCancelButton(mContext.getString(R.string.cerrar))
+                        .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                        .setCancelable(true)
+                        .show();
+            }
+        }
+
+    }
 
     public static void CargarHome(Context mContext) {
         if (contenidoHome.getVisibility() == GONE) {
@@ -305,7 +387,7 @@ public class metodos {
             @Override
             public boolean onClick(BaseDialog baseDialog, View v) {
                 //    Toast.makeText(mContext, "sdasdasdd", Toast.LENGTH_SHORT).show();
-                AbrirPagina(mContext,"https://lugumusic.page.link/website");
+                AbrirPagina(mContext, "https://lugumusic.page.link/website");
                 return false;
             }
         }).setCancelable(cancelable).setOnOkButtonClickListener((baseDialog, v) -> {
@@ -638,6 +720,13 @@ public class metodos {
 
     }
 
+    public static boolean isNetworkAvailable (Context mContext) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public static void CompartirApp(Context mContext) {
         try {
 
@@ -683,7 +772,7 @@ public class metodos {
         }
     }
 
-    public static void AbrirPagina(Context mContext,String pagina) {
+    public static void AbrirPagina(Context mContext, String pagina) {
 
 
         try {
@@ -750,31 +839,29 @@ public class metodos {
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
 
-        InputDialog.build((AppCompatActivity) mContext)
+        MessageDialog.build((AppCompatActivity) mContext)
                 .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
                 .setTitle(titulo).setMessage(mensaje)
                 //  .setInputText("111111")
-                .setOkButton(mContext.getString(R.string.enviar), new OnInputDialogButtonClickListener() {
+                .setOkButton(mContext.getString(R.string.enviar), new OnDialogButtonClickListener() {
                     @Override
-                    public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
-                        if (inputStr.equals("")) {
-                            TipDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.no_espacio_vacio), TipDialog.TYPE.ERROR);
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+                          //  EnviarSugerencia(mContext, inputStr);
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.setType("message/rfc822");
+                            intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
+                            intent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.sugerencia));
+                            intent.putExtra(Intent.EXTRA_TEXT, "Message: \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n\n\n\n\n ");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            if (intent.resolveActivity(mContext.getPackageManager()) != null) {
+                                mContext.startActivity(intent);
+                            }
                             return false;
-                        } else {
-                            EnviarSugerencia(mContext, inputStr);
-                            return false;
-                        }
+
                     }
                 })
                 .setCancelButton(mContext.getString(R.string.cerrar))
                 .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
-                .setHintText(hintText)
-                .setInputInfo(new InputInfo()
-                        .setInputType(InputType.TYPE_CLASS_TEXT)
-                        .setTextInfo(new TextInfo()
-                                .setFontColor(mContext.getResources().getColor(R.color.learn_colorPrimary))
-                        )
-                )
                 .setCancelable(true)
                 .show();
     }
@@ -1046,7 +1133,6 @@ public class metodos {
 
      */
 
-
     public static void DialogoTemporizador(Context mContext) {
 
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
@@ -1107,41 +1193,6 @@ public class metodos {
                 return false;
             }
         });
-
-    }
-
-
-    public static void DialogoEnviarReporteFilm(Context mContext, String idFilm, String nombreFilm) {
-
-
-        List<String> opcionMenu = new ArrayList<>();
-        opcionMenu.add("Información incorrecta");
-        opcionMenu.add("NO carga algún elemento");
-        opcionMenu.add("Falta información");
-        opcionMenu.add("Falta episodios");
-        opcionMenu.add("Fallan varios episodios");
-
-
-//您自己的Adapter
-
-        DialogSettings.style = DialogSettings.STYLE.STYLE_MATERIAL;
-        DialogSettings.theme = DialogSettings.THEME.DARK;
-
-
-        BaseAdapter baseAdapter = new ArrayAdapter(mContext, com.kongzue.dialog.R.layout.item_bottom_menu_material, opcionMenu);
-
-
-        BottomMenu.show((AppCompatActivity) mContext, baseAdapter, new OnMenuItemClickListener() {
-            @Override
-            public void onClick(String text, int index) {
-                //注意此处的 text 返回为自定义 Adapter.getItem(position).toString()，如需获取自定义Object，请尝试 datas.get(index)
-                //   Toast.makeText(act_main.this, "MAIN", Toast.LENGTH_SHORT).show();
-                ReportarFilm(mContext, opcionMenu.get(index), idFilm, nombreFilm);
-            }
-
-
-        }).setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("SELECCIONE LA CAUSA DEL REPORTE:");
-
 
     }
 
@@ -1244,129 +1295,133 @@ public class metodos {
 
     public static void getLinkAndPlay(Context mContext, String linkYT, int opcion) {
 
-        CargarInterAleatorio(mContext, 8);
+        if(!isNetworkAvailable(mContext)){
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
+        } else {
 
-        if (pbCargandoRadio != null) {
-            pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
-            pbCargandoRadio.setVisibility(VISIBLE);
-            pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
-        }
+            CargarInterAleatorio(mContext, 8);
 
-        if (opcion == 1) {
-            setLogInfo(mContext, "getLinkAndPlay.YouTubeExtractor", "Inicia extracion opcion 1", false);
+            if (pbCargandoRadio != null) {
+                pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
+                pbCargandoRadio.setVisibility(VISIBLE);
+                pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
+            }
 
-            new YouTubeExtractor(mContext) {
+            if (opcion == 1) {
+                setLogInfo(mContext, "getLinkAndPlay.YouTubeExtractor", "Inicia extracion opcion 1", false);
 
-                @Override
-                public void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta vMeta) {
-                    if (ytFiles != null) {
-                        //FORMAT_MAP.put(140, new Format(140, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 128, true));
-                        //FORMAT_MAP.put(141, new Format(141, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 256, true));
-                        //FORMAT_MAP.put(256, new Format(256, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 192, true));
-                        //FORMAT_MAP.put(258, new Format(258, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 384, true));
+                new YouTubeExtractor(mContext) {
 
-                        // Iterate over itags
-                        for (int i = 0, itag; i < ytFiles.size(); i++) {
-                            itag = ytFiles.keyAt(i);
-                            // ytFile represents one file with its url and meta data
-                            YtFile ytFile = ytFiles.get(itag);
+                    @Override
+                    public void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta vMeta) {
+                        if (ytFiles != null) {
+                            //FORMAT_MAP.put(140, new Format(140, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 128, true));
+                            //FORMAT_MAP.put(141, new Format(141, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 256, true));
+                            //FORMAT_MAP.put(256, new Format(256, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 192, true));
+                            //FORMAT_MAP.put(258, new Format(258, "m4a", Format.VCodec.NONE, Format.ACodec.AAC, 384, true));
 
-                            // si el itag el igual a una url de audio. cada itag es de audio con un birate diferente
-                            if (itag == 258 || itag == 256 || itag == 141 || itag == 140) {
+                            // Iterate over itags
+                            for (int i = 0, itag; i < ytFiles.size(); i++) {
+                                itag = ytFiles.keyAt(i);
+                                // ytFile represents one file with its url and meta data
+                                YtFile ytFile = ytFiles.get(itag);
 
-                                System.out.println("newlofi ytFiles.get(itag).getAudioBitrate() == " + ytFiles.get(itag).getFormat().getAudioBitrate() + " kb/s");
-                                if (ytFiles.get(itag).getUrl() != null) {
-                                    String linkCancion = ytFiles.get(itag).getUrl();
-                                    System.out.println("newlofi downloadUrl itag == " + " ytFiles " + ytFiles.get(itag).getFormat().getAudioBitrate() + linkCancion);
+                                // si el itag el igual a una url de audio. cada itag es de audio con un birate diferente
+                                if (itag == 258 || itag == 256 || itag == 141 || itag == 140) {
 
-                                    ReproducirCancion(mContext, linkCancion);
+                                    System.out.println("newlofi ytFiles.get(itag).getAudioBitrate() == " + ytFiles.get(itag).getFormat().getAudioBitrate() + " kb/s");
+                                    if (ytFiles.get(itag).getUrl() != null) {
+                                        String linkCancion = ytFiles.get(itag).getUrl();
+                                        System.out.println("newlofi downloadUrl itag == " + " ytFiles " + ytFiles.get(itag).getFormat().getAudioBitrate() + linkCancion);
 
-                                    break;
+                                        ReproducirCancion(mContext, linkCancion);
+
+                                        break;
+                                    }
+
+
+                                } else {
+                                    System.out.println("no hay itag de audio == ");
                                 }
-
-
-                            } else {
-                                System.out.println("no hay itag de audio == ");
                             }
+
+                        } else {
+                            getLinkAndPlay(mContext, linkYT, 2);
+                        }
+                    }
+
+                }.extract(linkYT, false, false);
+
+
+            } else if (opcion == 2) {
+
+                setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "Inicia extracion opcion 2", false);
+                new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner() {
+                    @Override
+                    public void onExtractionDone(List<YTMedia> adativeStream, final List<YTMedia> muxedStream, List<YTSubtitles> subtitles, YoutubeMeta meta) {
+                        setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "onExtractionDone", false);
+                        //url to get subtitle
+
+                        for (YTMedia media : adativeStream) {
+
+                            // solo extraer link de audio
+                            if (media.getAudioQuality() != null && media.getAudioQuality().contains("AUDIO")) {
+                                String linkCancion = media.getUrl();
+                                System.out.println("newlofi downloadUrl  media.getUrl() == " + media.getUrl());
+                                System.out.println("newlofi downloadUrl  media.getAudioQuality() == " + media.getAudioQuality());
+                                System.out.println("newlofi downloadUrl  media.getBitrate() == " + media.getBitrate());
+                                System.out.println("newlofi downloadUrl  media.getItag() == " + media.getItag());
+                                // reproducir cancion
+                                ReproducirCancion(mContext, linkCancion);
+                                break;
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onExtractionGoesWrong(final ExtractorException e) {
+                        // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                        //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
+                        setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", e.getMessage(), true);
+
+                        // al onExtractionGoesWrong, cargar otra cancion de la misma categoria seleccionanda por el usuario
+                        Random random = new Random();
+                        List<ModelCancion> mlistCategoriaSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
+
+                        if (mlistCategoriaSonando.size() != 0 && mlistCategoriaSonando != null) {
+                            int numCancionSonar = random.nextInt(mlistCategoriaSonando.size());
+
+                            // obetneer link de la nueva cancion seleccionada
+                            getLinkAndPlay(mContext, mlistCategoriaSonando.get(numCancionSonar).getLinkYT(), 1);
+
+
+                            // guardar datos de la cancion sonando en TinyDB
+                            tinyDB.putInt(TBnumeroCancionSonando, numCancionSonar);
+                            tinyDB.putString(TBidCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getId());
+                            tinyDB.putString(TBnombreCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getCancion());
+                            tinyDB.putString(TBartistaCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getArtista());
+                            tinyDB.putString(TBcategoriaCancionSonando, tinyDB.getString(TBcategoriaCancionSonando));
+                            tinyDB.putString(TBlinkCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getLinkYT());
+
+
+                        } else {
+                            getListas(mContext);
                         }
 
-                    } else {
-                        getLinkAndPlay(mContext, linkYT, 2);
-                    }
-                }
 
-            }.extract(linkYT, false, false);
-
-
-        } else if (opcion == 2) {
-
-            setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "Inicia extracion opcion 2", false);
-            new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner() {
-                @Override
-                public void onExtractionDone(List<YTMedia> adativeStream, final List<YTMedia> muxedStream, List<YTSubtitles> subtitles, YoutubeMeta meta) {
-                    setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "onExtractionDone", false);
-                    //url to get subtitle
-
-                    for (YTMedia media : adativeStream) {
-
-                        // solo extraer link de audio
-                        if (media.getAudioQuality() != null && media.getAudioQuality().contains("AUDIO")) {
-                            String linkCancion = media.getUrl();
-                            System.out.println("newlofi downloadUrl  media.getUrl() == " + media.getUrl());
-                            System.out.println("newlofi downloadUrl  media.getAudioQuality() == " + media.getAudioQuality());
-                            System.out.println("newlofi downloadUrl  media.getBitrate() == " + media.getBitrate());
-                            System.out.println("newlofi downloadUrl  media.getItag() == " + media.getItag());
-                            // reproducir cancion
-                            ReproducirCancion(mContext, linkCancion);
-                            break;
+                        // ocultar progressBar de act_main
+                        if (pbCargandoRadio != null) {
+                            pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
+                            pbCargandoRadio.setVisibility(GONE);
+                            pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
                         }
-
                     }
-                }
+                }).Extract(linkYT);
+                //use .useDefaultLogin() to extract age restricted videos
+            }
 
-                @Override
-                public void onExtractionGoesWrong(final ExtractorException e) {
-                    // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
-                    //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
-                    setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", e.getMessage(), true);
-
-                    // al onExtractionGoesWrong, cargar otra cancion de la misma categoria seleccionanda por el usuario
-                    Random random = new Random();
-                    List<ModelCancion> mlistCategoriaSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
-
-                    if (mlistCategoriaSonando.size() != 0 && mlistCategoriaSonando != null) {
-                        int numCancionSonar = random.nextInt(mlistCategoriaSonando.size());
-
-                        // obetneer link de la nueva cancion seleccionada
-                        getLinkAndPlay(mContext, mlistCategoriaSonando.get(numCancionSonar).getLinkYT(), 1);
-
-
-                        // guardar datos de la cancion sonando en TinyDB
-                        tinyDB.putInt(TBnumeroCancionSonando, numCancionSonar);
-                        tinyDB.putString(TBidCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getId());
-                        tinyDB.putString(TBnombreCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getCancion());
-                        tinyDB.putString(TBartistaCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getArtista());
-                        tinyDB.putString(TBcategoriaCancionSonando, tinyDB.getString(TBcategoriaCancionSonando));
-                        tinyDB.putString(TBlinkCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getLinkYT());
-
-
-                    } else {
-                        getListas(mContext);
-                    }
-
-
-                    // ocultar progressBar de act_main
-                    if (pbCargandoRadio != null) {
-                        pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
-                        pbCargandoRadio.setVisibility(GONE);
-                        pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
-                    }
-                }
-            }).Extract(linkYT);
-            //use .useDefaultLogin() to extract age restricted videos
         }
-
-
     }
 
     public static void ReproducirCancion(Context mContext, String linkCancion) {
@@ -1440,7 +1495,7 @@ public class metodos {
         // para que se muestre de primeras las ultimas agregadas
         // Collections.reverse(tinyListHistorial);
         // guardar lista en tiny db y sin duplicados
-       // Collections.reverse(tinyListHistorial);
+        // Collections.reverse(tinyListHistorial);
         tinyDB.putListModelCancion(TBlistHistorial, EliminarDuplicadosModelCancion(tinyListHistorial));
 
         //region actualizar lista de historial
@@ -1463,7 +1518,7 @@ public class metodos {
 
 
             // Collections para que se muestre de primeras las ultimas agregadas
-           // Collections.reverse(tinyListFavoritos);
+            // Collections.reverse(tinyListFavoritos);
 
 
             for (int i = 0; i < tinyListCancionxCategoria.size(); i++) {

@@ -72,7 +72,6 @@ public class inter {
 		}
 	}
 
-
 	public static void loadInterstitial(Context mContext) {
 		// Show the next level and reload the ad to prepare for the level after.
 		mInterstitialAd = newInterstitialAd(mContext);

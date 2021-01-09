@@ -80,13 +80,14 @@ public class splash extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                // AgregarCancion(splash.this,"lugu.csv");
+              //   AgregarCancion(splash.this,"lugu.csv");
 
 
             }
         });
 
         AppVersion();
+
 
 
 
@@ -105,6 +106,7 @@ public class splash extends AppCompatActivity {
 
             }
         }, 2000);
+
 
 
 
@@ -608,11 +610,11 @@ public class splash extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                dataSnapshot.getRef().child("linkYT").setValue(modelCancion.getLinkYT());
-                dataSnapshot.getRef().child("id").setValue(modelCancion.getId());
-                dataSnapshot.getRef().child("cancion").setValue(modelCancion.getCancion());
-                dataSnapshot.getRef().child("artista").setValue(modelCancion.getArtista());
-                dataSnapshot.getRef().child("categoria").setValue(modelCancion.getCategoria());
+                dataSnapshot.getRef().child("linkYT").setValue(modelCancion.getLinkYT().trim());
+                dataSnapshot.getRef().child("id").setValue(modelCancion.getId().trim());
+                dataSnapshot.getRef().child("cancion").setValue(modelCancion.getCancion().trim());
+                dataSnapshot.getRef().child("artista").setValue(modelCancion.getArtista().trim());
+                dataSnapshot.getRef().child("categoria").setValue(modelCancion.getCategoria().trim());
 
 
                 setLogInfo(mContext,"SubirCancion","Cancion subida :: "+modelCancion.getId()+" :: "+modelCancion.getCancion(),false);

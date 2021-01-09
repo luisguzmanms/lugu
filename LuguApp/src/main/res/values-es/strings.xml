@@ -25,7 +25,7 @@
     <string name="enviar_sugenerencia">Enviar sugerencia</string>
     <string name="msg_sugerencia">Aqui puedes enviar cualquier sugerencia que desees, \\n\\n Esto nos ayudará a implementar mejoras</string>
     <string name="no_espacio_vacio">El texto no puede estar vacío</string>
-    <string name="sugerencia">Sugerencia</string>
+    <string name="sugerencia">SUGERENCIA</string>
     <string name="enviando_sugerencia">Enviando sugerencia...</string>
     <string name="sugerencia_enviada">Retroalimentación enviada.</string>
     <string name="error_sugerencia">Error al enviar la sugerencia.</string>
@@ -53,5 +53,11 @@
     <string name="contenido_eliminado">Contenido eliminado.</string>
     <string name="eliminar_lista">¿Desea eliminar el contenido de esta lista?</string>
     <string name="accion_deshacer">Esta acción no se puede deshacer</string>
+    <string name="activar">DESHABILITAR</string>
+    <string name="msg_opBateria">Es necesario deshabilitar la optimización de batería para que la música se reproduzca de manera correcta cuando no estés usando la aplicación</string>
+    <string name="titulo_opBateria">MUSICA DE FONDO</string>
+    <string name="title_report_song">REPORTAR CANCIÓN</string>
+    <string name="msg_report_song">Si tienes un problema con nuestra forma de promoción, envíanos un correo electrónico y anularemos la música si es necesario.</string>
+    <string name="coneccion_lenta">Error de conexión a internet...</string>
 
 </resources>

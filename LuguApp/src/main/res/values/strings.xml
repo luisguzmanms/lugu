@@ -238,7 +238,7 @@
     <string name="estilos">Style</string>
     <string name="enviar_sugenerencia">Send feedback</string>
     <string name="msg_sugerencia">Here you can send any feedback you want \n\n This will help us implement improvements</string>
-    <string name="sugerencia">Feedback</string>
+    <string name="sugerencia">FEEDBACK</string>
     <string name="no_espacio_vacio">The text cannot be empty</string>
     <string name="enviando_sugerencia">Sending feedback...</string>
     <string name="sugerencia_enviada">Feedback succes.</string>
@@ -267,5 +267,11 @@
     <string name="accion_deshacer">This action cannot be undone</string>
     <string name="eliminar_lista">Do you want to remove the content from this list?</string>
     <string name="contenido_eliminado">Deleted list.</string>
+    <string name="titulo_opBateria">BACKGROUND MUSIC</string>
+    <string name="msg_opBateria">You need to disable battery optimization for the music to play correctly when you’re not using the app</string>
+    <string name="activar">DISABLE</string>
+    <string name="msg_report_song">If you have a problem with our way of promotion, send us an email and we will take the music down if needed.</string>
+    <string name="title_report_song">REPORT SONG</string>
+    <string name="coneccion_lenta">Internet connection error...</string>
 
 </resources>

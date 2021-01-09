@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -79,6 +83,8 @@ import static com.lamesa.lugu.otros.metodos.AbrirPagina;
 import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.CompartirApp;
+import static com.lamesa.lugu.otros.metodos.DialogoOpBateria;
+import static com.lamesa.lugu.otros.metodos.DialogoReport;
 import static com.lamesa.lugu.otros.metodos.DialogoSalir;
 import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
@@ -149,7 +155,7 @@ public class act_main extends AppCompatActivity {
     public static TextView tvSleep;
     public static ImageView ivOpcionBucle;
     public static WeatherView weatherView;
-
+    private ImageView ivReport;
 
 
     @Override
@@ -181,13 +187,15 @@ public class act_main extends AppCompatActivity {
 
         // cargar adinter para ser mostrada
         loadInterstitial(act_main.this);
-        CargarInterAleatorio(act_main.this,3);
+        CargarInterAleatorio(act_main.this,4);
         // cargar banner
         CargarBanner();
 
-        // Initialice your dialog, first param is your terms of service url, and second param is your privacy policy url
+        // dialogo apra desactivar la optimizacion de la app
+        DialogoOpBateria(act_main.this);
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -356,6 +364,9 @@ public class act_main extends AppCompatActivity {
 
         ivSleep = findViewById(R.id.iv_sleep);
         tvSleep = findViewById(R.id.tv_sleep);
+
+        ivReport = findViewById(R.id.iv_report);
+
 
 
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
@@ -715,6 +726,14 @@ public class act_main extends AppCompatActivity {
 
 
 
+                    case R.id.iv_report:
+
+                        DialogoReport(act_main.this);
+
+                        break;
+
+
+
                 }
 
             }
@@ -729,7 +748,7 @@ public class act_main extends AppCompatActivity {
         ivLikeDislike.setOnClickListener(listener);
         ivSleep.setOnClickListener(listener);
         ivOpcionBucle.setOnClickListener(listener);
-
+        ivReport.setOnClickListener(listener);
 
 
         // cargar gif de fondo

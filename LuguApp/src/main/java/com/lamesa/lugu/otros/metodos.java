@@ -1,6 +1,7 @@
 package com.lamesa.lugu.otros;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -18,10 +19,7 @@ import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -46,12 +44,10 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnInputDialogButtonClickListener;
-import com.kongzue.dialog.interfaces.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.util.InputInfo;
 import com.kongzue.dialog.util.TextInfo;
-import com.kongzue.dialog.v3.BottomMenu;
 import com.kongzue.dialog.v3.InputDialog;
 import com.kongzue.dialog.v3.MessageDialog;
 import com.kongzue.dialog.v3.TipDialog;
@@ -99,7 +95,6 @@ import okhttp3.OkHttpClient;
 import static android.content.Context.POWER_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static androidx.core.content.ContextCompat.getSystemService;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
@@ -111,16 +106,14 @@ import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
 import static com.lamesa.lugu.activity.act_main.ivSleep;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
-import static com.lamesa.lugu.activity.act_main.mlistCancion;
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
 import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvSleep;
+import static com.lamesa.lugu.activity.splash.tinydb;
 import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
-import static com.lamesa.lugu.otros.Firebase.EnviarSugerencia;
-import static com.lamesa.lugu.otros.Firebase.ReportarFilm;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
@@ -128,12 +121,14 @@ import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBfechaCambiosData;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
 import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
 import static com.lamesa.lugu.otros.statics.constantes.mixActualizarApp;
 import static com.lamesa.lugu.otros.statics.constantes.mixCompartirApp;
 import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
@@ -150,7 +145,6 @@ public class metodos {
     public static CountDownTimer countDownTimer;
     public static NumberPicker numberPicker;
 
-
     public static void DialogoReport(Context mContext) {
 
 
@@ -162,30 +156,30 @@ public class metodos {
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
 
-                MessageDialog.build((AppCompatActivity) mContext)
-                        .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
-                        .setTitle(titulo).setMessage(mensaje)
-                        .setOkButton("EMAIL", new OnDialogButtonClickListener()  {
-                            @Override
-                            public boolean onClick(BaseDialog baseDialog, View v) {
+        MessageDialog.build((AppCompatActivity) mContext)
+                .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                .setTitle(titulo).setMessage(mensaje)
+                .setOkButton("EMAIL", new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
 
-                                Intent intent = new Intent(Intent.ACTION_SEND);
-                                intent.setType("message/rfc822");
-                                intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
-                                intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT SONG");
-                                intent.putExtra(Intent.EXTRA_TEXT, "Report:\n\n song: "+tinyDB.getString(TBnombreCancionSonando)+"\nartist: "+tinyDB.getString(TBartistaCancionSonando)+" \n------------------------------------\nMessage:\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n");
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                if (intent.resolveActivity(mContext.getPackageManager()) != null) {
-                                    mContext.startActivity(intent);
-                                }
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("message/rfc822");
+                        intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT SONG");
+                        intent.putExtra(Intent.EXTRA_TEXT, "Report:\n\n song: " + tinyDB.getString(TBnombreCancionSonando) + "\nartist: " + tinyDB.getString(TBartistaCancionSonando) + " \n------------------------------------\nMessage:\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (intent.resolveActivity(mContext.getPackageManager()) != null) {
+                            mContext.startActivity(intent);
+                        }
 
-                                return false;
-                            }
-                        })
-                        .setCancelButton(mContext.getString(R.string.cerrar))
-                        .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
-                        .setCancelable(true)
-                        .show();
+                        return false;
+                    }
+                })
+                .setCancelButton(mContext.getString(R.string.cerrar))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setCancelable(true)
+                .show();
 
     }
 
@@ -208,7 +202,7 @@ public class metodos {
                 MessageDialog.build((AppCompatActivity) mContext)
                         .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
                         .setTitle(titulo).setMessage(mensaje)
-                        .setOkButton(mContext.getString(R.string.activar), new OnDialogButtonClickListener()  {
+                        .setOkButton(mContext.getString(R.string.activar), new OnDialogButtonClickListener() {
                             @Override
                             public boolean onClick(BaseDialog baseDialog, View v) {
                                 i.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
@@ -249,7 +243,6 @@ public class metodos {
 
                         if (dataSnapshot.child("actualizacion").exists()) {
                             setDebug("metodos", "initFirebase", "d", "Confirmando actualizacion disponible...", setDebugActivo);
-
 
                             //para la version pelisplus
                             int versionNueva = Integer.parseInt(dataSnapshot.child("actualizacion").child("version").getValue().toString());
@@ -296,7 +289,12 @@ public class metodos {
                             setDebug("metodos", "initFirebase", "d", "fechaUltimoCambio == " + fechaUltimoCambio, setDebugActivo);
 
                             // si las fechas no coinciden, es porque hay cambios por realizar, se borra lista y se recarga
-                            if (!fechaCambioData.toLowerCase().contains(fechaUltimoCambio) || fechaUltimoCambio.isEmpty()) {
+                            if (!fechaCambioData.toLowerCase().trim().contains(fechaUltimoCambio.toLowerCase().trim()) || fechaUltimoCambio.isEmpty()) {
+
+                                // Toast.makeText(mContext, "actualizando contenido", Toast.LENGTH_SHORT).show();
+                                getListas(mContext);
+                                // guardar fecha nueva en tiny
+                                tinyDB.putString(TBfechaCambiosData, fechaCambioData);
 
                             } else {
                                 setDebug("metodos", "initFirebase", "d", "No hay contenido por actualizar..", setDebugActivo);
@@ -720,7 +718,7 @@ public class metodos {
 
     }
 
-    public static boolean isNetworkAvailable (Context mContext) {
+    public static boolean isNetworkAvailable(Context mContext) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -846,17 +844,17 @@ public class metodos {
                 .setOkButton(mContext.getString(R.string.enviar), new OnDialogButtonClickListener() {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v) {
-                          //  EnviarSugerencia(mContext, inputStr);
-                            Intent intent = new Intent(Intent.ACTION_SEND);
-                            intent.setType("message/rfc822");
-                            intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
-                            intent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.sugerencia));
-                            intent.putExtra(Intent.EXTRA_TEXT, "Message: \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n\n\n\n\n ");
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            if (intent.resolveActivity(mContext.getPackageManager()) != null) {
-                                mContext.startActivity(intent);
-                            }
-                            return false;
+                        //  EnviarSugerencia(mContext, inputStr);
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("message/rfc822");
+                        intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
+                        intent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.sugerencia));
+                        intent.putExtra(Intent.EXTRA_TEXT, "Message: \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n\n\n\n\n ");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (intent.resolveActivity(mContext.getPackageManager()) != null) {
+                            mContext.startActivity(intent);
+                        }
+                        return false;
 
                     }
                 })
@@ -1295,11 +1293,11 @@ public class metodos {
 
     public static void getLinkAndPlay(Context mContext, String linkYT, int opcion) {
 
-        if(!isNetworkAvailable(mContext)){
+        CargarInterAleatorio(mContext, 30);
+
+        if (!isNetworkAvailable(mContext)) {
             Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
         } else {
-
-            CargarInterAleatorio(mContext, 8);
 
             if (pbCargandoRadio != null) {
                 pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
@@ -1520,6 +1518,7 @@ public class metodos {
             // Collections para que se muestre de primeras las ultimas agregadas
             // Collections.reverse(tinyListFavoritos);
 
+            CargarInterAleatorio(mContext, 3);
 
             for (int i = 0; i < tinyListCancionxCategoria.size(); i++) {
                 if (tinyListCancionxCategoria.get(i).getId().equals(idCancionSonando)) {
@@ -1780,6 +1779,524 @@ public class metodos {
         final int color = newBitmap.getPixel(0, 0);
         newBitmap.recycle();
         return color;
+    }
+
+    public static void DialogoSupArtista(Context mContext) {
+
+        String saltoDeLinea = "\n";
+        String titulo = mContext.getString(R.string.support_artista);
+        String mensaje = mContext.getString(R.string.msg_support_artista);
+
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+
+        MessageDialog.build((AppCompatActivity) mContext)
+                .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                .setTitle(titulo).setMessage(mensaje)
+                .setOkButton(mContext.getString(R.string.serarch_artist), new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+
+                        AbrirPagina(mContext, "https://www.google.com/search?q=" + tinyDB.getString(TBartistaCancionSonando) + " - " + tinyDB.getString(TBnombreCancionSonando));
+
+                        return false;
+                    }
+                })
+                .setCancelButton(mContext.getString(R.string.cerrar))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setCancelable(true)
+                .show();
+    }
+
+    public static void DialogoSupArt(Context mContext) {
+
+        String saltoDeLinea = "\n";
+        String titulo = mContext.getString(R.string.support_art);
+        String mensaje = mContext.getString(R.string.msg_support_art);
+
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+
+        MessageDialog.build((AppCompatActivity) mContext)
+                .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                .setTitle(titulo).setMessage(mensaje)
+                .setOkButton(mContext.getString(R.string.open_art), new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+
+                        AbrirPagina(mContext, tinyDB.getString(TBimagenFondo));
+
+                        return false;
+                    }
+                })
+                .setCancelButton(mContext.getString(R.string.cerrar))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setCancelable(true)
+                .show();
+    }
+
+    public static void DialogoPoliticas2(Context mContext) {
+
+        String saltoDeLinea = "\n";
+        String titulo = mContext.getString(R.string.title_terms);
+
+        //region mensaje de politicas en diferentes idiomas
+        String mensaje = "Terms and Conditions\n" +
+                "Last updated: January 06, 2021\n" +
+                "\n" +
+                "Please read these terms and conditions carefully before using Our Service.\n" +
+                "\n" +
+                "Interpretation and Definitions\n" +
+                "Interpretation\n" +
+                "The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.\n" +
+                "\n" +
+                "Definitions\n" +
+                "For the purposes of these Terms and Conditions:\n" +
+                "\n" +
+                "Affiliate means an entity that controls, is controlled by or is under common control with a party, where \"control\" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.\n" +
+                "\n" +
+                "Country refers to: Colombia\n" +
+                "\n" +
+                "Company (referred to as either \"the Company\", \"We\", \"Us\" or \"Our\" in this Agreement) refers to LUGU Music.\n" +
+                "\n" +
+                "Device means any device that can access the Service such as a computer, a cellphone or a digital tablet.\n" +
+                "\n" +
+                "Service refers to the Website.\n" +
+                "\n" +
+                "Terms and Conditions (also referred as \"Terms\") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the Terms and Conditions Generator.\n" +
+                "\n" +
+                "Third-party Social Media Service means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.\n" +
+                "\n" +
+                "Website refers to LUGU Music, accessible from lugumusic.com\n" +
+                "\n" +
+                "You means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.\n" +
+                "\n" +
+                "Acknowledgment\n" +
+                "These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.\n" +
+                "\n" +
+                "Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.\n" +
+                "\n" +
+                "By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.\n" +
+                "\n" +
+                "You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.\n" +
+                "\n" +
+                "Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.\n" +
+                "\n" +
+                "Links to Other Websites\n" +
+                "Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.\n" +
+                "\n" +
+                "The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.\n" +
+                "\n" +
+                "We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.\n" +
+                "\n" +
+                "Termination\n" +
+                "We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.\n" +
+                "\n" +
+                "Upon termination, Your right to use the Service will cease immediately.\n" +
+                "\n" +
+                "Limitation of Liability\n" +
+                "Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.\n" +
+                "\n" +
+                "To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.\n" +
+                "\n" +
+                "Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.\n" +
+                "\n" +
+                "\"AS IS\" and \"AS AVAILABLE\" Disclaimer\n" +
+                "The Service is provided to You \"AS IS\" and \"AS AVAILABLE\" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.\n" +
+                "\n" +
+                "Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.\n" +
+                "\n" +
+                "Some jurisdictions do not allow the exclusion of certain types of warranties or limitations on applicable statutory rights of a consumer, so some or all of the above exclusions and limitations may not apply to You. But in such a case the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable under applicable law.\n" +
+                "\n" +
+                "Governing Law\n" +
+                "The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.\n" +
+                "\n" +
+                "Disputes Resolution\n" +
+                "If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.\n" +
+                "\n" +
+                "For European Union (EU) Users\n" +
+                "If You are a European Union consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident in.\n" +
+                "\n" +
+                "United States Legal Compliance\n" +
+                "You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a \"terrorist supporting\" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.\n" +
+                "\n" +
+                "Severability and Waiver\n" +
+                "Severability\n" +
+                "If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.\n" +
+                "\n" +
+                "Waiver\n" +
+                "Except as provided herein, the failure to exercise a right or to require performance of an obligation under this Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall be the waiver of a breach constitute a waiver of any subsequent breach.\n" +
+                "\n" +
+                "Translation Interpretation\n" +
+                "These Terms and Conditions may have been translated if We have made them available to You on our Service. You agree that the original English text shall prevail in the case of a dispute.\n" +
+                "\n" +
+                "Changes to These Terms and Conditions\n" +
+                "We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.\n" +
+                "\n" +
+                "By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.\n" +
+                "\n" +
+                "Contact Us\n" +
+                "If you have any questions about these Terms and Conditions, You can contact us:\n" +
+                "\n" +
+                "By email: lugulofimusic@gmail.com";
+
+        if(Locale.getDefault().getLanguage().contains("es")){
+            mensaje = "Términos y Condiciones\n" +
+                    "Última actualización: 6 de enero de 2021\n" +
+                    "\n" +
+                    "Lea estos términos y condiciones detenidamente antes de utilizar Nuestro Servicio.\n" +
+                    "\n" +
+                    "Interpretación y definiciones\n" +
+                    "Interpretación\n" +
+                    "Las palabras cuya letra inicial está en mayúscula tienen significados definidos en las siguientes condiciones. Las siguientes definiciones tendrán el mismo significado independientemente de que aparezcan en singular o en plural.\n" +
+                    "\n" +
+                    "Definiciones\n" +
+                    "A los efectos de estos Términos y condiciones:\n" +
+                    "\n" +
+                    "Afiliado significa una entidad que controla, está controlada por o está bajo control común con una parte, donde \"control\" significa propiedad del 50% o más de las acciones, participación en el capital social u otros valores con derecho a voto para la elección de directores u otra autoridad administrativa .\n" +
+                    "\n" +
+                    "País se refiere a: Colombia\n" +
+                    "\n" +
+                    "Compañía (denominada \"la Compañía\", \"Nosotros\", \"Nos\" o \"Nuestro\" en este Acuerdo) se refiere a LUGU Music.\n" +
+                    "\n" +
+                    "Dispositivo significa cualquier dispositivo que pueda acceder al Servicio, como una computadora, un teléfono celular o una tableta digital.\n" +
+                    "\n" +
+                    "El servicio se refiere al sitio web.\n" +
+                    "\n" +
+                    "Términos y condiciones (también denominados \"Términos\") significan estos Términos y condiciones que forman el acuerdo completo entre Usted y la Compañía con respecto al uso del Servicio. Este acuerdo de términos y condiciones se ha creado con la ayuda del generador de términos y condiciones .\n" +
+                    "\n" +
+                    "Servicio de redes sociales de terceros significa cualquier servicio o contenido (incluidos datos, información, productos o servicios) proporcionado por un tercero que puede ser mostrado, incluido o puesto a disposición por el Servicio.\n" +
+                    "\n" +
+                    "El sitio web se refiere a LUGU Music, accesible desde lugumusic.com\n" +
+                    "\n" +
+                    "Usted significa la persona que accede o usa el Servicio, o la compañía u otra entidad legal en nombre de la cual dicha persona accede o usa el Servicio, según corresponda.\n" +
+                    "\n" +
+                    "Reconocimiento\n" +
+                    "Estos son los Términos y Condiciones que rigen el uso de este Servicio y el acuerdo que opera entre Usted y la Compañía. Estos Términos y Condiciones establecen los derechos y obligaciones de todos los usuarios con respecto al uso del Servicio.\n" +
+                    "\n" +
+                    "Su acceso y uso del Servicio está condicionado a su aceptación y cumplimiento de estos Términos y Condiciones. Estos Términos y Condiciones se aplican a todos los visitantes, usuarios y otras personas que acceden o utilizan el Servicio.\n" +
+                    "\n" +
+                    "Al acceder o utilizar el Servicio, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguna parte de estos Términos y condiciones, no podrá acceder al Servicio.\n" +
+                    "\n" +
+                    "Usted declara que es mayor de 18 años. La Compañía no permite que menores de 18 años utilicen el Servicio.\n" +
+                    "\n" +
+                    "Su acceso y uso del Servicio también está condicionado a su aceptación y cumplimiento de la Política de Privacidad de la Compañía. Nuestra Política de privacidad describe Nuestras políticas y procedimientos sobre la recopilación, uso y divulgación de Su información personal cuando usa la Aplicación o el Sitio web y le informa sobre Sus derechos de privacidad y cómo la ley lo protege. Lea nuestra Política de privacidad detenidamente antes de utilizar nuestro servicio.\n" +
+                    "\n" +
+                    "Enlaces a otros sitios web\n" +
+                    "Nuestro Servicio puede contener enlaces a sitios web o servicios de terceros que no son propiedad ni están controlados por la Compañía.\n" +
+                    "\n" +
+                    "La Compañía no tiene control ni asume ninguna responsabilidad por el contenido, las políticas de privacidad o las prácticas de los sitios web o servicios de terceros. Además, reconoce y acepta que la Compañía no será responsable, directa o indirectamente, de ningún daño o pérdida causados \u200B\u200Bo presuntamente causados \u200B\u200Bpor o en conexión con el uso o la dependencia de dicho contenido, bienes o servicios disponibles en oa través de dichos sitios web o servicios.\n" +
+                    "\n" +
+                    "Le recomendamos encarecidamente que lea los términos y condiciones y las políticas de privacidad de cualquier sitio web o servicio de terceros que visite.\n" +
+                    "\n" +
+                    "Terminación\n" +
+                    "Podemos rescindir o suspender su acceso de inmediato, sin previo aviso ni responsabilidad, por cualquier motivo, incluido, entre otros, si incumple estos Términos y condiciones.\n" +
+                    "\n" +
+                    "Tras la rescisión, su derecho a utilizar el Servicio cesará de inmediato.\n" +
+                    "\n" +
+                    "Limitación de responsabilidad\n" +
+                    "Sin perjuicio de los daños en los que pueda incurrir, la responsabilidad total de la Compañía y cualquiera de sus proveedores bajo cualquier disposición de estos Términos y Su recurso exclusivo para todo lo anterior se limitará al monto realmente pagado por Usted a través del Servicio o 100 USD. si no ha comprado nada a través del Servicio.\n" +
+                    "\n" +
+                    "En la máxima medida permitida por la ley aplicable, en ningún caso la Compañía o sus proveedores serán responsables de ningún daño especial, incidental, indirecto o consecuente (incluidos, entre otros, daños por lucro cesante, pérdida de datos o otra información, por interrupción del negocio, por lesiones personales, pérdida de privacidad que surja de o de alguna manera relacionada con el uso o la imposibilidad de usar el Servicio, software de terceros y / o hardware de terceros utilizado con el Servicio, o de lo contrario en relación con cualquier disposición de estos Términos), incluso si la Compañía o cualquier proveedor han sido informados de la posibilidad de tales daños e incluso si el recurso no cumple con su propósito esencial.\n" +
+                    "\n" +
+                    "Algunos estados no permiten la exclusión de garantías implícitas o la limitación de responsabilidad por daños incidentales o consecuentes, lo que significa que algunas de las limitaciones anteriores pueden no aplicarse. En estos estados, la responsabilidad de cada parte estará limitada en la mayor medida permitida por la ley.\n" +
+                    "\n" +
+                    "Renuncia de responsabilidad \"TAL CUAL\" y \"SEGÚN DISPONIBILIDAD\"\n" +
+                    "El Servicio se le proporciona \"TAL CUAL\" y \"SEGÚN DISPONIBILIDAD\" y con todas las fallas y defectos sin garantía de ningún tipo. En la medida máxima permitida por la ley aplicable, la Compañía, en su propio nombre y en nombre de sus Afiliadas y sus respectivos otorgantes de licencias y proveedores de servicios, renuncia expresamente a todas las garantías, ya sean expresas, implícitas, legales o de otro tipo, con respecto a la Servicio, incluidas todas las garantías implícitas de comerciabilidad, idoneidad para un propósito particular, título y no infracción, y garantías que puedan surgir del curso del trato, el curso del desempeño, el uso o la práctica comercial. Sin limitación a lo anterior, la Compañía no ofrece garantía ni compromiso, y no hace ninguna representación de ningún tipo de que el Servicio cumplirá con Sus requisitos, logrará los resultados previstos,\n" +
+                    "\n" +
+                    "Sin perjuicio de lo anterior, ni la Compañía ni ninguno de los proveedores de la compañía hacen ninguna representación o garantía de ningún tipo, expresa o implícita: (i) en cuanto al funcionamiento o disponibilidad del Servicio, o la información, contenido y materiales o productos. incluido en el mismo; (ii) que el Servicio será ininterrumpido o libre de errores; (iii) en cuanto a la precisión, confiabilidad o vigencia de cualquier información o contenido proporcionado a través del Servicio; o (iv) que el Servicio, sus servidores, el contenido o los correos electrónicos enviados desde o en nombre de la Compañía están libres de virus, scripts, troyanos, gusanos, malware, bombas de tiempo u otros componentes dañinos.\n" +
+                    "\n" +
+                    "Algunas jurisdicciones no permiten la exclusión de ciertos tipos de garantías o limitaciones sobre los derechos legales aplicables de un consumidor, por lo que algunas o todas las exclusiones y limitaciones anteriores pueden no aplicarse a usted. Pero en tal caso, las exclusiones y limitaciones establecidas en esta sección se aplicarán en la mayor medida exigible según la ley aplicable.\n" +
+                    "\n" +
+                    "Ley que rige\n" +
+                    "Las leyes del País, excluyendo sus conflictos de reglas de leyes, regirán estos Términos y Su uso del Servicio. Su uso de la Aplicación también puede estar sujeto a otras leyes locales, estatales, nacionales o internacionales.\n" +
+                    "\n" +
+                    "Resolución de disputas\n" +
+                    "Si tiene alguna inquietud o disputa sobre el Servicio, acepta primero intentar resolver la disputa de manera informal comunicándose con la Compañía.\n" +
+                    "\n" +
+                    "Para usuarios de la Unión Europea (UE)\n" +
+                    "Si es un consumidor de la Unión Europea, se beneficiará de las disposiciones obligatorias de la ley del país en el que reside.\n" +
+                    "\n" +
+                    "Cumplimiento legal de Estados Unidos\n" +
+                    "Usted declara y garantiza que (i) no se encuentra en un país que está sujeto al embargo del gobierno de los Estados Unidos, o que ha sido designado por el gobierno de los Estados Unidos como un país \"que apoya al terrorismo\", y (ii) no está incluido en cualquier lista del gobierno de los Estados Unidos de partes prohibidas o restringidas.\n" +
+                    "\n" +
+                    "Divisibilidad y renuncia\n" +
+                    "Divisibilidad\n" +
+                    "Si alguna disposición de estos Términos se considera inaplicable o inválida, dicha disposición se cambiará e interpretará para lograr los objetivos de dicha disposición en la mayor medida posible según la ley aplicable y las disposiciones restantes continuarán en pleno vigor y efecto.\n" +
+                    "\n" +
+                    "Renuncia\n" +
+                    "Salvo lo dispuesto en el presente, el hecho de no ejercer un derecho o exigir el cumplimiento de una obligación en virtud de estos Términos no afectará la capacidad de una de las partes para ejercer dicho derecho o exigir dicho cumplimiento en cualquier momento posterior, ni constituirá una renuncia la renuncia a un incumplimiento. de cualquier incumplimiento posterior.\n" +
+                    "\n" +
+                    "Interpretación de traducción\n" +
+                    "Estos Términos y Condiciones pueden haberse traducido si los hemos puesto a su disposición en nuestro Servicio. Usted acepta que el texto original en inglés prevalecerá en caso de disputa.\n" +
+                    "\n" +
+                    "Cambios a estos términos y condiciones\n" +
+                    "Nos reservamos el derecho, a Nuestro exclusivo criterio, de modificar o reemplazar estos Términos en cualquier momento. Si una revisión es material, haremos los esfuerzos razonables para proporcionar un aviso de al menos 30 días antes de que entren en vigencia los nuevos términos. Lo que constituye un cambio material se determinará a Nuestro exclusivo criterio.\n" +
+                    "\n" +
+                    "Al continuar accediendo o utilizando Nuestro Servicio después de que esas revisiones entren en vigencia, usted acepta estar sujeto a los términos revisados. Si no está de acuerdo con los nuevos términos, en su totalidad o en parte, deje de usar el sitio web y el Servicio.\n" +
+                    "\n" +
+                    "Contáctenos\n" +
+                    "Si tiene alguna pregunta sobre estos Términos y condiciones, puede contactarnos:\n" +
+                    "\n" +
+                    "Por correo electrónico: lugulofimusic@gmail.com";
+
+        } else if (Locale.getDefault().getLanguage().contains("pt")){
+            mensaje = "\n" +
+                    "Última atualização: 06 de janeiro de 2021\n" +
+                    "\n" +
+                    "Por favor, leia estes termos e condições cuidadosamente antes de usar nosso serviço.\n" +
+                    "\n" +
+                    "Interpretação e Definições\n" +
+                    "Interpretação\n" +
+                    "As palavras cuja letra inicial é maiúscula têm significados definidos nas seguintes condições. As seguintes definições devem ter o mesmo significado, independentemente de aparecerem no singular ou no plural.\n" +
+                    "\n" +
+                    "Definições\n" +
+                    "Para os fins destes Termos e Condições:\n" +
+                    "\n" +
+                    "Afiliada significa uma entidade que controla, é controlada ou está sob o controle comum de uma parte, onde \"controle\" significa propriedade de 50% ou mais das ações, participação acionária ou outros títulos com direito a voto para eleição de diretores ou outra autoridade administrativa .\n" +
+                    "\n" +
+                    "País se refere a: Colômbia\n" +
+                    "\n" +
+                    "Company (referred to as either \"the Company\", \"We\", \"Us\" or \"Our\" in this Agreement) refers to LUGU Music.\n" +
+                    "\n" +
+                    "Device means any device that can access the Service such as a computer, a cellphone or a digital tablet.\n" +
+                    "\n" +
+                    "Service refers to the Website.\n" +
+                    "\n" +
+                    "Terms and Conditions (also referred as \"Terms\") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the Terms and Conditions Generator.\n" +
+                    "\n" +
+                    "Third-party Social Media Service means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.\n" +
+                    "\n" +
+                    "Website refers to LUGU Music, accessible from lugumusic.com\n" +
+                    "\n" +
+                    "You means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.\n" +
+                    "\n" +
+                    "Acknowledgment\n" +
+                    "These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.\n" +
+                    "\n" +
+                    "Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.\n" +
+                    "\n" +
+                    "By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.\n" +
+                    "\n" +
+                    "You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.\n" +
+                    "\n" +
+                    "Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.\n" +
+                    "\n" +
+                    "Links to Other Websites\n" +
+                    "Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.\n" +
+                    "\n" +
+                    "The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.\n" +
+                    "\n" +
+                    "We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.\n" +
+                    "\n" +
+                    "Termination\n" +
+                    "We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.\n" +
+                    "\n" +
+                    "Upon termination, Your right to use the Service will cease immediately.\n" +
+                    "\n" +
+                    "Limitation of Liability\n" +
+                    "Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.\n" +
+                    "\n" +
+                    "To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.\n" +
+                    "\n" +
+                    "Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.\n" +
+                    "\n" +
+                    "\"AS IS\" and \"AS AVAILABLE\" Disclaimer\n" +
+                    "The Service is provided to You \"AS IS\" and \"AS AVAILABLE\" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.\n" +
+                    "\n" +
+                    "Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.\n" +
+                    "\n" +
+                    "Algumas jurisdições não permitem a exclusão de certos tipos de garantias ou limitações sobre os direitos legais aplicáveis \u200B\u200Bde um consumidor, portanto, algumas ou todas as exclusões e limitações acima podem não se aplicar a você. Mas, em tal caso, as exclusões e limitações estabelecidas nesta seção serão aplicadas na maior medida exequível sob a lei aplicável.\n" +
+                    "\n" +
+                    "Lei Aplicável\n" +
+                    "As leis do país, excluindo seus conflitos de regras legais, regerão estes Termos e seu uso do Serviço. O uso do Aplicativo também pode estar sujeito a outras leis locais, estaduais, nacionais ou internacionais.\n" +
+                    "\n" +
+                    "Resolução de disputas\n" +
+                    "Se você tiver qualquer dúvida ou dúvida sobre o Serviço, concorda em primeiro tentar resolver a disputa informalmente, entrando em contato com a Empresa.\n" +
+                    "\n" +
+                    "Para usuários da União Europeia (UE)\n" +
+                    "Se for um consumidor da União Europeia, beneficiará de quaisquer disposições obrigatórias da lei do país em que reside.\n" +
+                    "\n" +
+                    "Conformidade Legal dos Estados Unidos\n" +
+                    "Você declara e garante que (i) Você não está localizado em um país que está sujeito ao embargo do governo dos Estados Unidos, ou que foi designado pelo governo dos Estados Unidos como um país de \"apoio ao terrorismo\", e (ii) Você não está listado em qualquer lista do governo dos Estados Unidos de partes proibidas ou restritas.\n" +
+                    "\n" +
+                    "Divisibilidade e renúncia\n" +
+                    "Separabilidade\n" +
+                    "Se qualquer disposição destes Termos for considerada inexequível ou inválida, tal disposição será alterada e interpretada para atingir os objetivos de tal disposição na maior medida possível sob a lei aplicável e as disposições restantes continuarão em pleno vigor e efeito.\n" +
+                    "\n" +
+                    "Renúncia\n" +
+                    "Exceto conforme disposto neste documento, a falha em exercer um direito ou em exigir o cumprimento de uma obrigação nos termos destes Termos não afetará a capacidade de uma parte de exercer tal direito ou exigir tal cumprimento em qualquer momento posterior, nem deverá ser a renúncia de uma violação constituirá uma renúncia de qualquer violação subsequente.\n" +
+                    "\n" +
+                    "Tradução de interpretação\n" +
+                    "Estes Termos e Condições podem ter sido traduzidos se os tivermos disponibilizado para você em nosso serviço. Você concorda que o texto original em inglês deve prevalecer em caso de disputa.\n" +
+                    "\n" +
+                    "Mudanças nestes Termos e Condições\n" +
+                    "Nós nos reservamos o direito, a nosso exclusivo critério, de modificar ou substituir estes Termos a qualquer momento. Se uma revisão for material, faremos todos os esforços razoáveis \u200B\u200Bpara fornecer um aviso com pelo menos 30 dias de antecedência à entrada em vigor de quaisquer novos termos. O que constitui uma alteração material será determinado a nosso exclusivo critério.\n" +
+                    "\n" +
+                    "Ao continuar a acessar ou usar o Nosso Serviço após essas revisões entrarem em vigor, Você concorda em obedecer aos termos revisados. Se você não concordar com os novos termos, no todo ou em parte, pare de usar o site e o Serviço.\n" +
+                    "\n" +
+                    "Contate-Nos\n" +
+                    "Se você tiver alguma dúvida sobre estes Termos e Condições, pode entrar em contato conosco:\n" +
+                    "\n" +
+                    "Por email: lugulofimusic@gmail.com ";
+
+        } else if (Locale.getDefault().getLanguage().contains("hi")){
+            mensaje = "\n" +
+                    "अंतिम अद्यतन: ०६ जनवरी २०२१\n" +
+                    "\n" +
+                    "हमारी सेवा का उपयोग करने से पहले कृपया इन नियमों और शर्तों को ध्यान से पढ़ें।\n" +
+                    "\n" +
+                    "व्याख्या और परिभाषाएँ\n" +
+                    "व्याख्या\n" +
+                    "जिन शब्दों के प्रारंभिक अक्षर को बड़े अक्षरों में लिखा गया है, उनके अर्थ निम्न स्थितियों में परिभाषित होते हैं। निम्नलिखित परिभाषाओं का एक ही अर्थ होगा चाहे वे एकवचन में दिखाई दें या बहुवचन में।\n" +
+                    "\n" +
+                    "परिभाषाएं\n" +
+                    "इन नियमों और शर्तों के प्रयोजनों के लिए:\n" +
+                    "\n" +
+                    "संबद्ध का मतलब एक ऐसी इकाई है जो किसी पार्टी द्वारा नियंत्रित, नियंत्रित या सामान्य नियंत्रण में है, जहां \"नियंत्रण\" का अर्थ है 50% या अधिक शेयरों का स्वामित्व, इक्विटी ब्याज या अन्य प्रतिभूतियों जो निदेशकों या अन्य प्रबंध प्राधिकरण के चुनाव के लिए वोट करने का हकदार हैं। ।\n" +
+                    "\n" +
+                    "देश को संदर्भित करता है: कोलंबिया\n" +
+                    "\n" +
+                    "Company (referred to as either \"the Company\", \"We\", \"Us\" or \"Our\" in this Agreement) refers to LUGU Music.\n" +
+                    "\n" +
+                    "Device means any device that can access the Service such as a computer, a cellphone or a digital tablet.\n" +
+                    "\n" +
+                    "Service refers to the Website.\n" +
+                    "\n" +
+                    "Terms and Conditions (also referred as \"Terms\") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the Terms and Conditions Generator.\n" +
+                    "\n" +
+                    "Third-party Social Media Service means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.\n" +
+                    "\n" +
+                    "Website refers to LUGU Music, accessible from lugumusic.com\n" +
+                    "\n" +
+                    "You means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.\n" +
+                    "\n" +
+                    "Acknowledgment\n" +
+                    "These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.\n" +
+                    "\n" +
+                    "Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.\n" +
+                    "\n" +
+                    "By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.\n" +
+                    "\n" +
+                    "You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.\n" +
+                    "\n" +
+                    "Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.\n" +
+                    "\n" +
+                    "Links to Other Websites\n" +
+                    "Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.\n" +
+                    "\n" +
+                    "The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.\n" +
+                    "\n" +
+                    "We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.\n" +
+                    "\n" +
+                    "Termination\n" +
+                    "We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.\n" +
+                    "\n" +
+                    "Upon termination, Your right to use the Service will cease immediately.\n" +
+                    "\n" +
+                    "Limitation of Liability\n" +
+                    "Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.\n" +
+                    "\n" +
+                    "To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.\n" +
+                    "\n" +
+                    "Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.\n" +
+                    "\n" +
+                    "\"AS IS\" and \"AS AVAILABLE\" Disclaimer\n" +
+                    "The Service is provided to You \"AS IS\" and \"AS AVAILABLE\" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.\n" +
+                    "\n" +
+                    "Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.\n" +
+                    "\n" +
+                    "कुछ क्षेत्राधिकार किसी उपभोक्ता के लागू वैधानिक अधिकारों पर कुछ प्रकार की वारंटी या सीमाओं के बहिष्कार की अनुमति नहीं देते हैं, इसलिए कुछ या सभी उपरोक्त बहिष्करण और सीमाएं आपके लिए लागू नहीं हो सकती हैं। लेकिन ऐसे मामले में इस खंड में निर्धारित बहिष्करण और सीमाएं लागू कानून के तहत लागू होने वाली सबसे बड़ी सीमा तक लागू की जाएंगी।\n" +
+                    "\n" +
+                    "शासकीय कानून\n" +
+                    "देश के कानून, कानून के नियमों के टकराव को छोड़कर, इस नियम और सेवा के आपके उपयोग को नियंत्रित करेंगे। एप्लिकेशन का आपका उपयोग अन्य स्थानीय, राज्य, राष्ट्रीय या अंतर्राष्ट्रीय कानूनों के अधीन भी हो सकता है।\n" +
+                    "\n" +
+                    "विवाद का समाधान\n" +
+                    "यदि आपको सेवा के बारे में कोई चिंता या विवाद है, तो आप पहले कंपनी से संपर्क करके अनौपचारिक रूप से विवाद को हल करने का प्रयास करते हैं।\n" +
+                    "\n" +
+                    "यूरोपीय संघ (ईयू) के उपयोगकर्ताओं के लिए\n" +
+                    "यदि आप एक यूरोपीय संघ के उपभोक्ता हैं, तो आप उस देश के कानून के किसी अनिवार्य प्रावधान से लाभान्वित होंगे, जिसमें आप निवासी हैं।\n" +
+                    "\n" +
+                    "संयुक्त राज्य अमेरिका कानूनी अनुपालन\n" +
+                    "आप प्रतिनिधित्व करते हैं और वारंट करते हैं कि (i) आप उस देश में स्थित नहीं हैं जो संयुक्त राज्य सरकार के अधीन है, या जिसे संयुक्त राज्य सरकार ने \"आतंकवादी समर्थन\" देश के रूप में नामित किया है, और (ii) आप नहीं हैं निषिद्ध या प्रतिबंधित पार्टियों की किसी भी संयुक्त राज्य सरकार की सूची में सूचीबद्ध है।\n" +
+                    "\n" +
+                    "संवेदनशीलता और छूट\n" +
+                    "विच्छेदनीयता\n" +
+                    "यदि इन शर्तों के किसी भी प्रावधान को अप्राप्य या अमान्य ठहराया जाता है, तो इस तरह के प्रावधान को बदल दिया जाएगा और इस तरह के प्रावधान के उद्देश्यों को लागू कानून के तहत सबसे बड़ी हद तक पूरा करने के लिए व्याख्या की जाएगी और शेष प्रावधान पूर्ण बल और प्रभाव में जारी रहेंगे।\n" +
+                    "\n" +
+                    "त्याग\n" +
+                    "इसके अतिरिक्त, इस नियम के तहत किसी अधिकार का प्रयोग करने या किसी दायित्व की आवश्यकता की पूर्ति करने में विफलता किसी पार्टी के ऐसे अधिकार का प्रयोग करने की क्षमता को प्रभावित नहीं करेगी या उसके बाद किसी भी समय ऐसे प्रदर्शन की आवश्यकता नहीं होगी और न ही किसी उल्लंघन की माफी एक छूट का गठन करेगी। किसी भी बाद के उल्लंघन के।\n" +
+                    "\n" +
+                    "अनुवाद व्याख्या\n" +
+                    "इन नियमों और शर्तों का अनुवाद हो सकता है अगर हमने उन्हें हमारी सेवा में आपको उपलब्ध कराया है। आप सहमत हैं कि विवाद के मामले में मूल अंग्रेजी पाठ प्रबल होगा।\n" +
+                    "\n" +
+                    "इन नियमों और शर्तों में बदलाव\n" +
+                    "हम किसी भी समय इन शर्तों को संशोधित या बदलने के लिए, अपने एकमात्र विवेक पर अधिकार सुरक्षित रखते हैं। यदि कोई संशोधन होता है, तो हम किसी भी नए नियम के प्रभावी होने से पहले कम से कम 30 दिनों का नोटिस प्रदान करने के लिए उचित प्रयास करेंगे। हमारे एकमात्र विवेक पर एक सामग्री परिवर्तन का गठन किया जाएगा।\n" +
+                    "\n" +
+                    "उन संशोधनों के प्रभावी होने के बाद हमारी सेवा तक पहुंच या उपयोग जारी रखने से, आप संशोधित शर्तों से बाध्य होने के लिए सहमत होते हैं। यदि आप पूरे या आंशिक रूप से नए शब्दों से सहमत नहीं हैं, तो कृपया वेबसाइट और सेवा का उपयोग करना बंद कर दें।\n" +
+                    "\n" +
+                    "संपर्क करें\n" +
+                    "यदि आपके पास इन नियमों और शर्तों के बारे में कोई प्रश्न हैं, तो आप हमसे संपर्क कर सकते हैं:\n" +
+                    "\n" +
+                    "ईमेल द्वारा: lugulofimusic@gmail.com";
+        }
+
+
+        //endregion
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MATERIAL;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+
+        MessageDialog.build((AppCompatActivity) mContext)
+                .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                .setTitle(titulo).setMessage(mensaje)
+                .setBackgroundColor(mContext.getResources().getColor(R.color.fondo_blancoazul))
+                .setOkButton(mContext.getString(R.string.accept_terms), new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+
+                        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+                        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+                        MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.accept_terms),"").setOkButton("YES").setCancelButton("NO")
+                                .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
+                                    @Override
+                                    public boolean onClick(BaseDialog baseDialog, View v) {
+                                        tinydb.putBoolean(TBpoliticas,true);
+                                        mContext.startActivity(new Intent(mContext, act_main.class));
+                                        ((Activity) mContext).finish();
+                                        return false;
+                                    }
+                                })
+                                .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
+                                    @Override
+                                    public boolean onClick(BaseDialog baseDialog, View v) {
+                                        tinydb.putBoolean(TBpoliticas,false);
+                                        ((Activity) mContext).finish();
+                                        return true;                    //位于“取消”位置的按钮点击后无法关闭对话框
+                                    }
+                                });
+
+                        return false;
+                    }
+                })
+                .setCancelButton(mContext.getString(R.string.cerrar))
+                .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+                        tinydb.putBoolean(TBpoliticas,false);
+                        ((Activity) mContext).finish();
+                        return false;
+                    }
+                })
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setCancelable(true)
+                .show();
     }
 
 }

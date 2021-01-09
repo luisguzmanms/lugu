@@ -36,6 +36,7 @@ import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvCategoria;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
@@ -128,6 +129,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                     // numero aletario de cancion
                     Random random = new Random();
                     int numCancionSonar = random.nextInt(tinyListCancionxCategoria.size());
+                    CargarInterAleatorio(mContext, 5);
                     getLinkAndPlay(mContext, tinyListCancionxCategoria.get(numCancionSonar).getLinkYT(), 1);
 
                     // guardar datos de la cancion sonando en TinyDB

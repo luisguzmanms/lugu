@@ -84,9 +84,12 @@ import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.CompartirApp;
 import static com.lamesa.lugu.otros.metodos.DialogoOpBateria;
+import static com.lamesa.lugu.otros.metodos.DialogoPoliticas2;
 import static com.lamesa.lugu.otros.metodos.DialogoReport;
 import static com.lamesa.lugu.otros.metodos.DialogoSalir;
 import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
+import static com.lamesa.lugu.otros.metodos.DialogoSupArt;
+import static com.lamesa.lugu.otros.metodos.DialogoSupArtista;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
@@ -156,6 +159,7 @@ public class act_main extends AppCompatActivity {
     public static ImageView ivOpcionBucle;
     public static WeatherView weatherView;
     private ImageView ivReport;
+    private ImageView ivSupArt;
 
 
     @Override
@@ -195,7 +199,6 @@ public class act_main extends AppCompatActivity {
         DialogoOpBateria(act_main.this);
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -366,7 +369,7 @@ public class act_main extends AppCompatActivity {
         tvSleep = findViewById(R.id.tv_sleep);
 
         ivReport = findViewById(R.id.iv_report);
-
+        ivSupArt = findViewById(R.id.iv_support_art);
 
 
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
@@ -478,9 +481,10 @@ public class act_main extends AppCompatActivity {
                         opcionMenu.add(getString(R.string.compartir_app));
                         opcionMenu.add("About " + act_main.this.getResources().getString(R.string.app_name));
                         opcionMenu.add(getString(R.string.aviso_legal));
+                        opcionMenu.add(getString(R.string.title_terms));
 
 
-                        DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
+                        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
                         DialogSettings.theme = DialogSettings.THEME.DARK;
                         DialogSettings.backgroundColor = getResources().getColor(R.color.black);
 
@@ -555,6 +559,12 @@ public class act_main extends AppCompatActivity {
 
 
                                         break;
+
+                                    case 4:
+
+                                            DialogoPoliticas2(act_main.this);
+
+                                            break;
 
                                 }
 
@@ -732,6 +742,17 @@ public class act_main extends AppCompatActivity {
 
                         break;
 
+                    case R.id.iv_support_art:
+
+                        DialogoSupArt(act_main.this);
+
+                        break;
+
+
+                    case R.id.tv_cancion:
+                    case R.id.tv_artista:
+                        DialogoSupArtista(act_main.this);
+                        break;
 
 
                 }
@@ -749,6 +770,9 @@ public class act_main extends AppCompatActivity {
         ivSleep.setOnClickListener(listener);
         ivOpcionBucle.setOnClickListener(listener);
         ivReport.setOnClickListener(listener);
+        tvCancion.setOnClickListener(listener);
+        tvArtista.setOnClickListener(listener);
+        ivSupArt.setOnClickListener(listener);
 
 
         // cargar gif de fondo
@@ -792,6 +816,7 @@ public class act_main extends AppCompatActivity {
 
 
     }
+
 
     private void CargarImagenFondo() {
 
@@ -869,6 +894,5 @@ public class act_main extends AppCompatActivity {
         Firebase.getListaPorCategoria(mContext, mlistCategoria, mlistCancion, tinyDB);
         getListaImagenes(tinyDB);
     }
-
 
 }

@@ -84,12 +84,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_lightitalic.ttf"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_zoom_in.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\zoom_in.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_shadow_edittext_oscuro_black.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadow_edittext_oscuro_black.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_zoom_in.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\zoom_in.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_share_black_24dp.xml.flat",
@@ -260,12 +260,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\ic_video_player_btn_pause.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_insert_emoticon_black_24dp.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_insert_emoticon_black_24dp.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_rotate_form.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\rotate_form.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_insert_emoticon_black_24dp.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_insert_emoticon_black_24dp.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_ropasans_regular.ttf.flat",
@@ -398,6 +398,10 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_scale_down.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\scale_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_imagen.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_imagen.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_fontawesome.ttf.flat",

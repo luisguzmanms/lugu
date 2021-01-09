@@ -273,5 +273,11 @@
     <string name="msg_report_song">If you have a problem with our way of promotion, send us an email and we will take the music down if needed.</string>
     <string name="title_report_song">REPORT SONG</string>
     <string name="coneccion_lenta">Internet connection error...</string>
+    <string name="support_artista">SUPPORT ARTIST</string>
+    <string name="serarch_artist">SEARCH ARTIST</string>
+    <string name="msg_support_artista">Don’t forget to visit the artist of this song, following him on their official social networks.</string>
+    <string name="support_art">SUPPORT ART</string>
+    <string name="msg_support_art">Don’t forget to visit the original creator of the image used in this app</string>
+    <string name="open_art">OPEN ART</string>
 
 </resources>

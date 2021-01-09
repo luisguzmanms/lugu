@@ -59,5 +59,11 @@
     <string name="title_report_song">REPORTAR CANCIÓN</string>
     <string name="msg_report_song">Si tienes un problema con nuestra forma de promoción, envíanos un correo electrónico y anularemos la música si es necesario.</string>
     <string name="coneccion_lenta">Error de conexión a internet...</string>
+    <string name="open_art">ABRIR ARTE</string>
+    <string name="msg_support_art">No olvides visitar al creador original de la imagen usada en esta app</string>
+    <string name="support_art">APOYAR ARTE</string>
+    <string name="msg_support_artista">No olvides visitar al artista de esta canción, siguiéndolo en sus redes sociales oficiales.</string>
+    <string name="serarch_artist">BUSCAR ARTISTA</string>
+    <string name="support_artista">APOYAR ARTISTA</string>
 
 </resources>

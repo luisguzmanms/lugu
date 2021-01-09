@@ -48,6 +48,7 @@ import net.khirr.android.privacypolicy.PrivacyPolicyDialog;
 import java.util.List;
 import java.util.Random;
 
+import static com.lamesa.lugu.otros.metodos.DialogoPoliticas2;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBpase;
@@ -57,7 +58,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
 
 public class splash extends AppCompatActivity {
 
-    private static TinyDB tinydb;
+    public static TinyDB tinydb;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +81,7 @@ public class splash extends AppCompatActivity {
             public void onClick(View v) {
 
 
-              //   AgregarCancion(splash.this,"lugu.csv");
+              // AgregarCancion(splash.this,"lugu.csv");
 
 
             }
@@ -99,7 +100,7 @@ public class splash extends AppCompatActivity {
                     startActivity(new Intent(splash.this, act_main.class));
                     finish();
                 } else {
-                    DialogoPoliticas(splash.this);
+                    DialogoPoliticas2(splash.this);
                 }
 
 
@@ -114,7 +115,6 @@ public class splash extends AppCompatActivity {
     }
 
     public static void DialogoPoliticas(Context mContext) {
-
 
         //region Dialogo terminos y condiciones
         DialogSettings.theme = DialogSettings.THEME.DARK;
@@ -228,6 +228,7 @@ public class splash extends AppCompatActivity {
                                 return true;                    //位于“取消”位置的按钮点击后无法关闭对话框
                             }
                         });
+
 
             }
 

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lugumusic.lofi"
     android:versionCode="1"
-    android:versionName="1.0 admin" >
+    android:versionName="1.0 beta" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -46,7 +46,6 @@
         android:networkSecurityConfig="@xml/network_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:usesCleartextTraffic="true" >
         <uses-library
             android:name="org.apache.http.legacy"

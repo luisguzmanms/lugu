@@ -37,6 +37,7 @@ import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvVacio;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
@@ -104,6 +105,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
             public void onClick(View v) {
 
 
+                CargarInterAleatorio(mContext, 5);
                 getLinkAndPlay(mContext, mListFavoritos.get(position).getLinkYT(),1);
 
 

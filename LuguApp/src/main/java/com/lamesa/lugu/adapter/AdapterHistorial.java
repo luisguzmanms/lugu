@@ -39,6 +39,7 @@ import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvVacio;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
@@ -116,6 +117,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             @Override
             public void onClick(View v) {
 
+                CargarInterAleatorio(mContext, 5);
                 getLinkAndPlay(mContext,mListHistorial.get(position).getLinkYT(),1);
 
                 // guardar datos de la cancion sonando en TinyDB

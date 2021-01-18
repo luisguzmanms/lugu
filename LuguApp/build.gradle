@@ -7,15 +7,13 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
-
     defaultConfig {
         applicationId "com.lugumusic.lofi"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2
-        versionName "1.0.1 beta"
+        versionCode 1
+        versionName "1.0 admin"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
 
     }
 

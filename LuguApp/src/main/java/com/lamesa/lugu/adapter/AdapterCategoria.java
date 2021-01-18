@@ -44,6 +44,7 @@ import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.mixFavoritos;
 
 
 /**
@@ -143,6 +144,26 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                 } else {
                     getListas(mContext);
                 }
+
+
+                //region MIX mixCompartirApp para estadisticas
+                JSONObject props = new JSONObject();
+                try {
+                    props.put("Id", mListCategorias.get(position).getId());
+                    props.put("Nombre", mListCategorias.get(position).getImagen());
+                    Bundle params = new Bundle();
+                    params.putString("Id",  mListCategorias.get(position).getId());
+                    params.putString("Nombre", mListCategorias.get(position).getImagen());
+
+                    mFirebaseAnalytics.logEvent(mixCategoriaClic, params);
+                    mixpanel.track(mixCategoriaClic, props);
+                    Amplitude.getInstance().logEvent(mixCategoriaClic, props);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //endregion
 
 
             }

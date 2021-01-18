@@ -3,10 +3,20 @@ com/lamesa/lugu/utils/CSVParsingExampleActivity.java
 com/lamesa/lugu/otros/mob/video.java
  com.lamesa.lugu.otros.mob.video
  com.lamesa.lugu.otros.mob.video$1
-com/lamesa/lugu/otros/AdMesa.java
- com.lamesa.lugu.otros.AdMesa
- com.lamesa.lugu.otros.AdMesa$1
- com.lamesa.lugu.otros.AdMesa$2
+com/lamesa/lugu/activity/act_main.java
+ com.lamesa.lugu.activity.act_main
+ com.lamesa.lugu.activity.act_main$1
+ com.lamesa.lugu.activity.act_main$2
+ com.lamesa.lugu.activity.act_main$3
+ com.lamesa.lugu.activity.act_main$4
+ com.lamesa.lugu.activity.act_main$4$1
+ com.lamesa.lugu.activity.act_main$4$1$1
+ com.lamesa.lugu.activity.act_main$4$1$2
+ com.lamesa.lugu.activity.act_main$5
+ com.lamesa.lugu.activity.act_main$5$1
+ com.lamesa.lugu.activity.act_main$CargarListas
+ com.lamesa.lugu.activity.act_main$CargarListas$1
+ com.lamesa.lugu.activity.act_main$CargarListas$1$1
 com/lamesa/lugu/otros/fuego.java
  com.lamesa.lugu.otros.fuego
  com.lamesa.lugu.otros.fuego$getData
@@ -51,104 +61,21 @@ com/lamesa/lugu/otros/mob/inter.java
  com.lamesa.lugu.otros.mob.inter$1
 com/lamesa/lugu/player/library/globalEnums/EnumAspectRatio.java
  com.lamesa.lugu.player.library.globalEnums.EnumAspectRatio
-com/lamesa/lugu/player/library/globalInterfaces/ExoPlayerCallBack.java
- com.lamesa.lugu.player.library.globalInterfaces.ExoPlayerCallBack
+com/lamesa/lugu/adapter/AdapterCategoria.java
+ com.lamesa.lugu.adapter.AdapterCategoria
+ com.lamesa.lugu.adapter.AdapterCategoria$1
+ com.lamesa.lugu.adapter.AdapterCategoria$MyViewHolder
 com/lamesa/lugu/player/library/globalEnums/EnumLoop.java
  com.lamesa.lugu.player.library.globalEnums.EnumLoop
-com/lamesa/lugu/otros/statics/constantes.java
- com.lamesa.lugu.otros.statics.constantes
+com/lamesa/lugu/player/library/MusicPlayer.java
+ com.lamesa.lugu.player.library.MusicPlayer
+ com.lamesa.lugu.player.library.MusicPlayer$1
+ com.lamesa.lugu.player.library.MusicPlayer$ComponentListener
 com/lamesa/lugu/otros/Utils.java
  com.lamesa.lugu.otros.Utils
  com.lamesa.lugu.otros.Utils$Fecha
 com/lamesa/lugu/model/ModelCategoria.java
  com.lamesa.lugu.model.ModelCategoria
-com/lamesa/lugu/player/library/utils/PublicFunctions.java
- com.lamesa.lugu.player.library.utils.PublicFunctions
-com/lamesa/lugu/otros/mob/ban.java
- com.lamesa.lugu.otros.mob.ban
-com/lamesa/lugu/player/library/utils/PublicValues.java
- com.lamesa.lugu.player.library.utils.PublicValues
-com/lamesa/lugu/otros/numberPicker/Scroller.java
- com.lamesa.lugu.otros.numberPicker.Scroller
- com.lamesa.lugu.otros.numberPicker.Scroller$ViscousFluidInterpolator
-com/lamesa/lugu/model/ModelCancion.java
- com.lamesa.lugu.model.ModelCancion
-com/lamesa/lugu/otros/constantes.java
- com.lamesa.lugu.otros.constantes
-com/lamesa/lugu/App.java
- com.lamesa.lugu.App
- com.lamesa.lugu.App$1
- com.lamesa.lugu.App$1TestAsync
-com/lamesa/lugu/player/library/utils/PathUtil.java
- com.lamesa.lugu.player.library.utils.PathUtil
-com/lamesa/lugu/otros/TinyDB.java
- com.lamesa.lugu.otros.TinyDB
-com/lamesa/lugu/otros/statics/Animacion.java
- com.lamesa.lugu.otros.statics.Animacion
-com/lamesa/lugu/BuildConfig.java
- com.lamesa.lugu.BuildConfig
-com/lamesa/lugu/activity/splash.java
- com.lamesa.lugu.activity.splash
- com.lamesa.lugu.activity.splash$1
- com.lamesa.lugu.activity.splash$10
- com.lamesa.lugu.activity.splash$2
- com.lamesa.lugu.activity.splash$3
- com.lamesa.lugu.activity.splash$3$1
- com.lamesa.lugu.activity.splash$3$2
- com.lamesa.lugu.activity.splash$4
- com.lamesa.lugu.activity.splash$5
- com.lamesa.lugu.activity.splash$6
- com.lamesa.lugu.activity.splash$7
- com.lamesa.lugu.activity.splash$7$1
- com.lamesa.lugu.activity.splash$8
- com.lamesa.lugu.activity.splash$9
-com/lamesa/lugu/adapter/AdapterHistorial.java
- com.lamesa.lugu.adapter.AdapterHistorial
- com.lamesa.lugu.adapter.AdapterHistorial$1
- com.lamesa.lugu.adapter.AdapterHistorial$2
- com.lamesa.lugu.adapter.AdapterHistorial$MyViewHolder
-com/lamesa/lugu/adapter/AdapterCategoria.java
- com.lamesa.lugu.adapter.AdapterCategoria
- com.lamesa.lugu.adapter.AdapterCategoria$1
- com.lamesa.lugu.adapter.AdapterCategoria$MyViewHolder
-com/lamesa/lugu/otros/Firebase.java
- com.lamesa.lugu.otros.Firebase
- com.lamesa.lugu.otros.Firebase$1
- com.lamesa.lugu.otros.Firebase$2
- com.lamesa.lugu.otros.Firebase$3
- com.lamesa.lugu.otros.Firebase$4
- com.lamesa.lugu.otros.Firebase$5
- com.lamesa.lugu.otros.Firebase$6
- com.lamesa.lugu.otros.Firebase$7
-com/lamesa/lugu/receiver/ActionReceiver.java
- com.lamesa.lugu.receiver.ActionReceiver
-com/lamesa/lugu/adapter/AdapterFavoritos.java
- com.lamesa.lugu.adapter.AdapterFavoritos
- com.lamesa.lugu.adapter.AdapterFavoritos$1
- com.lamesa.lugu.adapter.AdapterFavoritos$2
- com.lamesa.lugu.adapter.AdapterFavoritos$MyViewHolder
-com/lamesa/lugu/activity/act_main.java
- com.lamesa.lugu.activity.act_main
- com.lamesa.lugu.activity.act_main$1
- com.lamesa.lugu.activity.act_main$2
- com.lamesa.lugu.activity.act_main$3
- com.lamesa.lugu.activity.act_main$4
- com.lamesa.lugu.activity.act_main$4$1
- com.lamesa.lugu.activity.act_main$4$1$1
- com.lamesa.lugu.activity.act_main$4$1$2
- com.lamesa.lugu.activity.act_main$5
- com.lamesa.lugu.activity.act_main$5$1
- com.lamesa.lugu.activity.act_main$CargarListas
- com.lamesa.lugu.activity.act_main$CargarListas$1
- com.lamesa.lugu.activity.act_main$CargarListas$1$1
-com/lamesa/lugu/player/library/MusicPlayer.java
- com.lamesa.lugu.player.library.MusicPlayer
- com.lamesa.lugu.player.library.MusicPlayer$1
- com.lamesa.lugu.player.library.MusicPlayer$ComponentListener
-com/lamesa/lugu/player/library/AndExoPlayerView3.java
- com.lamesa.lugu.player.library.AndExoPlayerView3
- com.lamesa.lugu.player.library.AndExoPlayerView3$1
- com.lamesa.lugu.player.library.AndExoPlayerView3$ComponentListener
 com/lamesa/lugu/otros/metodos.java
  com.lamesa.lugu.otros.metodos
  com.lamesa.lugu.otros.metodos$1
@@ -179,5 +106,78 @@ com/lamesa/lugu/otros/metodos.java
  com.lamesa.lugu.otros.metodos$7
  com.lamesa.lugu.otros.metodos$8
  com.lamesa.lugu.otros.metodos$9
+com/lamesa/lugu/otros/mob/ban.java
+ com.lamesa.lugu.otros.mob.ban
+com/lamesa/lugu/player/library/utils/PublicValues.java
+ com.lamesa.lugu.player.library.utils.PublicValues
+com/lamesa/lugu/activity/splash.java
+ com.lamesa.lugu.activity.splash
+ com.lamesa.lugu.activity.splash$1
+ com.lamesa.lugu.activity.splash$10
+ com.lamesa.lugu.activity.splash$2
+ com.lamesa.lugu.activity.splash$3
+ com.lamesa.lugu.activity.splash$3$1
+ com.lamesa.lugu.activity.splash$3$2
+ com.lamesa.lugu.activity.splash$4
+ com.lamesa.lugu.activity.splash$5
+ com.lamesa.lugu.activity.splash$6
+ com.lamesa.lugu.activity.splash$7
+ com.lamesa.lugu.activity.splash$7$1
+ com.lamesa.lugu.activity.splash$8
+ com.lamesa.lugu.activity.splash$9
+com/lamesa/lugu/model/ModelCancion.java
+ com.lamesa.lugu.model.ModelCancion
+com/lamesa/lugu/otros/Firebase.java
+ com.lamesa.lugu.otros.Firebase
+ com.lamesa.lugu.otros.Firebase$1
+ com.lamesa.lugu.otros.Firebase$2
+ com.lamesa.lugu.otros.Firebase$3
+ com.lamesa.lugu.otros.Firebase$4
+ com.lamesa.lugu.otros.Firebase$5
+ com.lamesa.lugu.otros.Firebase$6
+ com.lamesa.lugu.otros.Firebase$7
+com/lamesa/lugu/adapter/AdapterFavoritos.java
+ com.lamesa.lugu.adapter.AdapterFavoritos
+ com.lamesa.lugu.adapter.AdapterFavoritos$1
+ com.lamesa.lugu.adapter.AdapterFavoritos$2
+ com.lamesa.lugu.adapter.AdapterFavoritos$MyViewHolder
+com/lamesa/lugu/player/library/AndExoPlayerView3.java
+ com.lamesa.lugu.player.library.AndExoPlayerView3
+ com.lamesa.lugu.player.library.AndExoPlayerView3$1
+ com.lamesa.lugu.player.library.AndExoPlayerView3$ComponentListener
+com/lamesa/lugu/otros/TinyDB.java
+ com.lamesa.lugu.otros.TinyDB
+com/lamesa/lugu/otros/statics/Animacion.java
+ com.lamesa.lugu.otros.statics.Animacion
+com/lamesa/lugu/BuildConfig.java
+ com.lamesa.lugu.BuildConfig
+com/lamesa/lugu/player/library/utils/PublicFunctions.java
+ com.lamesa.lugu.player.library.utils.PublicFunctions
 com/lamesa/lugu/player/MediaNotificationManager.java
  com.lamesa.lugu.player.MediaNotificationManager
+com/lamesa/lugu/adapter/AdapterHistorial.java
+ com.lamesa.lugu.adapter.AdapterHistorial
+ com.lamesa.lugu.adapter.AdapterHistorial$1
+ com.lamesa.lugu.adapter.AdapterHistorial$2
+ com.lamesa.lugu.adapter.AdapterHistorial$MyViewHolder
+com/lamesa/lugu/otros/statics/constantes.java
+ com.lamesa.lugu.otros.statics.constantes
+com/lamesa/lugu/receiver/ActionReceiver.java
+ com.lamesa.lugu.receiver.ActionReceiver
+com/lamesa/lugu/App.java
+ com.lamesa.lugu.App
+ com.lamesa.lugu.App$1
+ com.lamesa.lugu.App$1TestAsync
+com/lamesa/lugu/otros/AdMesa.java
+ com.lamesa.lugu.otros.AdMesa
+ com.lamesa.lugu.otros.AdMesa$1
+ com.lamesa.lugu.otros.AdMesa$2
+com/lamesa/lugu/otros/constantes.java
+ com.lamesa.lugu.otros.constantes
+com/lamesa/lugu/player/library/globalInterfaces/ExoPlayerCallBack.java
+ com.lamesa.lugu.player.library.globalInterfaces.ExoPlayerCallBack
+com/lamesa/lugu/player/library/utils/PathUtil.java
+ com.lamesa.lugu.player.library.utils.PathUtil
+com/lamesa/lugu/otros/numberPicker/Scroller.java
+ com.lamesa.lugu.otros.numberPicker.Scroller
+ com.lamesa.lugu.otros.numberPicker.Scroller$ViscousFluidInterpolator

@@ -14,7 +14,8 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.potyvideo.library.utils.PublicValues.REQUEST_ID_MULTIPLE_PERMISSIONS;
+import static com.lamesa.lugu.player.library.utils.PublicValues.REQUEST_ID_MULTIPLE_PERMISSIONS;
+
 
 public class PublicFunctions {
 

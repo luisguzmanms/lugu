@@ -1,6 +1,5 @@
 package com.lamesa.lugu;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -14,7 +13,6 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
-import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kongzue.dialog.util.DialogSettings;
 import com.lamesa.lugu.otros.TinyDB;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
@@ -83,7 +81,7 @@ public class App extends MultiDexApplication {
 
 
 
-        PlayerLibrary.init(this);
+
         CondiguracionDialogos();
         tinyDB = new TinyDB(this);
 

@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.FileProvider;
 
 import com.amplitude.api.Amplitude;
@@ -115,6 +116,7 @@ import static com.lamesa.lugu.activity.act_main.tvSleep;
 import static com.lamesa.lugu.activity.splash.tinydb;
 import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.mob.inter.showInterstitial;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
@@ -131,6 +133,8 @@ import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
 import static com.lamesa.lugu.otros.statics.constantes.mixActualizarApp;
 import static com.lamesa.lugu.otros.statics.constantes.mixCompartirApp;
+import static com.lamesa.lugu.otros.statics.constantes.mixFavoritos;
+import static com.lamesa.lugu.otros.statics.constantes.mixLogInfoError;
 import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
 import static com.lamesa.lugu.otros.statics.constantes.setDebugActivo;
 
@@ -1293,7 +1297,7 @@ public class metodos {
 
     public static void getLinkAndPlay(Context mContext, String linkYT, int opcion) {
 
-        CargarInterAleatorio(mContext, 30);
+        CargarInterAleatorio(mContext, 40);
 
         if (!isNetworkAvailable(mContext)) {
             Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
@@ -1465,6 +1469,25 @@ public class metodos {
         String errormsg = "";
         if (error) {
             errormsg = "ErrorBug : | ";
+
+            //region MIX ErrorBug para estadisticas
+            JSONObject props = new JSONObject();
+            try {
+
+                props.put("Error", TAG+" | "+errormsg+msg);
+                Bundle params = new Bundle();
+                params.putString("Error", TAG+" | "+errormsg+msg);
+
+                mFirebaseAnalytics.logEvent(mixLogInfoError, params);
+                mixpanel.track(mixLogInfoError, props);
+                Amplitude.getInstance().logEvent(mixLogInfoError, props);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //endregion
+
         }
         // para la fecha
         DateFormat df = new SimpleDateFormat("EEEE, d MMM yyyy hh:mm a ");
@@ -1518,12 +1541,38 @@ public class metodos {
             // Collections para que se muestre de primeras las ultimas agregadas
             // Collections.reverse(tinyListFavoritos);
 
-            CargarInterAleatorio(mContext, 3);
+            showInterstitial(mContext);
 
             for (int i = 0; i < tinyListCancionxCategoria.size(); i++) {
                 if (tinyListCancionxCategoria.get(i).getId().equals(idCancionSonando)) {
                     tinyListFavoritos.add(tinyListCancionxCategoria.get(i));
                     Toast.makeText(mContext, R.string.agrego_favoritos, Toast.LENGTH_SHORT).show();
+
+                    //region MIX mixCompartirApp para estadisticas
+                    JSONObject props = new JSONObject();
+                    try {
+                        props.put("Id", tinyListCancionxCategoria.get(i).getId());
+                        props.put("Nombre", tinyListCancionxCategoria.get(i).getCancion());
+                        props.put("Artista", tinyListCancionxCategoria.get(i).getArtista());
+                        props.put("Categoria", tinyListCancionxCategoria.get(i).getCategoria());
+                        props.put("LinkYT", tinyListCancionxCategoria.get(i).getLinkYT());
+                        Bundle params = new Bundle();
+                        params.putString("Id", tinyListCancionxCategoria.get(i).getId());
+                        params.putString("Nombre", tinyListCancionxCategoria.get(i).getCancion());
+                        params.putString("Artista", tinyListCancionxCategoria.get(i).getArtista());
+                        params.putString("Categoria", tinyListCancionxCategoria.get(i).getCategoria());
+                        params.putString("LinkYT", tinyListCancionxCategoria.get(i).getLinkYT());
+
+
+                        mFirebaseAnalytics.logEvent(mixFavoritos, params);
+                        mixpanel.track(mixFavoritos, props);
+                        Amplitude.getInstance().logEvent(mixFavoritos, props);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    //endregion
+
                     break;
                 }
             }
@@ -1537,13 +1586,15 @@ public class metodos {
             // cambiar icono de ivLikeDislike a like
 
             ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
-            ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_like));
+            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.learn_ic_like));
             ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
             mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
             bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
             //endregion
+
+
 
 
         } else {
@@ -1569,7 +1620,7 @@ public class metodos {
             // cambiar icono de ivLikeDislike a like
 
             ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
-            ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_dislike));
+            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.learn_ic_dislike));
             ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
@@ -1753,13 +1804,13 @@ public class metodos {
         if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
-                ivOpcionBucle.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_bucle));
+                ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_bucle));
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
         } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
-                ivOpcionBucle.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_aleatorio));
+                ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_aleatorio));
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
         }

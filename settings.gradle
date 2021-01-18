@@ -1,6 +1,4 @@
-include ':numberPicker'
 include ':YoutubeExtractor2'
 include ':youtubeExtractor'
-include ':library'
 rootProject.name='lugu'
-include ':LuguApp', ':playerbase'
+include ':LuguApp'

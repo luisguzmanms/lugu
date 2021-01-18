@@ -2,7 +2,6 @@ package com.lamesa.lugu.otros.mob;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
 import com.google.android.gms.ads.AdListener;
@@ -16,7 +15,7 @@ import java.util.Random;
 
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdClic;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 public class inter {
 	// Remove the below line after defining your own ad unit ID.
@@ -58,9 +57,9 @@ public class inter {
 				Bundle params = new Bundle();
 				params.putString("TipoAd", "Interstitial");
 
-				mFirebaseAnalytics.logEvent(mixAdClic, params);
-				mixpanel.track(mixAdClic, props);
-				Amplitude.getInstance().logEvent(mixAdClic, props);
+				mFirebaseAnalytics.logEvent(mixAdOpened, params);
+				mixpanel.track(mixAdOpened, props);
+				Amplitude.getInstance().logEvent(mixAdOpened, props);
 
 			} catch (JSONException e) {
 				e.printStackTrace();

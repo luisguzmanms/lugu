@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lamesa.lugu.player.library.MusicPlayer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00DDDDDD"
-    android:orientation="vertical">
+    android:background="#00DDDDDD">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+    <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/simpleExoPlayerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

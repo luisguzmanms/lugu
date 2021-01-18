@@ -279,5 +279,6 @@
     <string name="support_art">SUPPORT ART</string>
     <string name="msg_support_art">Don’t forget to visit the original creator of the image used in this app</string>
     <string name="open_art">OPEN ART</string>
+    <string name="title_retry">Try Again!</string>
 
 </resources>

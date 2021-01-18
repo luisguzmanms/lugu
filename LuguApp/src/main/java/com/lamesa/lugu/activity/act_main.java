@@ -6,21 +6,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.PowerManager;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -30,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.NestedScrollView;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -113,7 +109,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
 import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBreproduciendoRadio;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdClic;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 public class act_main extends AppCompatActivity {
 
@@ -250,9 +246,9 @@ public class act_main extends AppCompatActivity {
                     params.putString("TipoAd", "Banner");
 
 
-                    mFirebaseAnalytics.logEvent(mixAdClic, params);
-                    mixpanel.track(mixAdClic, props);
-                    Amplitude.getInstance().logEvent(mixAdClic, props);
+                    mFirebaseAnalytics.logEvent(mixAdOpened, params);
+                    mixpanel.track(mixAdOpened, props);
+                    Amplitude.getInstance().logEvent(mixAdOpened, props);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -374,11 +370,11 @@ public class act_main extends AppCompatActivity {
 
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
         //region guardar ivOpcionBucle segun el icono
-        if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_bucle).getConstantState()) {
+        if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
             // guardar modo de reproductor REPRODUCTOR_BUCLE
             tinyDB.putString(TBmodoReproductor, REPRODUCTOR_BUCLE);
 
-        } else if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_aleatorio).getConstantState()) {
+        } else if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_aleatorio).getConstantState())) {
             // guardar modo de reproductor REPRODUCTOR_ALEATORIO
             tinyDB.putString(TBmodoReproductor, REPRODUCTOR_ALEATORIO);
         }
@@ -490,7 +486,6 @@ public class act_main extends AppCompatActivity {
 
                         BaseAdapter baseAdapter = new ArrayAdapter(act_main.this, com.kongzue.dialog.R.layout.item_bottom_menu_material, opcionMenu);
 
-
                         BottomMenu.show(act_main.this, baseAdapter, new OnMenuItemClickListener() {
                             @Override
                             public void onClick(String text, int index) {
@@ -571,14 +566,13 @@ public class act_main extends AppCompatActivity {
                             }
                         }).setCancelButtonText(act_main.this.getResources().getString(R.string.cerrar)).setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("MENU");
 
-
                         break;
 
                     case R.id.iv_playPause:
 
 
                         // cambiar icono entre play y pause
-                        if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_play).getConstantState()) {
+                        if (ivPlayPause.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_play).getConstantState())) {
                             // reproducir
                             // comprobar si es la primera vez que se da clic a play
                             if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
@@ -595,7 +589,7 @@ public class act_main extends AppCompatActivity {
                                 Toast.makeText(act_main.this, R.string.elija_categoria, Toast.LENGTH_SHORT).show();
                             }
 
-                        } else if (ivPlayPause.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_pausa).getConstantState()) {
+                        } else if (ivPlayPause.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_pausa).getConstantState())) {
                             // pausar
                             musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
                         }
@@ -608,13 +602,13 @@ public class act_main extends AppCompatActivity {
 
                         // comprobar si es la primera vez que se da clic a favorito
                         if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
-                            if (ivLikeDislike.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.learn_ic_like).getConstantState()) {
+                            if (ivLikeDislike.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.learn_ic_like).getConstantState())) {
                                 // Quitar de lista de favoritos
                                 //  Toast.makeText(act_main.this, "learn_ic_like", Toast.LENGTH_SHORT).show();
                                 GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), false);
 
 
-                            } else if (ivLikeDislike.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.learn_ic_dislike).getConstantState()) {
+                            } else if (ivLikeDislike.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.learn_ic_dislike).getConstantState())) {
                                 // Guardar en favoritos
                                 //  Toast.makeText(act_main.this, "learn_ic_dislike", Toast.LENGTH_SHORT).show();
                                 GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), true);
@@ -702,11 +696,11 @@ public class act_main extends AppCompatActivity {
 
                          */
 
-                        if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_off).getConstantState()) {
+                        if (ivSleep.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_moon_off).getConstantState())) {
                             // Iniciar dialogo de temporizador
                             DialogoTemporizador(act_main.this);
 
-                        } else if (ivSleep.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_moon_on).getConstantState()) {
+                        } else if (ivSleep.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_moon_on).getConstantState())) {
                             // apagar temporizador antes de iniciar uno nuevo
                             ApagarAutoApagado(act_main.this);
                             DialogoTemporizador(act_main.this);
@@ -720,12 +714,13 @@ public class act_main extends AppCompatActivity {
 
                         // comprobar si es la primera vez que se da clic a favorito
 
-                        if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_bucle).getConstantState()) {
+
+                        if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
                             // activar modo aleatorio
                             OpcionReproductor(act_main.this, REPRODUCTOR_ALEATORIO);
                             Toast.makeText(act_main.this, R.string.modo_aleatorio, Toast.LENGTH_SHORT).show();
 
-                        } else if (ivOpcionBucle.getDrawable().getConstantState() == act_main.this.getResources().getDrawable(R.drawable.ic_aleatorio).getConstantState()) {
+                        } else if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_aleatorio).getConstantState())) {
                             // activar modo bucle
                             OpcionReproductor(act_main.this, REPRODUCTOR_BUCLE);
                             Toast.makeText(act_main.this, R.string.modo_bucle_on, Toast.LENGTH_SHORT).show();

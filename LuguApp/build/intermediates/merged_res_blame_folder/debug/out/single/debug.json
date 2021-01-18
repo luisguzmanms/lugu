@@ -4,12 +4,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_bg_circle_stroked.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_item_favorito.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\item_favorito.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_menu_vector.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_menu_vector.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_item_favorito.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\item_favorito.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_favorites.xml.flat",
@@ -40,12 +40,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_report.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_style_video_player_video_seekbar.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\style_video_player_video_seekbar.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_launcher_foreground.png.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_style_video_player_video_seekbar.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\style_video_player_video_seekbar.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_josefinsans_italic.ttf.flat",
@@ -54,6 +54,10 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_poppins_semi_bold.ttf.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\poppins_semi_bold.ttf"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_shape_shadow.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\shape_shadow.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_layout_send_notifi.xml.flat",
@@ -76,20 +80,20 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\slideright.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_robotoregular.ttf.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\robotoregular.ttf"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_josefinsans_lightitalic.ttf.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_lightitalic.ttf"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_shadow_edittext_oscuro_black.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadow_edittext_oscuro_black.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_robotoregular.ttf.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\robotoregular.ttf"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_zoom_in.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\zoom_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_shadow_edittext_oscuro_black.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadow_edittext_oscuro_black.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_share_black_24dp.xml.flat",
@@ -148,16 +152,20 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_lock.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_learn_activity_instructor_detail.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\learn_activity_instructor_detail.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_fullscreen_black_24dp.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_fullscreen_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_josefinsans_thin.ttf.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_thin.ttf"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_shape_controller_top_gradient.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\shape_controller_top_gradient.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_josefinsans_thin.ttf.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_thin.ttf"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_learn_activity_instructor_detail.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\learn_activity_instructor_detail.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_poppins_regular.ttf.flat",
@@ -216,6 +224,10 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_lista.png"
     },
     {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_shape_border.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\shape_border.xml"
+    },
+    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
@@ -260,12 +272,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\ic_video_player_btn_pause.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_rotate_form.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\rotate_form.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_learn_ic_insert_emoticon_black_24dp.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_insert_emoticon_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\anim_rotate_form.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\rotate_form.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_ropasans_regular.ttf.flat",
@@ -290,6 +302,10 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_favorite_black_24dp.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_favorite_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_replay_black_24dp.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_replay_black_24dp.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
@@ -782,6 +798,10 @@
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\font_roboto_regular.ttf.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\roboto_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\drawable_ic_fullscreen_exit_black_24dp.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\ic_fullscreen_exit_black_24dp.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\debug\\layout_number_picker_material.xml.flat",

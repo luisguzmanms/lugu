@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdClic;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 
 public class AdMesa {
@@ -56,9 +56,9 @@ public class AdMesa {
                     params.putString("TipoAd", "Interstitial");
 
 
-                    mFirebaseAnalytics.logEvent(mixAdClic, params);
-                    mixpanel.track(mixAdClic, props);
-                    Amplitude.getInstance().logEvent(mixAdClic, props);
+                    mFirebaseAnalytics.logEvent(mixAdOpened, params);
+                    mixpanel.track(mixAdOpened, props);
+                    Amplitude.getInstance().logEvent(mixAdOpened, props);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

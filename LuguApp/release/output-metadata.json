@@ -10,8 +10,8 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 1,
-      "versionName": "1.0 beta",
+      "versionCode": 2,
+      "versionName": "1.1 beta",
       "outputFile": "LuguApp-release.apk"
     }
   ]

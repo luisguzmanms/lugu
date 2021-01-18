@@ -58,8 +58,7 @@ public class constantes {
 
     //region constantes para MIX PANEL
 
-    public static String mixFilmFavorito = "FilmFavorito";
-    public static String mixFilmAbierto = "FilmClic";
+
     public static String mixCompartirApp = "CompartirApp";
     public static String mixCategoriaClic = "CategoriaClic";
     public static String mixActualizarApp = "ActualizarApp";
@@ -67,12 +66,13 @@ public class constantes {
     public static String mixContenidoCargado = "ContenidoCargado";
     public static String mixFalloEpisodio = "ReporteEpisodio";
     public static String mixReporteFilm = "ReporteFilm";
-    public static String mixEpisodioClic = "EpisodioClic";
-    public static String mixReproductorClic = "ReproductorClic";
-    public static String mixNotificacionClic = "NotificacionClic";
-    public static String mixAdClic = "AdClic";
+    public static String mixAdOpened = "AdOpened";
    public static String mixPlaySong = "PlaySong";
-   public static String mixOnPlayerError = "mixOnPlayerError";
+   public static String mixOnPlayerError = "PlayerError";
+   public static String mixFavoritos = "AddFavorite";
+   public static String mixLogInfoError = "LogInfoError";
+
+
 
     public static boolean NotiAbierta = false;
 

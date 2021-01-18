@@ -130,10 +130,20 @@
 
 -keep public class * extends android.view.View{*;}
 
--keep public class * implements com.kk.taurus.playerbase.player.IPlayer{*;}
 
 
 
+-ignorewarnings
+-dontoptimize
+-dontobfuscate
+-dontskipnonpubliclibraryclasses
+
+-ignorewarnings
+
+-keep class com.samsung.** { *; }
+-dontwarn com.samsung.**
+-dontwarn com.samsung.multiscreen.BuildConfig
+-dontwarn lombok.**
 
 
-
+-keep class com.google.android.exoplayer2.** {*;}

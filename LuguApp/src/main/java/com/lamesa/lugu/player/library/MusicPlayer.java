@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
@@ -47,6 +48,7 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.lamesa.lugu.R;
+import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
@@ -357,7 +359,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
         super(context, attrs);
         typedArray = context.getTheme().obtainStyledAttributes(
                 attrs,
-                com.potyvideo.library.R.styleable.AndExoPlayerView,
+                R.styleable.AndExoPlayerView,
                 0, 0);
         initializeView(context);
     }
@@ -366,7 +368,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
         super(context, attrs, defStyleAttr);
         typedArray = context.getTheme().obtainStyledAttributes(
                 attrs,
-                com.potyvideo.library.R.styleable.AndExoPlayerView,
+                R.styleable.AndExoPlayerView,
                 0, 0);
         initializeView(context);
     }
@@ -375,15 +377,15 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
         this.mContext = context;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(com.potyvideo.library.R.layout.layout_player_base, this, true);
+        View view = inflater.inflate(R.layout.layout_player_base, this, true);
 
-        playerView = view.findViewById(com.potyvideo.library.R.id.simpleExoPlayerView);
-        linearLayoutLoading = findViewById(com.potyvideo.library.R.id.linearLayoutLoading);
-        linearLayoutRetry = findViewById(com.potyvideo.library.R.id.linearLayoutRetry);
-        buttonRetry = findViewById(com.potyvideo.library.R.id.appCompatButton_try_again);
-        frameLayoutFullScreenContainer = playerView.findViewById(com.potyvideo.library.R.id.container_fullscreen);
-        imageViewEnterFullScreen = playerView.findViewById(com.potyvideo.library.R.id.exo_enter_fullscreen);
-        imageViewExitFullScreen = playerView.findViewById(com.potyvideo.library.R.id.exo_exit_fullscreen);
+        playerView = view.findViewById(R.id.simpleExoPlayerView);
+        linearLayoutLoading = findViewById(R.id.linearLayoutLoading);
+        linearLayoutRetry = findViewById(R.id.linearLayoutRetry);
+        buttonRetry = findViewById(R.id.appCompatButton_try_again);
+        frameLayoutFullScreenContainer = playerView.findViewById(R.id.container_fullscreen);
+        imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
+        imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);
 
         componentListener = new ComponentListener();
 
@@ -394,30 +396,30 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
         if (typedArray != null) {
 
-            if (typedArray.hasValue(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_resize_mode)) {
-                int resizeMode = typedArray.getInteger(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_resize_mode, EnumResizeMode.FILL.getValue());
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_resize_mode)) {
+                int resizeMode = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_resize_mode, EnumResizeMode.FILL.getValue());
                 setResizeMode(EnumResizeMode.get(resizeMode));
             }
 
-            if (typedArray.hasValue(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {
-                int aspectRatio = typedArray.getInteger(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.getValue());
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {
+                int aspectRatio = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.getValue());
                 setAspectRatio(EnumAspectRatio.get(aspectRatio));
             }
 
-            if (typedArray.hasValue(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_full_screen)) {
-                setShowFullScreen(typedArray.getBoolean(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_full_screen, false));
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_full_screen)) {
+                setShowFullScreen(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_full_screen, false));
             }
 
-            if (typedArray.hasValue(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_play_when_ready)) {
-                setPlayWhenReady(typedArray.getBoolean(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_play_when_ready, false));
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_play_when_ready)) {
+                setPlayWhenReady(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_play_when_ready, false));
             }
 
-            if (typedArray.hasValue(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_show_controller)) {
-                setShowController(typedArray.getBoolean(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_show_controller, true));
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_show_controller)) {
+                setShowController(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_show_controller, true));
             }
 
-            if (typedArray.hasValue(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_loop)) {
-                EnumLoop enumLoop = EnumLoop.get(typedArray.getInteger(com.potyvideo.library.R.styleable.AndExoPlayerView_andexo_loop, EnumLoop.Finite.getValue()));
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_loop)) {
+                EnumLoop enumLoop = EnumLoop.get(typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_loop, EnumLoop.Finite.getValue()));
                 setLoopMode(enumLoop);
             }
 
@@ -668,13 +670,13 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
             case ASPECT_MP3:
                 playerView.setControllerShowTimeoutMs(0);
                 playerView.setControllerHideOnTouch(false);
-                int mp3Height = getContext().getResources().getDimensionPixelSize(com.potyvideo.library.R.dimen.player_controller_base_height);
+                int mp3Height = getContext().getResources().getDimensionPixelSize(R.dimen.player_controller_base_height);
                 playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mp3Height));
                 break;
 
             case UNDEFINE:
             default:
-                int baseHeight = (int) getResources().getDimension(com.potyvideo.library.R.dimen.player_base_height);
+                int baseHeight = (int) getResources().getDimension(R.dimen.player_base_height);
                 playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));
                 break;
         }
@@ -745,12 +747,12 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
     public void onClick(View v) {
 
         int targetViewId = v.getId();
-        if (targetViewId == com.potyvideo.library.R.id.appCompatButton_try_again) {
+        if (targetViewId == R.id.appCompatButton_try_again) {
             hideRetry();
             setSource(currSource);
-        } else if (targetViewId == com.potyvideo.library.R.id.exo_enter_fullscreen) {
+        } else if (targetViewId == R.id.exo_enter_fullscreen) {
             enterFullScreen();
-        } else if (targetViewId == com.potyvideo.library.R.id.exo_exit_fullscreen) {
+        } else if (targetViewId == R.id.exo_exit_fullscreen) {
             exitFullScreen();
         }
     }
@@ -846,7 +848,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                 if(ivPlayPause!=null) {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
-                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
+                    ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_pausa));
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -887,7 +889,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     if(ivPlayPause!=null) {
                         ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                         ivPlayPause.setVisibility(VISIBLE);
-                        ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                        ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_play));
                         ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                     }
 
@@ -948,7 +950,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                 if(ivPlayPause!=null) {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
-                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
+                    ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_pausa));
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -971,7 +973,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                 if(ivPlayPause!=null) {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
-                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                    ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_play));
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 

@@ -16,14 +16,14 @@
     <string name="cargando">Cargando...</string>
     <string name="temporizador_apagado">TEMPORIZADOR DE APAGADO</string>
     <string name="seleccione_tiempo">Seleccione el tiempo en el cual la musicá se apagará</string>
-    <string name="enviar_sugerencia">Enviar sugerencia</string>
-    <string name="compartir_app">Compartir aplicación</string>
+    <string name="enviar_sugerencia">ENVIAR FEEDBACK</string>
+    <string name="compartir_app">COMPARTIR APP</string>
     <string name="aviso_legal">AVISO LEGAL - DMCA</string>
     <string name="sin_recientes">Sin recientes.</string>
     <string name="sin_favoritos">Sin favoritos.</string>
     <string name="estilos">Estilos</string>
     <string name="enviar_sugenerencia">Enviar sugerencia</string>
-    <string name="msg_sugerencia">Aqui puedes enviar cualquier sugerencia que desees, \\n\\n Esto nos ayudará a implementar mejoras</string>
+    <string name="msg_sugerencia">Aqui puedes enviar cualquier sugerencia que desees, \n\n Esto nos ayudará a implementar mejoras</string>
     <string name="no_espacio_vacio">El texto no puede estar vacío</string>
     <string name="sugerencia">SUGERENCIA</string>
     <string name="enviando_sugerencia">Enviando sugerencia...</string>
@@ -31,7 +31,7 @@
     <string name="error_sugerencia">Error al enviar la sugerencia.</string>
     <string name="eliminado_favoritos">Se eliminó de favoritos</string>
     <string name="agrego_favoritos">Se agregó a favoritos</string>
-    <string name="mas_info_descarga">Para mas información, descarga la app aqui:</string>
+    <string name="mas_info_descarga">Para mas información, descarga la app en Google Play:</string>
     <string name="msg_shareapp">Relajate con la mejor musica Lofi</string>
     <string name="apoyo_posible">¨*Con tu apoyo será posible :,)*¨</string>
     <string name="sobre_lugu">", es una aplicación que busca dar a conocer las mejores canciones lofi.. "</string>
@@ -65,5 +65,15 @@
     <string name="msg_support_artista">No olvides visitar al artista de esta canción, siguiéndolo en sus redes sociales oficiales.</string>
     <string name="serarch_artist">BUSCAR ARTISTA</string>
     <string name="support_artista">APOYAR ARTISTA</string>
+    <string name="minutos">" minutos."</string>
+    <string name="se_apagara_en">"La música se apagará en "</string>
+    <string name="apagando">"Apagando "</string>
+    <string name="title_retry">"shutting down "</string>
+    <string name="trabajando_offline">Estamos trabajando en el modo offline</string>
+    <string name="modo_offline">MODO OFFLINE</string>
+    <string name="repro_lista">"Reproduciendo la lista: "</string>
+    <string name="msg_etstrellas">"Si te gusta nuestra aplicación no dudes en darnos 5 estrellas en Google Play para seguir mejorando "</string>
+    <string name="submitsong">ENVIAR MI CANCION</string>
+    <string name="msg_submitsong">"Aqui podras enviar tu canción para poder ser reproducida en "</string>
 
 </resources>

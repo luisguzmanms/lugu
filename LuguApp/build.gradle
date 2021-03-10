@@ -11,10 +11,10 @@ android {
         applicationId "com.lugumusic.lofi"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0 admin"
+        versionCode 3
+        versionName "1.1 beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -24,7 +24,6 @@ android {
             zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
         }
 
         debug {

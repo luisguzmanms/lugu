@@ -230,8 +230,8 @@
     <string name="cargando">Loading...</string>
     <string name="temporizador_apagado">SLEEP TIMER</string>
     <string name="seleccione_tiempo">Select the time when the music will be turned off</string>
-    <string name="enviar_sugerencia">Send feedback</string>
-    <string name="compartir_app">Share app</string>
+    <string name="enviar_sugerencia">SEND FEEDBACK</string>
+    <string name="compartir_app">SHARE APP</string>
     <string name="aviso_legal">DMCA</string>
     <string name="sin_recientes">Songs played</string>
     <string name="sin_favoritos">Favorites</string>
@@ -245,10 +245,10 @@
     <string name="error_sugerencia">Error in sending the feedback.</string>
     <string name="eliminado_favoritos">Song removed from favorites</string>
     <string name="agrego_favoritos">Song added to favorites</string>
-    <string name="mas_info_descarga">For more information, download the app here:</string>
+    <string name="mas_info_descarga">For more information, download the app on Play Store:</string>
     <string name="msg_shareapp">Relax with the best Lofi music</string>
     <string name="apoyo_posible">*With your support it will be possible :,)*</string>
-    <string name="sobre_lugu">, is an application that seeks to make known the best lofi songs.. \\n\\n This app is still in development, the content is updated daily, but with the sending of suggestions will help to keep this application in development, the use of this app is totally free.</string>
+    <string name="sobre_lugu">, is an application that seeks to make known the best lofi songs.. \n\n This app is still in development, the content is updated daily, but with the sending of suggestions will help to keep this application in development, the use of this app is totally free.</string>
     <string name="accept_terms"><![CDATA[Accept Terms of Service & Privacy Policy?]]></string>
     <string name="title_terms"><![CDATA[Terms of Service & Privacy Policy]]></string>
     <string name="open_email">EMAIL</string>
@@ -280,5 +280,15 @@
     <string name="msg_support_art">Don’t forget to visit the original creator of the image used in this app</string>
     <string name="open_art">OPEN ART</string>
     <string name="title_retry">Try Again!</string>
+    <string name="mis_listas">Mis listas</string>
+    <string name="apagando">"shutting down "</string>
+    <string name="se_apagara_en">"The music will be turned off in "</string>
+    <string name="minutos">" minutes."</string>
+    <string name="modo_offline">OFFLINE MODE</string>
+    <string name="trabajando_offline">We’re working on the offline mode</string>
+    <string name="repro_lista">"Playlist:  "</string>
+    <string name="msg_etstrellas">"If you like our application don´t forget to give us 5 stars on Play Store to continue improving "</string>
+    <string name="submitsong">SUBMIT MY SONG</string>
+    <string name="msg_submitsong">Here you can send your song to be played on </string>
 
 </resources>

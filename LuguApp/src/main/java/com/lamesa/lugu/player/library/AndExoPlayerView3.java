@@ -106,7 +106,6 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
     private LinearLayout linearLayoutRetry, linearLayoutLoading;
     private AppCompatButton buttonRetry;
     private FrameLayout frameLayoutFullScreenContainer;
-    private AppCompatImageButton imageViewEnterFullScreen, imageViewExitFullScreen;
 
     private BandwidthMeter bandwidthMeter;
     private ExtractorsFactory extractorsFactory;
@@ -334,14 +333,18 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
         linearLayoutRetry = findViewById(R.id.linearLayoutRetry);
         buttonRetry = findViewById(R.id.appCompatButton_try_again);
         frameLayoutFullScreenContainer = playerView.findViewById(R.id.container_fullscreen);
-        imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
-        imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);
+        // boton se quito del layout :
+        // imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
+        // boton se quitó del layout :
+        // imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);
 
         componentListener = new ComponentListener();
 
         linearLayoutRetry.setOnClickListener(this);
-        imageViewEnterFullScreen.setOnClickListener(this);
-        imageViewExitFullScreen.setOnClickListener(this);
+        // boton se quito del layout :
+        // imageViewEnterFullScreen.setOnClickListener(this);
+        // boton se quitó del layout :
+        // imageViewExitFullScreen.setOnClickListener(this);
         buttonRetry.setOnClickListener(this);
 
         if (typedArray != null) {
@@ -702,10 +705,13 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
         if (targetViewId == R.id.appCompatButton_try_again) {
             hideRetry();
             setSource(currSource);
+            /* se quitó exo_enter_fullscreen  del layout
         } else if (targetViewId == R.id.exo_enter_fullscreen) {
             enterFullScreen();
         } else if (targetViewId == R.id.exo_exit_fullscreen) {
             exitFullScreen();
+
+             */
         }
     }
 
@@ -714,16 +720,20 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
     }
 
     private void enterFullScreen() {
-        imageViewExitFullScreen.setVisibility(VISIBLE);
-        imageViewEnterFullScreen.setVisibility(GONE);
+        // boton se quitó del layout :
+        // imageViewExitFullScreen.setVisibility(VISIBLE);
+        // boton se quito del layout :
+        // imageViewEnterFullScreen.setVisibility(GONE);
 
         if (getActivity() != null)
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     private void exitFullScreen() {
-        imageViewExitFullScreen.setVisibility(GONE);
-        imageViewEnterFullScreen.setVisibility(VISIBLE);
+        // boton se quitó del layout :
+        // imageViewExitFullScreen.setVisibility(GONE);
+        // boton se quito del layout :
+        // imageViewEnterFullScreen.setVisibility(VISIBLE);
 
         if (getActivity() != null)
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

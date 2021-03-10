@@ -17,6 +17,7 @@ import com.amplitude.api.Amplitude;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
+import com.lamesa.lugu.model.ModelCategoria;
 import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.otros.statics.Animacion;
 
@@ -36,6 +37,7 @@ import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
 import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tvCategoria;
 import static com.lamesa.lugu.activity.act_main.tvVacio;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
@@ -44,6 +46,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
@@ -109,9 +112,28 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
 
 
+
         setAnimation(holder.cdCancionHistorial, position);
         holder.tvCancion.setText(mListHistorial.get(position).getCancion());
         holder.tvArtista.setText(mListHistorial.get(position).getArtista());
+
+
+        if(holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))){
+            holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
+            holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
+        } else {
+            holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_gradient_grey_1));
+            holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_gradient_grey_1));
+        }
+
+        //region obtener nombre de categoria desde la id y mostrar en tvCategoria
+        List<ModelCategoria> list = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
+        for(ModelCategoria categoria : list){
+            if(categoria.getId().equals(mListHistorial.get(position).getCategoria())){
+                holder.tvCategoria.setText(categoria.getNombre());
+            }
+        }
+        //endregion
 
         holder.cdCancionHistorial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,38 +215,12 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     public void setUpdateHistorial(List<ModelCancion> mListHistorial){
 
         this.mListHistorial.removeAll(this.mListHistorial);
-        Collections.reverse(mListHistorial);
         this.mListHistorial.addAll(mListHistorial);
+        Collections.reverse(this.mListHistorial);
         if(mAdapterHistorial!=null) {
+
             mAdapterHistorial.notifyDataSetChanged();
         }
-
-
-        if (mrvFavoritos != null) {
-            mrvFavoritos.setVisibility(GONE);
-        }
-
-        if (mrvHistorial != null) {
-            mrvHistorial.startAnimation(Animacion.exit_ios_anim(mContext));
-            mrvHistorial.setVisibility(VISIBLE);
-            mrvHistorial.startAnimation(Animacion.enter_ios_anim(mContext));
-        }
-
-        // comprobar que la lista de histoirla no esté vacia
-        if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
-         //   Toast.makeText(mContext, "lista vacia", Toast.LENGTH_SHORT).show();
-            mrvHistorial.setVisibility(GONE);
-            ContenedorVacio.setVisibility(VISIBLE);
-            tvVacio.setText(R.string.sin_recientes);
-            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(mContext));
-            ContenedorVacio.setVisibility(VISIBLE);
-            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(mContext));
-        } else {
-            mrvHistorial.setVisibility(VISIBLE);
-            ContenedorVacio.setVisibility(GONE);
-
-        }
-
 
     }
 
@@ -234,14 +230,14 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         private final CardView cdCancionHistorial;
         private final TextView tvCancion;
         private final TextView tvArtista;
-
+        private final TextView tvCategoria;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             cdCancionHistorial = itemView.findViewById(R.id.cd_cancionHistorial);
             tvCancion = itemView.findViewById(R.id.tv_cancion);
             tvArtista = itemView.findViewById(R.id.tv_artista);
-
+            tvCategoria = itemView.findViewById(R.id.tv_categoria);
         }
     }
 

@@ -220,17 +220,35 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_cancion"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_regular"
                             android:gravity="center"
-                            android:maxLines="2"
-                            android:text="For you, with love :,)"
-                            android:textColor="@color/learn_gradient_grey_1"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_cancion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/poppins_regular"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="For you, with love"
+                                android:textColor="@color/learn_gradient_grey_1"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/iv_lupa"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center"
+                                android:paddingLeft="5dp"
+                                android:visibility="invisible"
+                                app:srcCompat="@drawable/ic_lupa" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_artista"
@@ -350,89 +368,211 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/contenedor_categorias"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:foregroundGravity="top"
-                        android:gravity="top"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:foregroundGravity="top"
+                            android:gravity="top"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="2dp"
-                                app:srcCompat="@drawable/ic_lista" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/poppins_bold"
-                                android:text="@string/estilos"
-                                android:textColor="@color/learn_gradient_grey_1"
-                                android:textSize="22dp" />
+                                <ImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginBottom="2dp"
+                                    app:srcCompat="@drawable/ic_lista" />
 
-                            <TextView
-                                android:id="@+id/tvVerEstrenos"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="12dp"
-                                android:layout_marginRight="12dp"
-                                android:layout_marginBottom="12dp"
-                                android:fontFamily="@font/poppins_bold"
-                                android:text="VER MAS"
-                                android:textColor="@color/learn_gradient_grey_2"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:text="@string/estilos"
+                                    android:textColor="@color/learn_gradient_grey_1"
+                                    android:textSize="22dp" />
 
-                            <TextView
-                                android:id="@+id/tv_sleep"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:fontFamily="@font/poppins_bold"
-                                android:text="00:00:00"
-                                android:textColor="#63F0F0F5"
-                                android:textSize="14sp"
-                                android:visibility="gone" />
+                                <TextView
+                                    android:id="@+id/tvVerEstrenos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginRight="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:text="VER MAS"
+                                    android:textColor="@color/learn_gradient_grey_2"
+                                    android:textSize="12sp"
+                                    android:visibility="gone" />
 
-                            <ImageView
-                                android:id="@+id/iv_sleep"
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="2dp"
-                                app:srcCompat="@drawable/ic_moon_off" />
+                                <TextView
+                                    android:id="@+id/tv_sleep"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:text="00:00:00"
+                                    android:textColor="#63F0F0F5"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+                                <ImageView
+                                    android:id="@+id/iv_sleep"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginBottom="2dp"
+                                    app:srcCompat="@drawable/ic_moon_off" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_categorias"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:clipToPadding="false"
+                            android:overScrollMode="never"
+                            android:paddingStart="@dimen/learn_spacing_standard_new"
+                            android:paddingEnd="@dimen/learn_spacing_middle"
+                            android:visibility="visible" />
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_categorias"
+                    <LinearLayout
+                        android:id="@+id/contenedor_listas_custom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:clipToPadding="false"
-                        android:overScrollMode="never"
-                        android:paddingStart="@dimen/learn_spacing_standard_new"
-                        android:paddingEnd="@dimen/learn_spacing_middle"
-                        android:visibility="visible" />
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:foregroundGravity="top"
+                            android:gravity="top"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginBottom="2dp"
+                                    app:srcCompat="@drawable/ic_lista" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:text="@string/mis_listas"
+                                    android:textColor="@color/learn_gradient_grey_1"
+                                    android:textSize="22dp" />
+
+                                <TextView
+                                    android:id="@+id/tvVerEstrenos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginRight="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:text="VER MAS"
+                                    android:textColor="@color/learn_gradient_grey_2"
+                                    android:textSize="12sp"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:id="@+id/tv_sleep"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:text="00:00:00"
+                                    android:textColor="#63F0F0F5"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+                                <ImageView
+                                    android:id="@+id/iv_add_list"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginBottom="2dp"
+                                    app:srcCompat="@drawable/ic_add_list" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/contenedorMisListasVacio"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/tv_textMisListasVacio"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#03FFFFFF"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="Sin listas creadas"
+                                    android:textColor="#52F7F8FA"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_mislistas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:clipToPadding="false"
+                            android:overScrollMode="never"
+                            android:paddingStart="@dimen/learn_spacing_standard_new"
+                            android:paddingEnd="@dimen/learn_spacing_middle"
+                            android:visibility="visible" />
+                    </LinearLayout>
 
 
                     <com.google.android.material.bottomnavigation.BottomNavigationView

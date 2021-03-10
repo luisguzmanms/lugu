@@ -54,10 +54,13 @@ import com.lamesa.lugu.R;
 import com.lamesa.lugu.adapter.AdapterCategoria;
 import com.lamesa.lugu.adapter.AdapterFavoritos;
 import com.lamesa.lugu.adapter.AdapterHistorial;
+import com.lamesa.lugu.adapter.AdapterListCustom;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
+import com.lamesa.lugu.model.ModelListCustom;
 import com.lamesa.lugu.otros.Firebase;
 import com.lamesa.lugu.otros.TinyDB;
+import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
 import com.lamesa.lugu.player.library.MusicPlayer;
 import com.narayanacharya.waveview.WaveView;
@@ -73,12 +76,14 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.Firebase.getListaImagenes;
 import static com.lamesa.lugu.otros.metodos.AboutUS;
 import static com.lamesa.lugu.otros.metodos.AbrirPagina;
 import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.CompartirApp;
+import static com.lamesa.lugu.otros.metodos.Dialogo5Estrellas;
+import static com.lamesa.lugu.otros.metodos.DialogoMiCancion;
+import static com.lamesa.lugu.otros.metodos.DialogoModoOffline;
 import static com.lamesa.lugu.otros.metodos.DialogoOpBateria;
 import static com.lamesa.lugu.otros.metodos.DialogoPoliticas2;
 import static com.lamesa.lugu.otros.metodos.DialogoReport;
@@ -89,8 +94,6 @@ import static com.lamesa.lugu.otros.metodos.DialogoSupArtista;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
-import static com.lamesa.lugu.otros.metodos.UpdateAdapterFavoritos;
-import static com.lamesa.lugu.otros.metodos.UpdateAdapterHistorial;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.initFirebase;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
@@ -103,6 +106,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCustom;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
@@ -114,15 +118,13 @@ import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 public class act_main extends AppCompatActivity {
 
     public static List<ModelCategoria> mlistCategoria;
+    public static List<ModelListCustom> mlistCustom;
+
     public static AdapterCategoria mAdapterCategoria;
     public static RecyclerView mrvCategoria;
     public static NestedScrollView contenidoHome;
     public static LinearLayout contenidoSearch;
     public static TinyDB tinyDB;
-
-    private ImageView ivMenu;
-    private ImageView ivLogo;
-    private TextView mtvVerEstrenos;
     public static ImageView ivFondoGif;
     public static MusicPlayer musicPlayer;
     public static MediaNotificationManager mediaNotificationManager;
@@ -130,17 +132,15 @@ public class act_main extends AppCompatActivity {
     public static TextView tvCancion;
     public static TextView tvArtista;
     public static ProgressBar pbCargandoRadio;
-
     // recycler views
     public static RecyclerView mrvHistorial;
     public static RecyclerView mrvFavoritos;
-
-
+    public static RecyclerView mrvMisListas;
     // adapters
     public static AdapterHistorial mAdapterHistorial;
     public static AdapterFavoritos mAdapterFavoritos;
+    public static AdapterListCustom mAdapterListCustom;
     public static BottomNavigationView bottomNavigationHis_Fav;
-
     // otros
     public static ImageView ivPlayPause;
     public static SpinKitView spinBuffering;
@@ -154,9 +154,20 @@ public class act_main extends AppCompatActivity {
     public static TextView tvSleep;
     public static ImageView ivOpcionBucle;
     public static WeatherView weatherView;
+    public static ImageView ivLupa;
+    private ImageView ivMenu;
+    private ImageView ivLogo;
+    private TextView mtvVerEstrenos;
     private ImageView ivReport;
     private ImageView ivSupArt;
 
+    //traer listas de firebase
+    public static void getListas(Context mContext) {
+        Firebase.getListaCanciones(mContext, mlistCategoria, mlistCancion, tinyDB);
+        Firebase.getListaCategorias(mContext, mlistCategoria, mAdapterCategoria, tinyDB);
+        Firebase.getListaPorCategoria(mContext, mlistCategoria, mlistCancion, tinyDB);
+        Firebase.getListaImagenes(tinyDB);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,7 +198,7 @@ public class act_main extends AppCompatActivity {
 
         // cargar adinter para ser mostrada
         loadInterstitial(act_main.this);
-        CargarInterAleatorio(act_main.this,4);
+        CargarInterAleatorio(act_main.this, 4);
         // cargar banner
         CargarBanner();
 
@@ -280,6 +291,14 @@ public class act_main extends AppCompatActivity {
 
     private void CargarRecyclerHome() {
 
+        mlistCustom = tinyDB.getListModelListCustom(TBlistCustom, ModelListCustom.class);
+        mlistCustom = new ArrayList<>();
+        ModelListCustom listCustom = new ModelListCustom("dsasd", "https://indiehoy.com/wp-content/uploads/2020/05/playlists-lofi-hip-hop-1.jpg", "Mi lista para dormir");
+
+        mlistCustom.add(listCustom);
+
+        tinyDB.putListModelListCustom(TBlistCustom, mlistCustom);
+
         //region LISTA CATEGORIAS
         mrvCategoria = findViewById(R.id.rv_categorias);
         mrvCategoria.setHasFixedSize(true);
@@ -319,6 +338,17 @@ public class act_main extends AppCompatActivity {
         mrvFavoritos.setItemAnimator(new DefaultItemAnimator());
         mAdapterFavoritos = new AdapterFavoritos(this, tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
         mrvFavoritos.setAdapter(mAdapterFavoritos);
+
+        //endregion
+
+        //region LISTA CUSTOM
+
+        mrvMisListas = findViewById(R.id.rv_mislistas);
+        mrvMisListas.setHasFixedSize(true);
+        mrvMisListas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mrvMisListas.setItemAnimator(new DefaultItemAnimator());
+        mAdapterListCustom = new AdapterListCustom(this, tinyDB.getListModelListCustom(TBlistCustom, ModelListCustom.class));
+        mrvMisListas.setAdapter(mAdapterListCustom);
 
         //endregion
 
@@ -368,6 +398,8 @@ public class act_main extends AppCompatActivity {
         ivSupArt = findViewById(R.id.iv_support_art);
 
 
+        ivLupa = findViewById(R.id.iv_lupa);
+
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
         //region guardar ivOpcionBucle segun el icono
         if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
@@ -396,6 +428,31 @@ public class act_main extends AppCompatActivity {
 
                         mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
 
+
+                        if (mrvFavoritos != null) {
+                            mrvFavoritos.setVisibility(GONE);
+                        }
+
+                        if (mrvHistorial != null) {
+                            mrvHistorial.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            mrvHistorial.setVisibility(VISIBLE);
+                            mrvHistorial.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                        }
+
+                        // comprobar que la lista de histoirla no esté vacia
+                        if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
+                            //   Toast.makeText(mContext, "lista vacia", Toast.LENGTH_SHORT).show();
+                            mrvHistorial.setVisibility(GONE);
+                            ContenedorVacio.setVisibility(VISIBLE);
+                            tvVacio.setText(R.string.sin_recientes);
+                            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ContenedorVacio.setVisibility(VISIBLE);
+                            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                        } else {
+                            mrvHistorial.setVisibility(VISIBLE);
+                            ContenedorVacio.setVisibility(GONE);
+                        }
+
                         break;
 
                     case R.id.navigation_favoritos:
@@ -403,9 +460,33 @@ public class act_main extends AppCompatActivity {
 
                         mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
 
+                        if (mrvHistorial != null) {
+                            mrvHistorial.setVisibility(GONE);
+                        }
+
+                        if (tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class) == null) {
+                            tvVacio.setText(R.string.sin_favoritos);
+                            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ContenedorVacio.setVisibility(VISIBLE);
+                            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                        } else {
+                            ContenedorVacio.setVisibility(GONE);
+                            if (mrvFavoritos != null) {
+                                mrvFavoritos.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                                mrvFavoritos.setVisibility(VISIBLE);
+                                mrvFavoritos.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                            }
+                        }
                         break;
 
 
+                    case R.id.navigation_offline:
+
+                        Dialogo5Estrellas(act_main.this);
+                        DialogoModoOffline(act_main.this);
+
+
+                        break;
                 }
                 return false;
             }
@@ -417,13 +498,58 @@ public class act_main extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_historial:
 
-                        UpdateAdapterHistorial(act_main.this);
+                        mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+
+
+                        if (mrvFavoritos != null) {
+                            mrvFavoritos.setVisibility(GONE);
+                        }
+
+                        if (mrvHistorial != null) {
+                            mrvHistorial.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            mrvHistorial.setVisibility(VISIBLE);
+                            mrvHistorial.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                        }
+
+                        // comprobar que la lista de histoirla no esté vacia
+                        if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
+                            //   Toast.makeText(mContext, "lista vacia", Toast.LENGTH_SHORT).show();
+                            mrvHistorial.setVisibility(GONE);
+                            ContenedorVacio.setVisibility(VISIBLE);
+                            tvVacio.setText(R.string.sin_recientes);
+                            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ContenedorVacio.setVisibility(VISIBLE);
+                            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                        } else {
+                            mrvHistorial.setVisibility(VISIBLE);
+                            ContenedorVacio.setVisibility(GONE);
+                        }
 
                         break;
 
                     case R.id.navigation_favoritos:
 
-                         UpdateAdapterFavoritos(act_main.this);
+                        mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+
+
+                        if (mrvHistorial != null) {
+                            mrvHistorial.setVisibility(GONE);
+                        }
+
+                        if (tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class) == null) {
+                            tvVacio.setText(R.string.sin_favoritos);
+                            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ContenedorVacio.setVisibility(VISIBLE);
+                            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                        } else {
+                            ContenedorVacio.setVisibility(GONE);
+                            if (mrvFavoritos != null) {
+                                mrvFavoritos.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                                mrvFavoritos.setVisibility(VISIBLE);
+                                mrvFavoritos.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                            }
+
+                        }
 
                         break;
                 }
@@ -441,7 +567,7 @@ public class act_main extends AppCompatActivity {
 
                     case R.id.ivLogo:
 
-                        AbrirPagina(act_main.this,"https://lugumusic.page.link/website");
+                        AbrirPagina(act_main.this, "https://lugumusic.page.link/website");
 
                         break;
 
@@ -473,9 +599,11 @@ public class act_main extends AppCompatActivity {
 
                         List<String> opcionMenu = new ArrayList<>();
 
+
+                        opcionMenu.add(getString(R.string.submitsong));
                         opcionMenu.add(getString(R.string.enviar_sugerencia));
                         opcionMenu.add(getString(R.string.compartir_app));
-                        opcionMenu.add("About " + act_main.this.getResources().getString(R.string.app_name));
+                        opcionMenu.add("ABOUT " + act_main.this.getResources().getString(R.string.app_name));
                         opcionMenu.add(getString(R.string.aviso_legal));
                         opcionMenu.add(getString(R.string.title_terms));
 
@@ -496,24 +624,30 @@ public class act_main extends AppCompatActivity {
 
                                     case 0:
 
-                                        DialogoSugerencia(act_main.this);
+                                        DialogoMiCancion(act_main.this);
 
                                         break;
 
                                     case 1:
+
+                                        DialogoSugerencia(act_main.this);
+
+                                        break;
+
+                                    case 2:
 
                                         CompartirApp(act_main.this);
 
                                         break;
 
 
-                                    case 2:
+                                    case 3:
 
                                         AboutUS(act_main.this, tinyDB, false);
 
                                         break;
 
-                                    case 3:
+                                    case 4:
 
                                         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
                                         DialogSettings.theme = DialogSettings.THEME.DARK;
@@ -555,11 +689,11 @@ public class act_main extends AppCompatActivity {
 
                                         break;
 
-                                    case 4:
+                                    case 5:
 
-                                            DialogoPoliticas2(act_main.this);
+                                        DialogoPoliticas2(act_main.this);
 
-                                            break;
+                                        break;
 
                                 }
 
@@ -730,7 +864,6 @@ public class act_main extends AppCompatActivity {
                         break;
 
 
-
                     case R.id.iv_report:
 
                         DialogoReport(act_main.this);
@@ -744,8 +877,13 @@ public class act_main extends AppCompatActivity {
                         break;
 
 
+                    case R.id.tv_categoria:
+                        Toast.makeText(act_main.this, getString(R.string.repro_lista) + tvCategoria.getText().toString(), Toast.LENGTH_SHORT).show();
+                        break;
+
                     case R.id.tv_cancion:
                     case R.id.tv_artista:
+                    case R.id.iv_lupa:
                         DialogoSupArtista(act_main.this);
                         break;
 
@@ -768,6 +906,8 @@ public class act_main extends AppCompatActivity {
         tvCancion.setOnClickListener(listener);
         tvArtista.setOnClickListener(listener);
         ivSupArt.setOnClickListener(listener);
+        ivLupa.setOnClickListener(listener);
+        tvCategoria.setOnClickListener(listener);
 
 
         // cargar gif de fondo
@@ -811,7 +951,6 @@ public class act_main extends AppCompatActivity {
 
 
     }
-
 
     private void CargarImagenFondo() {
 
@@ -882,12 +1021,6 @@ public class act_main extends AppCompatActivity {
             Log.d(TAG + " onPostExecute", "" + result);
         }
     }
-
-    public static void getListas(Context mContext) {
-        Firebase.getListaCanciones(mContext, mlistCategoria, mlistCancion, tinyDB);
-        Firebase.getListaCategorias(mContext, mlistCategoria, mAdapterCategoria);
-        Firebase.getListaPorCategoria(mContext, mlistCategoria, mlistCancion, tinyDB);
-        getListaImagenes(tinyDB);
-    }
+    //endregion
 
 }

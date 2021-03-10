@@ -32,30 +32,49 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_cancion"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:maxLines="2"
-                    android:text="Seed on the imagination"
-                    android:textColor="@color/learn_gradient_grey_1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_cancion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:maxLines="2"
+                        android:text="Seed on the imagination"
+                        android:textColor="@color/learn_gradient_grey_1"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_artista"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:maxLines="1"
+                        android:text="Luis Guzmán"
+                        android:textColor="@color/learn_gradient_grey_2"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_artista"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_categoria"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
                     android:fontFamily="@font/poppins_regular"
-                    android:maxLines="1"
-                    android:text="Luis Guzmán"
-                    android:textColor="@color/learn_gradient_grey_2"
-                    android:textSize="12sp"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/learn_white_trans"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
             </LinearLayout>

@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amplitude.api.Amplitude;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +34,7 @@ import java.util.Random;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.otros.metodos.EliminarDuplicadosModelCancion;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
 import static com.lamesa.lugu.otros.statics.constantes.mixFalloEpisodio;
 import static com.lamesa.lugu.otros.statics.constantes.mixReporteFilm;
@@ -277,7 +276,7 @@ public class Firebase extends AppCompatActivity {
 
     //endregion
 
-    public static void getListaCategorias(Context mContext, List<ModelCategoria> mlistCategoria, AdapterCategoria mAdapterCategoria) {
+    public static void getListaCategorias(Context mContext, List<ModelCategoria> mlistCategoria, AdapterCategoria mAdapterCategoria, TinyDB tinyDB) {
 
 
         if (mlistCategoria == null) {
@@ -302,6 +301,7 @@ public class Firebase extends AppCompatActivity {
 
                 }
                 mAdapterCategoria.notifyDataSetChanged();
+                tinyDB.putListModelCategoria(TBlistCategorias, finalMlistCategoria);
             }
 
             @Override

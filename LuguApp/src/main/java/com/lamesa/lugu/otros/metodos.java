@@ -131,8 +131,12 @@ import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
+import static com.lamesa.lugu.otros.statics.constantes.UrlAppPlayStore;
+import static com.lamesa.lugu.otros.statics.constantes.UrlEncuestaSugerencia;
+import static com.lamesa.lugu.otros.statics.constantes.UrlEnviarMiCancion;
 import static com.lamesa.lugu.otros.statics.constantes.mixActualizarApp;
 import static com.lamesa.lugu.otros.statics.constantes.mixCompartirApp;
+import static com.lamesa.lugu.otros.statics.constantes.mixExtractionGoesWrong;
 import static com.lamesa.lugu.otros.statics.constantes.mixFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.mixLogInfoError;
 import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
@@ -142,10 +146,6 @@ import static com.lamesa.lugu.otros.statics.constantes.setDebugActivo;
 public class metodos {
 
 
-    public static FirebaseUser user;
-    public static ArrayList<String> listEpisodiosListView;
-    private static FirebaseAuth mAuth;
-    private static PermissionListener permissionlistener;
     public static CountDownTimer countDownTimer;
     public static NumberPicker numberPicker;
 
@@ -156,7 +156,7 @@ public class metodos {
         String titulo = mContext.getString(R.string.title_report_song);
         String mensaje = mContext.getString(R.string.msg_report_song);
 
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
 
@@ -180,8 +180,8 @@ public class metodos {
                         return false;
                     }
                 })
-                .setCancelButton(mContext.getString(R.string.cerrar))
-                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                // .setCancelButton(mContext.getString(R.string.cerrar))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.WHITE))
                 .setCancelable(true)
                 .show();
 
@@ -194,7 +194,7 @@ public class metodos {
         String titulo = mContext.getString(R.string.titulo_opBateria);
         String mensaje = mContext.getString(R.string.msg_opBateria);
 
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -216,7 +216,7 @@ public class metodos {
                             }
                         })
                         .setCancelButton(mContext.getString(R.string.cerrar))
-                        .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                        .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.WHITE))
                         .setCancelable(true)
                         .show();
             }
@@ -372,7 +372,6 @@ public class metodos {
         setLogInfo(mContext, "DialogoActualizar", "Mostrando DialogoActualizar...", false);
 
         String obligatorio = mContext.getString(R.string.act_obligatoria);
-        ;
         String titulo = mContext.getString(R.string.act_disponible) + "\nversion : " + version;
         if (cancelable) {
             obligatorio = mContext.getString(R.string.act_opcional);
@@ -634,7 +633,6 @@ public class metodos {
 
     }
 
-
     public static void SolicitarPermisos(Context mContext) {
 
         PermissionListener permissionlistener = new PermissionListener() {
@@ -763,11 +761,11 @@ public class metodos {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.app_name) + " - " + mContext.getString(R.string.msg_shareapp));
-            String shareMessage = mContext.getString(R.string.mas_info_descarga) + "\n\n";
-            shareMessage = shareMessage + "";
+            String shareMessage = mContext.getResources().getString(R.string.app_name) + "\n" + mContext.getString(R.string.msg_shareapp) + "\n" + mContext.getString(R.string.mas_info_descarga) + "\n\n";
+            shareMessage = shareMessage + "\n" + UrlAppPlayStore;
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 
-            mContext.startActivity(Intent.createChooser(shareIntent, "Share:"));
+            mContext.startActivity(Intent.createChooser(shareIntent, "Share with:"));
 
         } catch (Exception e) {
             //e.toString();
@@ -829,6 +827,52 @@ public class metodos {
                 .show();
     }
 
+    public static void DialogoMiCancion(Context mContext) {
+
+        String saltoDeLinea = "\n";
+        String titulo = mContext.getResources().getString(R.string.submitsong);
+        String mensaje = mContext.getResources().getString(R.string.msg_submitsong) + mContext.getResources().getString(+R.string.app_name);
+        String hintText = mContext.getResources().getString(R.string.sugerencia);
+
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+
+        MessageDialog.build((AppCompatActivity) mContext)
+                .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
+                .setTitle(titulo).setMessage(mensaje)
+                //.setInputText("111111")
+                .setOkButton(mContext.getString(R.string.enviar), new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+                        //  EnviarSugerencia(mContext, inputStr);
+                        /*
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("message/rfc822");
+                        intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
+                        intent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.sugerencia));
+                        intent.putExtra(Intent.EXTRA_TEXT, "Message: \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n\n\n\n\n ");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (intent.resolveActivity(mContext.getPackageManager()) != null) {
+                            mContext.startActivity(intent);
+                        }
+
+                         */
+
+                        AbrirPagina(mContext, UrlEnviarMiCancion);
+
+                        return false;
+
+                    }
+                })
+                .setCancelButton(mContext.getString(R.string.cerrar))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.WHITE))
+                .setCancelable(true)
+                .show();
+    }
+
+
     public static void DialogoSugerencia(Context mContext) {
 
         String saltoDeLinea = "\n";
@@ -837,7 +881,7 @@ public class metodos {
         String hintText = mContext.getString(R.string.sugerencia);
 
 
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
 
@@ -849,6 +893,7 @@ public class metodos {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v) {
                         //  EnviarSugerencia(mContext, inputStr);
+                        /*
                         Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("message/rfc822");
                         intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
@@ -858,12 +903,24 @@ public class metodos {
                         if (intent.resolveActivity(mContext.getPackageManager()) != null) {
                             mContext.startActivity(intent);
                         }
+
+                         */
+
+                        AbrirPagina(mContext, UrlEncuestaSugerencia);
+
                         return false;
 
                     }
                 })
                 .setCancelButton(mContext.getString(R.string.cerrar))
-                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+                        DialogoSugerencia(mContext);
+                        return false;
+                    }
+                })
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.WHITE))
                 .setCancelable(true)
                 .show();
     }
@@ -882,7 +939,7 @@ public class metodos {
                 .setMessage(mContext.getString(R.string.accion_deshacer))
                 .setTitle(titulo)
                 .setCancelButton("NO")
-                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.WHITE))
                 .setCancelable(true)
                 .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                     @Override
@@ -949,7 +1006,7 @@ public class metodos {
         String saltoDeLinea = "\n";
         String titulo = mContext.getString(R.string.salir_app);
 
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
         MessageDialog.build((AppCompatActivity) mContext)
@@ -1137,13 +1194,12 @@ public class metodos {
 
     public static void DialogoTemporizador(Context mContext) {
 
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
         //对于未实例化的布局：
         MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.temporizador_apagado), mContext.getString(R.string.seleccione_tiempo), "OK")
                 .setBackgroundColor(mContext.getResources().getColor(R.color.fondo_blank)).setCustomView(R.layout.layout_send_notifi, new MessageDialog.OnBindView() {
-
 
             @Override
             public void onBind(MessageDialog dialog, View view) {
@@ -1232,8 +1288,7 @@ public class metodos {
     public static void AboutUS(Context mContext, TinyDB tinyDB, boolean mostrarSoloUnaVez) {
 
         DialogSettings.theme = DialogSettings.THEME.DARK;
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
-
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
 
         if (mostrarSoloUnaVez == false) {
             String saltoDeLinea = "\n";
@@ -1382,10 +1437,29 @@ public class metodos {
                     }
 
                     @Override
-                    public void onExtractionGoesWrong(final ExtractorException e) {
+                    public void onExtractionGoesWrong(final ExtractorException error) {
                         // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                         //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
-                        setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", e.getMessage(), true);
+                        setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", error.getMessage(), true);
+
+                        //region MIX mixExtractionGoesWrong para estadisticas
+                        JSONObject props = new JSONObject();
+                        try {
+                            props.put("LinkYT", linkYT);
+                            props.put("Error", error.getMessage());
+                            Bundle params = new Bundle();
+                            params.putString("LinkYT", linkYT);
+                            params.putString("Error", error.getMessage());
+
+
+                            mFirebaseAnalytics.logEvent(mixExtractionGoesWrong, params);
+                            mixpanel.track(mixExtractionGoesWrong, props);
+                            Amplitude.getInstance().logEvent(mixExtractionGoesWrong, props);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //endregion
+
 
                         // al onExtractionGoesWrong, cargar otra cancion de la misma categoria seleccionanda por el usuario
                         Random random = new Random();
@@ -1474,9 +1548,9 @@ public class metodos {
             JSONObject props = new JSONObject();
             try {
 
-                props.put("Error", TAG+" | "+errormsg+msg);
+                props.put("Error", TAG + " | " + errormsg + msg);
                 Bundle params = new Bundle();
-                params.putString("Error", TAG+" | "+errormsg+msg);
+                params.putString("Error", TAG + " | " + errormsg + msg);
 
                 mFirebaseAnalytics.logEvent(mixLogInfoError, params);
                 mixpanel.track(mixLogInfoError, props);
@@ -1489,6 +1563,8 @@ public class metodos {
             //endregion
 
         }
+
+
         // para la fecha
         DateFormat df = new SimpleDateFormat("EEEE, d MMM yyyy hh:mm a ");
         String time = df.format(Calendar.getInstance().getTime());
@@ -1508,6 +1584,14 @@ public class metodos {
         for (ModelCancion cancion : tinyListCancionxCategoria) {
             if (cancion.getId().equals(idCancionSonando)) {
                 tinyListHistorial.add(cancion);
+
+                tinyDB.putListModelCancion(TBlistHistorial, EliminarDuplicadosModelCancion(tinyListHistorial));
+
+                //region actualizar lista de historial
+                mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+                //bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
+                //endregion
+
             }
         }
         if (tinyListHistorial.size() <= 1) {
@@ -1517,12 +1601,7 @@ public class metodos {
         // Collections.reverse(tinyListHistorial);
         // guardar lista en tiny db y sin duplicados
         // Collections.reverse(tinyListHistorial);
-        tinyDB.putListModelCancion(TBlistHistorial, EliminarDuplicadosModelCancion(tinyListHistorial));
 
-        //region actualizar lista de historial
-        mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
-        bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
-        //endregion
 
     }
 
@@ -1586,15 +1665,13 @@ public class metodos {
             // cambiar icono de ivLikeDislike a like
 
             ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
-            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.learn_ic_like));
+            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.learn_ic_like));
             ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
             mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
             bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
             //endregion
-
-
 
 
         } else {
@@ -1727,7 +1804,9 @@ public class metodos {
                 long sec = (millisUntilFinished / 1000) % 60;
 
                 tvSleep.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
-
+                if (tvSleep.getText().toString().equals("00:05:00") || (tvSleep.getText().toString().equals("00:02:00"))) {
+                    Toast.makeText(mContext, mContext.getString(R.string.se_apagara_en) + tvSleep.getText().toString() + mContext.getString(R.string.minutos), Toast.LENGTH_SHORT).show();
+                }
 
                 /*
                 tvMinutosfaltantes.setText(String.format("%02d:%02d:%02d",
@@ -1774,10 +1853,10 @@ public class metodos {
 
     public static void ApagarAutoApagado(Context mContext) {
 
-
         if (countDownTimer != null) {
             countDownTimer.cancel();
             tvSleep.setText("00:00:00");
+            Toast.makeText(mContext, mContext.getString(R.string.apagando) + mContext.getResources().getString(R.string.app_name), Toast.LENGTH_SHORT).show();
             // cambiar icono sleep a apagado
             if (ivSleep != null) {
                 ivSleep.startAnimation(Animacion.exit_ios_anim(mContext));
@@ -1791,9 +1870,7 @@ public class metodos {
 
             }
 
-
         }
-
 
     }
 
@@ -1804,13 +1881,13 @@ public class metodos {
         if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
-                ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_bucle));
+                ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_bucle));
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
         } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
-                ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext,R.drawable.ic_aleatorio));
+                ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_aleatorio));
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
         }
@@ -1839,7 +1916,7 @@ public class metodos {
         String mensaje = mContext.getString(R.string.msg_support_artista);
 
 
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
 
@@ -1855,8 +1932,8 @@ public class metodos {
                         return false;
                     }
                 })
-                .setCancelButton(mContext.getString(R.string.cerrar))
-                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                //     .setCancelButton(mContext.getString(R.string.cerrar))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.WHITE))
                 .setCancelable(true)
                 .show();
     }
@@ -1868,7 +1945,7 @@ public class metodos {
         String mensaje = mContext.getString(R.string.msg_support_art);
 
 
-        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
 
@@ -1884,8 +1961,8 @@ public class metodos {
                         return false;
                     }
                 })
-                .setCancelButton(mContext.getString(R.string.cerrar))
-                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN))
+                //  .setCancelButton(mContext.getString(R.string.cerrar))
+                .setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.WHITE))
                 .setCancelable(true)
                 .show();
     }
@@ -1995,7 +2072,7 @@ public class metodos {
                 "\n" +
                 "By email: lugulofimusic@gmail.com";
 
-        if(Locale.getDefault().getLanguage().contains("es")){
+        if (Locale.getDefault().getLanguage().contains("es")) {
             mensaje = "Términos y Condiciones\n" +
                     "Última actualización: 6 de enero de 2021\n" +
                     "\n" +
@@ -2095,7 +2172,7 @@ public class metodos {
                     "\n" +
                     "Por correo electrónico: lugulofimusic@gmail.com";
 
-        } else if (Locale.getDefault().getLanguage().contains("pt")){
+        } else if (Locale.getDefault().getLanguage().contains("pt")) {
             mensaje = "\n" +
                     "Última atualização: 06 de janeiro de 2021\n" +
                     "\n" +
@@ -2195,7 +2272,7 @@ public class metodos {
                     "\n" +
                     "Por email: lugulofimusic@gmail.com ";
 
-        } else if (Locale.getDefault().getLanguage().contains("hi")){
+        } else if (Locale.getDefault().getLanguage().contains("hi")) {
             mensaje = "\n" +
                     "अंतिम अद्यतन: ०६ जनवरी २०२१\n" +
                     "\n" +
@@ -2303,6 +2380,39 @@ public class metodos {
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
 
+        /*CustomDialog：
+        CustomDialog.show((AppCompatActivity) mContext, R.layout.layout_full_dialog, new CustomDialog.OnBindView() {
+            @Override
+            public void onBind(final CustomDialog dialog, View v) {
+
+
+            }
+        }).setFullScreen(true);
+
+         */
+
+
+        OnDialogButtonClickListener nextStepListener = new OnDialogButtonClickListener() {
+            @Override
+            public boolean onClick(BaseDialog baseDialog, View v) {
+                return false;
+            }
+        };
+
+        /*
+        FullScreenDialog
+                .show((AppCompatActivity) mContext, R.layout.layout_full_dialog, new FullScreenDialog.OnBindView() {
+                    @Override
+                    public void onBind(FullScreenDialog dialog, View rootView) {
+
+                    }
+                })
+                .setOkButton("OK", nextStepListener)
+                .setCancelButton("CANCEL")
+                .setTitle("TITLE")
+        ;
+         */
+
         MessageDialog.build((AppCompatActivity) mContext)
                 .setButtonTextInfo(new TextInfo().setFontColor(Color.RED))
                 .setTitle(titulo).setMessage(mensaje)
@@ -2314,11 +2424,11 @@ public class metodos {
                         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
                         DialogSettings.theme = DialogSettings.THEME.DARK;
 
-                        MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.accept_terms),"").setOkButton("YES").setCancelButton("NO")
+                        MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.accept_terms), "").setOkButton("YES").setCancelButton("NO")
                                 .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                                     @Override
                                     public boolean onClick(BaseDialog baseDialog, View v) {
-                                        tinydb.putBoolean(TBpoliticas,true);
+                                        tinydb.putBoolean(TBpoliticas, true);
                                         mContext.startActivity(new Intent(mContext, act_main.class));
                                         ((Activity) mContext).finish();
                                         return false;
@@ -2327,7 +2437,7 @@ public class metodos {
                                 .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
                                     @Override
                                     public boolean onClick(BaseDialog baseDialog, View v) {
-                                        tinydb.putBoolean(TBpoliticas,false);
+                                        tinydb.putBoolean(TBpoliticas, false);
                                         ((Activity) mContext).finish();
                                         return true;                    //位于“取消”位置的按钮点击后无法关闭对话框
                                     }
@@ -2340,7 +2450,7 @@ public class metodos {
                 .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v) {
-                        tinydb.putBoolean(TBpoliticas,false);
+                        tinydb.putBoolean(TBpoliticas, false);
                         ((Activity) mContext).finish();
                         return false;
                     }
@@ -2350,6 +2460,48 @@ public class metodos {
                 .show();
     }
 
+    public static void DialogoModoOffline(Context mContext) {
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+        MessageDialog
+                .show((AppCompatActivity) mContext, mContext.getString(R.string.modo_offline), mContext.getString(R.string.trabajando_offline) + " \uD83D\uDE0A", "OK")
+                .setButtonOrientation(LinearLayout.VERTICAL);
+    }
+
+    public static void Dialogo5Estrellas(Context mContext) {
+
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+
+        MessageDialog
+                .show((AppCompatActivity) mContext, "\uD83C\uDF1F\uD83C\uDF1F\uD83C\uDF1F\uD83C\uDF1F\uD83C\uDF1F", mContext.getString(R.string.msg_etstrellas) + "\uD83D\uDE0A", "OK")
+                .setCancelButton(mContext.getResources().getString(R.string.cerrar)).setButtonOrientation(LinearLayout.HORIZONTAL).setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
+            @Override
+            public boolean onClick(BaseDialog baseDialog, View v) {
+
+                DialogoSugerencia(mContext);
+
+                return false;
+            }
+        }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
+            @Override
+            public boolean onClick(BaseDialog baseDialog, View v) {
+
+                try {
+                    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UrlAppPlayStore)));
+                } catch (Exception e) {
+                    //e.toString();
+                }
+
+                return false;
+            }
+        });
+
+
+    }
 }
 
 

@@ -16,6 +16,7 @@ import com.amplitude.api.Amplitude;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
+import com.lamesa.lugu.model.ModelCategoria;
 import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.otros.statics.Animacion;
 
@@ -42,6 +43,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
@@ -100,12 +102,34 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         holder.tvCancion.setText(mListFavoritos.get(position).getCancion());
         holder.tvArtista.setText(mListFavoritos.get(position).getArtista());
 
+
+        //region obtener nombre de categoria desde la id y mostrar en tvCategoria
+        List<ModelCategoria> list = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
+        for(ModelCategoria categoria : list){
+            if(categoria.getId().equals(mListFavoritos.get(position).getCategoria())){
+                holder.tvCategoria.setText(categoria.getNombre());
+            }
+        }
+        //endregion
+
+        //region cambiar color del texto de la cancion que está sonando
+        if(holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))){
+            holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
+            holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
+        } else {
+            holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_gradient_grey_1));
+            holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_gradient_grey_1));
+        }
+        //endregion
+
         holder.cdCancionFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                CargarInterAleatorio(mContext, 5);
+
+
+                CargarInterAleatorio(mContext, 7);
                 getLinkAndPlay(mContext, mListFavoritos.get(position).getLinkYT(),1);
 
 
@@ -119,7 +143,9 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
                 tinyDB.putInt(TBnumeroCancionSonando, position);
                 //endregion
 
-
+                //region actualizar lista de favoritos
+                mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+                //endregion
 
             }
         });
@@ -149,33 +175,12 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
     public void setUpdateFavoritos(List<ModelCancion> mListFavoritos){
 
         this.mListFavoritos.removeAll(this.mListFavoritos);
-        Collections.reverse(mListFavoritos);
         this.mListFavoritos.addAll(mListFavoritos);
+        Collections.reverse(this.mListFavoritos);
         if(mAdapterFavoritos!=null) {
             mAdapterFavoritos.notifyDataSetChanged();
         }
 
-
-
-        if (mrvHistorial != null) {
-            mrvHistorial.setVisibility(GONE);
-        }
-
-
-        if (tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class)==null) {
-            tvVacio.setText(R.string.sin_favoritos);
-            ContenedorVacio.startAnimation(Animacion.exit_ios_anim(mContext));
-            ContenedorVacio.setVisibility(VISIBLE);
-            ContenedorVacio.startAnimation(Animacion.enter_ios_anim(mContext));
-        } else {
-            ContenedorVacio.setVisibility(GONE);
-            if (mrvFavoritos != null) {
-                mrvFavoritos.startAnimation(Animacion.exit_ios_anim(mContext));
-                mrvFavoritos.setVisibility(VISIBLE);
-                mrvFavoritos.startAnimation(Animacion.enter_ios_anim(mContext));
-            }
-
-        }
 
 
     }
@@ -185,14 +190,14 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         private final CardView cdCancionFavoritos;
         private final TextView tvCancion;
         private final TextView tvArtista;
-
+        private final TextView tvCategoria;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             cdCancionFavoritos = itemView.findViewById(R.id.cd_cancionHistorial);
             tvCancion = itemView.findViewById(R.id.tv_cancion);
             tvArtista = itemView.findViewById(R.id.tv_artista);
-
+            tvCategoria = itemView.findViewById(R.id.tv_categoria);
         }
     }
 

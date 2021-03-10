@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +32,6 @@ import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.getListas;
 import static com.lamesa.lugu.activity.act_main.mlistCategoria;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
-import static com.lamesa.lugu.activity.act_main.tvCategoria;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
@@ -44,7 +42,6 @@ import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.mixFavoritos;
 
 
 /**
@@ -146,14 +143,14 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                 }
 
 
-                //region MIX mixCompartirApp para estadisticas
+                //region MIX mixCategoriaClic para estadisticas
                 JSONObject props = new JSONObject();
                 try {
                     props.put("Id", mListCategorias.get(position).getId());
-                    props.put("Nombre", mListCategorias.get(position).getImagen());
+                    props.put("Nombre", mListCategorias.get(position).getNombre());
                     Bundle params = new Bundle();
                     params.putString("Id",  mListCategorias.get(position).getId());
-                    params.putString("Nombre", mListCategorias.get(position).getImagen());
+                    params.putString("Nombre", mListCategorias.get(position).getNombre());
 
                     mFirebaseAnalytics.logEvent(mixCategoriaClic, params);
                     mixpanel.track(mixCategoriaClic, props);
@@ -164,11 +161,8 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                 }
 
                 //endregion
-
-
             }
         });
-
 
     }
 

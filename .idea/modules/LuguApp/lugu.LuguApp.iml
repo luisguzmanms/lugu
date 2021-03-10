@@ -205,7 +205,7 @@
     <orderEntry type="library" name="Gradle: de.hdodenhof:circleimageview:3.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.kongzue.dialog_v3x:dialog:3.2.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.coolerfall:android-http-download-manager:1.6.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.mixpanel.android:mixpanel-android:5.8.5@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.mixpanel.android:mixpanel-android:5.8.6@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-base:19.6.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:protolite-well-known-types:17.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-android:1.28.0@aar" level="project" />

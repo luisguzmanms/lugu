@@ -69,6 +69,7 @@ import java.util.Random;
 
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.ivLupa;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
@@ -116,7 +117,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
     private LinearLayout linearLayoutRetry, linearLayoutLoading;
     private AppCompatButton buttonRetry;
     private FrameLayout frameLayoutFullScreenContainer;
-    private AppCompatImageButton imageViewEnterFullScreen, imageViewExitFullScreen;
+
 
     private BandwidthMeter bandwidthMeter;
     private ExtractorsFactory extractorsFactory;
@@ -181,10 +182,16 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                         tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
                         tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
                         tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
+
+
                     }
 
 
-                    // al reproducirse guardar la cacnion en la lista de historila
+                    if(ivLupa!=null){
+                        ivLupa.setVisibility(VISIBLE);
+                    }
+
+                    // al reproducirse guardar la cancion en la lista de historila
                     GuardarCancionHistorial(mContext, tinyDB.getString(TBidCancionSonando));
 
                     // ocultar icono de buffering
@@ -384,14 +391,16 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
         linearLayoutRetry = findViewById(R.id.linearLayoutRetry);
         buttonRetry = findViewById(R.id.appCompatButton_try_again);
         frameLayoutFullScreenContainer = playerView.findViewById(R.id.container_fullscreen);
-        imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
-        imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);
+        // boton se quitó del layout :
+        // imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
+        // boton se quitó del layout : imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);
 
         componentListener = new ComponentListener();
 
         linearLayoutRetry.setOnClickListener(this);
-        imageViewEnterFullScreen.setOnClickListener(this);
-        imageViewExitFullScreen.setOnClickListener(this);
+        // boton se quitó del layout :
+        // imageViewEnterFullScreen.setOnClickListener(this);
+        // boton se quitó del layout : imageViewExitFullScreen.setOnClickListener(this);
         buttonRetry.setOnClickListener(this);
 
         if (typedArray != null) {
@@ -750,10 +759,13 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
         if (targetViewId == R.id.appCompatButton_try_again) {
             hideRetry();
             setSource(currSource);
+            /* exo_enter_fullscreen se quitóp del layout
         } else if (targetViewId == R.id.exo_enter_fullscreen) {
             enterFullScreen();
         } else if (targetViewId == R.id.exo_exit_fullscreen) {
             exitFullScreen();
+
+             */
         }
     }
 
@@ -762,16 +774,19 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
     }
 
     private void enterFullScreen() {
-        imageViewExitFullScreen.setVisibility(VISIBLE);
-        imageViewEnterFullScreen.setVisibility(GONE);
+        // boton se quitó del layout : imageViewExitFullScreen.setVisibility(VISIBLE);
+        // boton se quitó del layout :
+        // imageViewEnterFullScreen.setVisibility(GONE);
 
         if (getActivity() != null)
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     private void exitFullScreen() {
-        imageViewExitFullScreen.setVisibility(GONE);
-        imageViewEnterFullScreen.setVisibility(VISIBLE);
+        // boton se quitó del layout :
+        // imageViewExitFullScreen.setVisibility(GONE);
+        // boton se quitó del layout :
+        // imageViewEnterFullScreen.setVisibility(VISIBLE);
 
         if (getActivity() != null)
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

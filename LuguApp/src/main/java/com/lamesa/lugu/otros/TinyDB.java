@@ -33,6 +33,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.lamesa.lugu.model.ModelCancion;
+import com.lamesa.lugu.model.ModelCategoria;
+import com.lamesa.lugu.model.ModelListCustom;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -376,7 +378,7 @@ public class TinyDB {
         return objects;
     }
 
-    // para lista temporarles con ModelCancion
+    //region para lista temporarles con ModelCancion
     public List<ModelCancion> getListModelCancion(String key, Class<?> mClass) {
         Gson gson = new Gson();
 
@@ -398,9 +400,55 @@ public class TinyDB {
         }
         putListString(key, objStrings);
     }
+    //endregion
 
+    //region para lista temporarles con ModeListCustom
+    public List<ModelListCustom> getListModelListCustom(String key, Class<?> mClass) {
+        Gson gson = new Gson();
 
+        ArrayList<String> objStrings = getListString(key);
+        ArrayList<ModelListCustom> objects = new ArrayList<>();
 
+        for (String jObjString : objStrings) {
+            Object value = gson.fromJson(jObjString, mClass);
+            objects.add((ModelListCustom) value);
+        }
+        return objects;
+    }
+    public void putListModelListCustom(String key, List<ModelListCustom> objArray){
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for(Object obj : objArray){
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(key, objStrings);
+    }
+    //endregion
+
+    //region para lista de categorias  con ModeListCustom
+    public List<ModelCategoria> getListModelCategoria(String key, Class<?> mClass) {
+        Gson gson = new Gson();
+
+        ArrayList<String> objStrings = getListString(key);
+        ArrayList<ModelCategoria> objects = new ArrayList<>();
+
+        for (String jObjString : objStrings) {
+            Object value = gson.fromJson(jObjString, mClass);
+            objects.add((ModelCategoria) value);
+        }
+        return objects;
+    }
+    public void putListModelCategoria(String key, List<ModelCategoria> objArray){
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for(Object obj : objArray){
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(key, objStrings);
+    }
+    //endregion
 
 
     public <T> T getObject(String key, Class<T> classOfT) {

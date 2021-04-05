@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -34,8 +35,6 @@ import com.coolerfall.download.DownloadRequest;
 import com.coolerfall.download.Logger;
 import com.coolerfall.download.OkHttpDownloader;
 import com.coolerfall.download.Priority;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +58,7 @@ import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.adapter.AdapterFavoritos;
 import com.lamesa.lugu.adapter.AdapterHistorial;
 import com.lamesa.lugu.model.ModelCancion;
+import com.lamesa.lugu.model.ModelCategoria;
 import com.lamesa.lugu.otros.numberPicker.NumberPicker;
 import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
@@ -68,6 +68,7 @@ import com.naveed.ytextractor.model.YTMedia;
 import com.naveed.ytextractor.model.YTSubtitles;
 import com.naveed.ytextractor.model.YoutubeMeta;
 import com.opencsv.CSVReader;
+import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,6 +106,7 @@ import static com.lamesa.lugu.activity.act_main.getListas;
 import static com.lamesa.lugu.activity.act_main.ivLikeDislike;
 import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
 import static com.lamesa.lugu.activity.act_main.ivSleep;
+import static com.lamesa.lugu.activity.act_main.ivStyle;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
 import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
@@ -116,15 +118,18 @@ import static com.lamesa.lugu.activity.act_main.tvSleep;
 import static com.lamesa.lugu.activity.splash.tinydb;
 import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.mob.inter.showInterstitial;
+import static com.lamesa.lugu.otros.mob.video.createAndLoadRewardedAd;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
+import static com.lamesa.lugu.otros.statics.constantes.TBCategoriaAleatoria;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBfechaCambiosData;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCanciones;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
 import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
@@ -144,7 +149,6 @@ import static com.lamesa.lugu.otros.statics.constantes.setDebugActivo;
 
 
 public class metodos {
-
 
     public static CountDownTimer countDownTimer;
     public static NumberPicker numberPicker;
@@ -254,7 +258,7 @@ public class metodos {
                             String urlDescarga = dataSnapshot.child("actualizacion").child("urlDescarga").getValue(String.class);
                             Boolean cancelable = dataSnapshot.child("actualizacion").child("cancelable").getValue(Boolean.class);
                             String mensaje = dataSnapshot.child("actualizacion").child("mensaje").getValue().toString();
-
+                            Boolean playStore = dataSnapshot.child("actualizacion").child("playStore").getValue(Boolean.class);
 
                             int versionActual = BuildConfig.VERSION_CODE;
 
@@ -263,7 +267,12 @@ public class metodos {
                                 try {
                                     if (mContext != null) {
                                         setLogInfo(mContext, "initFirebase", "Abriendo dialogo para actualizar", false);
-                                        DialogoActualizar(mContext, versionNueva, mensaje, urlDescarga, cancelable);
+
+                                        if(playStore){
+                                            DialogoActualizarPlayStore(mContext, versionNueva, mensaje, urlDescarga, cancelable);
+                                        } else {
+                                            DialogoActualizar(mContext, versionNueva, mensaje, urlDescarga, cancelable);
+                                        }
                                     }
                                 } catch (Resources.NotFoundException e) {
                                     e.printStackTrace();
@@ -303,6 +312,46 @@ public class metodos {
                             } else {
                                 setDebug("metodos", "initFirebase", "d", "No hay contenido por actualizar..", setDebugActivo);
                             }
+                        }
+
+                        //endregion
+
+                        //region MOSTRAR ALERTA DE MENSAJE
+
+                        if (dataSnapshot.child("alerta").exists()) {
+                            // se comprueba fechas
+                            String titleAlert = (String) dataSnapshot.child("alerta").child("titulo").getValue();
+                            String msgAlert = (String) dataSnapshot.child("alerta").child("mensaje").getValue();
+                            Boolean estadoAlert = (Boolean) dataSnapshot.child("alerta").child("estado").getValue();
+                            int versionAlert = Integer.parseInt(dataSnapshot.child("alerta").child("version").getValue().toString());
+                            int versionActual = BuildConfig.VERSION_CODE;
+
+                            if (estadoAlert && versionActual <= versionAlert ) {
+                                //  Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
+                                Alerter.create((AppCompatActivity) mContext).setTitle(titleAlert)
+                                        .setText(msgAlert)
+                                        // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
+                                        .setIcon(R.drawable.uvv_on_error)
+                                        .setDuration(20000)
+                                        .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
+                                        .setBackgroundColorRes(R.color.fondo_black2) // or setBackgroundColorInt(Color.CYAN)
+                                        .addButton("OK", R.style.TabTextStyle, new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                //region MIX mixExtractionGoesWrong para estadisticas
+                                                if(Alerter.isShowing()){
+                                                    Alerter.hide();
+                                                }
+                                            }
+                                        }).addButton("WEBSITE", R.style.TabTextStyle, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        AbrirPagina(mContext, "https://lugumusic.page.link/website");
+                                    }
+                                })
+                                        .show();
+                            }
+
                         }
 
                         //endregion
@@ -393,6 +442,38 @@ public class metodos {
             }
         }).setCancelable(cancelable).setOnOkButtonClickListener((baseDialog, v) -> {
             DescargarActualizacion(mContext, urlDescarga);
+            return false;
+        });
+
+
+    }
+
+    public static void DialogoActualizarPlayStore(Context mContext, int version, String mensaje, String urlDescarga, boolean cancelable) {
+        setLogInfo(mContext, "DialogoActualizar", "Mostrando DialogoActualizar...", false);
+
+        String obligatorio = mContext.getString(R.string.act_obligatoria);
+        String titulo = mContext.getString(R.string.act_disponible) + "\nversion : " + version;
+        if (cancelable) {
+            obligatorio = mContext.getString(R.string.act_opcional);
+        } else {
+            obligatorio = mContext.getString(R.string.act_obligatoria);
+        }
+
+        titulo = titulo + "\n" + obligatorio;
+        mensaje = mensaje + mContext.getString(R.string.msg_actua_playstore);
+
+        DialogSettings.theme = DialogSettings.THEME.DARK;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        MessageDialog.show((AppCompatActivity) mContext, titulo, mensaje, mContext.getString(R.string.acrualizar)).setButtonPositiveTextInfo(new TextInfo().setFontColor(Color.GREEN)).setButtonOrientation(LinearLayout.VERTICAL).setOtherButton(mContext.getString(R.string.open_website)).setOnOtherButtonClickListener(new OnDialogButtonClickListener() {
+            @Override
+            public boolean onClick(BaseDialog baseDialog, View v) {
+                //    Toast.makeText(mContext, "sdasdasdd", Toast.LENGTH_SHORT).show();
+                AbrirPagina(mContext, "https://lugumusic.page.link/website");
+                return false;
+            }
+        }).setCancelable(cancelable).setOnOkButtonClickListener((baseDialog, v) -> {
+           // DescargarActualizacion(mContext, urlDescarga);
+            AbrirPagina(mContext, "https://lugumusic.page.link/luguapp");
             return false;
         });
 
@@ -1194,6 +1275,10 @@ public class metodos {
 
     public static void DialogoTemporizador(Context mContext) {
 
+
+        // video mob
+        createAndLoadRewardedAd(mContext);
+
         DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
 
@@ -1352,11 +1437,25 @@ public class metodos {
 
     public static void getLinkAndPlay(Context mContext, String linkYT, int opcion) {
 
-        CargarInterAleatorio(mContext, 40);
+        CargarInterAleatorio(mContext, 50);
 
         if (!isNetworkAvailable(mContext)) {
-            Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
+            Alerter.create((Activity) mContext).setTitle(mContext.getResources().getString(R.string.coneccion_lenta))
+                    // .setText("Se reproducirá canciones del estilo seleccionado.")
+                    // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
+                    .setIcon(R.drawable.uvv_on_error)
+                    .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
+                    .setBackgroundColorRes(R.color.learn_light_red) // or setBackgroundColorInt(Color.CYAN)
+                    .show();
         } else {
+
+            /* start the timer for the event "Image Upload"
+            if(mixpanel!=null){
+                mixpanel.timeEvent("TimeExtractingLink");
+            }
+
+             */
 
             if (pbCargandoRadio != null) {
                 pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
@@ -1365,8 +1464,9 @@ public class metodos {
             }
 
             if (opcion == 1) {
-                setLogInfo(mContext, "getLinkAndPlay.YouTubeExtractor", "Inicia extracion opcion 1", false);
+                setLogInfo(mContext, "getLinkAndPlay.YouTubeExtractor", "Inicia extración opcion 1", false);
 
+                // https://github.com/HaarigerHarald/android-youtubeExtractor
                 new YouTubeExtractor(mContext) {
 
                     @Override
@@ -1401,22 +1501,34 @@ public class metodos {
                                     System.out.println("no hay itag de audio == ");
                                 }
                             }
-
+                            /*
+                            if(mixpanel!=null) {
+                                mixpanel.track("TimeExtractingLink");
+                            }
+                             */
                         } else {
+                            setLogInfo(mContext, "getLinkAndPlay.YouTubeExtractor", "No funcionó extración opcion 1", false);
                             getLinkAndPlay(mContext, linkYT, 2);
                         }
                     }
 
-                }.extract(linkYT, false, false);
+                }.extract(linkYT, true, false);
 
 
             } else if (opcion == 2) {
 
                 setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "Inicia extracion opcion 2", false);
+
+                // https://github.com/nhCoder/YouTubeExtractor
                 new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner() {
                     @Override
                     public void onExtractionDone(List<YTMedia> adativeStream, final List<YTMedia> muxedStream, List<YTSubtitles> subtitles, YoutubeMeta meta) {
                         setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor", "onExtractionDone", false);
+                        /*
+                        if(mixpanel!=null) {
+                            mixpanel.track("TimeExtractingLink");
+                        }
+                         */
                         //url to get subtitle
 
                         for (YTMedia media : adativeStream) {
@@ -1440,6 +1552,8 @@ public class metodos {
                     public void onExtractionGoesWrong(final ExtractorException error) {
                         // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                         //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
+
+
                         setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", error.getMessage(), true);
 
                         //region MIX mixExtractionGoesWrong para estadisticas
@@ -1461,30 +1575,8 @@ public class metodos {
                         //endregion
 
 
-                        // al onExtractionGoesWrong, cargar otra cancion de la misma categoria seleccionanda por el usuario
-                        Random random = new Random();
-                        List<ModelCancion> mlistCategoriaSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
-
-                        if (mlistCategoriaSonando.size() != 0 && mlistCategoriaSonando != null) {
-                            int numCancionSonar = random.nextInt(mlistCategoriaSonando.size());
-
-                            // obetneer link de la nueva cancion seleccionada
-                            getLinkAndPlay(mContext, mlistCategoriaSonando.get(numCancionSonar).getLinkYT(), 1);
-
-
-                            // guardar datos de la cancion sonando en TinyDB
-                            tinyDB.putInt(TBnumeroCancionSonando, numCancionSonar);
-                            tinyDB.putString(TBidCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getId());
-                            tinyDB.putString(TBnombreCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getCancion());
-                            tinyDB.putString(TBartistaCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getArtista());
-                            tinyDB.putString(TBcategoriaCancionSonando, tinyDB.getString(TBcategoriaCancionSonando));
-                            tinyDB.putString(TBlinkCancionSonando, mlistCategoriaSonando.get(numCancionSonar).getLinkYT());
-
-
-                        } else {
-                            getListas(mContext);
-                        }
-
+                        // al onExtractionGoesWrong, cargar otra cancion de la misma categoria segun selección
+                        NextSong(mContext, tinyDB);
 
                         // ocultar progressBar de act_main
                         if (pbCargandoRadio != null) {
@@ -1492,17 +1584,67 @@ public class metodos {
                             pbCargandoRadio.setVisibility(GONE);
                             pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
                         }
+
+
                     }
-                }).Extract(linkYT);
+                }).useDefaultLogin().Extract(linkYT);
                 //use .useDefaultLogin() to extract age restricted videos
             }
 
         }
     }
 
+    public static void CategoriaAleatoria(Context mContext, boolean encendido, TinyDB tinyDB) {
+
+        if (encendido) {
+            tinydb.putBoolean(TBCategoriaAleatoria, true);
+            if (ivStyle != null) {
+                ivStyle.startAnimation(Animacion.exit_ios_anim(mContext));
+                ivStyle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar_on));
+                ivStyle.startAnimation(Animacion.enter_ios_anim(mContext));
+            }
+
+            // reproducir cancion de una categoria aleatoria
+            NextSong(mContext, tinyDB);
+
+            Alerter.create((Activity) mContext).setTitle(R.string.text_cataleatoria_on)
+                    .setText(R.string.msg_cataleatoria_on)
+                    .setIcon(R.drawable.ic_intercambiar_on)
+                    // .setBackgroundResource(R.drawable.fon)
+                    .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
+                    .setBackgroundColorRes(R.color.fondo_black3) // or setBackgroundColorInt(Color.CYAN)
+                    .show();
+
+            CargarInterAleatorio(mContext, 3);
+
+        } else {
+            tinydb.putBoolean(TBCategoriaAleatoria, false);
+            if (ivStyle != null) {
+
+                if (ivStyle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar_on).getConstantState())) {
+                    // activar modo categoria aleatoria
+                    Alerter.create((Activity) mContext).setTitle(R.string.text_cataleatoria_off)
+                            .setText(R.string.msg_cataleatoria_off)
+                            .setIcon(R.drawable.ic_intercambiar)
+                            //.setBackgroundResource(R.drawable.shape_controller_top_gradient)
+                            .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
+                            .setBackgroundColorRes(R.color.fondo_black3) // or setBackgroundColorInt(Color.CYAN)
+                            .show();
+                }
+                ivStyle.startAnimation(Animacion.exit_ios_anim(mContext));
+                ivStyle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar));
+                ivStyle.startAnimation(Animacion.enter_ios_anim(mContext));
+            }
+        }
+
+    }
+
     public static void ReproducirCancion(Context mContext, String linkCancion) {
         if (musicPlayer != null) {
             setLogInfo(mContext, "ReproducirCancion", "Inicia ExoPlayerView.setSource", false);
+            if (mixpanel != null) {
+
+            }
             musicPlayer.setSource(linkCancion);
             // reproducir
             musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
@@ -1535,6 +1677,44 @@ public class metodos {
 
         }
 
+    }
+
+    public static void NextSong(Context mContext, TinyDB tinyDB) {
+
+
+        // lista de la categoria que estaá sonando
+        List<ModelCancion> listSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
+
+        // cambiar a lista de canciones si la categoria es aleatoria
+        if (tinyDB.getBoolean(TBCategoriaAleatoria)) {
+            listSonando = tinyDB.getListModelCancion(TBlistCanciones, ModelCancion.class);
+        }
+
+        if (listSonando != null && listSonando.size() != 0) {
+
+            Random random = new Random();
+            int numCancionSonar = random.nextInt(listSonando.size());
+            //region guardar datos de la cancion sonando en TinyDB
+
+            tinyDB.putInt(TBnumeroCancionSonando, numCancionSonar);
+            tinyDB.putString(TBidCancionSonando, listSonando.get(numCancionSonar).getId());
+            tinyDB.putString(TBnombreCancionSonando, listSonando.get(numCancionSonar).getCancion());
+            tinyDB.putString(TBartistaCancionSonando, listSonando.get(numCancionSonar).getArtista());
+            tinyDB.putString(TBlinkCancionSonando, listSonando.get(numCancionSonar).getLinkYT());
+            // obtener nombre de categoria
+            if (tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class) != null) {
+                for (ModelCategoria categoria : tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class)) {
+                    if (categoria.getId().toLowerCase().trim().contains(listSonando.get(numCancionSonar).getCategoria().toLowerCase().trim())) {
+                        tinyDB.putString(TBcategoriaCancionSonando, categoria.getNombre().toLowerCase().trim());
+                    }
+                }
+            }
+            //endregion
+            getLinkAndPlay(mContext, listSonando.get(numCancionSonar).getLinkYT(), 1);
+
+        } else {
+            getListas(mContext);
+        }
 
     }
 
@@ -1583,8 +1763,21 @@ public class metodos {
 
         for (ModelCancion cancion : tinyListCancionxCategoria) {
             if (cancion.getId().equals(idCancionSonando)) {
-                tinyListHistorial.add(cancion);
 
+                // si ya está en la lista eliminarlo para que el nuevo aparesca de primeras
+                if (tinyListHistorial != null && tinyListHistorial.size() > 0) {
+                    for (ModelCancion cancionHistorial : tinyListHistorial)
+
+                        if (cancionHistorial.getId().toLowerCase().trim().contains(idCancionSonando.toLowerCase().trim())) {
+                            tinyListHistorial.remove(cancionHistorial);
+                            // Toast.makeText(mContext, "tinyListHistorial.remove(cancion)", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                }
+
+
+                // agregar cancion a historial
+                tinyListHistorial.add(cancion);
                 tinyDB.putListModelCancion(TBlistHistorial, EliminarDuplicadosModelCancion(tinyListHistorial));
 
                 //region actualizar lista de historial
@@ -1602,7 +1795,6 @@ public class metodos {
         // guardar lista en tiny db y sin duplicados
         // Collections.reverse(tinyListHistorial);
 
-
     }
 
     public static void GuardarCancionFavoritos(Context mContext, String idCancionSonando, Boolean favorito) {
@@ -1617,10 +1809,29 @@ public class metodos {
             // agregar cancion a favoritos
 
 
-            // Collections para que se muestre de primeras las ultimas agregadas
-            // Collections.reverse(tinyListFavoritos);
+            // alerta informar a usuario sobre las listas
+            if (tinyDB.getBoolean("TBalertListas") == false) {
+                Alerter.create((Activity) mContext).setTitle(R.string.title_alert_list)
+                        .setText(R.string.msg_alert_list)
+                        //.setBackgroundResource(R.drawable.shape_controller_top_gradient)
+                        // .setIcon(R.drawable.uvv_on_error)
+                        .setDuration(10000)
+                        .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
+                        .setBackgroundColorRes(R.color.fondo_blank) // or setBackgroundColorInt(Color.CYAN)
+                        .addButton("OK", R.style.TabTextStyle, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                tinyDB.putBoolean("TBalertListas", true);
+                                if (Alerter.isShowing()) {
+                                    Alerter.hide();
+                                }
+                            }
+                        }).show();
 
-            showInterstitial(mContext);
+            }
+
+            CargarInterAleatorio(mContext, 3);
+
 
             for (int i = 0; i < tinyListCancionxCategoria.size(); i++) {
                 if (tinyListCancionxCategoria.get(i).getId().equals(idCancionSonando)) {
@@ -1660,7 +1871,7 @@ public class metodos {
             tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
 
             // actualizar lista de favoritos
-            //  UpdateAdapterFavoritos(mContext);
+            // UpdateAdapterFavoritos(mContext);
 
             // cambiar icono de ivLikeDislike a like
 
@@ -2451,7 +2662,7 @@ public class metodos {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v) {
                         tinydb.putBoolean(TBpoliticas, false);
-                        ((Activity) mContext).finish();
+                        ((AppCompatActivity) mContext).finish();
                         return false;
                     }
                 })

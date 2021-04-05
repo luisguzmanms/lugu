@@ -293,6 +293,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
                         android:padding="10dp"
                         android:visibility="gone"
                         app:SpinKit_Color="@color/learn_colorPrimary"
@@ -399,11 +400,25 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_weight="1"
                                     android:fontFamily="@font/poppins_bold"
                                     android:text="@string/estilos"
                                     android:textColor="@color/learn_gradient_grey_1"
                                     android:textSize="22dp" />
+
+                                <ImageView
+                                    android:id="@+id/iv_style"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginBottom="2dp"
+                                    app:srcCompat="@drawable/ic_intercambiar" />
+
+                                <Space
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
 
                                 <TextView
                                     android:id="@+id/tvVerEstrenos"

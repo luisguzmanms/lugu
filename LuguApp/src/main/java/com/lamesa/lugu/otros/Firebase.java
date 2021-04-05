@@ -34,6 +34,7 @@ import java.util.Random;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.otros.metodos.EliminarDuplicadosModelCancion;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCanciones;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
 import static com.lamesa.lugu.otros.statics.constantes.mixFalloEpisodio;
@@ -331,7 +332,6 @@ public class Firebase extends AppCompatActivity {
         List<ModelCategoria> finalMlistCategoria = mlistCategoria;
 
 
-
         Query database = FirebaseDatabase.getInstance().getReference().child("data").child("cancion").orderByChild("nombre");
         database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -347,6 +347,10 @@ public class Firebase extends AppCompatActivity {
 
                 }
 
+                // guardar una lista con todas las canciones
+                tinyDB.putListModelCancion(TBlistCanciones, finalMlistCancion);
+
+                // se usa para crear una lista por categoria
                 Firebase.getListaPorCategoria(mContext, finalMlistCategoria, finalMlistCancion, tinyDB);
 
             }
@@ -362,7 +366,7 @@ public class Firebase extends AppCompatActivity {
 
     }
 
-    // agreagr canciones a una lista con su categoria
+    // agregar canciones a una lista con su categoria
     public static void getListaPorCategoria(Context mContext, List<ModelCategoria> mlistCategorias, List<ModelCancion> mlistCanciones, TinyDB tinyDB) {
 
 
@@ -374,18 +378,19 @@ public class Firebase extends AppCompatActivity {
             mlistCategorias = new ArrayList<>();
         }
 
-        if(!mlistCategorias.isEmpty() && !mlistCanciones.isEmpty()){
-
+        if (!mlistCategorias.isEmpty() && !mlistCanciones.isEmpty()) {
 
             // agreagr canciones a una lista con su categoria
-            for(ModelCancion cancion: mlistCanciones){
+            for (ModelCancion cancion : mlistCanciones) {
 
                 // si la cancion contiene alguna categoria guardarla en la respectiva lista de categoria
-                for (ModelCategoria categoria : mlistCategorias){
-                    if(cancion.getCategoria().toLowerCase().trim().contains(categoria.getId().toLowerCase().trim())){
-                        List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(categoria.getNombre().toLowerCase().trim(), ModelCancion.class);
-                        tinyListCancionxCategoria.add(cancion);
-                        tinyDB.putListModelCancion(categoria.getNombre().toLowerCase().trim(), EliminarDuplicadosModelCancion(tinyListCancionxCategoria));
+                for (ModelCategoria categoria : mlistCategorias) {
+                    if (cancion != null) {
+                        if (cancion.getCategoria().toLowerCase().trim().contains(categoria.getId().toLowerCase().trim())) {
+                            List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(categoria.getNombre().toLowerCase().trim(), ModelCancion.class);
+                            tinyListCancionxCategoria.add(cancion);
+                            tinyDB.putListModelCancion(categoria.getNombre().toLowerCase().trim(), EliminarDuplicadosModelCancion(tinyListCancionxCategoria));
+                        }
                     }
                 }
             }
@@ -418,7 +423,7 @@ public class Firebase extends AppCompatActivity {
                     }
                 }
 
-                tinyDB.putListString(TBlistImagenes,mlistImagenes);
+                tinyDB.putListString(TBlistImagenes, mlistImagenes);
 
             }
 

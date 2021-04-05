@@ -79,6 +79,7 @@ import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.otros.metodos.AboutUS;
 import static com.lamesa.lugu.otros.metodos.AbrirPagina;
 import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
+import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.CompartirApp;
 import static com.lamesa.lugu.otros.metodos.Dialogo5Estrellas;
@@ -106,6 +107,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistCustom;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
@@ -117,7 +119,7 @@ import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 public class act_main extends AppCompatActivity {
 
-    public static List<ModelCategoria> mlistCategoria;
+
     public static List<ModelListCustom> mlistCustom;
 
     public static AdapterCategoria mAdapterCategoria;
@@ -155,6 +157,8 @@ public class act_main extends AppCompatActivity {
     public static ImageView ivOpcionBucle;
     public static WeatherView weatherView;
     public static ImageView ivLupa;
+    public static List<ModelCategoria> mlistCategoria = new ArrayList<>();
+    public static ImageView ivStyle;
     private ImageView ivMenu;
     private ImageView ivLogo;
     private TextView mtvVerEstrenos;
@@ -204,6 +208,8 @@ public class act_main extends AppCompatActivity {
 
         // dialogo apra desactivar la optimizacion de la app
         DialogoOpBateria(act_main.this);
+
+
 
     }
 
@@ -304,6 +310,7 @@ public class act_main extends AppCompatActivity {
         mrvCategoria.setHasFixedSize(true);
         mrvCategoria.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mrvCategoria.setItemAnimator(new DefaultItemAnimator());
+        mlistCategoria = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
         if (mlistCategoria == null) {
             mlistCategoria = new ArrayList<>();
         }
@@ -400,6 +407,7 @@ public class act_main extends AppCompatActivity {
 
         ivLupa = findViewById(R.id.iv_lupa);
 
+        ivStyle = findViewById(R.id.iv_style);
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
         //region guardar ivOpcionBucle segun el icono
         if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
@@ -433,11 +441,6 @@ public class act_main extends AppCompatActivity {
                             mrvFavoritos.setVisibility(GONE);
                         }
 
-                        if (mrvHistorial != null) {
-                            mrvHistorial.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                            mrvHistorial.setVisibility(VISIBLE);
-                            mrvHistorial.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                        }
 
                         // comprobar que la lista de histoirla no esté vacia
                         if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
@@ -449,7 +452,11 @@ public class act_main extends AppCompatActivity {
                             ContenedorVacio.setVisibility(VISIBLE);
                             ContenedorVacio.startAnimation(Animacion.enter_ios_anim(act_main.this));
                         } else {
-                            mrvHistorial.setVisibility(VISIBLE);
+                            if (mrvHistorial != null) {
+                                mrvHistorial.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                                mrvHistorial.setVisibility(VISIBLE);
+                                mrvHistorial.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                            }
                             ContenedorVacio.setVisibility(GONE);
                         }
 
@@ -888,6 +895,19 @@ public class act_main extends AppCompatActivity {
                         break;
 
 
+                    case R.id.iv_style:
+
+                        if (ivStyle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_intercambiar).getConstantState())) {
+                            // activar modo categoria aleatoria
+                            CategoriaAleatoria(act_main.this, true, tinyDB);
+
+                        } else if (ivStyle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_intercambiar_on).getConstantState())) {
+                            // desactivar modo categoria aleatoria
+                            CategoriaAleatoria(act_main.this, false, tinyDB);
+                        }
+
+                        break;
+
                 }
 
             }
@@ -908,6 +928,7 @@ public class act_main extends AppCompatActivity {
         ivSupArt.setOnClickListener(listener);
         ivLupa.setOnClickListener(listener);
         tvCategoria.setOnClickListener(listener);
+        ivStyle.setOnClickListener(listener);
 
 
         // cargar gif de fondo

@@ -38,8 +38,10 @@ public class constantes {
     public static String TBlistFavoritos = "Favoritos";
     public static String TBlistCustom = "TBlistCustom";
     public static String TBlistCategorias = "TBlistCategorias";
-    //endregion
+    public static String TBlistCanciones = "TBlistCanciones";
 
+    //endregion
+    public static String TBCategoriaAleatoria = "TBCategoriaAleatoria";
 
     public static String TBnumeroCancionSonando = "TBnumeroCancionSonando";
     public static String TBmodelCancionSonando = "TBnumeroCancionSonando";

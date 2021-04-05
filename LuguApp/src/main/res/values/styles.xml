@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/learn_colorAccent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/fondo_black2</item>
+        <item name="android:textColor">@color/learn_textColorGrey</item>
+        <item name="android:itemTextAppearance">@color/learn_textColorGrey</item>
     </style>
 
     <style name="LearnerAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

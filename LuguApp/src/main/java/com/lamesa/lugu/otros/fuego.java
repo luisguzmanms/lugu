@@ -22,15 +22,9 @@ import static com.lamesa.lugu.otros.constantes.TAG_FUEGO;
 public class fuego extends AppCompatActivity {
 
 
-
-
-
-
     public static FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     public static FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
     public static String RUTA_PADRE = "user" + "/" + mFirebaseUser.getUid() + "/";
-
-
 
 
     public static void EliminarDatoFB(String Ruta, final Context mContext) {
@@ -59,15 +53,14 @@ public class fuego extends AppCompatActivity {
             final DatabaseReference mref = FirebaseDatabase.getInstance().getReference(Ruta);
             mref.getRef().removeValue();
             Toast.makeText(mContext, "DATO ELIMINADO", Toast.LENGTH_SHORT).show();
-            System.out.println("REFB "+mref.getRef().toString());
+            System.out.println("REFB " + mref.getRef().toString());
             Toast.makeText(mContext, mref.getRef().toString(), Toast.LENGTH_LONG).show();
 
         }
     }
 
     //region SET de firebase
-    public static class setData{
-
+    public static class setData {
 
 
         public static void StringFB(String Ruta, final String Valor, final Context mContext) {
@@ -104,7 +97,6 @@ public class fuego extends AppCompatActivity {
 
 
             }
-
 
 
         }
@@ -172,13 +164,13 @@ public class fuego extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         dataSnapshot.getRef().setValue(Valor);
-                        setLogCat("fuego.SetData.BooleanFB", "Se envió '"+Valor.toString()+"'"+" a: "+Ruta,"d",LogActivo);
+                        setLogCat("fuego.SetData.BooleanFB", "Se envió '" + Valor.toString() + "'" + " a: " + Ruta, "d", LogActivo);
                     }
 
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        setLogCat("fuego.SetData.BooleanFB", "ERROR NO envió '"+Valor.toString()+"'"+" a: "+Ruta+" :: RAZON: "+databaseError.getMessage(),"e",LogActivo);
+                        setLogCat("fuego.SetData.BooleanFB", "ERROR NO envió '" + Valor.toString() + "'" + " a: " + Ruta + " :: RAZON: " + databaseError.getMessage(), "e", LogActivo);
                     }
                 });
             }
@@ -189,9 +181,7 @@ public class fuego extends AppCompatActivity {
 
     //region SET de firebase
 
-    public static class getData{
-
-
+    public static class getData {
 
 
         public static Boolean BooleanFB(String Ruta, final Context mContext) {

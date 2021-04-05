@@ -10,8 +10,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
 
-
-
     <application
         android:name="com.lamesa.lugu.App"
         android:hardwareAccelerated="true"
@@ -48,7 +46,6 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-
         <activity
             android:name="com.lamesa.lugu.activity.splash"
             android:screenOrientation="portrait"
@@ -69,10 +66,24 @@
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
 
 
+        <activity
+            android:name=".mesa.DataYT"
+            android:theme="@style/Theme.MaterialComponents.Dialog.Alert"
+            android:excludeFromRecents="true"
+            android:taskAffinity="">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+        </activity>
+
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
 
         <!-- A receiver that will receive media buttons and send as
           intents to your MediaBrowserServiceCompat implementation.

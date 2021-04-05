@@ -290,5 +290,16 @@
     <string name="msg_etstrellas">"If you like our application don´t forget to give us 5 stars on Play Store to continue improving "</string>
     <string name="submitsong">SUBMIT MY SONG</string>
     <string name="msg_submitsong">Here you can send your song to be played on </string>
+    <string name="text_cataleatoria_on">Random style ON.</string>
+    <string name="text_cataleatoria_off">Random style is disabled.</string>
+    <string name="msg_cataleatoria_on">Styles will be played at random.</string>
+    <string name="msg_cataleatoria_off">Songs of the selected style will be played.</string>
+    <string name="item_eliminado">Item removed.</string>
+    <string name="lista_eliminada">Deleted list.</string>
+    <string name="eliminar_item">Delete item</string>
+    <string name="elimina_lista">Delete list</string>
+    <string name="title_alert_list">"Information! "</string>
+    <string name="msg_alert_list">Lists of favourite songs and songs played are saved on the device, if you delete the standard app they will be deleted automatically</string>
+    <string name="msg_actua_playstore">New version available on Play Store</string>
 
 </resources>

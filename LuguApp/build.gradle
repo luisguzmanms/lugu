@@ -11,8 +11,8 @@ android {
         applicationId "com.lugumusic.lofi"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.1 beta"
+        versionCode 4
+        versionName "1.2 beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -168,13 +168,14 @@ dependencies {
     compile(name:'jsevaluator-1.0', ext:'aar')
 
 
-
     // https://github.com/MatteoBattilana/WeatherView
     implementation 'com.github.MatteoBattilana:WeatherView:3.0.0'
 
     // https://github.com/khirr/Android-Privacy-Policy
     implementation 'com.github.khirr:Android-Privacy-Policy:1.0.1'
 
+    // https://github.com/Tapadoo/Alerter
+    implementation 'com.tapadoo.android:alerter:7.0.1'
 }
 
 

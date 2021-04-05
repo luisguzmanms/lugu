@@ -1,44 +1,30 @@
 package com.lamesa.lugu.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplitude.api.Amplitude;
 import com.lamesa.lugu.R;
-import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
-import com.lamesa.lugu.otros.TinyDB;
-import com.lamesa.lugu.otros.statics.Animacion;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.ContenedorVacio;
+import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
-import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
-import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
-import static com.lamesa.lugu.activity.act_main.tvCategoria;
-import static com.lamesa.lugu.activity.act_main.tvVacio;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
@@ -49,11 +35,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
 
-/**
- * Created by Aws on 28/01/2018.
- */
 
 public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyViewHolder> {
 
@@ -63,7 +45,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     //   private InterstitialAd mInterstitialAd;
 
     private int lastPosition = -1;
-
 
 
     public AdapterHistorial(Context mContext, List<ModelCancion> mListHistorial) {
@@ -90,7 +71,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         view = mInflater.inflate(R.layout.item_historial, parent, false);
 
 
-
         return new MyViewHolder(view);
     }
 
@@ -111,14 +91,12 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
       */
 
 
-
-
         setAnimation(holder.cdCancionHistorial, position);
         holder.tvCancion.setText(mListHistorial.get(position).getCancion());
         holder.tvArtista.setText(mListHistorial.get(position).getArtista());
 
 
-        if(holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))){
+        if (holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))) {
             holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
             holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
         } else {
@@ -128,8 +106,8 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
         //region obtener nombre de categoria desde la id y mostrar en tvCategoria
         List<ModelCategoria> list = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
-        for(ModelCategoria categoria : list){
-            if(categoria.getId().equals(mListHistorial.get(position).getCategoria())){
+        for (ModelCategoria categoria : list) {
+            if (categoria.getId().equals(mListHistorial.get(position).getCategoria())) {
                 holder.tvCategoria.setText(categoria.getNombre());
             }
         }
@@ -139,8 +117,8 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             @Override
             public void onClick(View v) {
 
-                CargarInterAleatorio(mContext, 5);
-                getLinkAndPlay(mContext,mListHistorial.get(position).getLinkYT(),1);
+                CargarInterAleatorio(mContext, 15);
+                getLinkAndPlay(mContext, mListHistorial.get(position).getLinkYT(), 1);
 
                 // guardar datos de la cancion sonando en TinyDB
                 tinyDB.putString(TBidCancionSonando, mListHistorial.get(position).getId());
@@ -150,19 +128,56 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                 tinyDB.putString(TBlinkCancionSonando, mListHistorial.get(position).getLinkYT());
 
 
-
             }
         });
         holder.cdCancionHistorial.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                DialogoEliminarLista(mContext, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class),TBlistHistorial);
+                DialogoEliminarLista(mContext, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class), TBlistHistorial);
                 return false;
             }
         });
+
+        holder.ivOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(mContext, holder.ivOption);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.popup_menu_historial, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.option_eliminar_item:
+                                mListHistorial.remove(position);
+                                tinyDB.putListModelCancion(TBlistHistorial, mListHistorial);
+                                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
+
+                                Toast.makeText(mContext, mContext.getResources().getString(R.string.item_eliminado), Toast.LENGTH_SHORT).show();
+
+                                break;
+
+                            case R.id.option_eliminar_lista:
+                                mListHistorial.removeAll(mListHistorial);
+                                List<ModelCancion> listhisto = tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class);
+                                listhisto.removeAll(listhisto);
+                                tinyDB.putListModelCancion(TBlistHistorial, listhisto);
+                                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
+
+                                Toast.makeText(mContext, mContext.getResources().getString(R.string.lista_eliminada), Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
+            }
+        });
+
     }
-
-
 
 
     /*
@@ -196,7 +211,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
      */
 
-
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
@@ -212,15 +226,16 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
     }
 
 
-    public void setUpdateHistorial(List<ModelCancion> mListHistorial){
+    public void setUpdateHistorial(List<ModelCancion> mListHistorial) {
 
         this.mListHistorial.removeAll(this.mListHistorial);
         this.mListHistorial.addAll(mListHistorial);
         Collections.reverse(this.mListHistorial);
-        if(mAdapterHistorial!=null) {
+        if (mAdapterHistorial != null) {
 
             mAdapterHistorial.notifyDataSetChanged();
         }
+
 
     }
 
@@ -231,6 +246,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         private final TextView tvCancion;
         private final TextView tvArtista;
         private final TextView tvCategoria;
+        private final ImageView ivOption;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -238,6 +254,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             tvCancion = itemView.findViewById(R.id.tv_cancion);
             tvArtista = itemView.findViewById(R.id.tv_artista);
             tvCategoria = itemView.findViewById(R.id.tv_categoria);
+            ivOption = itemView.findViewById(R.id.iv_option);
         }
     }
 

@@ -23,15 +23,11 @@ import java.util.Random;
 public class fire extends AppCompatActivity {
 
 
-
-
-
     //region ENVIAR A Firebase
 
-    public static void EnviarFilm(Context mContext, String idFilm, String ano,String calidad, String categoria,String descrip, String imagen, String nombre, String tipo, String puntaje, String red, String fechaActualizado){
+    public static void EnviarFilm(Context mContext, String idFilm, String ano, String calidad, String categoria, String descrip, String imagen, String nombre, String tipo, String puntaje, String red, String fechaActualizado) {
 
         WaitDialog.show((AppCompatActivity) mContext, "Enviando film...").setCancelable(true);
-
 
 
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child(String.valueOf(idFilm));
@@ -52,18 +48,17 @@ public class fire extends AppCompatActivity {
                 dataSnapshot.getRef().child("info").child("fechaActualizado").setValue(fechaActualizado);
 
 
-
                 WaitDialog.dismiss();
                 //  TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
 
-                System.out.println("FILM SUBIDO == "+idFilm+" - "+nombre);
+                System.out.println("FILM SUBIDO == " + idFilm + " - " + nombre);
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Error al enviar film "+databaseError.getMessage(), TipDialog.TYPE.ERROR);
+                TipDialog.show((AppCompatActivity) mContext, "Error al enviar film " + databaseError.getMessage(), TipDialog.TYPE.ERROR);
 
             }
         });
@@ -91,8 +86,7 @@ public class fire extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-
-                if( dataSnapshot.child(idFilm).exists()){
+                if (dataSnapshot.child(idFilm).exists()) {
                     dataSnapshot.getRef().child(idFilm).removeValue();
                     Toast.makeText(mContext, "Eliminado de destacados", Toast.LENGTH_SHORT).show();
                     TipDialog.show((AppCompatActivity) mContext, "Eliminado de destacados", TipDialog.TYPE.SUCCESS);
@@ -104,10 +98,6 @@ public class fire extends AppCompatActivity {
                 }
 
 
-
-
-
-
                 WaitDialog.dismiss();
 
 
@@ -116,14 +106,14 @@ public class fire extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Error al enviar la solicitud. error = "+databaseError, TipDialog.TYPE.ERROR);
+                TipDialog.show((AppCompatActivity) mContext, "Error al enviar la solicitud. error = " + databaseError, TipDialog.TYPE.ERROR);
 
             }
         });
 
     }
 
-    public static void EnviarCambioEpisodio(final Context mContext, String idFilm,String idioma, String idEpisodio, String link,String nombreEpisodio) {
+    public static void EnviarCambioEpisodio(final Context mContext, String idFilm, String idioma, String idEpisodio, String link, String nombreEpisodio) {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
@@ -143,7 +133,7 @@ public class fire extends AppCompatActivity {
         mref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(link!=null  && !link.isEmpty()) {
+                if (link != null && !link.isEmpty()) {
                     dataSnapshot.getRef().child("links").child(nombreRandom).setValue(link);
                 }
                 dataSnapshot.getRef().child("nombre").setValue(nombreEpisodio);
@@ -157,7 +147,7 @@ public class fire extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Error al enviar la solicitud. error = "+databaseError, TipDialog.TYPE.ERROR);
+                TipDialog.show((AppCompatActivity) mContext, "Error al enviar la solicitud. error = " + databaseError, TipDialog.TYPE.ERROR);
 
             }
         });
@@ -165,7 +155,7 @@ public class fire extends AppCompatActivity {
     }
 
 
-    public static void EliminarLinkExistente(final Context mContext, String idFilm,String idioma, String idEpisodio, String linkExistente) {
+    public static void EliminarLinkExistente(final Context mContext, String idFilm, String idioma, String idEpisodio, String linkExistente) {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
@@ -194,7 +184,7 @@ public class fire extends AppCompatActivity {
                     if (snapshot.exists()) {
 
 
-                        if(snapshot.getValue().toString().toLowerCase().contains(linkExistente.toLowerCase())){
+                        if (snapshot.getValue().toString().toLowerCase().contains(linkExistente.toLowerCase())) {
                             dataSnapshot.getRef().child(snapshot.getKey()).removeValue();
                             TipDialog.show((AppCompatActivity) mContext, "Link eliminado", TipDialog.TYPE.SUCCESS).setCancelable(true);
                             Toast.makeText(mContext, "Link eliminado", Toast.LENGTH_SHORT).show();
@@ -204,9 +194,6 @@ public class fire extends AppCompatActivity {
                     }
 
                 }
-
-
-
 
 
                 WaitDialog.dismiss();
@@ -224,8 +211,7 @@ public class fire extends AppCompatActivity {
     }
 
 
-
-    public static void EnviarEpisodio(final Context mContext, String idFilm,String idioma, String idEpisodio, String link,String nombreEpisodio) {
+    public static void EnviarEpisodio(final Context mContext, String idFilm, String idioma, String idEpisodio, String link, String nombreEpisodio) {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
@@ -245,10 +231,10 @@ public class fire extends AppCompatActivity {
         mref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(link!=null  && !link.isEmpty()) {
+                if (link != null && !link.isEmpty()) {
                     dataSnapshot.getRef().child("links").child(nombreRandom).setValue(link);
                 }
-                dataSnapshot.getRef().child("nombre").setValue(idEpisodio+" "+nombreEpisodio);
+                dataSnapshot.getRef().child("nombre").setValue(idEpisodio + " " + nombreEpisodio);
                 dataSnapshot.getRef().child("id").setValue(idFilm);
                 dataSnapshot.getRef().child("idEpisodio").setValue(idEpisodio);
 
@@ -260,7 +246,7 @@ public class fire extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Error al enviar la solicitud. error = "+databaseError, TipDialog.TYPE.ERROR);
+                TipDialog.show((AppCompatActivity) mContext, "Error al enviar la solicitud. error = " + databaseError, TipDialog.TYPE.ERROR);
 
             }
         });
@@ -268,7 +254,7 @@ public class fire extends AppCompatActivity {
     }
 
 
-    public static void EliminarEpisodio(final Context mContext, String idFilm,String idioma, String idEpisodio) {
+    public static void EliminarEpisodio(final Context mContext, String idFilm, String idioma, String idEpisodio) {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
@@ -297,7 +283,7 @@ public class fire extends AppCompatActivity {
                     if (snapshot.exists()) {
 
 
-                        if(snapshot.getKey().toLowerCase().contains(idEpisodio.toLowerCase())){
+                        if (snapshot.getKey().toLowerCase().contains(idEpisodio.toLowerCase())) {
                             dataSnapshot.getRef().child(snapshot.getKey()).removeValue();
                             TipDialog.show((AppCompatActivity) mContext, "Episodio eliminado", TipDialog.TYPE.SUCCESS).setCancelable(true);
                             Toast.makeText(mContext, "Episodio eliminado", Toast.LENGTH_SHORT).show();
@@ -307,9 +293,6 @@ public class fire extends AppCompatActivity {
                     }
 
                 }
-
-
-
 
 
                 WaitDialog.dismiss();
@@ -327,8 +310,7 @@ public class fire extends AppCompatActivity {
     }
 
 
-
-    public static void ReportarEpisodio (final Context mContext, String mensaje, String idFilm, String idEpisodio, String nombreEpisodio, String nombreFilm, String idioma) {
+    public static void ReportarEpisodio(final Context mContext, String mensaje, String idFilm, String idEpisodio, String nombreEpisodio, String nombreFilm, String idioma) {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
@@ -344,7 +326,7 @@ public class fire extends AppCompatActivity {
          */
 
 
-        String nombreGuardar = idFilm + "-" + idEpisodio+"-"+idioma;
+        String nombreGuardar = idFilm + "-" + idEpisodio + "-" + idioma;
 
         // para la fecha
         DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm a");
@@ -378,7 +360,7 @@ public class fire extends AppCompatActivity {
 
     }
 
-    public static void ReportarFilm (final Context mContext, String mensaje, String idFilm, String nombreFilm) {
+    public static void ReportarFilm(final Context mContext, String mensaje, String idFilm, String nombreFilm) {
 
 
         //  Toast.makeText(mContext, mFirebaseUser.getEmail().toString(), Toast.LENGTH_SHORT).show();
@@ -394,7 +376,6 @@ public class fire extends AppCompatActivity {
          */
 
 
-
         // para la fecha
         DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm a");
         String fecha = df.format(Calendar.getInstance().getTime());
@@ -405,10 +386,7 @@ public class fire extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-
-
-
-                Random  random = new Random();
+                Random random = new Random();
                 int nombreGuardar = random.nextInt(99999);
 
                 dataSnapshot.getRef().child(String.valueOf(nombreGuardar)).child("fecha").setValue(fecha);
@@ -434,8 +412,5 @@ public class fire extends AppCompatActivity {
 
 
     //endregion
-
-
-
 
 }

@@ -23,9 +23,7 @@ public class AdMesa {
     public static InterstitialAd mInterstitial; // Interstital
     private static AdView mAdView; // banner
 
-    public static void createLoadInterstitial(final Context context, String ad_unit_id,View view)
-
-    {
+    public static void createLoadInterstitial(final Context context, String ad_unit_id, View view) {
 
         mInterstitial = new InterstitialAd(context);
         mInterstitial.setAdUnitId(ad_unit_id);
@@ -90,11 +88,6 @@ public class AdMesa {
 
 
     }
-
-
-
-
-
 
 
     public static void createLoadBanner(final Context context, View view) {

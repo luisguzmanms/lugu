@@ -25,7 +25,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -37,17 +36,17 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
 
     private final static boolean CACHING = true;
 
-    static boolean LOGGING = false;
+    static boolean LOGGING = true;
 
     private final static String LOG_TAG = "YouTubeExtractor";
     private final static String CACHE_FILE_NAME = "decipher_js_funct";
 
-    private final WeakReference<Context> refContext;
+    private WeakReference<Context> refContext;
     private String videoID;
     private VideoMeta videoMeta;
     private boolean includeWebM = true;
     private boolean useHttp = false;
-    private final String cacheDirPath;
+    private String cacheDirPath;
 
     private volatile String decipheredSignature;
 
@@ -84,6 +83,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
     private static final Pattern patFunction = Pattern.compile("([{; =])([a-zA-Z$_][a-zA-Z0-9$]{0,2})\\(");
 
     private static final Pattern patDecryptionJsFile = Pattern.compile("\\\\/s\\\\/player\\\\/([^\"]+?)\\.js");
+    private static final Pattern patDecryptionJsFileWithoutSlash = Pattern.compile("/s/player/([^\"]+?).js");
     private static final Pattern patSignatureDecFunction = Pattern.compile("(?:\\b|[^a-zA-Z0-9$])([a-zA-Z0-9$]{2})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*\\{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)");
 
     private static final SparseArray<Format> FORMAT_MAP = new SparseArray<>();
@@ -248,14 +248,14 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
                     reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     String line;
                     while ((line = reader.readLine()) != null) {
-                       if(line.startsWith("https://") || line.startsWith("http://")){
-                           mat = patHlsItag.matcher(line);
-                           if(mat.find()){
-                               int itag = Integer.parseInt(mat.group(1));
-                               YtFile newFile = new YtFile(FORMAT_MAP.get(itag), line);
-                               ytFiles.put(itag, newFile);
-                           }
-                       }
+                        if(line.startsWith("https://") || line.startsWith("http://")){
+                            mat = patHlsItag.matcher(line);
+                            if(mat.find()){
+                                int itag = Integer.parseInt(mat.group(1));
+                                YtFile newFile = new YtFile(FORMAT_MAP.get(itag), line);
+                                ytFiles.put(itag, newFile);
+                            }
+                        }
                     }
                 } finally {
                     reader.close();
@@ -312,6 +312,8 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
             encSignatures = new SparseArray<>();
 
             mat = patDecryptionJsFile.matcher(streamMap);
+            if(!mat.find())
+                mat = patDecryptionJsFileWithoutSlash.matcher(streamMap);
             if (mat.find()) {
                 curJsFileName = mat.group(0).replace("\\/", "/");
                 if (decipherJsFileName == null || !decipherJsFileName.equals(curJsFileName)) {
@@ -342,6 +344,9 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
                     mat2 = patEncSig.matcher(cipher);
                     if (mat2.find()) {
                         sig = URLDecoder.decode(mat2.group(1), "UTF-8");
+                        // fix issue #165
+                        sig = sig.replace("\\u0026", "&");
+                        sig = sig.split("&")[0];
                     } else {
                         continue;
                     }
@@ -431,7 +436,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
             urlConnection.setRequestProperty("User-Agent", USER_AGENT);
             try {
                 reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder("");
                 String line;
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
@@ -581,7 +586,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         if (cacheFile.exists() && (System.currentTimeMillis() - cacheFile.lastModified()) < 1209600000) {
             BufferedReader reader = null;
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(cacheFile), StandardCharsets.UTF_8));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(cacheFile), "UTF-8"));
                 decipherJsFileName = reader.readLine();
                 decipherFunctionName = reader.readLine();
                 decipherFunctions = reader.readLine();
@@ -629,7 +634,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         File cacheFile = new File(cacheDirPath + "/" + CACHE_FILE_NAME);
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(cacheFile), StandardCharsets.UTF_8));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(cacheFile), "UTF-8"));
             writer.write(decipherJsFileName + "\n");
             writer.write(decipherFunctionName + "\n");
             writer.write(decipherFunctions);

@@ -32,16 +32,17 @@ import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.getListas;
 import static com.lamesa.lugu.activity.act_main.mlistCategoria;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 
 
 /**
@@ -108,26 +109,28 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                 holder.rlCategoria.setVisibility(View.VISIBLE);
                 holder.rlCategoria.startAnimation(Animacion.fade_in_real(mContext));
 
+
+                // cambiar modo de categoria a apagado, se reproducira solo las canciones de la categoria seleccionada
+                CategoriaAleatoria(mContext, false, tinyDB);
                 // metodo para cargar cancion de la categoria seleccionada
 
+                List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(mlistCategoria.get(position).getNombre().toLowerCase().trim(), ModelCancion.class);
 
-               List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(mlistCategoria.get(position).getNombre().toLowerCase().trim(), ModelCancion.class);
-
-                if(!tinyListCancionxCategoria.isEmpty()){
-                    setLogInfo(mContext, "Clic Categoria","tinyListCancionxCategoria categoria "+mlistCategoria.get(position).getNombre()+" está vacia", false);
+                if (!tinyListCancionxCategoria.isEmpty()) {
+                    setLogInfo(mContext, "Clic Categoria", "tinyListCancionxCategoria categoria " + mlistCategoria.get(position).getNombre() + " está vacia", false);
                 }
 
-                for (int i = 0; i < tinyListCancionxCategoria.size() ; i++) {
-                    setLogInfo(mContext, "Clic Categoria","tinyListCancionxCategoria == "+tinyListCancionxCategoria.get(i).getCancion(), false);
+                for (int i = 0; i < tinyListCancionxCategoria.size(); i++) {
+                    setLogInfo(mContext, "Clic Categoria", "tinyListCancionxCategoria == " + tinyListCancionxCategoria.get(i).getCancion(), false);
                 }
 
 
-                if(tinyListCancionxCategoria!=null && tinyListCancionxCategoria.size() !=0 ) {
+                if (tinyListCancionxCategoria != null && tinyListCancionxCategoria.size() != 0) {
 
                     // numero aletario de cancion
                     Random random = new Random();
                     int numCancionSonar = random.nextInt(tinyListCancionxCategoria.size());
-                    CargarInterAleatorio(mContext, 5);
+                    CargarInterAleatorio(mContext, 10);
                     getLinkAndPlay(mContext, tinyListCancionxCategoria.get(numCancionSonar).getLinkYT(), 1);
 
                     // guardar datos de la cancion sonando en TinyDB
@@ -137,6 +140,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                     tinyDB.putString(TBartistaCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getArtista());
                     tinyDB.putString(TBcategoriaCancionSonando, mListCategorias.get(position).getNombre().toLowerCase().trim());
                     tinyDB.putString(TBlinkCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getLinkYT());
+
 
                 } else {
                     getListas(mContext);
@@ -149,7 +153,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                     props.put("Id", mListCategorias.get(position).getId());
                     props.put("Nombre", mListCategorias.get(position).getNombre());
                     Bundle params = new Bundle();
-                    params.putString("Id",  mListCategorias.get(position).getId());
+                    params.putString("Id", mListCategorias.get(position).getId());
                     params.putString("Nombre", mListCategorias.get(position).getNombre());
 
                     mFirebaseAnalytics.logEvent(mixCategoriaClic, params);
@@ -199,11 +203,9 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
      */
 
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.anim_float_window_enter);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;

@@ -1,46 +1,70 @@
 package com.lamesa.lugu.otros.mob;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.os.Bundle;
 
-import com.google.android.gms.ads.AdListener;
+import com.amplitude.api.Amplitude;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
+
 public class video {
-	// Remove the below line after defining your own ad unit ID.
+    // Remove the below line after defining your own ad unit ID.
 
-	public static RewardedAd rewardedAd;
-
-
-	public static RewardedAd createAndLoadRewardedAd(Context mContext) {
-		rewardedAd = new RewardedAd(mContext,
-				"ca-app-pub-3940256099942544/5224354917");
-		RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
-			@Override
-			public void onRewardedAdLoaded() {
-				// Ad successfully loaded.
-			}
-
-			@Override
-			public void onRewardedAdFailedToLoad(LoadAdError adError) {
-				// Ad failed to load.
-			}
-		};
-
-		rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
-
-		return rewardedAd;
-
-	}
+    public static RewardedAd rewardedAd;
 
 
-	public static void onRewardedAdClosed(Context mContext) {
-		rewardedAd = createAndLoadRewardedAd(mContext);
-	}
+    public static RewardedAd createAndLoadRewardedAd(Context mContext) {
+        rewardedAd = new RewardedAd(mContext,
+                "ca-app-pub-1553194436365145/2272055918");
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
+                //	Toast.makeText(mContext, "onRewardedAdLoaded", Toast.LENGTH_SHORT).show();
+                //region MIX mixAdClic para estadisticas
+                JSONObject props = new JSONObject();
+                try {
+                    props.put("TipoAd", "Rewarded");
+                    //para FB
+                    Bundle params = new Bundle();
+                    params.putString("TipoAd", "Rewarded");
+
+                    mFirebaseAnalytics.logEvent(mixAdOpened, params);
+                    mixpanel.track(mixAdOpened, props);
+                    Amplitude.getInstance().logEvent(mixAdOpened, props);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //endregion
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(LoadAdError adError) {
+                // Ad failed to load.
+                //	Toast.makeText(mContext, " adError . "+adError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+
+        return rewardedAd;
+
+    }
+
+
+    public static void onRewardedAdClosed(Context mContext) {
+        rewardedAd = createAndLoadRewardedAd(mContext);
+    }
 
 
 }

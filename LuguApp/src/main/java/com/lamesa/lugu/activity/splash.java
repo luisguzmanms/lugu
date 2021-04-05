@@ -602,9 +602,10 @@ public class splash extends AppCompatActivity {
 
     // subir item de lista a FB
 
-    private void SubirCancion(Context mContext, ModelCancion modelCancion) {
+    public static void SubirCancion(Context mContext, ModelCancion modelCancion) {
 
-        WaitDialog.show((AppCompatActivity) mContext, "Enviando cancion...").setCancelable(true);
+      //  WaitDialog.show((AppCompatActivity) mContext, "Enviando canción...").setCancelable(true);
+        Toast.makeText(mContext, "Enviando canción...", Toast.LENGTH_SHORT).show();
 
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child("cancion").child(modelCancion.getId());
         mref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -621,8 +622,8 @@ public class splash extends AppCompatActivity {
                 setLogInfo(mContext,"SubirCancion","Cancion subida :: "+modelCancion.getId()+" :: "+modelCancion.getCancion(),false);
 
                 WaitDialog.dismiss();
-                //  TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
-
+                //TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
+                Toast.makeText(mContext, "Cancion subida", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -630,7 +631,6 @@ public class splash extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 WaitDialog.dismiss();
                 TipDialog.show((AppCompatActivity) mContext, "Error al enviar film", TipDialog.TYPE.ERROR);
-
             }
         });
 

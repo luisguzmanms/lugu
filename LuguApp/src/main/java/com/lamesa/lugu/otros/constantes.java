@@ -11,9 +11,8 @@ public class constantes extends AppCompatActivity {
     public static final String TAG_ARCHIVO = "archivo";
     public static final String TAG_METODOS = "metodos";
     public static final String RUTA_VIDEO_COMPRIMIDO = "/Android/data/com.play.optimizer/compvid";
-    public static final String RUTA_VIDEO_GUARDADO ="/Android/data/com.play.optimizer/vid";
+    public static final String RUTA_VIDEO_GUARDADO = "/Android/data/com.play.optimizer/vid";
     public static final String RUTA_IMAGEN_COMPRIMIDO = "/.tmp/comp";
-
 
 
     // keys-strings pra tinyDB la letra al lado de TINY identifica el tipo de la variable

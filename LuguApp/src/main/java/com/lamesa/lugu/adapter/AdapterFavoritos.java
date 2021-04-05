@@ -1,41 +1,30 @@
 package com.lamesa.lugu.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplitude.api.Amplitude;
 import com.lamesa.lugu.R;
-import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
-import com.lamesa.lugu.otros.TinyDB;
-import com.lamesa.lugu.otros.statics.Animacion;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.List;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.ContenedorVacio;
+import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
 import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
-import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
-import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
-import static com.lamesa.lugu.activity.act_main.tvVacio;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
@@ -47,8 +36,6 @@ import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.mixFalloEpisodio;
-import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
 
 /**
  * Created by Aws on 28/01/2018.
@@ -62,7 +49,6 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
     //   private InterstitialAd mInterstitialAd;
 
     private int lastPosition = -1;
-
 
 
     public AdapterFavoritos(Context mContext, List<ModelCancion> mlistfavoritos) {
@@ -89,7 +75,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         view = mInflater.inflate(R.layout.item_favorito, parent, false);
 
 
-       // tinyDB = new TinyDB(mContext);
+        // tinyDB = new TinyDB(mContext);
 
 
         return new MyViewHolder(view);
@@ -105,15 +91,15 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
 
         //region obtener nombre de categoria desde la id y mostrar en tvCategoria
         List<ModelCategoria> list = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
-        for(ModelCategoria categoria : list){
-            if(categoria.getId().equals(mListFavoritos.get(position).getCategoria())){
+        for (ModelCategoria categoria : list) {
+            if (categoria.getId().equals(mListFavoritos.get(position).getCategoria())) {
                 holder.tvCategoria.setText(categoria.getNombre());
             }
         }
         //endregion
 
         //region cambiar color del texto de la cancion que está sonando
-        if(holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))){
+        if (holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))) {
             holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
             holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
         } else {
@@ -127,11 +113,8 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
             public void onClick(View v) {
 
 
-
-
-                CargarInterAleatorio(mContext, 7);
-                getLinkAndPlay(mContext, mListFavoritos.get(position).getLinkYT(),1);
-
+                CargarInterAleatorio(mContext, 10);
+                getLinkAndPlay(mContext, mListFavoritos.get(position).getLinkYT(), 1);
 
 
                 //region guardar datos de la cancion sonando en TinyDB
@@ -152,8 +135,44 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         holder.cdCancionFavoritos.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                DialogoEliminarLista(mContext, tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class),TBlistFavoritos);
+                DialogoEliminarLista(mContext, tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class), TBlistFavoritos);
                 return false;
+            }
+        });
+
+        holder.ivOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(mContext, holder.ivOption);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.popup_menu_historial, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.option_eliminar_item:
+                                mListFavoritos.remove(position);
+                                tinyDB.putListModelCancion(TBlistFavoritos, mListFavoritos);
+                                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
+
+                                Toast.makeText(mContext, R.string.item_eliminado, Toast.LENGTH_SHORT).show();
+                                break;
+
+                            case R.id.option_eliminar_lista:
+                                mListFavoritos.removeAll(mListFavoritos);
+                                tinyDB.putListModelCancion(TBlistFavoritos, mListFavoritos);
+                                bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
+
+                                Toast.makeText(mContext, R.string.lista_eliminada, Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
             }
         });
     }
@@ -172,15 +191,14 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         return mListFavoritos.size();
     }
 
-    public void setUpdateFavoritos(List<ModelCancion> mListFavoritos){
+    public void setUpdateFavoritos(List<ModelCancion> mListFavoritos) {
 
         this.mListFavoritos.removeAll(this.mListFavoritos);
         this.mListFavoritos.addAll(mListFavoritos);
         Collections.reverse(this.mListFavoritos);
-        if(mAdapterFavoritos!=null) {
+        if (mAdapterFavoritos != null) {
             mAdapterFavoritos.notifyDataSetChanged();
         }
-
 
 
     }
@@ -191,6 +209,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         private final TextView tvCancion;
         private final TextView tvArtista;
         private final TextView tvCategoria;
+        private final ImageView ivOption;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -198,6 +217,7 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
             tvCancion = itemView.findViewById(R.id.tv_cancion);
             tvArtista = itemView.findViewById(R.id.tv_artista);
             tvCategoria = itemView.findViewById(R.id.tv_categoria);
+            ivOption = itemView.findViewById(R.id.iv_option);
         }
     }
 

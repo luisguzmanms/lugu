@@ -75,5 +75,16 @@
     <string name="msg_etstrellas">"Si te gusta nuestra aplicación no dudes en darnos 5 estrellas en Google Play para seguir mejorando "</string>
     <string name="submitsong">ENVIAR MI CANCION</string>
     <string name="msg_submitsong">"Aqui podras enviar tu canción para poder ser reproducida en "</string>
+    <string name="text_cataleatoria_on">Estilo aleatorio activado.</string>
+    <string name="text_cataleatoria_off">Estilo aleatorio desactivado.</string>
+    <string name="msg_cataleatoria_on">Se reproducirá estilos de manera aleatoria.</string>
+    <string name="msg_cataleatoria_off">Se reproducirá canciones del estilo seleccionado.</string>
+    <string name="item_eliminado">Item eliminado.</string>
+    <string name="lista_eliminada">Lista eliminada.</string>
+    <string name="eliminar_item">Eliminar item</string>
+    <string name="elimina_lista">Eliminar lista</string>
+    <string name="title_alert_list">¡Información!</string>
+    <string name="msg_alert_list">Las listas de canciones de favoritas y canciones reproducidas se guardan en el dispositivo, si elimina la app estan lsitas se eliminarán automaticamente</string>
+    <string name="msg_actua_playstore">Nueva versión disponible en la Play Store</string>
 
 </resources>

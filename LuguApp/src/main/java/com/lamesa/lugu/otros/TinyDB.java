@@ -391,11 +391,12 @@ public class TinyDB {
         }
         return objects;
     }
-    public void putListModelCancion(String key, List<ModelCancion> objArray){
+
+    public void putListModelCancion(String key, List<ModelCancion> objArray) {
         checkForNullKey(key);
         Gson gson = new Gson();
         ArrayList<String> objStrings = new ArrayList<String>();
-        for(Object obj : objArray){
+        for (Object obj : objArray) {
             objStrings.add(gson.toJson(obj));
         }
         putListString(key, objStrings);
@@ -415,11 +416,12 @@ public class TinyDB {
         }
         return objects;
     }
-    public void putListModelListCustom(String key, List<ModelListCustom> objArray){
+
+    public void putListModelListCustom(String key, List<ModelListCustom> objArray) {
         checkForNullKey(key);
         Gson gson = new Gson();
         ArrayList<String> objStrings = new ArrayList<String>();
-        for(Object obj : objArray){
+        for (Object obj : objArray) {
             objStrings.add(gson.toJson(obj));
         }
         putListString(key, objStrings);
@@ -439,11 +441,12 @@ public class TinyDB {
         }
         return objects;
     }
-    public void putListModelCategoria(String key, List<ModelCategoria> objArray){
+
+    public void putListModelCategoria(String key, List<ModelCategoria> objArray) {
         checkForNullKey(key);
         Gson gson = new Gson();
         ArrayList<String> objStrings = new ArrayList<String>();
-        for(Object obj : objArray){
+        for (Object obj : objArray) {
             objStrings.add(gson.toJson(obj));
         }
         putListString(key, objStrings);
@@ -462,7 +465,8 @@ public class TinyDB {
 
     /**
      * Put int value into SharedPreferences with 'key' and save
-     *  @param key   SharedPreferences key
+     *
+     * @param key   SharedPreferences key
      * @param value int value to be added
      */
     public void putInt(String key, int value) {
@@ -472,7 +476,8 @@ public class TinyDB {
 
     /**
      * Put ArrayList of Integer into SharedPreferences with 'key' and save
-     *  @param key     SharedPreferences key
+     *
+     * @param key     SharedPreferences key
      * @param intList ArrayList of Integer to be added
      */
     public void putListInt(String key, List<Integer> intList) {
@@ -564,29 +569,32 @@ public class TinyDB {
 
     /**
      * Put ObJect any type into SharedPrefrences with 'key' and save
+     *
      * @param key SharedPreferences key
-     * @param obj is the Object you want to put 
+     * @param obj is the Object you want to put
      */
-    public void putObject(String key, Object obj){
-    	checkForNullKey(key);
-    	Gson gson = new Gson();
-    	putString(key, gson.toJson(obj));
+    public void putObject(String key, Object obj) {
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        putString(key, gson.toJson(obj));
     }
 
-   public void putListObject(String key, List<Class> objArray){
-   	checkForNullKey(key);
-    	Gson gson = new Gson();
-   	ArrayList<String> objStrings = new ArrayList<String>();
-    	for(Object obj : objArray){
-   		objStrings.add(gson.toJson(obj));
-   	}
-   	putListString(key, objStrings);
-   }
+    public void putListObject(String key, List<Class> objArray) {
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for (Object obj : objArray) {
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(key, objStrings);
+    }
 
     /**
      * Put boolean value into SharedPreferences with 'key' and save
-     *  @param key   SharedPreferences key
-     * @param value boolean value to be added*/
+     *
+     * @param key   SharedPreferences key
+     * @param value boolean value to be added
+     */
     public void putBoolean(String key, boolean value) {
         checkForNullKey(key);
         preferences.edit().putBoolean(key, value).apply();

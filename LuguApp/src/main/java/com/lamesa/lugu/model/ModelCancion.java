@@ -22,6 +22,7 @@ public class ModelCancion implements Serializable {
         this.artista = artista;
         this.linkYT = linkYT;
         this.categoria = categoria;
+
     }
 
 

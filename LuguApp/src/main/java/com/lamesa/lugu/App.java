@@ -18,6 +18,7 @@ import com.lamesa.lugu.otros.TinyDB;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import java.util.Calendar;
+import java.util.Random;
 
 import static com.lamesa.lugu.otros.statics.constantes.TBdiaIngreso;
 
@@ -86,20 +87,19 @@ public class App extends MultiDexApplication {
         tinyDB = new TinyDB(this);
 
        // Toast.makeText(this, "JAJAJAJ", Toast.LENGTH_SHORT).show();
-        BorrarCache(this,tinyDB);
+        Random random = new Random();
+        int numRandom = random.nextInt(5);
 
-
-
+        if(numRandom==5){
+            BorrarCache(this,tinyDB);
+        }
     }
 
     private void BorrarCache(Context mContext, TinyDB tinyDB){
         Calendar c = Calendar.getInstance();
         int DiaActual = c.get(Calendar.DAY_OF_WEEK);
 
-
         int tbDiaIngreso = tinyDB.getInt(TBdiaIngreso);
-
-
 
         if (DiaActual != tbDiaIngreso) {
             // This method must be called on a background thread.
@@ -130,7 +130,6 @@ public class App extends MultiDexApplication {
                 }
             }
 
-
             new TestAsync().execute();
 
             tinyDB.putInt(TBdiaIngreso, DiaActual);
@@ -152,12 +151,6 @@ public class App extends MultiDexApplication {
 
 
     }
-
-
-
-
-
-
 
 
 }

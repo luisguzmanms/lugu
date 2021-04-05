@@ -14,7 +14,6 @@ import static com.lamesa.lugu.otros.constantes.TINYi_DIA_GUARDADO;
 public class Utils {
 
 
-
     public static void setLogCat(String TAG, String msg, String tipo, boolean activo) {
         if (activo) {
             switch (tipo) {
@@ -54,7 +53,7 @@ public class Utils {
         String time = df.format(Calendar.getInstance().getTime());
         DateFormat df2 = new SimpleDateFormat("HH-mm-ss");
         String nombreRandom = df2.format(Calendar.getInstance().getTime()).replace(".", "");
-      //  String dato = errormsg = time + " | " + sp_get_childactivo(mContext) + " | " + TAG + " | msg :: " + msg;
+        //  String dato = errormsg = time + " | " + sp_get_childactivo(mContext) + " | " + TAG + " | msg :: " + msg;
         // fuego.setData.StringFB(RUTA_PADRE + "admin" + "/logcat/info/" + nombreRandom, dato, mContext);
         Log.d("setLogInfo", errormsg + TAG + " | msg :: " + msg);
     }
@@ -70,8 +69,8 @@ public class Utils {
         String time = df.format(Calendar.getInstance().getTime());
         DateFormat df2 = new SimpleDateFormat("MM-yyyy--HH-mm-ss");
         String nombreRandom = df2.format(Calendar.getInstance().getTime()).replace(".", "");
-     //   String dato = errormsg = time + " | " + sp_get_childactivo(mContext) + " \n| " + TAG + " | \nmsg :: " + msg;
-     //  fuego.setData.StringFB(RUTA_PADRE + "admin" + "/logcat/info/" + nombreRandom, dato, mContext);
+        //   String dato = errormsg = time + " | " + sp_get_childactivo(mContext) + " \n| " + TAG + " | \nmsg :: " + msg;
+        //  fuego.setData.StringFB(RUTA_PADRE + "admin" + "/logcat/info/" + nombreRandom, dato, mContext);
         Log.d("setLogInfo", errormsg + TAG + " | msg :: " + msg);
     }
 
@@ -102,7 +101,7 @@ public class Utils {
             String diaGuardado = tinyDB.getString(TINYi_DIA_GUARDADO);
 
             //si no se ha gyardado se guardara la fecha actual
-            if(tinyDB.getString(TINYi_DIA_GUARDADO).equals("") || tinyDB.getString(TINYi_DIA_GUARDADO) == null || tinyDB.getString(TINYi_DIA_GUARDADO).isEmpty()) {
+            if (tinyDB.getString(TINYi_DIA_GUARDADO).equals("") || tinyDB.getString(TINYi_DIA_GUARDADO) == null || tinyDB.getString(TINYi_DIA_GUARDADO).isEmpty()) {
                 Calendar calendar = Calendar.getInstance();
                 int diaActual = calendar.get(Calendar.DAY_OF_YEAR);
                 tinyDB.putString(TINYi_DIA_GUARDADO, String.valueOf(diaActual));
@@ -114,7 +113,7 @@ public class Utils {
         }
 
 
-        public static String getDiaActual(Context mContext){
+        public static String getDiaActual(Context mContext) {
             Calendar calendar = Calendar.getInstance();
             String diaActual = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
 

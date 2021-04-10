@@ -1554,7 +1554,7 @@ public class metodos {
                         //  Toast.makeText(mContext, "Hubo un error con esta canción :(", Toast.LENGTH_LONG).show();
 
 
-                        setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", error.getMessage(), true);
+                        setLogInfo(mContext, "getLinkAndPlay.YoutubeStreamExtractor.onExtractionGoesWrong", error.getMessage(), false);
 
                         //region MIX mixExtractionGoesWrong para estadisticas
                         JSONObject props = new JSONObject();
@@ -1809,26 +1809,6 @@ public class metodos {
             // agregar cancion a favoritos
 
 
-            // alerta informar a usuario sobre las listas
-            if (tinyDB.getBoolean("TBalertListas") == false) {
-                Alerter.create((Activity) mContext).setTitle(R.string.title_alert_list)
-                        .setText(R.string.msg_alert_list)
-                        //.setBackgroundResource(R.drawable.shape_controller_top_gradient)
-                        // .setIcon(R.drawable.uvv_on_error)
-                        .setDuration(10000)
-                        .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
-                        .setBackgroundColorRes(R.color.fondo_blank) // or setBackgroundColorInt(Color.CYAN)
-                        .addButton("OK", R.style.TabTextStyle, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                tinyDB.putBoolean("TBalertListas", true);
-                                if (Alerter.isShowing()) {
-                                    Alerter.hide();
-                                }
-                            }
-                        }).show();
-
-            }
 
             CargarInterAleatorio(mContext, 3);
 

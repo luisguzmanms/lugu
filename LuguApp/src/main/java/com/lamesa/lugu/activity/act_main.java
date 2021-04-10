@@ -1,10 +1,12 @@
 package com.lamesa.lugu.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -64,6 +66,7 @@ import com.lamesa.lugu.otros.statics.Animacion;
 import com.lamesa.lugu.player.MediaNotificationManager;
 import com.lamesa.lugu.player.library.MusicPlayer;
 import com.narayanacharya.waveview.WaveView;
+import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -754,6 +757,30 @@ public class act_main extends AppCompatActivity {
                                 //  Toast.makeText(act_main.this, "learn_ic_dislike", Toast.LENGTH_SHORT).show();
                                 GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), true);
 
+                                /**
+                                 *  fix bug release v5
+                                 */
+
+                                // alerta informar a usuario sobre las listas
+                                if (tinyDB.getBoolean("TBalertListas") == false) {
+                                    Alerter.create(act_main.this).setTitle(R.string.title_alert_list)
+                                            .setText(R.string.msg_alert_list)
+                                            //.setBackgroundResource(R.drawable.shape_controller_top_gradient)
+                                            // .setIcon(R.drawable.uvv_on_error)
+                                            .setDuration(10000)
+                                            .setTextTypeface(Typeface.createFromAsset(act_main.this.getAssets(), "poppins_regular.ttf"))
+                                            .setBackgroundColorRes(R.color.fondo_blank) // or setBackgroundColorInt(Color.CYAN)
+                                            .addButton("OK", R.style.TabTextStyle, new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    tinyDB.putBoolean("TBalertListas", true);
+                                                    if (Alerter.isShowing()) {
+                                                        Alerter.hide();
+                                                    }
+                                                }
+                                            }).show();
+
+                                }
                             }
                         } else {
                             // primera ves que se da clic a favorito

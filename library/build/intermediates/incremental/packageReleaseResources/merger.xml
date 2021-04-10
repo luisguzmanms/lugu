@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3">
+    <dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated"
+        generated="true"
+        ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~">
+        <source path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res" />
+        <source path="C:\Users\luisguzman\GitHub\lugu\library\build\generated\res\rs\release" />
+        <source
+            path="C:\Users\luisguzman\GitHub\lugu\library\build\generated\res\resValues\release" />
+    </dataSet>
+    <dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main"
+        generated-set="main$Generated"
+        ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~">
+        <source path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res">
+            <file name="ic_fullscreen_black_24dp"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\drawable\ic_fullscreen_black_24dp.xml"
+                qualifiers="" type="drawable" />
+            <file name="ic_fullscreen_exit_black_24dp"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\drawable\ic_fullscreen_exit_black_24dp.xml"
+                qualifiers="" type="drawable" />
+            <file name="ic_replay_black_24dp"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\drawable\ic_replay_black_24dp.xml"
+                qualifiers="" type="drawable" />
+            <file name="learn_seekbar_green"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\drawable\learn_seekbar_green.xml"
+                qualifiers="" type="drawable" />
+            <file name="learn_seekbar_thumb"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\drawable\learn_seekbar_thumb.xml"
+                qualifiers="" type="drawable" />
+            <file name="shape_border"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\drawable\shape_border.xml"
+                qualifiers="" type="drawable" />
+            <file name="shape_shadow"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\drawable\shape_shadow.xml"
+                qualifiers="" type="drawable" />
+            <file name="app_font"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\app_font.xml"
+                qualifiers="" type="font" />
+            <file name="app_font_number"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\app_font_number.xml"
+                qualifiers="" type="font" />
+            <file name="iran_sans_light"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\iran_sans_light.ttf"
+                qualifiers="" type="font" />
+            <file name="iran_sans_light_fa_num"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\iran_sans_light_fa_num.ttf"
+                qualifiers="" type="font" />
+            <file name="poppins_bold"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\poppins_bold.ttf"
+                qualifiers="" type="font" />
+            <file name="poppins_medium"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\poppins_medium.ttf"
+                qualifiers="" type="font" />
+            <file name="poppins_regular"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\poppins_regular.ttf"
+                qualifiers="" type="font" />
+            <file name="poppins_semi_bold"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\font\poppins_semi_bold.ttf"
+                qualifiers="" type="font" />
+            <file name="layout_player_base"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\layout\layout_player_base.xml"
+                qualifiers="" type="layout" />
+            <file name="layout_player_loading"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\layout\layout_player_loading.xml"
+                qualifiers="" type="layout" />
+            <file name="layout_player_retry"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\layout\layout_player_retry.xml"
+                qualifiers="" type="layout" />
+            <file name="video_player_exo_controllers"
+                path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\layout\video_player_exo_controllers.xml"
+                qualifiers="" type="layout" />
+            <file path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\values\attrs.xml"
+                qualifiers="">
+                <declare-styleable name="AndExoPlayerView">
+                    <attr name="andexo_resize_mode" />
+                    <attr name="andexo_aspect_ratio" />
+                    <attr name="andexo_loop" />
+                    <attr name="andexo_full_screen" format="boolean" />
+                    <attr name="andexo_play_when_ready" format="boolean" />
+                    <attr name="andexo_show_controller" format="boolean" />
+                </declare-styleable>
+                <attr name="andexo_resize_mode" format="enum">
+                    <enum name="Fit" value="1" />
+                    <enum name="Fill" value="2" />
+                    <enum name="Zoom" value="3" />
+                </attr>
+                <attr name="andexo_aspect_ratio" format="enum">
+                    <enum name="aspect_1_1" value="1" />
+                    <enum name="aspect_16_9" value="2" />
+                    <enum name="aspect_4_3" value="3" />
+                    <enum name="aspect_match" value="4" />
+                    <enum name="aspect_mp3" value="5" />
+                </attr>
+                <attr name="andexo_loop" format="enum">
+                    <enum name="infinite" value="1" />
+                    <enum name="finite" value="2" />
+                </attr>
+            </file>
+            <file path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\values\colors.xml"
+                qualifiers="">
+                <color name="transparent">#00000000</color>
+                <color name="white">#FFFFFF</color>
+                <color name="yellow">#ffbf00</color>
+                <color name="fuchsia">#FF00FF</color>
+                <color name="red">#FF0000</color>
+                <color name="silver">#C0C0C0</color>
+                <color name="gray">#A3A2A2</color>
+                <color name="olive">#808000</color>
+                <color name="purple">#800080</color>
+                <color name="maroon">#800000</color>
+                <color name="aqua">#00FFFF</color>
+                <color name="lime">#00FF00</color>
+                <color name="teal">#008080</color>
+                <color name="green">#008000</color>
+                <color name="blue">#0000FF</color>
+                <color name="navy">#000080</color>
+                <color name="black">#000000</color>
+                <color name="blackTransparent">#07DDDDDD</color>
+                <color name="toolbarTransparent">#95000000</color>
+                <color name="divider">#C0BEBE</color>
+            </file>
+            <file path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\values\dimen.xml"
+                qualifiers="">
+                <dimen name="global_padding_x_small">4dp</dimen>
+                <dimen name="global_padding_small">6dp</dimen>
+                <dimen name="global_padding">8dp</dimen>
+                <dimen name="global_padding_middle">12dp</dimen>
+                <dimen name="global_padding_extra">18dp</dimen>
+                <dimen name="global_padding_x_extra">24dp</dimen>
+                <dimen name="global_padding_2x_extra">30dp</dimen>
+                <dimen name="global_padding_3x_extra">34dp</dimen>
+                <dimen name="global_padding_4x_extra">48dp</dimen>
+                <dimen name="global_margin_x_small">4dp</dimen>
+                <dimen name="global_margin">8dp</dimen>
+                <dimen name="global_margin_middle">12dp</dimen>
+                <dimen name="global_margin_extra">18dp</dimen>
+                <dimen name="global_margin_x_extra">24dp</dimen>
+                <dimen name="player_base_height">220dp</dimen>
+                <dimen name="player_controller_base_height">40dp</dimen>
+            </file>
+            <file path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\values\strings.xml"
+                qualifiers="">
+                <string name="app_name">Magical ExoPlayer</string>
+                <string name="title_retry">Try Again!</string>
+            </file>
+            <file path="C:\Users\luisguzman\GitHub\lugu\library\src\main\res\values\styles.xml"
+                qualifiers="">
+                <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+                    <item name="android:textColor">@color/black</item>
+                    <item name="android:background">@drawable/shape_border</item>
+                    <item name="android:textSize">10sp</item>
+                </style>
+            </file>
+        </source>
+        <source path="C:\Users\luisguzman\GitHub\lugu\library\build\generated\res\rs\release" />
+        <source
+            path="C:\Users\luisguzman\GitHub\lugu\library\build\generated\res\resValues\release" />
+    </dataSet>
+    <dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release$Generated"
+        generated="true"
+        ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~">
+        <source path="C:\Users\luisguzman\GitHub\lugu\library\src\release\res" />
+    </dataSet>
+    <dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release"
+        generated-set="release$Generated"
+        ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~">
+        <source path="C:\Users\luisguzman\GitHub\lugu\library\src\release\res" />
+    </dataSet>
+    <mergedItems>
+        <configuration qualifiers="">
+            <declare-styleable name="AndExoPlayerView">
+                <attr name="andexo_resize_mode" />
+                <attr name="andexo_aspect_ratio" />
+                <attr name="andexo_loop" />
+                <attr name="andexo_full_screen" format="boolean" />
+                <attr name="andexo_play_when_ready" format="boolean" />
+                <attr name="andexo_show_controller" format="boolean" />
+            </declare-styleable>
+        </configuration>
+    </mergedItems>
+</merger>

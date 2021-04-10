@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="andexo_aspect_ratio" format="enum">
+        <enum name="aspect_1_1" value="1" />
+        <enum name="aspect_16_9" value="2" />
+        <enum name="aspect_4_3" value="3" />
+        <enum name="aspect_match" value="4" />
+        <enum name="aspect_mp3" value="5" />
+    </attr>
+    <attr name="andexo_loop" format="enum">
+        <enum name="infinite" value="1" />
+        <enum name="finite" value="2" />
+    </attr>
+    <attr name="andexo_resize_mode" format="enum">
+        <enum name="Fit" value="1" />
+        <enum name="Fill" value="2" />
+        <enum name="Zoom" value="3" />
+    </attr>
+    <color name="aqua">#00FFFF</color>
+    <color name="black">#000000</color>
+    <color name="blackTransparent">#07DDDDDD</color>
+    <color name="blue">#0000FF</color>
+    <color name="divider">#C0BEBE</color>
+    <color name="fuchsia">#FF00FF</color>
+    <color name="gray">#A3A2A2</color>
+    <color name="green">#008000</color>
+    <color name="lime">#00FF00</color>
+    <color name="maroon">#800000</color>
+    <color name="navy">#000080</color>
+    <color name="olive">#808000</color>
+    <color name="purple">#800080</color>
+    <color name="red">#FF0000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="teal">#008080</color>
+    <color name="toolbarTransparent">#95000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#ffbf00</color>
+    <dimen name="global_margin">8dp</dimen>
+    <dimen name="global_margin_extra">18dp</dimen>
+    <dimen name="global_margin_middle">12dp</dimen>
+    <dimen name="global_margin_x_extra">24dp</dimen>
+    <dimen name="global_margin_x_small">4dp</dimen>
+    <dimen name="global_padding">8dp</dimen>
+    <dimen name="global_padding_2x_extra">30dp</dimen>
+    <dimen name="global_padding_3x_extra">34dp</dimen>
+    <dimen name="global_padding_4x_extra">48dp</dimen>
+    <dimen name="global_padding_extra">18dp</dimen>
+    <dimen name="global_padding_middle">12dp</dimen>
+    <dimen name="global_padding_small">6dp</dimen>
+    <dimen name="global_padding_x_extra">24dp</dimen>
+    <dimen name="global_padding_x_small">4dp</dimen>
+    <dimen name="player_base_height">220dp</dimen>
+    <dimen name="player_controller_base_height">40dp</dimen>
+    <string name="app_name">Magical ExoPlayer</string>
+    <string name="title_retry">Try Again!</string>
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/shape_border</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <declare-styleable name="AndExoPlayerView">
+        <attr name="andexo_resize_mode" />
+        <attr name="andexo_aspect_ratio" />
+        <attr name="andexo_loop" />
+        <attr name="andexo_full_screen" format="boolean" />
+        <attr name="andexo_play_when_ready" format="boolean" />
+        <attr name="andexo_show_controller" format="boolean" />
+    </declare-styleable>
+</resources>

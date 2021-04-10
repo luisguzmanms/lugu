@@ -1,7 +1,6 @@
 package com.lamesa.lugu.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -211,7 +210,6 @@ public class act_main extends AppCompatActivity {
 
         // dialogo apra desactivar la optimizacion de la app
         DialogoOpBateria(act_main.this);
-
 
 
     }

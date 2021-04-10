@@ -1,0 +1,7 @@
+#Fri Apr 09 22:09:39 COT 2021
+base.0=C\:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=C\:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes2.dex

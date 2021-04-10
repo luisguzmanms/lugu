@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cd_categoria"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@color/black"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="10dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_categoria"
+        android:layout_width="135dp"
+        android:layout_height="65dp"
+        app:cardBackgroundColor="@color/black">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            app:SpinKit_Color="@color/learn_colorPrimary"
+            app:SpinKit_Style="FadingCircle"></com.github.ybq.android.spinkit.SpinKitView>
+
+        <ImageView
+            android:id="@+id/iv_imagenFondo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/imgFondoDestacado10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shape_controller_bottom_gradient" />
+
+        <ImageView
+            android:id="@+id/imgFondoDestacado13"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shape_controller_bottom_gradient" />
+
+        <ImageView
+            android:id="@+id/imgFondoDestacado9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shape_controller_bottom_gradient" />
+
+        <TextView
+            android:id="@+id/tv_categoria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textAppearance="@style/LearnerFontMedium"
+            android:textColor="@color/learn_textColorThird"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="..." />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/learn_colorPrimary"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp">
+
+          />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/learn_textColorGrey"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp">
+
+           />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.cardview.widget.CardView>

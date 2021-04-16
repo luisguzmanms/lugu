@@ -122,8 +122,8 @@ com/lamesa/lugu/mesa/DataYT.java
  com.lamesa.lugu.mesa.DataYT$3
  com.lamesa.lugu.mesa.DataYT$4
  com.lamesa.lugu.mesa.DataYT$5
- com.lamesa.lugu.mesa.DataYT$5$1
  com.lamesa.lugu.mesa.DataYT$6
+ com.lamesa.lugu.mesa.DataYT$6$1
 com/lamesa/lugu/otros/mob/ban.java
  com.lamesa.lugu.otros.mob.ban
 com/lamesa/lugu/player/library/utils/PublicValues.java
@@ -131,17 +131,17 @@ com/lamesa/lugu/player/library/utils/PublicValues.java
 com/lamesa/lugu/activity/splash.java
  com.lamesa.lugu.activity.splash
  com.lamesa.lugu.activity.splash$1
+ com.lamesa.lugu.activity.splash$1$1
+ com.lamesa.lugu.activity.splash$1$2
  com.lamesa.lugu.activity.splash$10
  com.lamesa.lugu.activity.splash$2
  com.lamesa.lugu.activity.splash$3
- com.lamesa.lugu.activity.splash$3$1
- com.lamesa.lugu.activity.splash$3$2
  com.lamesa.lugu.activity.splash$4
  com.lamesa.lugu.activity.splash$5
  com.lamesa.lugu.activity.splash$6
  com.lamesa.lugu.activity.splash$7
- com.lamesa.lugu.activity.splash$7$1
  com.lamesa.lugu.activity.splash$8
+ com.lamesa.lugu.activity.splash$8$1
  com.lamesa.lugu.activity.splash$9
 com/lamesa/lugu/model/ModelCancion.java
  com.lamesa.lugu.model.ModelCancion

@@ -11,8 +11,8 @@ android {
         applicationId "com.lugumusic.lofi"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.2.1 beta"
+        versionCode 6
+        versionName "1.2.2 beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -126,7 +126,6 @@ dependencies {
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     // auth
-    implementation "com.google.firebase:firebase-auth:20.0.1"
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     // database
     implementation "com.google.firebase:firebase-database:19.5.1"
@@ -177,7 +176,6 @@ dependencies {
     // https://github.com/Tapadoo/Alerter
     implementation 'com.tapadoo.android:alerter:7.0.1'
 }
-
 
 apply plugin: 'com.google.gms.google-services' // Google Services Gradle plugin
 

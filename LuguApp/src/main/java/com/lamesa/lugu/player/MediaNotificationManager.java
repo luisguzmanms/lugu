@@ -9,20 +9,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.activity.act_main;
 import com.lamesa.lugu.otros.TinyDB;
@@ -50,24 +44,18 @@ public class MediaNotificationManager {
     public static final String ACTION_PLAY = "ACTION_PLAY";
     public static final String ACTION_PAUSE = "ACTION_PAUSE";
     public static final String ACTION_STOP = "ACTION_STOP";
-
-
-    private final String PRIMARY_CHANNEL = "PRIMARY_ID";
-    private String PRIMARY_CHANNEL_NAME = "LOFI RADIO";
-    public final int NOTIFICATION_ID = 25014;
-
-
+    public static MediaControllerCompat.TransportControls transportControls;
+    public static NotificationManager manager;
     private static Context mContext;
     private static MediaSessionCompat mediaSession;
-    public static MediaControllerCompat.TransportControls transportControls;
-
-
-    private final String strAppName;
-    private String strCancionNombre;
-    private final Resources resources;
     private static NotificationManagerCompat notificationManager;
+    public final int NOTIFICATION_ID = 25014;
+    private final String PRIMARY_CHANNEL = "PRIMARY_ID";
+    private final String strAppName;
+    private final Resources resources;
+    private String PRIMARY_CHANNEL_NAME = "LOFI RADIO";
+    private String strCancionNombre;
     private MediaSessionCompat.Callback mediasSessionCallback;
-    public static NotificationManager manager;
     private NotificationChannel channel;
 
 
@@ -88,7 +76,7 @@ public class MediaNotificationManager {
         // large icon
         final Bitmap[] bitmapIcon = {BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher)};
 
-        
+
         int icon = R.drawable.ic_pause_white;
         Intent intentPlayPause = new Intent(mContext, ActionReceiver.class);
         intentPlayPause.setAction(STATE_PAUSE);
@@ -234,13 +222,13 @@ public class MediaNotificationManager {
     }
 
     public void cancelNotify() {
-        setLogInfo(mContext,"MediaNotificationManager.cancelNotify.","Cancelar notificación",false);
+        setLogInfo(mContext, "MediaNotificationManager.cancelNotify.", "Cancelar notificación", false);
 
-        if(notificationManager!=null) {
+        if (notificationManager != null) {
             notificationManager.cancelAll();
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(manager!=null) {
+            if (manager != null) {
                 manager.cancelAll();
             }
         }

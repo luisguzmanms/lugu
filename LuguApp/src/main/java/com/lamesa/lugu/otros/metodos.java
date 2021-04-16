@@ -268,7 +268,7 @@ public class metodos {
                                     if (mContext != null) {
                                         setLogInfo(mContext, "initFirebase", "Abriendo dialogo para actualizar", false);
 
-                                        if(playStore){
+                                        if (playStore) {
                                             DialogoActualizarPlayStore(mContext, versionNueva, mensaje, urlDescarga, cancelable);
                                         } else {
                                             DialogoActualizar(mContext, versionNueva, mensaje, urlDescarga, cancelable);
@@ -326,7 +326,7 @@ public class metodos {
                             int versionAlert = Integer.parseInt(dataSnapshot.child("alerta").child("version").getValue().toString());
                             int versionActual = BuildConfig.VERSION_CODE;
 
-                            if (estadoAlert && versionActual <= versionAlert ) {
+                            if (estadoAlert && versionActual <= versionAlert) {
                                 //  Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
                                 Alerter.create((AppCompatActivity) mContext).setTitle(titleAlert)
                                         .setText(msgAlert)
@@ -339,7 +339,7 @@ public class metodos {
                                             @Override
                                             public void onClick(View view) {
                                                 //region MIX mixExtractionGoesWrong para estadisticas
-                                                if(Alerter.isShowing()){
+                                                if (Alerter.isShowing()) {
                                                     Alerter.hide();
                                                 }
                                             }
@@ -472,7 +472,7 @@ public class metodos {
                 return false;
             }
         }).setCancelable(cancelable).setOnOkButtonClickListener((baseDialog, v) -> {
-           // DescargarActualizacion(mContext, urlDescarga);
+            // DescargarActualizacion(mContext, urlDescarga);
             AbrirPagina(mContext, "https://lugumusic.page.link/luguapp");
             return false;
         });
@@ -1596,8 +1596,12 @@ public class metodos {
 
     public static void CategoriaAleatoria(Context mContext, boolean encendido, TinyDB tinyDB) {
 
+        if (tinyDB == null) {
+            tinyDB = new TinyDB(mContext);
+        }
+
         if (encendido) {
-            tinydb.putBoolean(TBCategoriaAleatoria, true);
+            tinyDB.putBoolean(TBCategoriaAleatoria, true);
             if (ivStyle != null) {
                 ivStyle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivStyle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar_on));
@@ -1618,9 +1622,8 @@ public class metodos {
             CargarInterAleatorio(mContext, 3);
 
         } else {
-            tinydb.putBoolean(TBCategoriaAleatoria, false);
+            tinyDB.putBoolean(TBCategoriaAleatoria, false);
             if (ivStyle != null) {
-
                 if (ivStyle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar_on).getConstantState())) {
                     // activar modo categoria aleatoria
                     Alerter.create((Activity) mContext).setTitle(R.string.text_cataleatoria_off)
@@ -1681,7 +1684,6 @@ public class metodos {
 
     public static void NextSong(Context mContext, TinyDB tinyDB) {
 
-
         // lista de la categoria que estaá sonando
         List<ModelCancion> listSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
 
@@ -1689,7 +1691,6 @@ public class metodos {
         if (tinyDB.getBoolean(TBCategoriaAleatoria)) {
             listSonando = tinyDB.getListModelCancion(TBlistCanciones, ModelCancion.class);
         }
-
         if (listSonando != null && listSonando.size() != 0) {
 
             Random random = new Random();
@@ -1807,7 +1808,6 @@ public class metodos {
 
         if (favorito) {
             // agregar cancion a favoritos
-
 
 
             CargarInterAleatorio(mContext, 3);

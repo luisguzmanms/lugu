@@ -53,6 +53,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 public class DataYT extends AppCompatActivity {
 
 
+    private static ImageView ivExiste;
     private String idCancion;
     private String nombreCancion;
     private String nombreArtista;
@@ -65,11 +66,36 @@ public class DataYT extends AppCompatActivity {
     private EditText etIdCancion;
     private EditText etNombreCancion;
     private String idCategoria = "";
-    private static ImageView ivExiste;
 
+    public static void ComprobarSiExisteCancion(String idCancion) {
+
+        Query database = FirebaseDatabase.getInstance().getReference().child("data").child("cancion").orderByChild("id");
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                if (dataSnapshot.child(idCancion).exists()) {
+                    if (ivExiste != null) {
+                        ivExiste.setVisibility(VISIBLE);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
+
+
+    }
 
     /**
-     *  DataYT solo en versiones admin
+     * DataYT solo en versiones admin
      */
 
     @Override
@@ -116,7 +142,6 @@ public class DataYT extends AppCompatActivity {
 
 
     }
-
 
     private void getDataYT(String linkYT, int opcion) {
         if (!isNetworkAvailable(this)) {
@@ -320,33 +345,6 @@ public class DataYT extends AppCompatActivity {
                 return false;
             }
         });
-
-    }
-
-    public static void ComprobarSiExisteCancion(String idCancion) {
-
-        Query database = FirebaseDatabase.getInstance().getReference().child("data").child("cancion").orderByChild("id");
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                if (dataSnapshot.child(idCancion).exists()) {
-                    if (ivExiste != null) {
-                        ivExiste.setVisibility(VISIBLE);
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-
-        });
-
 
     }
 

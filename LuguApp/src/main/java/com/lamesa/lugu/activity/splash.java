@@ -49,70 +49,16 @@ import java.util.List;
 import java.util.Random;
 
 import static com.lamesa.lugu.otros.metodos.DialogoPoliticas2;
+import static com.lamesa.lugu.otros.metodos.ListaCSV;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBpase;
-import static com.lamesa.lugu.otros.metodos.ListaCSV;
 import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
 
 
 public class splash extends AppCompatActivity {
 
     public static TinyDB tinydb;
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-        tinydb = new TinyDB(this);
-
-
-        ImageView ivFondoSplash = findViewById(R.id.iv_fondoSplash);
-
-
-        Glide.with(this)
-                .load(tinydb.getString(TBimagenFondo))
-                //   .error(R.drawable.ic_alert)
-                //.placeholder(R.drawable.placeholder)
-                .transition(DrawableTransitionOptions.withCrossFade(200))
-                .into(ivFondoSplash);
-
-        ivFondoSplash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-              // AgregarCancion(splash.this,"lugu.csv");
-
-
-            }
-        });
-
-        AppVersion();
-
-
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                if(tinydb.getBoolean(TBpoliticas)){
-                    startActivity(new Intent(splash.this, act_main.class));
-                    finish();
-                } else {
-                    DialogoPoliticas2(splash.this);
-                }
-
-
-
-            }
-        }, 2000);
-
-
-
-
-
-    }
 
     public static void DialogoPoliticas(Context mContext) {
 
@@ -148,7 +94,7 @@ public class splash extends AppCompatActivity {
                 "Website refers to LUGU Music, accessible from lugumusic.com\n" +
                 "\n" +
                 "You means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.");
-        dialog.addPoliceLine("Acknowledgment \n "+"These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.\n" +
+        dialog.addPoliceLine("Acknowledgment \n " + "These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.\n" +
                 "\n" +
                 "Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.\n" +
                 "\n" +
@@ -159,31 +105,31 @@ public class splash extends AppCompatActivity {
                 "Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.");
 
 
-        dialog.addPoliceLine("Links to Other Websites \n "+"Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.\n" +
+        dialog.addPoliceLine("Links to Other Websites \n " + "Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.\n" +
                 "\n" +
                 "The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.\n" +
                 "\n" +
                 "We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.");
 
-        dialog.addPoliceLine("\"AS IS\" and \"AS AVAILABLE\" Disclaimer \n"+"The Service is provided to You \"AS IS\" and \"AS AVAILABLE\" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.\n" +
+        dialog.addPoliceLine("\"AS IS\" and \"AS AVAILABLE\" Disclaimer \n" + "The Service is provided to You \"AS IS\" and \"AS AVAILABLE\" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.\n" +
                 "\n" +
                 "Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.\n" +
                 "\n" +
                 "Some jurisdictions do not allow the exclusion of certain types of warranties or limitations on applicable statutory rights of a consumer, so some or all of the above exclusions and limitations may not apply to You. But in such a case the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable under applicable law.");
 
-        dialog.addPoliceLine("Limitation of Liability \n"+"Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.\n" +
+        dialog.addPoliceLine("Limitation of Liability \n" + "Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.\n" +
                 "\n" +
                 "To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.\n" +
                 "\n" +
                 "Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.");
         dialog.addPoliceLine("Governing Law \n The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.");
 
-        dialog.addPoliceLine("Disputes Resolution \n"+"If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.");
+        dialog.addPoliceLine("Disputes Resolution \n" + "If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.");
 
 
         dialog.addPoliceLine("For European Union (EU) \nUsers If You are a European Union consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident in.");
 
-        dialog.addPoliceLine("United States Legal Compliance \n"+"You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a \"terrorist supporting\" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.");
+        dialog.addPoliceLine("United States Legal Compliance \n" + "You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a \"terrorist supporting\" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.");
 
         dialog.addPoliceLine("Severability and Waiver \nSeverability\n" +
                 "If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.\n" +
@@ -191,12 +137,12 @@ public class splash extends AppCompatActivity {
                 "Waiver\n" +
                 "Except as provided herein, the failure to exercise a right or to require performance of an obligation under this Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall be the waiver of a breach constitute a waiver of any subsequent breach.");
 
-        dialog.addPoliceLine("Translation Interpretation \n"+"These Terms and Conditions may have been translated if We have made them available to You on our Service. You agree that the original English text shall prevail in the case of a dispute.");
+        dialog.addPoliceLine("Translation Interpretation \n" + "These Terms and Conditions may have been translated if We have made them available to You on our Service. You agree that the original English text shall prevail in the case of a dispute.");
 
         dialog.addPoliceLine("Changes to These Terms and Conditions \nWe reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.\n" +
                 "\n" +
                 "By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.");
-        dialog.addPoliceLine("Contact Us \n"+"If you have any questions about these Terms and Conditions, You can contact us:\n" +
+        dialog.addPoliceLine("Contact Us \n" + "If you have any questions about these Terms and Conditions, You can contact us:\n" +
                 "\n" +
                 "By email: lugulofimusic@gmail.com");
 
@@ -210,11 +156,11 @@ public class splash extends AppCompatActivity {
                 Log.e("MainActivity", "Policies accepted");
 
                 //endregion
-                MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.accept_terms),"").setOkButton("OK").setCancelButton("NO")
+                MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.accept_terms), "").setOkButton("OK").setCancelButton("NO")
                         .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                             @Override
                             public boolean onClick(BaseDialog baseDialog, View v) {
-                                tinydb.putBoolean(TBpoliticas,true);
+                                tinydb.putBoolean(TBpoliticas, true);
                                 mContext.startActivity(new Intent(mContext, act_main.class));
                                 ((Activity) mContext).finish();
                                 return false;
@@ -223,7 +169,7 @@ public class splash extends AppCompatActivity {
                         .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
                             @Override
                             public boolean onClick(BaseDialog baseDialog, View v) {
-                                tinydb.putBoolean(TBpoliticas,false);
+                                tinydb.putBoolean(TBpoliticas, false);
                                 ((Activity) mContext).finish();
                                 return true;                    //位于“取消”位置的按钮点击后无法关闭对话框
                             }
@@ -235,7 +181,7 @@ public class splash extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.e("MainActivity", "Policies not accepted");
-                tinydb.putBoolean(TBpoliticas,false);
+                tinydb.putBoolean(TBpoliticas, false);
                 ((Activity) mContext).finish();
             }
         });
@@ -245,13 +191,95 @@ public class splash extends AppCompatActivity {
         //endregion
     }
 
-    private void DialogoPase(Context mContext, TinyDB tiniDB){
+    public static void SubirCancion(Context mContext, ModelCancion modelCancion) {
+
+        //  WaitDialog.show((AppCompatActivity) mContext, "Enviando canción...").setCancelable(true);
+        Toast.makeText(mContext, "Enviando canción...", Toast.LENGTH_SHORT).show();
+
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child("cancion").child(modelCancion.getId());
+        mref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                dataSnapshot.getRef().child("linkYT").setValue(modelCancion.getLinkYT().trim());
+                dataSnapshot.getRef().child("id").setValue(modelCancion.getId().trim());
+                dataSnapshot.getRef().child("cancion").setValue(modelCancion.getCancion().trim());
+                dataSnapshot.getRef().child("artista").setValue(modelCancion.getArtista().trim());
+                dataSnapshot.getRef().child("categoria").setValue(modelCancion.getCategoria().trim());
+
+
+                setLogInfo(mContext, "SubirCancion", "Cancion subida :: " + modelCancion.getId() + " :: " + modelCancion.getCancion(), false);
+
+                WaitDialog.dismiss();
+                //TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
+                Toast.makeText(mContext, "Cancion subida", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                WaitDialog.dismiss();
+                TipDialog.show((AppCompatActivity) mContext, "Error al enviar film", TipDialog.TYPE.ERROR);
+            }
+        });
+
+    }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
+        tinydb = new TinyDB(this);
+
+
+        ImageView ivFondoSplash = findViewById(R.id.iv_fondoSplash);
+
+
+        Glide.with(this)
+                .load(tinydb.getString(TBimagenFondo))
+                //   .error(R.drawable.ic_alert)
+                //.placeholder(R.drawable.placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .into(ivFondoSplash);
+
+        ivFondoSplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                // AgregarCancion(splash.this,"lugu.csv");
+
+
+            }
+        });
+
+        AppVersion();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (tinydb.getBoolean(TBpoliticas)) {
+                    startActivity(new Intent(splash.this, act_main.class));
+                    finish();
+                } else {
+                    DialogoPoliticas2(splash.this);
+                }
+
+
+            }
+        }, 2000);
+
+
+    }
+
+    private void DialogoPase(Context mContext, TinyDB tiniDB) {
 
 
         String pase = tinydb.getString(TBpase);
         String contrasena = "pplus";
 
-        if(!pase.toLowerCase().contains(contrasena.toLowerCase())) {
+        if (!pase.toLowerCase().contains(contrasena.toLowerCase())) {
 
             // new TraerListas(this).execute();
 
@@ -259,14 +287,13 @@ public class splash extends AppCompatActivity {
             FirebaseMessaging.getInstance().subscribeToTopic("todos").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                   // Toast.makeText(getApplicationContext(),"Notificaciones activadas a todos",Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(),"Notificaciones activadas a todos",Toast.LENGTH_LONG).show();
                 }
             });
 
 
-
             String titulo = "DIGITE LA CONTRASEÑA";
-            String mensaje = "La contraseña es " + contrasena + "\n\n\n"+"Esta app aun sigue en desarrollo y se actualiza el contenido segun las sugerencias de los usuarios dando prioridad a las peliculas o series solicitadas, por favor participe enviando sugerencias y/o reportes de problemas para mejorar esta app."+"\n\n"+"apoyenos compartiendo esta app con sus amigos y familiares :,)";
+            String mensaje = "La contraseña es " + contrasena + "\n\n\n" + "Esta app aun sigue en desarrollo y se actualiza el contenido segun las sugerencias de los usuarios dando prioridad a las peliculas o series solicitadas, por favor participe enviando sugerencias y/o reportes de problemas para mejorar esta app." + "\n\n" + "apoyenos compartiendo esta app con sus amigos y familiares :,)";
 
 
             DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
@@ -310,7 +337,7 @@ public class splash extends AppCompatActivity {
         }
     }
 
-    private void EliminarDato(Context mContext){
+    private void EliminarDato(Context mContext) {
 
         WaitDialog.show((AppCompatActivity) mContext, "Eliminando dato...").setCancelable(true);
 
@@ -320,7 +347,7 @@ public class splash extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-              //  dataSnapshot.getRef().child("data").removeValue();
+                //  dataSnapshot.getRef().child("data").removeValue();
 
 
                 WaitDialog.dismiss();
@@ -337,7 +364,7 @@ public class splash extends AppCompatActivity {
         });
     }
 
-    private void AppVersion(){
+    private void AppVersion() {
         PackageInfo pinfo = null;
         try {
             pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -345,7 +372,7 @@ public class splash extends AppCompatActivity {
             String versionName = pinfo.versionName;
 
             TextView tvAppVersion = findViewById(R.id.tv_appversion);
-            tvAppVersion.setText("Version: "+versionName);
+            tvAppVersion.setText("Version: " + versionName);
 
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -353,18 +380,15 @@ public class splash extends AppCompatActivity {
 
     }
 
-    private void SubirVideoFilmPel(Context mContext){
+    private void SubirVideoFilmPel(Context mContext) {
 
-       // List<modelAddVideoFilm> mlistAddFilm = new ArrayList<>();
-
-
+        // List<modelAddVideoFilm> mlistAddFilm = new ArrayList<>();
 
 
         //region region
 
 
         //modelAddVideoFilm  modelFilm729040 = new modelAddVideoFilm("729040","latino","T1-EP1","T1-EP1","");
-
 
 
         //endregion
@@ -381,7 +405,7 @@ public class splash extends AppCompatActivity {
 
     }
 
-    private void SubirVideo(Context mContext, String id, String idioma, String idEpisodio, String nombreEpisodio, String linkVideo){
+    private void SubirVideo(Context mContext, String id, String idioma, String idEpisodio, String nombreEpisodio, String linkVideo) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -398,8 +422,7 @@ public class splash extends AppCompatActivity {
                         int keyLink = random.nextInt(9999);
 
 
-
-                        if(!dataSnapshot.exists()) {
+                        if (!dataSnapshot.exists()) {
                             dataSnapshot.getRef().child("id").setValue(id);
                             dataSnapshot.getRef().child("idEpisodio").setValue(idEpisodio);
                             dataSnapshot.getRef().child("nombre").setValue(nombreEpisodio);
@@ -410,7 +433,7 @@ public class splash extends AppCompatActivity {
                             //  TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
 
                             System.out.println("FILM video SUBIDO == " + id + " - " + nombreEpisodio);
-                         //   Toast.makeText(mContext, "FILM video SUBIDO == \"+id+\" - \"+nombreEpisodio", Toast.LENGTH_LONG).show();
+                            //   Toast.makeText(mContext, "FILM video SUBIDO == \"+id+\" - \"+nombreEpisodio", Toast.LENGTH_LONG).show();
 
                         } else {
                             System.out.println("FILM YA CARGADO == " + id + " - " + nombreEpisodio);
@@ -431,10 +454,11 @@ public class splash extends AppCompatActivity {
         }, 20000);
     }
 
-    private void SubirFilmSerie(Context mContext, String idFilm, String ano,String calidad, String categoria,String descrip, String imagen, String nombre, String tipo, String puntaje, String red, String fechaActualizado){
+    //endregion
+
+    private void SubirFilmSerie(Context mContext, String idFilm, String ano, String calidad, String categoria, String descrip, String imagen, String nombre, String tipo, String puntaje, String red, String fechaActualizado) {
 
         WaitDialog.show((AppCompatActivity) mContext, "Enviando Serie...").setCancelable(true);
-
 
 
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child(String.valueOf(idFilm));
@@ -455,11 +479,10 @@ public class splash extends AppCompatActivity {
                 dataSnapshot.getRef().child("info").child("fechaActualizado").setValue(fechaActualizado);
 
 
-
                 WaitDialog.dismiss();
                 //  TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
 
-                System.out.println("FILM SUBIDO == "+idFilm+" - "+nombre);
+                System.out.println("FILM SUBIDO == " + idFilm + " - " + nombre);
 
             }
 
@@ -472,16 +495,12 @@ public class splash extends AppCompatActivity {
         });
     }
 
-    //endregion
-
     private void SubirCategoria(Context mContext) {
-
-
 
 
     }
 
-    private void EnviarCategoria(Context mContext, String imagen, String nombre){
+    private void EnviarCategoria(Context mContext, String imagen, String nombre) {
         WaitDialog.show((AppCompatActivity) mContext, "Enviando categoria...").setCancelable(true);
 
 
@@ -499,11 +518,10 @@ public class splash extends AppCompatActivity {
                 dataSnapshot.getRef().child(String.valueOf(keyLink)).child("nombre").setValue(nombre);
 
 
-
                 WaitDialog.dismiss();
                 //  TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
 
-                System.out.println("CATEGORIA video SUBIDO == "+nombre);
+                System.out.println("CATEGORIA video SUBIDO == " + nombre);
 
             }
 
@@ -517,14 +535,13 @@ public class splash extends AppCompatActivity {
 
     }
 
-    private void AgregarCancion(Context mContext, String nombreFileCSV){
-
+    private void AgregarCancion(Context mContext, String nombreFileCSV) {
 
 
         List<String[]> listCSV = ListaCSV(mContext, nombreFileCSV);
 
 
-    //    List<modelAddFilm> mlistAddFilm = new ArrayList<>();
+        //    List<modelAddFilm> mlistAddFilm = new ArrayList<>();
 
 
         //region region
@@ -538,30 +555,29 @@ public class splash extends AppCompatActivity {
 
 
                 String linkYT = listCSV.get(i)[0];
-                String id= listCSV.get(i)[1];
-                String cancion= listCSV.get(i)[2];
-                String artista= listCSV.get(i)[3];
-                String categoria= listCSV.get(i)[4];
+                String id = listCSV.get(i)[1];
+                String cancion = listCSV.get(i)[2];
+                String artista = listCSV.get(i)[3];
+                String categoria = listCSV.get(i)[4];
 
-                ModelCancion modelCancion = new ModelCancion(id,artista,cancion,categoria,linkYT);
+                ModelCancion modelCancion = new ModelCancion(id, artista, cancion, categoria, linkYT);
                 SubirCancion(mContext, modelCancion);
 
 
             }
 
 
-
     }
 
-    private void AgregarVideo(Context mContext, String nombreFileCSV){
+    // subir item de lista a FB
 
+    private void AgregarVideo(Context mContext, String nombreFileCSV) {
 
 
         List<String[]> listCSV = ListaCSV(mContext, nombreFileCSV);
 
 
-     //   List<modelAddVideoFilm> mlistAddVideo = new ArrayList<>();
-
+        //   List<modelAddVideoFilm> mlistAddVideo = new ArrayList<>();
 
 
         if (listCSV != null && !listCSV.isEmpty())
@@ -569,21 +585,20 @@ public class splash extends AppCompatActivity {
 
 
                 String id = listCSV.get(i)[0];
-                String idioma= listCSV.get(i)[2];
-                String idEpisodio= "EP1";
-                String nombreEpisodio= "VER AHORA";
-                String linkVideo= listCSV.get(i)[3];
+                String idioma = listCSV.get(i)[2];
+                String idEpisodio = "EP1";
+                String nombreEpisodio = "VER AHORA";
+                String linkVideo = listCSV.get(i)[3];
 
 
+                //      modelAddVideoFilm film = new modelAddVideoFilm(id, idioma, idEpisodio, nombreEpisodio, linkVideo);
 
-          //      modelAddVideoFilm film = new modelAddVideoFilm(id, idioma, idEpisodio, nombreEpisodio, linkVideo);
-
-            //    mlistAddVideo.add(film);
+                //    mlistAddVideo.add(film);
 
 
             }
 
-       // System.out.println("jajajajajaja"+mlistAddVideo.get(12).getSipnosis());
+        // System.out.println("jajajajajaja"+mlistAddVideo.get(12).getSipnosis());
 
 
         /*
@@ -597,54 +612,15 @@ public class splash extends AppCompatActivity {
          */
 
 
-
     }
 
-    // subir item de lista a FB
-
-    public static void SubirCancion(Context mContext, ModelCancion modelCancion) {
-
-      //  WaitDialog.show((AppCompatActivity) mContext, "Enviando canción...").setCancelable(true);
-        Toast.makeText(mContext, "Enviando canción...", Toast.LENGTH_SHORT).show();
-
-        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child("cancion").child(modelCancion.getId());
-        mref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                dataSnapshot.getRef().child("linkYT").setValue(modelCancion.getLinkYT().trim());
-                dataSnapshot.getRef().child("id").setValue(modelCancion.getId().trim());
-                dataSnapshot.getRef().child("cancion").setValue(modelCancion.getCancion().trim());
-                dataSnapshot.getRef().child("artista").setValue(modelCancion.getArtista().trim());
-                dataSnapshot.getRef().child("categoria").setValue(modelCancion.getCategoria().trim());
-
-
-                setLogInfo(mContext,"SubirCancion","Cancion subida :: "+modelCancion.getId()+" :: "+modelCancion.getCancion(),false);
-
-                WaitDialog.dismiss();
-                //TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
-                Toast.makeText(mContext, "Cancion subida", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Error al enviar film", TipDialog.TYPE.ERROR);
-            }
-        });
-
-    }
-
-    private void AgregarVideoSerie(Context mContext, String nombreFileCSV){
-
+    private void AgregarVideoSerie(Context mContext, String nombreFileCSV) {
 
 
         List<String[]> listCSV = ListaCSV(mContext, nombreFileCSV);
 
 
-    //    List<modelAddVideoFilm> mlistAddVideo = new ArrayList<>();
-
+        //    List<modelAddVideoFilm> mlistAddVideo = new ArrayList<>();
 
 
         if (listCSV != null && !listCSV.isEmpty())
@@ -652,16 +628,15 @@ public class splash extends AppCompatActivity {
 
 
                 String id = listCSV.get(i)[0];
-                String idioma= listCSV.get(i)[7];
-                String idEpisodio= listCSV.get(i)[4];
-                String nombreEpisodio= listCSV.get(i)[4]+" "+listCSV.get(i)[5];
-                String linkVideo= listCSV.get(i)[8];
+                String idioma = listCSV.get(i)[7];
+                String idEpisodio = listCSV.get(i)[4];
+                String nombreEpisodio = listCSV.get(i)[4] + " " + listCSV.get(i)[5];
+                String linkVideo = listCSV.get(i)[8];
 
 
+                //    modelAddVideoFilm film = new modelAddVideoFilm(id, idioma, idEpisodio, nombreEpisodio, linkVideo);
 
-            //    modelAddVideoFilm film = new modelAddVideoFilm(id, idioma, idEpisodio, nombreEpisodio, linkVideo);
-
-           //     mlistAddVideo.add(film);
+                //     mlistAddVideo.add(film);
 
 
             }

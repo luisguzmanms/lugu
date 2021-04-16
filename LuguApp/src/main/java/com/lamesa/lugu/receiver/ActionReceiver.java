@@ -9,8 +9,8 @@ import android.widget.Toast;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.player.MediaNotificationManager;
 
-import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
@@ -18,68 +18,68 @@ import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 
 public class ActionReceiver extends BroadcastReceiver {
 
-	@Override
-	public void onReceive(Context mContext, Intent intent) {
-		//Toast.makeText(context,"recieved",Toast.LENGTH_SHORT).show();
+    @Override
+    public void onReceive(Context mContext, Intent intent) {
+        //Toast.makeText(context,"recieved",Toast.LENGTH_SHORT).show();
 
-		String action=intent.getAction();
+        String action = intent.getAction();
 
-		switch (action){
-			case MediaNotificationManager.ACTION_STOP:
-				ActionStop();
-				break;
+        switch (action) {
+            case MediaNotificationManager.ACTION_STOP:
+                ActionStop();
+                break;
 
-			case MediaNotificationManager.ACTION_FAVORITE:
-				ActionFavorito(mContext);
-			//	Toast.makeText(mContext, MediaNotificationManager.ACTION_FAVORITE, Toast.LENGTH_SHORT).show();
+            case MediaNotificationManager.ACTION_FAVORITE:
+                ActionFavorito(mContext);
+                //	Toast.makeText(mContext, MediaNotificationManager.ACTION_FAVORITE, Toast.LENGTH_SHORT).show();
 
-				break;
+                break;
 
-			case MediaNotificationManager.ACTION_PLAY:
-				Toast.makeText(mContext, mContext.getResources().getString(R.string.reproduciendo) , Toast.LENGTH_SHORT).show();
-				ActionPlay(mContext);
+            case MediaNotificationManager.ACTION_PLAY:
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.reproduciendo), Toast.LENGTH_SHORT).show();
+                ActionPlay(mContext);
 
-				break;
+                break;
 
-			case MediaNotificationManager.ACTION_PAUSE:
-				Toast.makeText(mContext, mContext.getResources().getString(R.string.pausando), Toast.LENGTH_SHORT).show();
-				ActionPause(mContext);
-				break;
+            case MediaNotificationManager.ACTION_PAUSE:
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.pausando), Toast.LENGTH_SHORT).show();
+                ActionPause(mContext);
+                break;
 
-		}
+        }
 
 
-		//This is used to close the notification tray
+        //This is used to close the notification tray
 		/*
 		Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
 		context.sendBroadcast(it);
 		 */
-	}
+    }
 
-	@SuppressLint("UseCompatLoadingForDrawables")
-	private void ActionPause(Context mContext) {
-		if(musicPlayer!=null) {
-			musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
-		}
-	}
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void ActionPause(Context mContext) {
+        if (musicPlayer != null) {
+            musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+        }
+    }
 
-	private void ActionPlay(Context mContext) {
-		if(musicPlayer!=null) {
-			musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
-		}
-	}
+    private void ActionPlay(Context mContext) {
+        if (musicPlayer != null) {
+            musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+        }
+    }
 
-	private void ActionStop() {
-		if(mediaNotificationManager!=null){
-			mediaNotificationManager.cancelNotify();
-			if(musicPlayer!=null) {
-				musicPlayer.PlayOrPause(MediaNotificationManager.STATE_STOP);
-			}
-		}
-	}
+    private void ActionStop() {
+        if (mediaNotificationManager != null) {
+            mediaNotificationManager.cancelNotify();
+            if (musicPlayer != null) {
+                musicPlayer.PlayOrPause(MediaNotificationManager.STATE_STOP);
+            }
+        }
+    }
 
-	private void ActionFavorito(Context mContext) {
-		GuardarCancionFavoritos(mContext, tinyDB.getString(TBidCancionSonando), true);
-	}
+    private void ActionFavorito(Context mContext) {
+        GuardarCancionFavoritos(mContext, tinyDB.getString(TBidCancionSonando), true);
+    }
 
 }

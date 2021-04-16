@@ -7,9 +7,8 @@ public enum EnumResizeMode {
     FILL("Fill", 2),
     ZOOM("Zoom", 3);
 
-    private String valueStr;
-
     private final Integer value;
+    private String valueStr;
 
     EnumResizeMode(String valueStr, Integer value) {
         this.valueStr = valueStr;
@@ -51,11 +50,11 @@ public enum EnumResizeMode {
         return valueStr;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
     public void setValueStr(String valueStr) {
         this.valueStr = valueStr;
+    }
+
+    public Integer getValue() {
+        return value;
     }
 }

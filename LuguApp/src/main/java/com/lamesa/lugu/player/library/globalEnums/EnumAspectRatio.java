@@ -10,9 +10,8 @@ public enum EnumAspectRatio {
     ASPECT_MP3("ASPECT_MP3", 5),
     ;
 
-    private String valueStr;
-
     private final Integer value;
+    private String valueStr;
 
     EnumAspectRatio(String valueStr, Integer value) {
         this.valueStr = valueStr;
@@ -54,11 +53,11 @@ public enum EnumAspectRatio {
         return valueStr;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
     public void setValueStr(String valueStr) {
         this.valueStr = valueStr;
+    }
+
+    public Integer getValue() {
+        return value;
     }
 }

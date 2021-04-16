@@ -30,13 +30,8 @@ import static com.lamesa.lugu.otros.statics.constantes.TBdiaIngreso;
 public class App extends MultiDexApplication {
 
 
-
-
-    private static App instance;
-
     public static boolean ignoreMobile;
     public static MixpanelAPI mixpanel;
-
     public static String idFilm;
     public static String tbIdioma;
     public static String tbNombreFilm;
@@ -44,8 +39,9 @@ public class App extends MultiDexApplication {
     public static String tbTipoFilm;
     public static String tbImagenFilm;
     public static String tbCalidadFilm;
-    private TinyDB tinyDB;
     public static FirebaseAnalytics mFirebaseAnalytics;
+    private static App instance;
+    private TinyDB tinyDB;
 
     public static App get() {
         return instance;
@@ -64,7 +60,6 @@ public class App extends MultiDexApplication {
         });
 
 
-
         Amplitude.getInstance().initialize(this, "8461f9db2ddba9f48c66a867df909433").enableForegroundTracking(this);
         Amplitude.getInstance().enableLocationListening();
 
@@ -74,28 +69,25 @@ public class App extends MultiDexApplication {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
-
 // Initialize the library with your
 // Mixpanel project token, MIXPANEL_TOKEN, and a reference
 // to your application context.
-         mixpanel = MixpanelAPI.getInstance(this, "e96360802e958c55420b964f66ff0809");
-
-
+        mixpanel = MixpanelAPI.getInstance(this, "e96360802e958c55420b964f66ff0809");
 
 
         CondiguracionDialogos();
         tinyDB = new TinyDB(this);
 
-       // Toast.makeText(this, "JAJAJAJ", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "JAJAJAJ", Toast.LENGTH_SHORT).show();
         Random random = new Random();
         int numRandom = random.nextInt(5);
 
-        if(numRandom==5){
-            BorrarCache(this,tinyDB);
+        if (numRandom == 5) {
+            BorrarCache(this, tinyDB);
         }
     }
 
-    private void BorrarCache(Context mContext, TinyDB tinyDB){
+    private void BorrarCache(Context mContext, TinyDB tinyDB) {
         Calendar c = Calendar.getInstance();
         int DiaActual = c.get(Calendar.DAY_OF_WEEK);
 

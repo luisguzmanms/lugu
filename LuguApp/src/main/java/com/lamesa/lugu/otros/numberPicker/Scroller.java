@@ -59,57 +59,19 @@ import android.view.animation.Interpolator;
  *    ...
  * }</pre>
  */
-public class Scroller  {
-    private final Interpolator mInterpolator;
-
-    private int mMode;
-
-    private int mStartX;
-    private int mStartY;
-    private int mFinalX;
-    private int mFinalY;
-
-    private int mMinX;
-    private int mMaxX;
-    private int mMinY;
-    private int mMaxY;
-
-    private int mCurrX;
-    private int mCurrY;
-    private long mStartTime;
-    private int mDuration;
-    private float mDurationReciprocal;
-    private float mDeltaX;
-    private float mDeltaY;
-    private boolean mFinished;
-    private final boolean mFlywheel;
-
-    private float mVelocity;
-    private float mCurrVelocity;
-    private int mDistance;
-
-    private float mFlingFriction = ViewConfiguration.getScrollFriction();
-
+public class Scroller {
     private static final int DEFAULT_DURATION = 250;
     private static final int SCROLL_MODE = 0;
     private static final int FLING_MODE = 1;
-
     private static final float DECELERATION_RATE = (float) (Math.log(0.78) / Math.log(0.9));
     private static final float INFLEXION = 0.35f; // Tension lines cross at (INFLEXION, 1)
     private static final float START_TENSION = 0.5f;
     private static final float END_TENSION = 1.0f;
     private static final float P1 = START_TENSION * INFLEXION;
     private static final float P2 = 1.0f - END_TENSION * (1.0f - INFLEXION);
-
     private static final int NB_SAMPLES = 100;
     private static final float[] SPLINE_POSITION = new float[NB_SAMPLES + 1];
     private static final float[] SPLINE_TIME = new float[NB_SAMPLES + 1];
-
-    private float mDeceleration;
-    private final float mPpi;
-
-    // A context-specific coefficient adjusted to physical values.
-    private final float mPhysicalCoeff;
 
     static {
         float x_min = 0.0f;
@@ -143,6 +105,34 @@ public class Scroller  {
         }
         SPLINE_POSITION[NB_SAMPLES] = SPLINE_TIME[NB_SAMPLES] = 1.0f;
     }
+
+    private final Interpolator mInterpolator;
+    private final boolean mFlywheel;
+    private final float mPpi;
+    // A context-specific coefficient adjusted to physical values.
+    private final float mPhysicalCoeff;
+    private int mMode;
+    private int mStartX;
+    private int mStartY;
+    private int mFinalX;
+    private int mFinalY;
+    private int mMinX;
+    private int mMaxX;
+    private int mMinY;
+    private int mMaxY;
+    private int mCurrX;
+    private int mCurrY;
+    private long mStartTime;
+    private int mDuration;
+    private float mDurationReciprocal;
+    private float mDeltaX;
+    private float mDeltaY;
+    private boolean mFinished;
+    private float mVelocity;
+    private float mCurrVelocity;
+    private int mDistance;
+    private float mFlingFriction = ViewConfiguration.getScrollFriction();
+    private float mDeceleration;
 
     /**
      * Create a Scroller with the default duration and interpolator.
@@ -185,7 +175,7 @@ public class Scroller  {
      * is {@link ViewConfiguration#getScrollFriction}.
      *
      * @param friction A scalar dimension-less value representing the coefficient of
-     *         friction.
+     *                 friction.
      */
     public final void setFriction(float friction) {
         mDeceleration = computeDeceleration(friction);
@@ -200,7 +190,6 @@ public class Scroller  {
     }
 
     /**
-     *
      * Returns whether the scroller has finished scrolling.
      *
      * @return True if the scroller has finished scrolling, false otherwise.
@@ -284,12 +273,38 @@ public class Scroller  {
     }
 
     /**
+     * Sets the final position (X) for this scroller.
+     *
+     * @param newX The new X offset as an absolute distance from the origin.
+     * @see #extendDuration(int)
+     * @see #setFinalY(int)
+     */
+    public void setFinalX(int newX) {
+        mFinalX = newX;
+        mDeltaX = mFinalX - mStartX;
+        mFinished = false;
+    }
+
+    /**
      * Returns where the scroll will end. Valid only for "fling" scrolls.
      *
      * @return The final Y offset as an absolute distance from the origin.
      */
     public final int getFinalY() {
         return mFinalY;
+    }
+
+    /**
+     * Sets the final position (Y) for this scroller.
+     *
+     * @param newY The new Y offset as an absolute distance from the origin.
+     * @see #extendDuration(int)
+     * @see #setFinalX(int)
+     */
+    public void setFinalY(int newY) {
+        mFinalY = newY;
+        mDeltaY = mFinalY - mStartY;
+        mFinished = false;
     }
 
     /**
@@ -301,7 +316,7 @@ public class Scroller  {
             return false;
         }
 
-        int timePassed = (int)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);
+        int timePassed = (int) (AnimationUtils.currentAnimationTimeMillis() - mStartTime);
 
         if (timePassed < mDuration) {
             switch (mMode) {
@@ -342,8 +357,7 @@ public class Scroller  {
 
                     break;
             }
-        }
-        else {
+        } else {
             mCurrX = mFinalX;
             mCurrY = mFinalY;
             mFinished = true;
@@ -357,13 +371,13 @@ public class Scroller  {
      * duration.
      *
      * @param startX Starting horizontal scroll offset in pixels. Positive
-     *        numbers will scroll the content to the left.
+     *               numbers will scroll the content to the left.
      * @param startY Starting vertical scroll offset in pixels. Positive numbers
-     *        will scroll the content up.
-     * @param dx Horizontal distance to travel. Positive numbers will scroll the
-     *        content to the left.
-     * @param dy Vertical distance to travel. Positive numbers will scroll the
-     *        content up.
+     *               will scroll the content up.
+     * @param dx     Horizontal distance to travel. Positive numbers will scroll the
+     *               content to the left.
+     * @param dy     Vertical distance to travel. Positive numbers will scroll the
+     *               content up.
      */
     public void startScroll(int startX, int startY, int dx, int dy) {
         startScroll(startX, startY, dx, dy, DEFAULT_DURATION);
@@ -373,14 +387,14 @@ public class Scroller  {
      * Start scrolling by providing a starting point, the distance to travel,
      * and the duration of the scroll.
      *
-     * @param startX Starting horizontal scroll offset in pixels. Positive
-     *        numbers will scroll the content to the left.
-     * @param startY Starting vertical scroll offset in pixels. Positive numbers
-     *        will scroll the content up.
-     * @param dx Horizontal distance to travel. Positive numbers will scroll the
-     *        content to the left.
-     * @param dy Vertical distance to travel. Positive numbers will scroll the
-     *        content up.
+     * @param startX   Starting horizontal scroll offset in pixels. Positive
+     *                 numbers will scroll the content to the left.
+     * @param startY   Starting vertical scroll offset in pixels. Positive numbers
+     *                 will scroll the content up.
+     * @param dx       Horizontal distance to travel. Positive numbers will scroll the
+     *                 content to the left.
+     * @param dy       Vertical distance to travel. Positive numbers will scroll the
+     *                 content up.
      * @param duration Duration of the scroll in milliseconds.
      */
     public void startScroll(int startX, int startY, int dx, int dy, int duration) {
@@ -401,20 +415,20 @@ public class Scroller  {
      * Start scrolling based on a fling gesture. The distance travelled will
      * depend on the initial velocity of the fling.
      *
-     * @param startX Starting point of the scroll (X)
-     * @param startY Starting point of the scroll (Y)
+     * @param startX    Starting point of the scroll (X)
+     * @param startY    Starting point of the scroll (Y)
      * @param velocityX Initial velocity of the fling (X) measured in pixels per
-     *        second.
+     *                  second.
      * @param velocityY Initial velocity of the fling (Y) measured in pixels per
-     *        second
-     * @param minX Minimum X value. The scroller will not scroll past this
-     *        point.
-     * @param maxX Maximum X value. The scroller will not scroll past this
-     *        point.
-     * @param minY Minimum Y value. The scroller will not scroll past this
-     *        point.
-     * @param maxY Maximum Y value. The scroller will not scroll past this
-     *        point.
+     *                  second
+     * @param minX      Minimum X value. The scroller will not scroll past this
+     *                  point.
+     * @param maxX      Maximum X value. The scroller will not scroll past this
+     *                  point.
+     * @param minY      Minimum Y value. The scroller will not scroll past this
+     *                  point.
+     * @param maxY      Maximum Y value. The scroller will not scroll past this
+     *                  point.
      */
     public void fling(int startX, int startY, int velocityX, int velocityY,
                       int minX, int maxX, int minY, int maxY) {
@@ -521,33 +535,7 @@ public class Scroller  {
      * @return The elapsed time in milliseconds.
      */
     public int timePassed() {
-        return (int)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);
-    }
-
-    /**
-     * Sets the final position (X) for this scroller.
-     *
-     * @param newX The new X offset as an absolute distance from the origin.
-     * @see #extendDuration(int)
-     * @see #setFinalY(int)
-     */
-    public void setFinalX(int newX) {
-        mFinalX = newX;
-        mDeltaX = mFinalX - mStartX;
-        mFinished = false;
-    }
-
-    /**
-     * Sets the final position (Y) for this scroller.
-     *
-     * @param newY The new Y offset as an absolute distance from the origin.
-     * @see #extendDuration(int)
-     * @see #setFinalX(int)
-     */
-    public void setFinalY(int newY) {
-        mFinalY = newY;
-        mDeltaY = mFinalY - mStartY;
-        mFinished = false;
+        return (int) (AnimationUtils.currentAnimationTimeMillis() - mStartTime);
     }
 
     /**
@@ -559,7 +547,9 @@ public class Scroller  {
     }
 
     static class ViscousFluidInterpolator implements Interpolator {
-        /** Controls the viscous fluid effect (how much of it). */
+        /**
+         * Controls the viscous fluid effect (how much of it).
+         */
         private static final float VISCOUS_FLUID_SCALE = 8.0f;
 
         private static final float VISCOUS_FLUID_NORMALIZE;

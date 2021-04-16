@@ -11,11 +11,11 @@ public class ModelCancion implements Serializable {
     String categoria;
     String linkYT;
 
-    public ModelCancion(){
+    public ModelCancion() {
 
     }
 
-    public ModelCancion(String id,  String artista, String cancion, String categoria, String linkYT) {
+    public ModelCancion(String id, String artista, String cancion, String categoria, String linkYT) {
 
         this.id = id;
         this.cancion = cancion;

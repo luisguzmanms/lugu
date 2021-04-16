@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.github.matteobattilana.weather.PrecipType;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -62,8 +61,8 @@ import java.util.Random;
 
 import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
-import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
+import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
 import static com.lamesa.lugu.activity.act_main.spinBuffering;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvArtista;
@@ -86,8 +85,10 @@ import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 
 
-public class AndExoPlayerView3  extends LinearLayout implements View.OnClickListener {
+public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListener {
 
+    private final boolean showController = true;
+    private final EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private Context mContext;
     private String currSource = "";
     private int currentWindow = 0;
@@ -95,8 +96,6 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
     private boolean isPreparing = false;
     private TypedArray typedArray = null;
     private boolean currPlayWhenReady = false;
-    private final boolean showController = true;
-    private final EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
     private EnumLoop currLoop = EnumLoop.Finite;
 
@@ -104,7 +103,6 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
     private PlayerView playerView;
     private ComponentListener componentListener;
     private LinearLayout linearLayoutRetry, linearLayoutLoading;
-    private AppCompatButton buttonRetry;
     private FrameLayout frameLayoutFullScreenContainer;
 
     private BandwidthMeter bandwidthMeter;
@@ -116,187 +114,6 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
     private boolean isPlaying = false;
     private String source;
 
-
-    public class ComponentListener implements Player.EventListener {
-
-        String TAG = AndExoPlayerView3.ComponentListener.class.getSimpleName();
-
-        @Override
-        public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-            String stateString;
-            switch (playbackState) {
-                case Player.STATE_IDLE:
-                    stateString = "ExoPlayer.STATE_IDLE      -";
-                    break;
-                case Player.STATE_BUFFERING:
-                    stateString = "ExoPlayer.STATE_BUFFERING -";
-                    setLogInfo(mContext,"ComponentListener.Player.STATE_BUFFERING","Player.STATE_BUFFERING",false);
-                    PlayOrPause(MediaNotificationManager.STATE_BUFFERING);
-
-                    break;
-                case Player.STATE_READY:
-
-                   isPlaying = true;
-
-
-                    if (isPreparing) {
-                        // this is accurate
-
-                        isPreparing = false;
-                    }
-
-
-
-                    // mostrar notificacion
-                    if(mediaNotificationManager !=null) {
-                        mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PLAY);
-                    }
-
-
-                    // mostrar y animar texview dde cancion y artista solo si es diferente
-                    if(tvCancion!=null && tvArtista!=null && tvCategoria!=null ) {
-                        tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
-                        tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
-
-                        tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
-                        tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
-
-
-                        tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
-                        tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
-                    }
-
-
-                    // al reproducirse guardar la cacnion en la lista de historila
-                    GuardarCancionHistorial(mContext, tinyDB.getString(TBidCancionSonando));
-
-                    // ocultar icono de buffering
-                    PlayOrPause(MediaNotificationManager.STATE_READY);
-                    // reproducir cancion y animar icono a pausa
-
-                    // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
-                    CheckIsFavorite(mContext, tinyDB.getString(TBidCancionSonando));
-
-
-
-                    hideProgress();
-                    stateString = "ExoPlayer.STATE_READY     -";
-                    break;
-                case Player.STATE_ENDED:
-                    stateString = "ExoPlayer.STATE_ENDED     -";
-                    setLogInfo(mContext,"","",false);
-                    if(ivPlayPause!=null) {
-                        ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
-                        ivPlayPause.setVisibility(VISIBLE);
-                        ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
-                        ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
-                    }
-                    isPlaying = false;
-
-                    //region REPRODUCIR SEGUN LA OPCION DE BUCLE O ALEATORIO
-                    // reproducir segun la opcion de bucle o aleatorio
-
-                    if(tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)){
-                        // reproducir la misma cancion
-                        setLogInfo(mContext,"Player.STATE_ENDED","REPRODUCTOR_BUCLE",false);
-                        getLinkAndPlay(mContext, tinyDB.getString(TBlinkCancionSonando),1);
-                        Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
-
-
-                    } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)){
-                        // reproducir otra cancion de la misma lista
-                        setLogInfo(mContext,"Player.STATE_ENDED","REPRODUCTOR_ALEATORIO",false);
-                        Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
-                        List<ModelCancion> listSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
-
-                        if(listSonando!=null && listSonando.size() !=0 ) {
-
-                            Random random = new Random();
-                            int numRandom = random.nextInt(listSonando.size());
-                            //region guardar datos de la cancion sonando en TinyDB
-                            tinyDB.putString(TBidCancionSonando, listSonando.get(numRandom).getId());
-                            tinyDB.putString(TBnombreCancionSonando, listSonando.get(numRandom).getCancion());
-                            tinyDB.putString(TBartistaCancionSonando, listSonando.get(numRandom).getArtista());
-                            tinyDB.putString(TBcategoriaCancionSonando, tinyDB.getString(TBcategoriaCancionSonando));
-                            tinyDB.putString(TBlinkCancionSonando, listSonando.get(numRandom).getLinkYT());
-                            //endregion
-                            getLinkAndPlay(mContext, listSonando.get(numRandom).getLinkYT(), 1);
-
-                        }
-
-                    }
-
-                    //endregion
-
-                    break;
-                default:
-                    stateString = "UNKNOWN_STATE             -";
-                    isPlaying = false;
-                    break;
-
-            }
-
-            Log.d(TAG, "changed state to " + stateString
-                    + " playWhenReady: " + playWhenReady);
-            setLogInfo(mContext,"AndExoPlayerView.onPlayerStateChanged","changed state to " + stateString
-                    + " playWhenReady: " + playWhenReady,false);
-        }
-
-        @Override
-        public void onRepeatModeChanged(int repeatMode) {
-
-        }
-
-        @Override
-        public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
-
-        }
-
-        @Override
-        public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
-        }
-
-        @Override
-        public void onLoadingChanged(boolean isLoading) {
-
-        }
-
-        @Override
-        public void onPlayerError(ExoPlaybackException error) {
-            showRetry();
-
-            Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_SHORT).show();
-            System.out.println("newlofi error.getMessage() "+error.getMessage());
-            setLogInfo(mContext, "AndExoPlayerView.onPlayerError", error.getMessage(),true);
-
-            // volver a reproducir
-            musicPlayer.setSource(source);
-
-            if (exoPlayerCallBack != null)
-                exoPlayerCallBack.onError();
-
-        }
-
-        @Override
-        public void onPositionDiscontinuity(int reason) {
-
-        }
-
-        @Override
-        public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
-        }
-
-        @Override
-        public void onSeekProcessed() {
-
-        }
-
-    }
 
     public AndExoPlayerView3(Context context) {
         super(context);
@@ -331,7 +148,7 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
         playerView = view.findViewById(R.id.simpleExoPlayerView);
         linearLayoutLoading = findViewById(R.id.linearLayoutLoading);
         linearLayoutRetry = findViewById(R.id.linearLayoutRetry);
-        buttonRetry = findViewById(R.id.appCompatButton_try_again);
+        AppCompatButton buttonRetry = findViewById(R.id.appCompatButton_try_again);
         frameLayoutFullScreenContainer = playerView.findViewById(R.id.container_fullscreen);
         // boton se quito del layout :
         // imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
@@ -427,8 +244,6 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
             }
         }
     }
-
-
 
     public void setSource(String source, HashMap<String, String> extraHeaders) {
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);
@@ -546,7 +361,7 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
             simpleExoPlayer.setPlayWhenReady(playWhenReady);
     }
 
-    public boolean isPlaying(){
+    public boolean isPlaying() {
         return isPlaying;
     }
 
@@ -750,7 +565,7 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
 
          */
         PlayOrPause(MediaNotificationManager.STATE_BUFFERING);
-        if(pbCargandoRadio!=null){
+        if (pbCargandoRadio != null) {
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
             pbCargandoRadio.setVisibility(VISIBLE);
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
@@ -758,13 +573,13 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
     }
 
     private void hideProgress() {
-        if (linearLayoutLoading != null){
+        if (linearLayoutLoading != null) {
             linearLayoutLoading.startAnimation(Animacion.anim_alpha_in(mContext));
             linearLayoutLoading.setVisibility(GONE);
             linearLayoutLoading.startAnimation(Animacion.anim_alpha_out(mContext));
-       }
+        }
 
-        if(pbCargandoRadio!=null){
+        if (pbCargandoRadio != null) {
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_in(mContext));
             pbCargandoRadio.setVisibility(GONE);
             pbCargandoRadio.startAnimation(Animacion.anim_alpha_out(mContext));
@@ -791,37 +606,37 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public void PlayOrPause(String state)   {
+    public void PlayOrPause(String state) {
 
-        switch (state){
+        switch (state) {
 
 
             case MediaNotificationManager.STATE_PLAY:
 
                 // reproducir
-                if(musicPlayer !=null) {
+                if (musicPlayer != null) {
                     musicPlayer.setPlayWhenReady(true);
                 }
-                if(waveColor!=null && waveBlack!=null){
+                if (waveColor != null && waveBlack != null) {
                     waveBlack.play();
                     waveColor.play();
                 }
 
-                if(ivPlayPause!=null) {
+                if (ivPlayPause != null) {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
-                if(mediaNotificationManager!=null) {
+                if (mediaNotificationManager != null) {
                     mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PLAY);
                 }
 
-                if(weatherView!=null){
+                if (weatherView != null) {
                     Random random = new Random();
                     int numRandom = random.nextInt(2);
-                    switch (numRandom){
+                    switch (numRandom) {
                         case 0:
                             weatherView.setWeatherData(PrecipType.RAIN);
                             break;
@@ -838,36 +653,36 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
             case MediaNotificationManager.STATE_PAUSE:
 
                 // pausar
-                if(musicPlayer !=null) {
+                if (musicPlayer != null) {
                     musicPlayer.pausePlayer();
                 }
 
-                if(waveColor!=null && waveBlack!=null){
+                if (waveColor != null && waveBlack != null) {
                     waveBlack.pause();
                     waveColor.pause();
                 }
 
 
-                    if(ivPlayPause!=null) {
-                        ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
-                        ivPlayPause.setVisibility(VISIBLE);
-                        ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
-                        ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
-                    }
+                if (ivPlayPause != null) {
+                    ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
+                    ivPlayPause.setVisibility(VISIBLE);
+                    ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                    ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
+                }
 
-                if(spinBuffering!=null) {
+                if (spinBuffering != null) {
                     spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
                     spinBuffering.setVisibility(GONE);
                     spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
                 }
 
 
-                if(mediaNotificationManager!=null) {
+                if (mediaNotificationManager != null) {
                     mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PAUSE);
                 }
 
 
-                if(weatherView!=null){
+                if (weatherView != null) {
                     weatherView.setWeatherData(PrecipType.CLEAR);
                 }
 
@@ -876,8 +691,8 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
 
             case MediaNotificationManager.STATE_BUFFERING:
 
-                if(spinBuffering!=null) {
-                    if(ivPlayPause!=null) {
+                if (spinBuffering != null) {
+                    if (ivPlayPause != null) {
                         ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                         ivPlayPause.setVisibility(View.INVISIBLE);
                         ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
@@ -888,7 +703,7 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
                     spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
-                if(mediaNotificationManager!=null) {
+                if (mediaNotificationManager != null) {
                     mediaNotificationManager.startNotify(MediaNotificationManager.STATE_BUFFERING);
                 }
 
@@ -900,20 +715,19 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
 
                 // ocultar mstate buffering
 
-                if(spinBuffering!=null) {
+                if (spinBuffering != null) {
                     spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
                     spinBuffering.setVisibility(GONE);
                     spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
                 }
 
 
-                if(ivPlayPause!=null) {
+                if (ivPlayPause != null) {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
-
 
 
                 break;
@@ -922,22 +736,22 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
             case MediaNotificationManager.STATE_STOP:
 
 
-                if(mediaNotificationManager!=null) {
+                if (mediaNotificationManager != null) {
                     mediaNotificationManager.cancelNotify();
                 }
 
-                if(musicPlayer !=null){
+                if (musicPlayer != null) {
                     musicPlayer.pausePlayer();
                 }
 
-                if(ivPlayPause!=null) {
+                if (ivPlayPause != null) {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
-                if(waveColor!=null && waveBlack!=null){
+                if (waveColor != null && waveBlack != null) {
                     waveBlack.pause();
                     waveColor.pause();
                 }
@@ -946,11 +760,187 @@ public class AndExoPlayerView3  extends LinearLayout implements View.OnClickList
                 break;
 
 
+        }
 
 
+    }
+
+    public class ComponentListener implements Player.EventListener {
+
+        String TAG = AndExoPlayerView3.ComponentListener.class.getSimpleName();
+
+        @Override
+        public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+            String stateString;
+            switch (playbackState) {
+                case Player.STATE_IDLE:
+                    stateString = "ExoPlayer.STATE_IDLE      -";
+                    break;
+                case Player.STATE_BUFFERING:
+                    stateString = "ExoPlayer.STATE_BUFFERING -";
+                    setLogInfo(mContext, "ComponentListener.Player.STATE_BUFFERING", "Player.STATE_BUFFERING", false);
+                    PlayOrPause(MediaNotificationManager.STATE_BUFFERING);
+
+                    break;
+                case Player.STATE_READY:
+
+                    isPlaying = true;
+
+
+                    if (isPreparing) {
+                        // this is accurate
+
+                        isPreparing = false;
+                    }
+
+
+                    // mostrar notificacion
+                    if (mediaNotificationManager != null) {
+                        mediaNotificationManager.startNotify(MediaNotificationManager.STATE_PLAY);
+                    }
+
+
+                    // mostrar y animar texview dde cancion y artista solo si es diferente
+                    if (tvCancion != null && tvArtista != null && tvCategoria != null) {
+                        tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
+                        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
+                        tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
+
+                        tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
+                        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
+                        tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
+
+
+                        tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
+                        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
+                        tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
+                    }
+
+
+                    // al reproducirse guardar la cacnion en la lista de historila
+                    GuardarCancionHistorial(mContext, tinyDB.getString(TBidCancionSonando));
+
+                    // ocultar icono de buffering
+                    PlayOrPause(MediaNotificationManager.STATE_READY);
+                    // reproducir cancion y animar icono a pausa
+
+                    // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
+                    CheckIsFavorite(mContext, tinyDB.getString(TBidCancionSonando));
+
+
+                    hideProgress();
+                    stateString = "ExoPlayer.STATE_READY     -";
+                    break;
+                case Player.STATE_ENDED:
+                    stateString = "ExoPlayer.STATE_ENDED     -";
+                    setLogInfo(mContext, "", "", false);
+                    if (ivPlayPause != null) {
+                        ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
+                        ivPlayPause.setVisibility(VISIBLE);
+                        ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                        ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
+                    }
+                    isPlaying = false;
+
+                    //region REPRODUCIR SEGUN LA OPCION DE BUCLE O ALEATORIO
+                    // reproducir segun la opcion de bucle o aleatorio
+
+                    if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
+                        // reproducir la misma cancion
+                        setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_BUCLE", false);
+                        getLinkAndPlay(mContext, tinyDB.getString(TBlinkCancionSonando), 1);
+                        Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
+
+
+                    } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
+                        // reproducir otra cancion de la misma lista
+                        setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_ALEATORIO", false);
+                        Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
+                        List<ModelCancion> listSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
+
+                        if (listSonando != null && listSonando.size() != 0) {
+
+                            Random random = new Random();
+                            int numRandom = random.nextInt(listSonando.size());
+                            //region guardar datos de la cancion sonando en TinyDB
+                            tinyDB.putString(TBidCancionSonando, listSonando.get(numRandom).getId());
+                            tinyDB.putString(TBnombreCancionSonando, listSonando.get(numRandom).getCancion());
+                            tinyDB.putString(TBartistaCancionSonando, listSonando.get(numRandom).getArtista());
+                            tinyDB.putString(TBcategoriaCancionSonando, tinyDB.getString(TBcategoriaCancionSonando));
+                            tinyDB.putString(TBlinkCancionSonando, listSonando.get(numRandom).getLinkYT());
+                            //endregion
+                            getLinkAndPlay(mContext, listSonando.get(numRandom).getLinkYT(), 1);
+
+                        }
+
+                    }
+
+                    //endregion
+
+                    break;
+                default:
+                    stateString = "UNKNOWN_STATE             -";
+                    isPlaying = false;
+                    break;
+
+            }
+
+            Log.d(TAG, "changed state to " + stateString
+                    + " playWhenReady: " + playWhenReady);
+            setLogInfo(mContext, "AndExoPlayerView.onPlayerStateChanged", "changed state to " + stateString
+                    + " playWhenReady: " + playWhenReady, false);
+        }
+
+        @Override
+        public void onRepeatModeChanged(int repeatMode) {
 
         }
 
+        @Override
+        public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+        }
+
+        @Override
+        public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+        }
+
+        @Override
+        public void onLoadingChanged(boolean isLoading) {
+
+        }
+
+        @Override
+        public void onPlayerError(ExoPlaybackException error) {
+            showRetry();
+
+            Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_SHORT).show();
+            System.out.println("newlofi error.getMessage() " + error.getMessage());
+            setLogInfo(mContext, "AndExoPlayerView.onPlayerError", error.getMessage(), true);
+
+            // volver a reproducir
+            musicPlayer.setSource(source);
+
+            if (exoPlayerCallBack != null)
+                exoPlayerCallBack.onError();
+
+        }
+
+        @Override
+        public void onPositionDiscontinuity(int reason) {
+
+        }
+
+        @Override
+        public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+        }
+
+        @Override
+        public void onSeekProcessed() {
+
+        }
 
     }
 

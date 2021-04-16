@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.model.ModelCancion;
-import com.lamesa.lugu.model.ModelCategoria;
 import com.lamesa.lugu.model.ModelListCustom;
 import com.lamesa.lugu.otros.statics.Animacion;
 
@@ -112,18 +111,18 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
                 // metodo para cargar cancion de la categoria seleccionada
 
 
-               List<ModelCancion> tinyListCustomxCustom = tinyDB.getListModelCancion(mListCustom.get(position).getNombre().toLowerCase().trim(), ModelListCustom.class);
+                List<ModelCancion> tinyListCustomxCustom = tinyDB.getListModelCancion(mListCustom.get(position).getNombre().toLowerCase().trim(), ModelListCustom.class);
 
-                if(!tinyListCustomxCustom.isEmpty()){
-                    setLogInfo(mContext, "Clic Categoria","tinyListCustomxCustom list custom "+mlistCategoria.get(position).getNombre()+" está vacia", false);
+                if (!tinyListCustomxCustom.isEmpty()) {
+                    setLogInfo(mContext, "Clic Categoria", "tinyListCustomxCustom list custom " + mlistCategoria.get(position).getNombre() + " está vacia", false);
                 }
 
-                for (int i = 0; i < tinyListCustomxCustom.size() ; i++) {
-                    setLogInfo(mContext, "Clic Categoria","tinyListCustomxCustom == "+tinyListCustomxCustom.get(i).getCancion(), false);
+                for (int i = 0; i < tinyListCustomxCustom.size(); i++) {
+                    setLogInfo(mContext, "Clic Categoria", "tinyListCustomxCustom == " + tinyListCustomxCustom.get(i).getCancion(), false);
                 }
 
 
-                if(tinyListCustomxCustom!=null && tinyListCustomxCustom.size() !=0 ) {
+                if (tinyListCustomxCustom != null && tinyListCustomxCustom.size() != 0) {
 
                     // numero aletario de cancion
                     Random random = new Random();
@@ -150,7 +149,7 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
                     props.put("Id", mListCustom.get(position).getId());
                     props.put("Nombre", mListCustom.get(position).getNombre());
                     Bundle params = new Bundle();
-                    params.putString("Id",  mListCustom.get(position).getId());
+                    params.putString("Id", mListCustom.get(position).getId());
                     params.putString("Nombre", mListCustom.get(position).getNombre());
 
                     mFirebaseAnalytics.logEvent(mixCategoriaClic, params);
@@ -200,11 +199,9 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
      */
 
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.anim_float_window_enter);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;

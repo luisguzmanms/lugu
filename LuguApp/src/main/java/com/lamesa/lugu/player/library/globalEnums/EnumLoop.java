@@ -7,9 +7,8 @@ public enum EnumLoop {
     Finite("Finite", 2),
     ;
 
-    private String valueStr;
-
     private final Integer value;
+    private String valueStr;
 
     EnumLoop(String valueStr, Integer value) {
         this.valueStr = valueStr;
@@ -51,11 +50,11 @@ public enum EnumLoop {
         return valueStr;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
     public void setValueStr(String valueStr) {
         this.valueStr = valueStr;
+    }
+
+    public Integer getValue() {
+        return value;
     }
 }

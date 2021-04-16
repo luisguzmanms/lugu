@@ -8,9 +8,8 @@ public enum EnumPlayerSize {
     UNSPECIFIED("UNSPECIFIED", 2),
     ;
 
-    private String valueStr;
-
     private final Integer value;
+    private String valueStr;
 
     EnumPlayerSize(String valueStr, Integer value) {
         this.valueStr = valueStr;
@@ -52,11 +51,11 @@ public enum EnumPlayerSize {
         return valueStr;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
     public void setValueStr(String valueStr) {
         this.valueStr = valueStr;
+    }
+
+    public Integer getValue() {
+        return value;
     }
 }

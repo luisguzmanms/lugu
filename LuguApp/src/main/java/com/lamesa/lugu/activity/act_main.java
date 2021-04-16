@@ -161,11 +161,6 @@ public class act_main extends AppCompatActivity {
     public static ImageView ivLupa;
     public static List<ModelCategoria> mlistCategoria = new ArrayList<>();
     public static ImageView ivStyle;
-    private ImageView ivMenu;
-    private ImageView ivLogo;
-    private TextView mtvVerEstrenos;
-    private ImageView ivReport;
-    private ImageView ivSupArt;
 
     //traer listas de firebase
     public static void getListas(Context mContext) {
@@ -367,10 +362,10 @@ public class act_main extends AppCompatActivity {
 
         contenidoHome = findViewById(R.id.contenidoHome);
 
-        ivMenu = findViewById(R.id.ivMenu);
+        ImageView ivMenu = findViewById(R.id.ivMenu);
 
-        mtvVerEstrenos = findViewById(R.id.tvVerEstrenos);
-        ivLogo = findViewById(R.id.ivLogo);
+        TextView mtvVerEstrenos = findViewById(R.id.tvVerEstrenos);
+        ImageView ivLogo = findViewById(R.id.ivLogo);
 
 
         tvCancion = findViewById(R.id.tv_cancion);
@@ -402,8 +397,8 @@ public class act_main extends AppCompatActivity {
         ivSleep = findViewById(R.id.iv_sleep);
         tvSleep = findViewById(R.id.tv_sleep);
 
-        ivReport = findViewById(R.id.iv_report);
-        ivSupArt = findViewById(R.id.iv_support_art);
+        ImageView ivReport = findViewById(R.id.iv_report);
+        ImageView ivSupArt = findViewById(R.id.iv_support_art);
 
 
         ivLupa = findViewById(R.id.iv_lupa);

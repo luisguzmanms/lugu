@@ -90,6 +90,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/LearnerAppTheme"
             android:windowSoftInputMode="adjustPan|adjustResize" />
+
+        <!-- solo en versiones admin -->
         <activity
             android:name="com.lamesa.lugu.mesa.DataYT"
             android:excludeFromRecents="true"
@@ -109,10 +111,10 @@
             android:resource="@array/preloaded_fonts" />
 
         <!--
-          A receiver that will receive media buttons and send as
-          intents to your MediaBrowserServiceCompat implementation.
-          Required on pre-Lollipop. More information at
-          http://developer.android.com/reference/android/support/v4/media/session/MediaButtonReceiver.html
+                 A receiver that will receive media buttons and send as
+                 intents to your MediaBrowserServiceCompat implementation.
+                 Required on pre-Lollipop. More information at
+                 http://developer.android.com/reference/android/support/v4/media/session/MediaButtonReceiver.html
         -->
         <receiver
             android:name="androidx.media.session.MediaButtonReceiver"

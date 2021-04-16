@@ -9,19 +9,17 @@ public class ModelListCustom implements Serializable {
     String nombre;
 
 
-    public ModelListCustom(){
+    public ModelListCustom() {
 
     }
 
-    public ModelListCustom(String id, String imagen, String nombre)  {
+    public ModelListCustom(String id, String imagen, String nombre) {
 
-        this.id  = id;
+        this.id = id;
         this.imagen = imagen;
         this.nombre = nombre;
 
     }
-
-
 
 
     public String getImagen() {
@@ -40,7 +38,7 @@ public class ModelListCustom implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 

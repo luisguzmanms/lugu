@@ -82,8 +82,8 @@ import static com.lamesa.lugu.activity.act_main.waveColor;
 import static com.lamesa.lugu.activity.act_main.weatherView;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.NextSong;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
@@ -933,13 +933,13 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
             if (error.getMessage().contains("Unable to connect")) {
                 Alerter.create((Activity) mContext).setTitle(mContext.getResources().getString(R.string.coneccion_lenta))
-                       // .setText("Se reproducirá canciones del estilo seleccionado.")
-                       // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
+                        // .setText("Se reproducirá canciones del estilo seleccionado.")
+                        // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
                         .setIcon(R.drawable.uvv_on_error)
                         .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
                         .setBackgroundColorRes(R.color.learn_light_red) // or setBackgroundColorInt(Color.CYAN)
                         .show();
-              //  Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
             }
 
             //region MIX mixonPlayerError para estadisticas

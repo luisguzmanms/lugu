@@ -53,650 +53,436 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 public class NumberPicker extends LinearLayout {
 
-    @Retention(SOURCE)
-    @IntDef({VERTICAL, HORIZONTAL})
-    public @interface Orientation {
-    }
-
     public static final int VERTICAL = LinearLayout.VERTICAL;
     public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
-
-    @Retention(SOURCE)
-    @IntDef({ASCENDING, DESCENDING})
-    public @interface Order {
-    }
-
     public static final int ASCENDING = 0;
     public static final int DESCENDING = 1;
-
-    @Retention(SOURCE)
-    @IntDef({LEFT, CENTER, RIGHT})
-    public @interface Align {
-    }
-
     public static final int RIGHT = 0;
     public static final int CENTER = 1;
     public static final int LEFT = 2;
-
-    @Retention(SOURCE)
-    @IntDef({SIDE_LINES, UNDERLINE})
-    public @interface DividerType {
-    }
-
     public static final int SIDE_LINES = 0;
     public static final int UNDERLINE = 1;
-
     /**
      * The default update interval during long press.
      */
     private static final long DEFAULT_LONG_PRESS_UPDATE_INTERVAL = 300;
-
     /**
      * The default coefficient to adjust (divide) the max fling velocity.
      */
     private static final int DEFAULT_MAX_FLING_VELOCITY_COEFFICIENT = 8;
-
     /**
      * The the duration for adjusting the selector wheel.
      */
     private static final int SELECTOR_ADJUSTMENT_DURATION_MILLIS = 800;
-
     /**
      * The duration of scrolling while snapping to a given position.
      */
     private static final int SNAP_SCROLL_DURATION = 300;
-
     /**
      * The default strength of fading edge while drawing the selector.
      */
     private static final float DEFAULT_FADING_EDGE_STRENGTH = 0.9f;
-
     /**
      * The default unscaled height of the divider.
      */
     private static final int UNSCALED_DEFAULT_DIVIDER_THICKNESS = 2;
-
     /**
      * The default unscaled distance between the dividers.
      */
     private static final int UNSCALED_DEFAULT_DIVIDER_DISTANCE = 48;
-
     /**
      * Constant for unspecified size.
      */
     private static final int SIZE_UNSPECIFIED = -1;
-
     /**
      * The default color of divider.
      */
     private static final int DEFAULT_DIVIDER_COLOR = 0xFF000000;
-
     /**
      * The default max value of this widget.
      */
     private static final int DEFAULT_MAX_VALUE = 100;
-
     /**
      * The default min value of this widget.
      */
     private static final int DEFAULT_MIN_VALUE = 1;
-
     /**
      * The default wheel item count of this widget.
      */
     private static final int DEFAULT_WHEEL_ITEM_COUNT = 3;
-
     /**
      * The default max height of this widget.
      */
     private static final int DEFAULT_MAX_HEIGHT = 180;
-
     /**
      * The default min width of this widget.
      */
     private static final int DEFAULT_MIN_WIDTH = 64;
-
     /**
      * The default align of text.
      */
     private static final int DEFAULT_TEXT_ALIGN = CENTER;
-
     /**
      * The default color of text.
      */
     private static final int DEFAULT_TEXT_COLOR = 0xFF000000;
-
     /**
      * The default size of text.
      */
     private static final float DEFAULT_TEXT_SIZE = 25f;
-
     /**
      * The default line spacing multiplier of text.
      */
     private static final float DEFAULT_LINE_SPACING_MULTIPLIER = 1f;
-
-    /**
-     * Use a custom NumberPicker formatting callback to use two-digit minutes
-     * strings like "01". Keeping a static formatter etc. is the most efficient
-     * way to do this; it avoids creating temporary objects on every call to
-     * format().
-     */
-    private static class TwoDigitFormatter implements Formatter {
-        final StringBuilder mBuilder = new StringBuilder();
-
-        char mZeroDigit;
-        java.util.Formatter mFmt;
-
-        final Object[] mArgs = new Object[1];
-
-        TwoDigitFormatter() {
-            final Locale locale = Locale.getDefault();
-            init(locale);
-        }
-
-        private void init(Locale locale) {
-            mFmt = createFormatter(locale);
-            mZeroDigit = getZeroDigit(locale);
-        }
-
-        public String format(int value) {
-            final Locale currentLocale = Locale.getDefault();
-            if (mZeroDigit != getZeroDigit(currentLocale)) {
-                init(currentLocale);
-            }
-            mArgs[0] = value;
-            mBuilder.delete(0, mBuilder.length());
-            mFmt.format("%02d", mArgs);
-            return mFmt.toString();
-        }
-
-        private static char getZeroDigit(Locale locale) {
-            // return LocaleData.get(locale).zeroDigit;
-            return new DecimalFormatSymbols(locale).getZeroDigit();
-        }
-
-        private java.util.Formatter createFormatter(Locale locale) {
-            return new java.util.Formatter(mBuilder, locale);
-        }
-    }
-
     private static final TwoDigitFormatter sTwoDigitFormatter = new TwoDigitFormatter();
-
-    public static Formatter getTwoDigitFormatter() {
-        return sTwoDigitFormatter;
-    }
-
+    /**
+     * The numbers accepted by the input text's {@link Filter}
+     */
+    private static final char[] DIGIT_CHARACTERS = new char[]{
+            // Latin digits are the common case
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            // Arabic-Indic
+            '\u0660', '\u0661', '\u0662', '\u0663', '\u0664',
+            '\u0665', '\u0666', '\u0667', '\u0668', '\u0669',
+            // Extended Arabic-Indic
+            '\u06f0', '\u06f1', '\u06f2', '\u06f3', '\u06f4',
+            '\u06f5', '\u06f6', '\u06f7', '\u06f8', '\u06f9',
+            // Hindi and Marathi (Devanagari script)
+            '\u0966', '\u0967', '\u0968', '\u0969', '\u096a',
+            '\u096b', '\u096c', '\u096d', '\u096e', '\u096f',
+            // Bengali
+            '\u09e6', '\u09e7', '\u09e8', '\u09e9', '\u09ea',
+            '\u09eb', '\u09ec', '\u09ed', '\u09ee', '\u09ef',
+            // Kannada
+            '\u0ce6', '\u0ce7', '\u0ce8', '\u0ce9', '\u0cea',
+            '\u0ceb', '\u0cec', '\u0ced', '\u0cee', '\u0cef',
+            // Negative
+            '-'
+    };
     /**
      * The text for showing the current value.
      */
     private final EditText mSelectedText;
-
-    /**
-     * The center X position of the selected text.
-     */
-    private float mSelectedTextCenterX;
-
-    /**
-     * The center Y position of the selected text.
-     */
-    private float mSelectedTextCenterY;
-
-    /**
-     * The min height of this widget.
-     */
-    private int mMinHeight;
-
-    /**
-     * The max height of this widget.
-     */
-    private int mMaxHeight;
-
-    /**
-     * The max width of this widget.
-     */
-    private int mMinWidth;
-
-    /**
-     * The max width of this widget.
-     */
-    private int mMaxWidth;
-
     /**
      * Flag whether to compute the max width.
      */
     private final boolean mComputeMaxWidth;
-
-    /**
-     * The align of the selected text.
-     */
-    private int mSelectedTextAlign = DEFAULT_TEXT_ALIGN;
-
-    /**
-     * The color of the selected text.
-     */
-    private int mSelectedTextColor = DEFAULT_TEXT_COLOR;
-
-    /**
-     * The size of the selected text.
-     */
-    private float mSelectedTextSize = DEFAULT_TEXT_SIZE;
-
-    /**
-     * Flag whether the selected text should strikethroughed.
-     */
-    private boolean mSelectedTextStrikeThru;
-
-    /**
-     * Flag whether the selected text should underlined.
-     */
-    private boolean mSelectedTextUnderline;
-
-    /**
-     * The typeface of the selected text.
-     */
-    private Typeface mSelectedTypeface;
-
-    /**
-     * The align of the text.
-     */
-    private int mTextAlign = DEFAULT_TEXT_ALIGN;
-
-    /**
-     * The color of the text.
-     */
-    private int mTextColor = DEFAULT_TEXT_COLOR;
-
-    /**
-     * The size of the text.
-     */
-    private float mTextSize = DEFAULT_TEXT_SIZE;
-
-    /**
-     * Flag whether the text should strikethroughed.
-     */
-    private boolean mTextStrikeThru;
-
-    /**
-     * Flag whether the text should underlined.
-     */
-    private boolean mTextUnderline;
-
-    /**
-     * The typeface of the text.
-     */
-    private Typeface mTypeface;
-
-    /**
-     * The width of the gap between text elements if the selector wheel.
-     */
-    private int mSelectorTextGapWidth;
-
-    /**
-     * The height of the gap between text elements if the selector wheel.
-     */
-    private int mSelectorTextGapHeight;
-
-    /**
-     * The values to be displayed instead the indices.
-     */
-    private String[] mDisplayedValues;
-
-    /**
-     * Lower value of the range of numbers allowed for the NumberPicker
-     */
-    private int mMinValue = DEFAULT_MIN_VALUE;
-
-    /**
-     * Upper value of the range of numbers allowed for the NumberPicker
-     */
-    private int mMaxValue = DEFAULT_MAX_VALUE;
-
-    /**
-     * Current value of this NumberPicker
-     */
-    private int mValue;
-
-    /**
-     * Listener to be notified upon current value click.
-     */
-    private OnClickListener mOnClickListener;
-
-    /**
-     * Listener to be notified upon current value change.
-     */
-    private OnValueChangeListener mOnValueChangeListener;
-
-    /**
-     * Listener to be notified upon scroll state change.
-     */
-    private OnScrollListener mOnScrollListener;
-
-    /**
-     * Formatter for for displaying the current value.
-     */
-    private Formatter mFormatter;
-
-    /**
-     * The speed for updating the value form long press.
-     */
-    private long mLongPressUpdateInterval = DEFAULT_LONG_PRESS_UPDATE_INTERVAL;
-
     /**
      * Cache for the string representation of selector indices.
      */
     private final SparseArray<String> mSelectorIndexToStringCache = new SparseArray<>();
-
-    /**
-     * The number of items show in the selector wheel.
-     */
-    private int mWheelItemCount = DEFAULT_WHEEL_ITEM_COUNT;
-
-    /**
-     * The real number of items show in the selector wheel.
-     */
-    private int mRealWheelItemCount = DEFAULT_WHEEL_ITEM_COUNT;
-
-    /**
-     * The index of the middle selector item.
-     */
-    private int mWheelMiddleItemIndex = mWheelItemCount / 2;
-
-    /**
-     * The selector indices whose value are show by the selector.
-     */
-    private int[] mSelectorIndices = new int[mWheelItemCount];
-
     /**
      * The {@link Paint} for drawing the selector.
      */
     private final Paint mSelectorWheelPaint;
-
-    /**
-     * The size of a selector element (text + gap).
-     */
-    private int mSelectorElementSize;
-
-    /**
-     * The initial offset of the scroll selector.
-     */
-    private int mInitialScrollOffset = Integer.MIN_VALUE;
-
-    /**
-     * The current offset of the scroll selector.
-     */
-    private int mCurrentScrollOffset;
-
     /**
      * The {@link Scroller} responsible for flinging the selector.
      */
     private final Scroller mFlingScroller;
-
     /**
      * The {@link Scroller} responsible for adjusting the selector.
      */
     private final Scroller mAdjustScroller;
-
-    /**
-     * The previous X coordinate while scrolling the selector.
-     */
-    private int mPreviousScrollerX;
-
-    /**
-     * The previous Y coordinate while scrolling the selector.
-     */
-    private int mPreviousScrollerY;
-
-    /**
-     * Handle to the reusable command for setting the input text selection.
-     */
-    private SetSelectionCommand mSetSelectionCommand;
-
-    /**
-     * Handle to the reusable command for changing the current value from long press by one.
-     */
-    private ChangeCurrentByOneFromLongPressCommand mChangeCurrentByOneFromLongPressCommand;
-
-    /**
-     * The X position of the last down event.
-     */
-    private float mLastDownEventX;
-
-    /**
-     * The Y position of the last down event.
-     */
-    private float mLastDownEventY;
-
-    /**
-     * The X position of the last down or move event.
-     */
-    private float mLastDownOrMoveEventX;
-
-    /**
-     * The Y position of the last down or move event.
-     */
-    private float mLastDownOrMoveEventY;
-
-    /**
-     * Determines speed during touch scrolling.
-     */
-    private VelocityTracker mVelocityTracker;
-
     /**
      * @see ViewConfiguration#getScaledTouchSlop()
      */
     private final int mTouchSlop;
-
     /**
      * @see ViewConfiguration#getScaledMinimumFlingVelocity()
      */
     private final int mMinimumFlingVelocity;
-
-    /**
-     * @see ViewConfiguration#getScaledMaximumFlingVelocity()
-     */
-    private int mMaximumFlingVelocity;
-
-    /**
-     * Flag whether the selector should wrap around.
-     */
-    private boolean mWrapSelectorWheel;
-
-    /**
-     * User choice on whether the selector wheel should be wrapped.
-     */
-    private boolean mWrapSelectorWheelPreferred = true;
-
-    /**
-     * Divider for showing item to be selected while scrolling
-     */
-    private Drawable mDividerDrawable;
-
-    /**
-     * The color of the divider.
-     */
-    private int mDividerColor = DEFAULT_DIVIDER_COLOR;
-
-    /**
-     * The distance between the two dividers.
-     */
-    private int mDividerDistance;
-
     /**
      * The thickness of the divider.
      */
     private final int mDividerLength;
-
-    /**
-     * The thickness of the divider.
-     */
-    private int mDividerThickness;
-
-    /**
-     * The top of the top divider.
-     */
-    private int mTopDividerTop;
-
-    /**
-     * The bottom of the bottom divider.
-     */
-    private int mBottomDividerBottom;
-
-    /**
-     * The left of the top divider.
-     */
-    private int mLeftDividerLeft;
-
-    /**
-     * The right of the right divider.
-     */
-    private int mRightDividerRight;
-
-    /**
-     * The type of the divider.
-     */
-    private int mDividerType;
-
-    /**
-     * The current scroll state of the number picker.
-     */
-    private int mScrollState = OnScrollListener.SCROLL_STATE_IDLE;
-
-    /**
-     * The keycode of the last handled DPAD down event.
-     */
-    private int mLastHandledDownDpadKeyCode = -1;
-
     /**
      * Flag whether the selector wheel should hidden until the picker has focus.
      */
     private final boolean mHideWheelUntilFocused;
-
-    /**
-     * The orientation of this widget.
-     */
-    private int mOrientation;
-
-    /**
-     * The order of this widget.
-     */
-    private int mOrder;
-
-    /**
-     * Flag whether the fading edge should enabled.
-     */
-    private boolean mFadingEdgeEnabled = true;
-
-    /**
-     * The strength of fading edge while drawing the selector.
-     */
-    private float mFadingEdgeStrength = DEFAULT_FADING_EDGE_STRENGTH;
-
-    /**
-     * Flag whether the scroller should enabled.
-     */
-    private boolean mScrollerEnabled = true;
-
-    /**
-     * The line spacing multiplier of the text.
-     */
-    private float mLineSpacingMultiplier = DEFAULT_LINE_SPACING_MULTIPLIER;
-
-    /**
-     * The coefficient to adjust (divide) the max fling velocity.
-     */
-    private int mMaxFlingVelocityCoefficient = DEFAULT_MAX_FLING_VELOCITY_COEFFICIENT;
-
-    /**
-     * Flag whether the accessibility description enabled.
-     */
-    private boolean mAccessibilityDescriptionEnabled = true;
-
     /**
      * The context of this widget.
      */
     private final Context mContext;
-
-    /**
-     * The number formatter for current locale.
-     */
-    private NumberFormat mNumberFormatter;
-
     /**
      * The view configuration of this widget.
      */
     private final ViewConfiguration mViewConfiguration;
-
     /**
-     * Interface to listen for changes of the current value.
+     * The center X position of the selected text.
      */
-    public interface OnValueChangeListener {
-
-        /**
-         * Called upon a change of the current value.
-         *
-         * @param picker The NumberPicker associated with this listener.
-         * @param oldVal The previous value.
-         * @param newVal The new value.
-         */
-        void onValueChange(NumberPicker picker, int oldVal, int newVal);
-    }
-
+    private float mSelectedTextCenterX;
+    /**
+     * The center Y position of the selected text.
+     */
+    private float mSelectedTextCenterY;
+    /**
+     * The min height of this widget.
+     */
+    private int mMinHeight;
+    /**
+     * The max height of this widget.
+     */
+    private int mMaxHeight;
+    /**
+     * The max width of this widget.
+     */
+    private int mMinWidth;
+    /**
+     * The max width of this widget.
+     */
+    private int mMaxWidth;
+    /**
+     * The align of the selected text.
+     */
+    private int mSelectedTextAlign = DEFAULT_TEXT_ALIGN;
+    /**
+     * The color of the selected text.
+     */
+    private int mSelectedTextColor = DEFAULT_TEXT_COLOR;
+    /**
+     * The size of the selected text.
+     */
+    private float mSelectedTextSize = DEFAULT_TEXT_SIZE;
+    /**
+     * Flag whether the selected text should strikethroughed.
+     */
+    private boolean mSelectedTextStrikeThru;
+    /**
+     * Flag whether the selected text should underlined.
+     */
+    private boolean mSelectedTextUnderline;
+    /**
+     * The typeface of the selected text.
+     */
+    private Typeface mSelectedTypeface;
+    /**
+     * The align of the text.
+     */
+    private int mTextAlign = DEFAULT_TEXT_ALIGN;
+    /**
+     * The color of the text.
+     */
+    private int mTextColor = DEFAULT_TEXT_COLOR;
+    /**
+     * The size of the text.
+     */
+    private float mTextSize = DEFAULT_TEXT_SIZE;
+    /**
+     * Flag whether the text should strikethroughed.
+     */
+    private boolean mTextStrikeThru;
+    /**
+     * Flag whether the text should underlined.
+     */
+    private boolean mTextUnderline;
+    /**
+     * The typeface of the text.
+     */
+    private Typeface mTypeface;
+    /**
+     * The width of the gap between text elements if the selector wheel.
+     */
+    private int mSelectorTextGapWidth;
+    /**
+     * The height of the gap between text elements if the selector wheel.
+     */
+    private int mSelectorTextGapHeight;
+    /**
+     * The values to be displayed instead the indices.
+     */
+    private String[] mDisplayedValues;
+    /**
+     * Lower value of the range of numbers allowed for the NumberPicker
+     */
+    private int mMinValue = DEFAULT_MIN_VALUE;
+    /**
+     * Upper value of the range of numbers allowed for the NumberPicker
+     */
+    private int mMaxValue = DEFAULT_MAX_VALUE;
+    /**
+     * Current value of this NumberPicker
+     */
+    private int mValue;
+    /**
+     * Listener to be notified upon current value click.
+     */
+    private OnClickListener mOnClickListener;
+    /**
+     * Listener to be notified upon current value change.
+     */
+    private OnValueChangeListener mOnValueChangeListener;
+    /**
+     * Listener to be notified upon scroll state change.
+     */
+    private OnScrollListener mOnScrollListener;
+    /**
+     * Formatter for for displaying the current value.
+     */
+    private Formatter mFormatter;
+    /**
+     * The speed for updating the value form long press.
+     */
+    private long mLongPressUpdateInterval = DEFAULT_LONG_PRESS_UPDATE_INTERVAL;
+    /**
+     * The number of items show in the selector wheel.
+     */
+    private int mWheelItemCount = DEFAULT_WHEEL_ITEM_COUNT;
+    /**
+     * The real number of items show in the selector wheel.
+     */
+    private int mRealWheelItemCount = DEFAULT_WHEEL_ITEM_COUNT;
+    /**
+     * The index of the middle selector item.
+     */
+    private int mWheelMiddleItemIndex = mWheelItemCount / 2;
+    /**
+     * The selector indices whose value are show by the selector.
+     */
+    private int[] mSelectorIndices = new int[mWheelItemCount];
+    /**
+     * The size of a selector element (text + gap).
+     */
+    private int mSelectorElementSize;
+    /**
+     * The initial offset of the scroll selector.
+     */
+    private int mInitialScrollOffset = Integer.MIN_VALUE;
+    /**
+     * The current offset of the scroll selector.
+     */
+    private int mCurrentScrollOffset;
+    /**
+     * The previous X coordinate while scrolling the selector.
+     */
+    private int mPreviousScrollerX;
+    /**
+     * The previous Y coordinate while scrolling the selector.
+     */
+    private int mPreviousScrollerY;
+    /**
+     * Handle to the reusable command for setting the input text selection.
+     */
+    private SetSelectionCommand mSetSelectionCommand;
+    /**
+     * Handle to the reusable command for changing the current value from long press by one.
+     */
+    private ChangeCurrentByOneFromLongPressCommand mChangeCurrentByOneFromLongPressCommand;
+    /**
+     * The X position of the last down event.
+     */
+    private float mLastDownEventX;
+    /**
+     * The Y position of the last down event.
+     */
+    private float mLastDownEventY;
+    /**
+     * The X position of the last down or move event.
+     */
+    private float mLastDownOrMoveEventX;
+    /**
+     * The Y position of the last down or move event.
+     */
+    private float mLastDownOrMoveEventY;
+    /**
+     * Determines speed during touch scrolling.
+     */
+    private VelocityTracker mVelocityTracker;
+    /**
+     * @see ViewConfiguration#getScaledMaximumFlingVelocity()
+     */
+    private int mMaximumFlingVelocity;
+    /**
+     * Flag whether the selector should wrap around.
+     */
+    private boolean mWrapSelectorWheel;
+    /**
+     * User choice on whether the selector wheel should be wrapped.
+     */
+    private boolean mWrapSelectorWheelPreferred = true;
+    /**
+     * Divider for showing item to be selected while scrolling
+     */
+    private Drawable mDividerDrawable;
+    /**
+     * The color of the divider.
+     */
+    private int mDividerColor = DEFAULT_DIVIDER_COLOR;
+    /**
+     * The distance between the two dividers.
+     */
+    private int mDividerDistance;
+    /**
+     * The thickness of the divider.
+     */
+    private int mDividerThickness;
+    /**
+     * The top of the top divider.
+     */
+    private int mTopDividerTop;
+    /**
+     * The bottom of the bottom divider.
+     */
+    private int mBottomDividerBottom;
+    /**
+     * The left of the top divider.
+     */
+    private int mLeftDividerLeft;
+    /**
+     * The right of the right divider.
+     */
+    private int mRightDividerRight;
+    /**
+     * The type of the divider.
+     */
+    private int mDividerType;
+    /**
+     * The current scroll state of the number picker.
+     */
+    private int mScrollState = OnScrollListener.SCROLL_STATE_IDLE;
+    /**
+     * The keycode of the last handled DPAD down event.
+     */
+    private int mLastHandledDownDpadKeyCode = -1;
+    /**
+     * The orientation of this widget.
+     */
+    private int mOrientation;
+    /**
+     * The order of this widget.
+     */
+    private int mOrder;
+    /**
+     * Flag whether the fading edge should enabled.
+     */
+    private boolean mFadingEdgeEnabled = true;
+    /**
+     * The strength of fading edge while drawing the selector.
+     */
+    private float mFadingEdgeStrength = DEFAULT_FADING_EDGE_STRENGTH;
+    /**
+     * Flag whether the scroller should enabled.
+     */
+    private boolean mScrollerEnabled = true;
+    /**
+     * The line spacing multiplier of the text.
+     */
+    private float mLineSpacingMultiplier = DEFAULT_LINE_SPACING_MULTIPLIER;
+    /**
+     * The coefficient to adjust (divide) the max fling velocity.
+     */
+    private int mMaxFlingVelocityCoefficient = DEFAULT_MAX_FLING_VELOCITY_COEFFICIENT;
+    /**
+     * Flag whether the accessibility description enabled.
+     */
+    private boolean mAccessibilityDescriptionEnabled = true;
+    /**
+     * The number formatter for current locale.
+     */
+    private NumberFormat mNumberFormatter;
     /**
      * The amount of space between items.
      */
     private int mItemSpacing = 0;
-
-    /**
-     * Interface to listen for the picker scroll state.
-     */
-    public interface OnScrollListener {
-
-        @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_TOUCH_SCROLL, SCROLL_STATE_FLING})
-        @Retention(RetentionPolicy.SOURCE)
-        @interface ScrollState {
-        }
-
-        /**
-         * The view is not scrolling.
-         */
-        int SCROLL_STATE_IDLE = 0;
-
-        /**
-         * The user is scrolling using touch, and his finger is still on the screen.
-         */
-        int SCROLL_STATE_TOUCH_SCROLL = 1;
-
-        /**
-         * The user had previously been scrolling using touch and performed a fling.
-         */
-        int SCROLL_STATE_FLING = 2;
-
-        /**
-         * Callback invoked while the number picker scroll state has changed.
-         *
-         * @param view        The view whose scroll state is being reported.
-         * @param scrollState The current scroll state. One of
-         *                    {@link #SCROLL_STATE_IDLE},
-         *                    {@link #SCROLL_STATE_TOUCH_SCROLL} or
-         *                    {@link #SCROLL_STATE_IDLE}.
-         */
-        void onScrollStateChange(NumberPicker view, @ScrollState int scrollState);
-    }
-
-    /**
-     * Interface used to format current value into a string for presentation.
-     */
-    public interface Formatter {
-
-        /**
-         * Formats a string representation of the current value.
-         *
-         * @param value The currently selected value.
-         * @return A formatted string representation.
-         */
-        String format(int value);
-    }
 
     /**
      * Create a new number picker.
@@ -899,6 +685,45 @@ public class NumberPicker extends LinearLayout {
         }
 
         attributes.recycle();
+    }
+
+    public static Formatter getTwoDigitFormatter() {
+        return sTwoDigitFormatter;
+    }
+
+    /**
+     * Utility to reconcile a desired size and state, with constraints imposed
+     * by a MeasureSpec.  Will take the desired size, unless a different size
+     * is imposed by the constraints.  The returned value is a compound integer,
+     * with the resolved size in the {@link #MEASURED_SIZE_MASK} bits and
+     * optionally the bit {@link #MEASURED_STATE_TOO_SMALL} set if the resulting
+     * size is smaller than the size the view wants to be.
+     *
+     * @param size        How big the view wants to be
+     * @param measureSpec Constraints imposed by the parent
+     * @return Size information bit mask as defined by
+     * {@link #MEASURED_SIZE_MASK} and {@link #MEASURED_STATE_TOO_SMALL}.
+     */
+    public static int resolveSizeAndState(int size, int measureSpec, int childMeasuredState) {
+        int result = size;
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+        switch (specMode) {
+            case MeasureSpec.UNSPECIFIED:
+                result = size;
+                break;
+            case MeasureSpec.AT_MOST:
+                if (specSize < size) {
+                    result = specSize | MEASURED_STATE_TOO_SMALL;
+                } else {
+                    result = size;
+                }
+                break;
+            case MeasureSpec.EXACTLY:
+                result = specSize;
+                break;
+        }
+        return result | (childMeasuredState & MEASURED_STATE_MASK);
     }
 
     @Override
@@ -1429,58 +1254,6 @@ public class NumberPicker extends LinearLayout {
         mOnScrollListener = onScrollListener;
     }
 
-    /**
-     * Set the formatter to be used for formatting the current value.
-     * <p>
-     * Note: If you have provided alternative values for the values this
-     * formatter is never invoked.
-     * </p>
-     *
-     * @param formatter The formatter object. If formatter is <code>null</code>,
-     *                  {@link String#valueOf(int)} will be used.
-     * @see #setDisplayedValues(String[])
-     */
-    public void setFormatter(Formatter formatter) {
-        if (formatter == mFormatter) {
-            return;
-        }
-        mFormatter = formatter;
-        initializeSelectorWheelIndices();
-        updateInputTextView();
-    }
-
-    /**
-     * Set the current value for the number picker.
-     * <p>
-     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} and
-     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>false</code> the
-     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} value.
-     * </p>
-     * <p>
-     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} and
-     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>true</code> the
-     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} value.
-     * </p>
-     * <p>
-     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} and
-     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>false</code> the
-     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} value.
-     * </p>
-     * <p>
-     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} and
-     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>true</code> the
-     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} value.
-     * </p>
-     *
-     * @param value The current value.
-     * @see #setWrapSelectorWheel(boolean)
-     * @see #setMinValue(int)
-     * @see #setMaxValue(int)
-     */
-    public void setValue(int value) {
-        setValueInternal(value, false);
-    }
-
     private float getMaxTextSize() {
         return Math.max(mTextSize, mSelectedTextSize);
     }
@@ -1600,6 +1373,38 @@ public class NumberPicker extends LinearLayout {
      */
     public int getValue() {
         return mValue;
+    }
+
+    /**
+     * Set the current value for the number picker.
+     * <p>
+     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} and
+     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>false</code> the
+     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} value.
+     * </p>
+     * <p>
+     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} and
+     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>true</code> the
+     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} value.
+     * </p>
+     * <p>
+     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} and
+     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>false</code> the
+     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} value.
+     * </p>
+     * <p>
+     * If the argument is less than the {@link com.shawnlin.numberpicker.NumberPicker#getMaxValue()} and
+     * {@link com.shawnlin.numberpicker.NumberPicker#getWrapSelectorWheel()} is <code>true</code> the
+     * current value is set to the {@link com.shawnlin.numberpicker.NumberPicker#getMinValue()} value.
+     * </p>
+     *
+     * @param value The current value.
+     * @see #setWrapSelectorWheel(boolean)
+     * @see #setMinValue(int)
+     * @see #setMaxValue(int)
+     */
+    public void setValue(int value) {
+        setValueInternal(value, false);
     }
 
     /**
@@ -2020,41 +1825,6 @@ public class NumberPicker extends LinearLayout {
     }
 
     /**
-     * Utility to reconcile a desired size and state, with constraints imposed
-     * by a MeasureSpec.  Will take the desired size, unless a different size
-     * is imposed by the constraints.  The returned value is a compound integer,
-     * with the resolved size in the {@link #MEASURED_SIZE_MASK} bits and
-     * optionally the bit {@link #MEASURED_STATE_TOO_SMALL} set if the resulting
-     * size is smaller than the size the view wants to be.
-     *
-     * @param size        How big the view wants to be
-     * @param measureSpec Constraints imposed by the parent
-     * @return Size information bit mask as defined by
-     * {@link #MEASURED_SIZE_MASK} and {@link #MEASURED_STATE_TOO_SMALL}.
-     */
-    public static int resolveSizeAndState(int size, int measureSpec, int childMeasuredState) {
-        int result = size;
-        int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize = MeasureSpec.getSize(measureSpec);
-        switch (specMode) {
-            case MeasureSpec.UNSPECIFIED:
-                result = size;
-                break;
-            case MeasureSpec.AT_MOST:
-                if (specSize < size) {
-                    result = specSize | MEASURED_STATE_TOO_SMALL;
-                } else {
-                    result = size;
-                }
-                break;
-            case MeasureSpec.EXACTLY:
-                result = specSize;
-                break;
-        }
-        return result | (childMeasuredState & MEASURED_STATE_MASK);
-    }
-
-    /**
      * Resets the selector indices and clear the cached string representation of
      * these indices.
      */
@@ -2446,29 +2216,586 @@ public class NumberPicker extends LinearLayout {
     }
 
     /**
-     * The numbers accepted by the input text's {@link Filter}
+     * Ensures that the scroll wheel is adjusted i.e. there is no offset and the
+     * middle element is in the middle of the widget.
      */
-    private static final char[] DIGIT_CHARACTERS = new char[]{
-            // Latin digits are the common case
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            // Arabic-Indic
-            '\u0660', '\u0661', '\u0662', '\u0663', '\u0664',
-            '\u0665', '\u0666', '\u0667', '\u0668', '\u0669',
-            // Extended Arabic-Indic
-            '\u06f0', '\u06f1', '\u06f2', '\u06f3', '\u06f4',
-            '\u06f5', '\u06f6', '\u06f7', '\u06f8', '\u06f9',
-            // Hindi and Marathi (Devanagari script)
-            '\u0966', '\u0967', '\u0968', '\u0969', '\u096a',
-            '\u096b', '\u096c', '\u096d', '\u096e', '\u096f',
-            // Bengali
-            '\u09e6', '\u09e7', '\u09e8', '\u09e9', '\u09ea',
-            '\u09eb', '\u09ec', '\u09ed', '\u09ee', '\u09ef',
-            // Kannada
-            '\u0ce6', '\u0ce7', '\u0ce8', '\u0ce9', '\u0cea',
-            '\u0ceb', '\u0cec', '\u0ced', '\u0cee', '\u0cef',
-            // Negative
-            '-'
-    };
+    private void ensureScrollWheelAdjusted() {
+        // adjust to the closest value
+        int delta = mInitialScrollOffset - mCurrentScrollOffset;
+        if (delta == 0) {
+            return;
+        }
+
+        if (Math.abs(delta) > mSelectorElementSize / 2) {
+            delta += (delta > 0) ? -mSelectorElementSize : mSelectorElementSize;
+        }
+        if (isHorizontalMode()) {
+            mPreviousScrollerX = 0;
+            mAdjustScroller.startScroll(0, 0, delta, 0, SELECTOR_ADJUSTMENT_DURATION_MILLIS);
+        } else {
+            mPreviousScrollerY = 0;
+            mAdjustScroller.startScroll(0, 0, 0, delta, SELECTOR_ADJUSTMENT_DURATION_MILLIS);
+        }
+        invalidate();
+    }
+
+    private String formatNumberWithLocale(int value) {
+        return mNumberFormatter.format(value);
+    }
+
+    private float dpToPx(float dp) {
+        return dp * getResources().getDisplayMetrics().density;
+    }
+
+    private float pxToDp(float px) {
+        return px / getResources().getDisplayMetrics().density;
+    }
+
+    private float spToPx(float sp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp,
+                getResources().getDisplayMetrics());
+    }
+
+    private float pxToSp(float px) {
+        return px / getResources().getDisplayMetrics().scaledDensity;
+    }
+
+    private Formatter stringToFormatter(final String formatter) {
+        if (TextUtils.isEmpty(formatter)) {
+            return null;
+        }
+
+        return new Formatter() {
+            @Override
+            public String format(int i) {
+                return String.format(Locale.getDefault(), formatter, i);
+            }
+        };
+    }
+
+    private void setWidthAndHeight() {
+        if (isHorizontalMode()) {
+            mMinHeight = SIZE_UNSPECIFIED;
+            mMaxHeight = (int) dpToPx(DEFAULT_MIN_WIDTH);
+            mMinWidth = (int) dpToPx(DEFAULT_MAX_HEIGHT);
+            mMaxWidth = SIZE_UNSPECIFIED;
+        } else {
+            mMinHeight = SIZE_UNSPECIFIED;
+            mMaxHeight = (int) dpToPx(DEFAULT_MAX_HEIGHT);
+            mMinWidth = (int) dpToPx(DEFAULT_MIN_WIDTH);
+            mMaxWidth = SIZE_UNSPECIFIED;
+        }
+    }
+
+    public void setDividerColorResource(@ColorRes int colorId) {
+        setDividerColor(ContextCompat.getColor(mContext, colorId));
+    }
+
+    public void setDividerDistanceResource(@DimenRes int dimenId) {
+        setDividerDistance(getResources().getDimensionPixelSize(dimenId));
+    }
+
+    public void setDividerType(@DividerType int dividerType) {
+        mDividerType = dividerType;
+        invalidate();
+    }
+
+    public void setDividerThicknessResource(@DimenRes int dimenId) {
+        setDividerThickness(getResources().getDimensionPixelSize(dimenId));
+    }
+
+    public void setSelectedTextColorResource(@ColorRes int colorId) {
+        setSelectedTextColor(ContextCompat.getColor(mContext, colorId));
+    }
+
+    public void setSelectedTypeface(Typeface typeface) {
+        mSelectedTypeface = typeface;
+        if (mSelectedTypeface != null) {
+            mSelectorWheelPaint.setTypeface(mSelectedTypeface);
+        } else if (mTypeface != null) {
+            mSelectorWheelPaint.setTypeface(mTypeface);
+        } else {
+            mSelectorWheelPaint.setTypeface(Typeface.MONOSPACE);
+        }
+    }
+
+    public void setSelectedTypeface(String string, int style) {
+        if (TextUtils.isEmpty(string)) {
+            return;
+        }
+        setSelectedTypeface(Typeface.create(string, style));
+    }
+
+    public void setSelectedTypeface(String string) {
+        setSelectedTypeface(string, Typeface.NORMAL);
+    }
+
+    public void setSelectedTypeface(@StringRes int stringId, int style) {
+        setSelectedTypeface(getResources().getString(stringId), style);
+    }
+
+    public void setSelectedTypeface(@StringRes int stringId) {
+        setSelectedTypeface(stringId, Typeface.NORMAL);
+    }
+
+    public void setTextColorResource(@ColorRes int colorId) {
+        setTextColor(ContextCompat.getColor(mContext, colorId));
+    }
+
+    public void setTypeface(String string, int style) {
+        if (TextUtils.isEmpty(string)) {
+            return;
+        }
+        setTypeface(Typeface.create(string, style));
+    }
+
+    public void setTypeface(@StringRes int stringId, int style) {
+        setTypeface(getResources().getString(stringId), style);
+    }
+
+    public void setItemSpacing(int itemSpacing) {
+        mItemSpacing = itemSpacing;
+    }
+
+    public boolean isHorizontalMode() {
+        return getOrientation() == HORIZONTAL;
+    }
+
+    public boolean isAscendingOrder() {
+        return getOrder() == ASCENDING;
+    }
+
+    public boolean isAccessibilityDescriptionEnabled() {
+        return mAccessibilityDescriptionEnabled;
+    }
+
+    public void setAccessibilityDescriptionEnabled(boolean enabled) {
+        mAccessibilityDescriptionEnabled = enabled;
+    }
+
+    public int getDividerColor() {
+        return mDividerColor;
+    }
+
+    public void setDividerColor(@ColorInt int color) {
+        mDividerColor = color;
+        mDividerDrawable = new ColorDrawable(color);
+    }
+
+    public float getDividerDistance() {
+        return pxToDp(mDividerDistance);
+    }
+
+    public void setDividerDistance(int distance) {
+        mDividerDistance = distance;
+    }
+
+    public float getDividerThickness() {
+        return pxToDp(mDividerThickness);
+    }
+
+    public void setDividerThickness(int thickness) {
+        mDividerThickness = thickness;
+    }
+
+    public int getOrder() {
+        return mOrder;
+    }
+
+    /**
+     * Should sort numbers in ascending or descending order.
+     *
+     * @param order Pass {@link #ASCENDING} or {@link #ASCENDING}.
+     *              Default value is {@link #DESCENDING}.
+     */
+    public void setOrder(@Order int order) {
+        mOrder = order;
+    }
+
+    public int getOrientation() {
+        return mOrientation;
+    }
+
+    public void setOrientation(@Orientation int orientation) {
+        mOrientation = orientation;
+        setWidthAndHeight();
+        requestLayout();
+    }
+
+    public int getWheelItemCount() {
+        return mWheelItemCount;
+    }
+
+    public void setWheelItemCount(int count) {
+        if (count < 1) {
+            throw new IllegalArgumentException("Wheel item count must be >= 1");
+        }
+        mRealWheelItemCount = count;
+        mWheelItemCount = Math.max(count, DEFAULT_WHEEL_ITEM_COUNT);
+        mWheelMiddleItemIndex = mWheelItemCount / 2;
+        mSelectorIndices = new int[mWheelItemCount];
+    }
+
+    public Formatter getFormatter() {
+        return mFormatter;
+    }
+
+    /**
+     * Set the formatter to be used for formatting the current value.
+     * <p>
+     * Note: If you have provided alternative values for the values this
+     * formatter is never invoked.
+     * </p>
+     *
+     * @param formatter The formatter object. If formatter is <code>null</code>,
+     *                  {@link String#valueOf(int)} will be used.
+     * @see #setDisplayedValues(String[])
+     */
+    public void setFormatter(Formatter formatter) {
+        if (formatter == mFormatter) {
+            return;
+        }
+        mFormatter = formatter;
+        initializeSelectorWheelIndices();
+        updateInputTextView();
+    }
+
+    public void setFormatter(final String formatter) {
+        if (TextUtils.isEmpty(formatter)) {
+            return;
+        }
+
+        setFormatter(stringToFormatter(formatter));
+    }
+
+    public void setFormatter(@StringRes int stringId) {
+        setFormatter(getResources().getString(stringId));
+    }
+
+    public boolean isFadingEdgeEnabled() {
+        return mFadingEdgeEnabled;
+    }
+
+    public void setFadingEdgeEnabled(boolean fadingEdgeEnabled) {
+        mFadingEdgeEnabled = fadingEdgeEnabled;
+    }
+
+    public float getFadingEdgeStrength() {
+        return mFadingEdgeStrength;
+    }
+
+    public void setFadingEdgeStrength(float strength) {
+        mFadingEdgeStrength = strength;
+    }
+
+    public boolean isScrollerEnabled() {
+        return mScrollerEnabled;
+    }
+
+    public void setScrollerEnabled(boolean scrollerEnabled) {
+        mScrollerEnabled = scrollerEnabled;
+    }
+
+    public int getSelectedTextAlign() {
+        return mSelectedTextAlign;
+    }
+
+    public void setSelectedTextAlign(@Align int align) {
+        mSelectedTextAlign = align;
+    }
+
+    public int getSelectedTextColor() {
+        return mSelectedTextColor;
+    }
+
+    public void setSelectedTextColor(@ColorInt int color) {
+        mSelectedTextColor = color;
+        mSelectedText.setTextColor(mSelectedTextColor);
+    }
+
+    public float getSelectedTextSize() {
+        return mSelectedTextSize;
+    }
+
+    public void setSelectedTextSize(float textSize) {
+        mSelectedTextSize = textSize;
+        mSelectedText.setTextSize(pxToSp(mSelectedTextSize));
+    }
+
+    public void setSelectedTextSize(@DimenRes int dimenId) {
+        setSelectedTextSize(getResources().getDimension(dimenId));
+    }
+
+    public boolean getSelectedTextStrikeThru() {
+        return mSelectedTextStrikeThru;
+    }
+
+    public void setSelectedTextStrikeThru(boolean strikeThruText) {
+        mSelectedTextStrikeThru = strikeThruText;
+    }
+
+    public boolean getSelectedTextUnderline() {
+        return mSelectedTextUnderline;
+    }
+
+    public void setSelectedTextUnderline(boolean underlineText) {
+        mSelectedTextUnderline = underlineText;
+    }
+
+    public int getTextAlign() {
+        return mTextAlign;
+    }
+
+    public void setTextAlign(@Align int align) {
+        mTextAlign = align;
+    }
+
+    public int getTextColor() {
+        return mTextColor;
+    }
+
+    public void setTextColor(@ColorInt int color) {
+        mTextColor = color;
+        mSelectorWheelPaint.setColor(mTextColor);
+    }
+
+    public float getTextSize() {
+        return spToPx(mTextSize);
+    }
+
+    public void setTextSize(float textSize) {
+        mTextSize = textSize;
+        mSelectorWheelPaint.setTextSize(mTextSize);
+    }
+
+    public void setTextSize(@DimenRes int dimenId) {
+        setTextSize(getResources().getDimension(dimenId));
+    }
+
+    public boolean getTextStrikeThru() {
+        return mTextStrikeThru;
+    }
+
+    public void setTextStrikeThru(boolean strikeThruText) {
+        mTextStrikeThru = strikeThruText;
+    }
+
+    public boolean getTextUnderline() {
+        return mTextUnderline;
+    }
+
+    public void setTextUnderline(boolean underlineText) {
+        mTextUnderline = underlineText;
+    }
+
+    public Typeface getTypeface() {
+        return mTypeface;
+    }
+
+    public void setTypeface(Typeface typeface) {
+        mTypeface = typeface;
+        if (mTypeface != null) {
+            mSelectedText.setTypeface(mTypeface);
+            setSelectedTypeface(mSelectedTypeface);
+        } else {
+            mSelectedText.setTypeface(Typeface.MONOSPACE);
+        }
+    }
+
+    public void setTypeface(String string) {
+        setTypeface(string, Typeface.NORMAL);
+    }
+
+    public void setTypeface(@StringRes int stringId) {
+        setTypeface(stringId, Typeface.NORMAL);
+    }
+
+    public float getLineSpacingMultiplier() {
+        return mLineSpacingMultiplier;
+    }
+
+    public void setLineSpacingMultiplier(float multiplier) {
+        mLineSpacingMultiplier = multiplier;
+    }
+
+    public int getMaxFlingVelocityCoefficient() {
+        return mMaxFlingVelocityCoefficient;
+    }
+
+    public void setMaxFlingVelocityCoefficient(int coefficient) {
+        mMaxFlingVelocityCoefficient = coefficient;
+        mMaximumFlingVelocity = mViewConfiguration.getScaledMaximumFlingVelocity()
+                / mMaxFlingVelocityCoefficient;
+    }
+
+    @Retention(SOURCE)
+    @IntDef({VERTICAL, HORIZONTAL})
+    public @interface Orientation {
+    }
+
+    @Retention(SOURCE)
+    @IntDef({ASCENDING, DESCENDING})
+    public @interface Order {
+    }
+
+    @Retention(SOURCE)
+    @IntDef({LEFT, CENTER, RIGHT})
+    public @interface Align {
+    }
+
+    @Retention(SOURCE)
+    @IntDef({SIDE_LINES, UNDERLINE})
+    public @interface DividerType {
+    }
+
+    /**
+     * Interface to listen for changes of the current value.
+     */
+    public interface OnValueChangeListener {
+
+        /**
+         * Called upon a change of the current value.
+         *
+         * @param picker The NumberPicker associated with this listener.
+         * @param oldVal The previous value.
+         * @param newVal The new value.
+         */
+        void onValueChange(NumberPicker picker, int oldVal, int newVal);
+    }
+
+    /**
+     * Interface to listen for the picker scroll state.
+     */
+    public interface OnScrollListener {
+
+        /**
+         * The view is not scrolling.
+         */
+        int SCROLL_STATE_IDLE = 0;
+        /**
+         * The user is scrolling using touch, and his finger is still on the screen.
+         */
+        int SCROLL_STATE_TOUCH_SCROLL = 1;
+        /**
+         * The user had previously been scrolling using touch and performed a fling.
+         */
+        int SCROLL_STATE_FLING = 2;
+
+        /**
+         * Callback invoked while the number picker scroll state has changed.
+         *
+         * @param view        The view whose scroll state is being reported.
+         * @param scrollState The current scroll state. One of
+         *                    {@link #SCROLL_STATE_IDLE},
+         *                    {@link #SCROLL_STATE_TOUCH_SCROLL} or
+         *                    {@link #SCROLL_STATE_IDLE}.
+         */
+        void onScrollStateChange(NumberPicker view, @ScrollState int scrollState);
+
+        @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_TOUCH_SCROLL, SCROLL_STATE_FLING})
+        @Retention(RetentionPolicy.SOURCE)
+        @interface ScrollState {
+        }
+    }
+
+    /**
+     * Interface used to format current value into a string for presentation.
+     */
+    public interface Formatter {
+
+        /**
+         * Formats a string representation of the current value.
+         *
+         * @param value The currently selected value.
+         * @return A formatted string representation.
+         */
+        String format(int value);
+    }
+
+    /**
+     * Use a custom NumberPicker formatting callback to use two-digit minutes
+     * strings like "01". Keeping a static formatter etc. is the most efficient
+     * way to do this; it avoids creating temporary objects on every call to
+     * format().
+     */
+    private static class TwoDigitFormatter implements Formatter {
+        final StringBuilder mBuilder = new StringBuilder();
+        final Object[] mArgs = new Object[1];
+        char mZeroDigit;
+        java.util.Formatter mFmt;
+
+        TwoDigitFormatter() {
+            final Locale locale = Locale.getDefault();
+            init(locale);
+        }
+
+        private static char getZeroDigit(Locale locale) {
+            // return LocaleData.get(locale).zeroDigit;
+            return new DecimalFormatSymbols(locale).getZeroDigit();
+        }
+
+        private void init(Locale locale) {
+            mFmt = createFormatter(locale);
+            mZeroDigit = getZeroDigit(locale);
+        }
+
+        public String format(int value) {
+            final Locale currentLocale = Locale.getDefault();
+            if (mZeroDigit != getZeroDigit(currentLocale)) {
+                init(currentLocale);
+            }
+            mArgs[0] = value;
+            mBuilder.delete(0, mBuilder.length());
+            mFmt.format("%02d", mArgs);
+            return mFmt.toString();
+        }
+
+        private java.util.Formatter createFormatter(Locale locale) {
+            return new java.util.Formatter(mBuilder, locale);
+        }
+    }
+
+    /**
+     * Command for setting the input text selection.
+     */
+    private static class SetSelectionCommand implements Runnable {
+
+        private final EditText mInputText;
+
+        private int mSelectionStart;
+        private int mSelectionEnd;
+
+        /**
+         * Whether this runnable is currently posted.
+         */
+        private boolean mPosted;
+
+        SetSelectionCommand(EditText inputText) {
+            mInputText = inputText;
+        }
+
+        void post(int selectionStart, int selectionEnd) {
+            mSelectionStart = selectionStart;
+            mSelectionEnd = selectionEnd;
+            if (!mPosted) {
+                mInputText.post(this);
+                mPosted = true;
+            }
+        }
+
+        void cancel() {
+            if (mPosted) {
+                mInputText.removeCallbacks(this);
+                mPosted = false;
+            }
+        }
+
+        @Override
+        public void run() {
+            mPosted = false;
+            mInputText.setSelection(mSelectionStart, mSelectionEnd);
+        }
+    }
 
     /**
      * Filter for accepting only valid indices or prefixes of the string
@@ -2542,72 +2869,6 @@ public class NumberPicker extends LinearLayout {
     }
 
     /**
-     * Ensures that the scroll wheel is adjusted i.e. there is no offset and the
-     * middle element is in the middle of the widget.
-     */
-    private void ensureScrollWheelAdjusted() {
-        // adjust to the closest value
-        int delta = mInitialScrollOffset - mCurrentScrollOffset;
-        if (delta == 0) {
-            return;
-        }
-
-        if (Math.abs(delta) > mSelectorElementSize / 2) {
-            delta += (delta > 0) ? -mSelectorElementSize : mSelectorElementSize;
-        }
-        if (isHorizontalMode()) {
-            mPreviousScrollerX = 0;
-            mAdjustScroller.startScroll(0, 0, delta, 0, SELECTOR_ADJUSTMENT_DURATION_MILLIS);
-        } else {
-            mPreviousScrollerY = 0;
-            mAdjustScroller.startScroll(0, 0, 0, delta, SELECTOR_ADJUSTMENT_DURATION_MILLIS);
-        }
-        invalidate();
-    }
-
-    /**
-     * Command for setting the input text selection.
-     */
-    private static class SetSelectionCommand implements Runnable {
-
-        private final EditText mInputText;
-
-        private int mSelectionStart;
-        private int mSelectionEnd;
-
-        /**
-         * Whether this runnable is currently posted.
-         */
-        private boolean mPosted;
-
-        SetSelectionCommand(EditText inputText) {
-            mInputText = inputText;
-        }
-
-        void post(int selectionStart, int selectionEnd) {
-            mSelectionStart = selectionStart;
-            mSelectionEnd = selectionEnd;
-            if (!mPosted) {
-                mInputText.post(this);
-                mPosted = true;
-            }
-        }
-
-        void cancel() {
-            if (mPosted) {
-                mInputText.removeCallbacks(this);
-                mPosted = false;
-            }
-        }
-
-        @Override
-        public void run() {
-            mPosted = false;
-            mInputText.setSelection(mSelectionStart, mSelectionEnd);
-        }
-    }
-
-    /**
      * Command for changing the current value from a long press by one.
      */
     class ChangeCurrentByOneFromLongPressCommand implements Runnable {
@@ -2622,375 +2883,6 @@ public class NumberPicker extends LinearLayout {
             changeValueByOne(mIncrement);
             postDelayed(this, mLongPressUpdateInterval);
         }
-    }
-
-    private String formatNumberWithLocale(int value) {
-        return mNumberFormatter.format(value);
-    }
-
-    private float dpToPx(float dp) {
-        return dp * getResources().getDisplayMetrics().density;
-    }
-
-    private float pxToDp(float px) {
-        return px / getResources().getDisplayMetrics().density;
-    }
-
-    private float spToPx(float sp) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp,
-                getResources().getDisplayMetrics());
-    }
-
-    private float pxToSp(float px) {
-        return px / getResources().getDisplayMetrics().scaledDensity;
-    }
-
-    private Formatter stringToFormatter(final String formatter) {
-        if (TextUtils.isEmpty(formatter)) {
-            return null;
-        }
-
-        return new Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format(Locale.getDefault(), formatter, i);
-            }
-        };
-    }
-
-    private void setWidthAndHeight() {
-        if (isHorizontalMode()) {
-            mMinHeight = SIZE_UNSPECIFIED;
-            mMaxHeight = (int) dpToPx(DEFAULT_MIN_WIDTH);
-            mMinWidth = (int) dpToPx(DEFAULT_MAX_HEIGHT);
-            mMaxWidth = SIZE_UNSPECIFIED;
-        } else {
-            mMinHeight = SIZE_UNSPECIFIED;
-            mMaxHeight = (int) dpToPx(DEFAULT_MAX_HEIGHT);
-            mMinWidth = (int) dpToPx(DEFAULT_MIN_WIDTH);
-            mMaxWidth = SIZE_UNSPECIFIED;
-        }
-    }
-
-    public void setAccessibilityDescriptionEnabled(boolean enabled) {
-        mAccessibilityDescriptionEnabled = enabled;
-    }
-
-    public void setDividerColor(@ColorInt int color) {
-        mDividerColor = color;
-        mDividerDrawable = new ColorDrawable(color);
-    }
-
-    public void setDividerColorResource(@ColorRes int colorId) {
-        setDividerColor(ContextCompat.getColor(mContext, colorId));
-    }
-
-    public void setDividerDistance(int distance) {
-        mDividerDistance = distance;
-    }
-
-    public void setDividerDistanceResource(@DimenRes int dimenId) {
-        setDividerDistance(getResources().getDimensionPixelSize(dimenId));
-    }
-
-    public void setDividerType(@DividerType int dividerType) {
-        mDividerType = dividerType;
-        invalidate();
-    }
-
-    public void setDividerThickness(int thickness) {
-        mDividerThickness = thickness;
-    }
-
-    public void setDividerThicknessResource(@DimenRes int dimenId) {
-        setDividerThickness(getResources().getDimensionPixelSize(dimenId));
-    }
-
-    /**
-     * Should sort numbers in ascending or descending order.
-     *
-     * @param order Pass {@link #ASCENDING} or {@link #ASCENDING}.
-     *              Default value is {@link #DESCENDING}.
-     */
-    public void setOrder(@Order int order) {
-        mOrder = order;
-    }
-
-    public void setOrientation(@Orientation int orientation) {
-        mOrientation = orientation;
-        setWidthAndHeight();
-        requestLayout();
-    }
-
-    public void setWheelItemCount(int count) {
-        if (count < 1) {
-            throw new IllegalArgumentException("Wheel item count must be >= 1");
-        }
-        mRealWheelItemCount = count;
-        mWheelItemCount = Math.max(count, DEFAULT_WHEEL_ITEM_COUNT);
-        mWheelMiddleItemIndex = mWheelItemCount / 2;
-        mSelectorIndices = new int[mWheelItemCount];
-    }
-
-    public void setFormatter(final String formatter) {
-        if (TextUtils.isEmpty(formatter)) {
-            return;
-        }
-
-        setFormatter(stringToFormatter(formatter));
-    }
-
-    public void setFormatter(@StringRes int stringId) {
-        setFormatter(getResources().getString(stringId));
-    }
-
-    public void setFadingEdgeEnabled(boolean fadingEdgeEnabled) {
-        mFadingEdgeEnabled = fadingEdgeEnabled;
-    }
-
-    public void setFadingEdgeStrength(float strength) {
-        mFadingEdgeStrength = strength;
-    }
-
-    public void setScrollerEnabled(boolean scrollerEnabled) {
-        mScrollerEnabled = scrollerEnabled;
-    }
-
-    public void setSelectedTextAlign(@Align int align) {
-        mSelectedTextAlign = align;
-    }
-
-    public void setSelectedTextColor(@ColorInt int color) {
-        mSelectedTextColor = color;
-        mSelectedText.setTextColor(mSelectedTextColor);
-    }
-
-    public void setSelectedTextColorResource(@ColorRes int colorId) {
-        setSelectedTextColor(ContextCompat.getColor(mContext, colorId));
-    }
-
-    public void setSelectedTextSize(float textSize) {
-        mSelectedTextSize = textSize;
-        mSelectedText.setTextSize(pxToSp(mSelectedTextSize));
-    }
-
-    public void setSelectedTextSize(@DimenRes int dimenId) {
-        setSelectedTextSize(getResources().getDimension(dimenId));
-    }
-
-    public void setSelectedTextStrikeThru(boolean strikeThruText) {
-        mSelectedTextStrikeThru = strikeThruText;
-    }
-
-    public void setSelectedTextUnderline(boolean underlineText) {
-        mSelectedTextUnderline = underlineText;
-    }
-
-    public void setSelectedTypeface(Typeface typeface) {
-        mSelectedTypeface = typeface;
-        if (mSelectedTypeface != null) {
-            mSelectorWheelPaint.setTypeface(mSelectedTypeface);
-        } else if (mTypeface != null) {
-            mSelectorWheelPaint.setTypeface(mTypeface);
-        } else {
-            mSelectorWheelPaint.setTypeface(Typeface.MONOSPACE);
-        }
-    }
-
-    public void setSelectedTypeface(String string, int style) {
-        if (TextUtils.isEmpty(string)) {
-            return;
-        }
-        setSelectedTypeface(Typeface.create(string, style));
-    }
-
-    public void setSelectedTypeface(String string) {
-        setSelectedTypeface(string, Typeface.NORMAL);
-    }
-
-    public void setSelectedTypeface(@StringRes int stringId, int style) {
-        setSelectedTypeface(getResources().getString(stringId), style);
-    }
-
-    public void setSelectedTypeface(@StringRes int stringId) {
-        setSelectedTypeface(stringId, Typeface.NORMAL);
-    }
-
-    public void setTextAlign(@Align int align) {
-        mTextAlign = align;
-    }
-
-    public void setTextColor(@ColorInt int color) {
-        mTextColor = color;
-        mSelectorWheelPaint.setColor(mTextColor);
-    }
-
-    public void setTextColorResource(@ColorRes int colorId) {
-        setTextColor(ContextCompat.getColor(mContext, colorId));
-    }
-
-    public void setTextSize(float textSize) {
-        mTextSize = textSize;
-        mSelectorWheelPaint.setTextSize(mTextSize);
-    }
-
-    public void setTextSize(@DimenRes int dimenId) {
-        setTextSize(getResources().getDimension(dimenId));
-    }
-
-    public void setTextStrikeThru(boolean strikeThruText) {
-        mTextStrikeThru = strikeThruText;
-    }
-
-    public void setTextUnderline(boolean underlineText) {
-        mTextUnderline = underlineText;
-    }
-
-    public void setTypeface(Typeface typeface) {
-        mTypeface = typeface;
-        if (mTypeface != null) {
-            mSelectedText.setTypeface(mTypeface);
-            setSelectedTypeface(mSelectedTypeface);
-        } else {
-            mSelectedText.setTypeface(Typeface.MONOSPACE);
-        }
-    }
-
-    public void setTypeface(String string, int style) {
-        if (TextUtils.isEmpty(string)) {
-            return;
-        }
-        setTypeface(Typeface.create(string, style));
-    }
-
-    public void setTypeface(String string) {
-        setTypeface(string, Typeface.NORMAL);
-    }
-
-    public void setTypeface(@StringRes int stringId, int style) {
-        setTypeface(getResources().getString(stringId), style);
-    }
-
-    public void setTypeface(@StringRes int stringId) {
-        setTypeface(stringId, Typeface.NORMAL);
-    }
-
-    public void setLineSpacingMultiplier(float multiplier) {
-        mLineSpacingMultiplier = multiplier;
-    }
-
-    public void setMaxFlingVelocityCoefficient(int coefficient) {
-        mMaxFlingVelocityCoefficient = coefficient;
-        mMaximumFlingVelocity = mViewConfiguration.getScaledMaximumFlingVelocity()
-                / mMaxFlingVelocityCoefficient;
-    }
-
-    public void setItemSpacing(int itemSpacing) {
-        mItemSpacing = itemSpacing;
-    }
-
-    public boolean isHorizontalMode() {
-        return getOrientation() == HORIZONTAL;
-    }
-
-    public boolean isAscendingOrder() {
-        return getOrder() == ASCENDING;
-    }
-
-    public boolean isAccessibilityDescriptionEnabled() {
-        return mAccessibilityDescriptionEnabled;
-    }
-
-    public int getDividerColor() {
-        return mDividerColor;
-    }
-
-    public float getDividerDistance() {
-        return pxToDp(mDividerDistance);
-    }
-
-    public float getDividerThickness() {
-        return pxToDp(mDividerThickness);
-    }
-
-    public int getOrder() {
-        return mOrder;
-    }
-
-    public int getOrientation() {
-        return mOrientation;
-    }
-
-    public int getWheelItemCount() {
-        return mWheelItemCount;
-    }
-
-    public Formatter getFormatter() {
-        return mFormatter;
-    }
-
-    public boolean isFadingEdgeEnabled() {
-        return mFadingEdgeEnabled;
-    }
-
-    public float getFadingEdgeStrength() {
-        return mFadingEdgeStrength;
-    }
-
-    public boolean isScrollerEnabled() {
-        return mScrollerEnabled;
-    }
-
-    public int getSelectedTextAlign() {
-        return mSelectedTextAlign;
-    }
-
-    public int getSelectedTextColor() {
-        return mSelectedTextColor;
-    }
-
-    public float getSelectedTextSize() {
-        return mSelectedTextSize;
-    }
-
-    public boolean getSelectedTextStrikeThru() {
-        return mSelectedTextStrikeThru;
-    }
-
-    public boolean getSelectedTextUnderline() {
-        return mSelectedTextUnderline;
-    }
-
-    public int getTextAlign() {
-        return mTextAlign;
-    }
-
-    public int getTextColor() {
-        return mTextColor;
-    }
-
-    public float getTextSize() {
-        return spToPx(mTextSize);
-    }
-
-    public boolean getTextStrikeThru() {
-        return mTextStrikeThru;
-    }
-
-    public boolean getTextUnderline() {
-        return mTextUnderline;
-    }
-
-    public Typeface getTypeface() {
-        return mTypeface;
-    }
-
-    public float getLineSpacingMultiplier() {
-        return mLineSpacingMultiplier;
-    }
-
-    public int getMaxFlingVelocityCoefficient() {
-        return mMaxFlingVelocityCoefficient;
     }
 
 }

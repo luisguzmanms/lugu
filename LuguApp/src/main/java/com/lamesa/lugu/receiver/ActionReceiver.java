@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.lamesa.lugu.R;
+import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.player.MediaNotificationManager;
 
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
 
@@ -79,6 +79,7 @@ public class ActionReceiver extends BroadcastReceiver {
     }
 
     private void ActionFavorito(Context mContext) {
+        TinyDB tinyDB = new TinyDB(mContext);
         GuardarCancionFavoritos(mContext, tinyDB.getString(TBidCancionSonando), true);
     }
 

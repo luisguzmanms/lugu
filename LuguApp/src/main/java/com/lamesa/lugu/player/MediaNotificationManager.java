@@ -118,14 +118,16 @@ public class MediaNotificationManager {
 
         //region media session
         mediaSession = new MediaSessionCompat(mContext, mContext.getClass().getSimpleName());
-        transportControls = mediaSession.getController().getTransportControls();
-        mediaSession.setActive(true);
-        mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
-        mediaSession.setMetadata(new MediaMetadataCompat.Builder()
-                .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, tinyDB.getString(TBartistaCancionSonando))
-                .putString(MediaMetadataCompat.METADATA_KEY_TITLE, tinyDB.getString(TBnombreCancionSonando)) // strLiveBroadcast
-                .build());
-        mediaSession.setCallback(mediasSessionCallback);
+        if (mediaSession != null) {
+            transportControls = mediaSession.getController().getTransportControls();
+            mediaSession.setActive(true);
+            mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+            mediaSession.setMetadata(new MediaMetadataCompat.Builder()
+                    .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, tinyDB.getString(TBartistaCancionSonando))
+                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, tinyDB.getString(TBnombreCancionSonando)) // strLiveBroadcast
+                    .build());
+            mediaSession.setCallback(mediasSessionCallback);
+        }
 
         //endregion
 

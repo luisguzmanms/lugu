@@ -10,8 +10,8 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 1,
-      "versionName": "1.0 admin",
+      "versionCode": 6,
+      "versionName": "1.2.2 beta",
       "outputFile": "LuguApp-debug.apk"
     }
   ]

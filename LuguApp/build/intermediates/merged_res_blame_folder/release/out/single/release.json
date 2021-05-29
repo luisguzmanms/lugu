@@ -48,40 +48,40 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\289109f67a7d55f47de6688cf4a43b58\\jetified-exoplayer-ui-2.11.4\\res\\drawable-anydpi-v21\\exo_icon_fastforward.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_rect_miui_editbox_bkg_dark_normal.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\drawable\\rect_miui_editbox_bkg_dark_normal.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi-v4_abc_ic_star_black_36dp.png.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-xxxhdpi-v4\\abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_rect_miui_editbox_bkg_dark_normal.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\drawable\\rect_miui_editbox_bkg_dark_normal.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_learn_shadoe_oscuro2.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadoe_oscuro2.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout-watch-v20_abc_alert_dialog_title_material.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\layout-watch-v20\\abc_alert_dialog_title_material.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_design_menu_item_action_area.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\layout\\design_menu_item_action_area.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_design_layout_tab_text.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\layout\\design_layout_tab_text.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_design_menu_item_action_area.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\layout\\design_menu_item_action_area.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout-watch-v20_abc_alert_dialog_title_material.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\layout-watch-v20\\abc_alert_dialog_title_material.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_slide_up_dialog.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\slide_up_dialog.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_abc_alert_dialog_material.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\layout\\abc_alert_dialog_material.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4_bottom_bar_default_icon.png.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\7637edb39f2de3cc021ea94c8b77abc5\\jetified-bottomnavigationbar-0.9.6\\res\\drawable-xxhdpi-v4\\bottom_bar_default_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_abc_alert_dialog_material.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\layout\\abc_alert_dialog_material.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_ic_no_signal.xml.flat",
@@ -92,12 +92,12 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\anim\\btn_checkbox_to_unchecked_icon_null_animation.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_fui_ic_anonymous_white_24dp.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\52a0b2db48137f8708677845a065aa5d\\jetified-firebase-ui-auth-5.1.0\\res\\drawable\\fui_ic_anonymous_white_24dp.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_abc_fade_in.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_fui_ic_anonymous_white_24dp.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\52a0b2db48137f8708677845a065aa5d\\jetified-firebase-ui-auth-5.1.0\\res\\drawable\\fui_ic_anonymous_white_24dp.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_dialog_custom.xml.flat",
@@ -216,12 +216,12 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-hdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_learn_ic_arrow_right.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_arrow_right.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_learn_ic_search.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_learn_ic_arrow_right.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_ic_arrow_right.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout-v21_notification_template_icon_group.xml.flat",
@@ -268,20 +268,20 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-mdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_rect_miui_button_blue_dark_normal.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\drawable\\rect_miui_button_blue_dark_normal.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\mipmap-xhdpi_seek_bar_progress_default.png.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\seek_bar_progress_default.png"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi-v4_abc_ic_star_black_16dp.png.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-xxxhdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\mipmap-xhdpi_seek_bar_progress_default.png.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\mipmap-xhdpi\\seek_bar_progress_default.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4_exo_icon_fastforward.png.flat",
@@ -516,12 +516,12 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-mdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4_abc_ic_star_black_48dp.png.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_button_selectdialog_kongzue_blue_dark.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\drawable\\button_selectdialog_kongzue_blue_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4_abc_ic_star_black_48dp.png.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\menu_popup_menu_favoritos.xml.flat",
@@ -556,12 +556,12 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\a55ba49e337f2e9184c4e09aa836d5a7\\media-1.0.1\\res\\layout\\notification_media_action.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_bottom_menu_enter.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\anim\\bottom_menu_enter.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4_abc_list_pressed_holo_light.9.png.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-mdpi-v4\\abc_list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_bottom_menu_enter.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\anim\\bottom_menu_enter.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4_exo_icon_stop.png.flat",
@@ -588,12 +588,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\slide_in.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_rect_selectdialog_miui_bkg_light.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\drawable\\rect_selectdialog_miui_bkg_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_select_dialog_singlechoice_material.xml.flat",
@@ -624,12 +624,12 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\52a0b2db48137f8708677845a065aa5d\\jetified-firebase-ui-auth-5.1.0\\res\\drawable-v21\\fui_idp_button_background_github.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\color-v23_abc_tint_switch_track.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\color-v23\\abc_tint_switch_track.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_activity_act_main.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\layout\\activity_act_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\color-v23_abc_tint_switch_track.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\color-v23\\abc_tint_switch_track.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4_exo_icon_shuffle_off.png.flat",
@@ -692,40 +692,40 @@
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\drawable\\navigation_empty_icon.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_ic_mtrl_chip_checked_circle.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\drawable\\ic_mtrl_chip_checked_circle.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_browser_actions_context_menu_row.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\2988fadead7e18fb724ca01ee9b9636b\\browser-1.0.0\\res\\layout\\browser_actions_context_menu_row.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21_design_ic_visibility.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_browser_actions_context_menu_row.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\2988fadead7e18fb724ca01ee9b9636b\\browser-1.0.0\\res\\layout\\browser_actions_context_menu_row.xml"
-    },
-    {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\interpolator_btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_ic_mtrl_chip_checked_circle.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\ee3b2121f78e98e3ec7ec881f5b6a628\\material-1.0.0\\res\\drawable\\ic_mtrl_chip_checked_circle.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\drawable-xxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
     {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\interpolator_btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\b8a9f7e87fc295553d2774a5ebc69bfb\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml"
+    },
+    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_learn_shadow_edittext_oscuro.xml.flat",
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\drawable\\learn_shadow_edittext_oscuro.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_slide_up_fade_in.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\slide_up_fade_in.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\xml_network_config.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\xml\\network_config.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable_rect_ios_edit_box_bkg_normal.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\d5da01f8f691b4b838fbd7c3fba0db15\\jetified-dialog-3.2.4\\res\\drawable\\rect_ios_edit_box_bkg_normal.xml"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\xml_network_config.xml.flat",
-        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\xml\\network_config.xml"
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_slide_up_fade_in.xml.flat",
+        "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\anim\\slide_up_fade_in.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-ldrtl-xxhdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
@@ -788,12 +788,12 @@
         "source": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\src\\main\\res\\font\\josefinsans_thinitalic.ttf"
     },
     {
-        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_com_mixpanel_android_fade_in.xml.flat",
-        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\c83f1de3c3e840c0a1a4b2b7b9402e86\\jetified-mixpanel-android-5.8.8\\res\\anim\\com_mixpanel_android_fade_in.xml"
-    },
-    {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v21_exo_edit_mode_logo.xml.flat",
         "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\289109f67a7d55f47de6688cf4a43b58\\jetified-exoplayer-ui-2.11.4\\res\\drawable-anydpi-v21\\exo_edit_mode_logo.xml"
+    },
+    {
+        "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\anim_com_mixpanel_android_fade_in.xml.flat",
+        "source": "C:\\Users\\luisguzman\\.gradle\\caches\\transforms-2\\files-2.1\\c83f1de3c3e840c0a1a4b2b7b9402e86\\jetified-mixpanel-android-5.8.8\\res\\anim\\com_mixpanel_android_fade_in.xml"
     },
     {
         "merged": "C:\\Users\\luisguzman\\GitHub\\lugu\\LuguApp\\build\\intermediates\\res\\merged\\release\\layout_layout_player_retry.xml.flat",

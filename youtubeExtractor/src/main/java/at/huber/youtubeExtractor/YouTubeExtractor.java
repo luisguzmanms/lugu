@@ -25,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -41,12 +42,12 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
     private final static String LOG_TAG = "YouTubeExtractor";
     private final static String CACHE_FILE_NAME = "decipher_js_funct";
 
-    private WeakReference<Context> refContext;
+    private final WeakReference<Context> refContext;
     private String videoID;
     private VideoMeta videoMeta;
     private boolean includeWebM = true;
     private boolean useHttp = false;
-    private String cacheDirPath;
+    private final String cacheDirPath;
 
     private volatile String decipheredSignature;
 
@@ -207,7 +208,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
     private SparseArray<YtFile> getStreamUrls() throws IOException, InterruptedException {
 
         String ytInfoUrl = (useHttp) ? "http://" : "https://";
-        ytInfoUrl += "www.youtube.com/get_video_info?video_id=" + videoID + "&eurl="
+        ytInfoUrl += "www.youtube.com/get_video_info?html5=1&video_id=" + videoID + "&eurl="
                 + URLEncoder.encode("https://youtube.googleapis.com/v/" + videoID, "UTF-8");
 
         String streamMap;
@@ -436,7 +437,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
             urlConnection.setRequestProperty("User-Agent", USER_AGENT);
             try {
                 reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                StringBuilder sb = new StringBuilder("");
+                StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
@@ -586,7 +587,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         if (cacheFile.exists() && (System.currentTimeMillis() - cacheFile.lastModified()) < 1209600000) {
             BufferedReader reader = null;
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(cacheFile), "UTF-8"));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(cacheFile), StandardCharsets.UTF_8));
                 decipherJsFileName = reader.readLine();
                 decipherFunctionName = reader.readLine();
                 decipherFunctions = reader.readLine();
@@ -634,7 +635,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         File cacheFile = new File(cacheDirPath + "/" + CACHE_FILE_NAME);
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(cacheFile), "UTF-8"));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(cacheFile), StandardCharsets.UTF_8));
             writer.write(decipherJsFileName + "\n");
             writer.write(decipherFunctionName + "\n");
             writer.write(decipherFunctions);

@@ -364,8 +364,6 @@ androidx.work.impl.constraints.trackers.package-info
 com.google.common.collect.Maps$MapDifferenceImpl
 com.google.firebase.R$string
 io.grpc.internal.RetriableStream$Sublistener$2$1
-com.google.firebase.database.core.utilities.encoding.CustomClassMapper$BeanMapper:
-    public java.util.Map serialize(java.lang.Object)
 com.opencsv.bean.CsvCustomBindByPosition
 net.khirr.android.privacypolicy.R$dimen
 com.squareup.okhttp.Interceptor
@@ -1053,7 +1051,6 @@ com.google.common.util.concurrent.Partially$GwtIncompatible
 androidx.media.R$styleable
 com.google.android.gms.common.internal.ApiExceptionUtil:
     public void <init>()
-com.lamesa.lugu.activity.splash$7$1
 androidx.arch.core.executor.ArchTaskExecutor:
     public static java.util.concurrent.Executor getMainThreadExecutor()
     public void setDelegate(androidx.arch.core.executor.TaskExecutor)
@@ -1481,11 +1478,11 @@ com.google.type.CalendarPeriodProto
 com.google.common.collect.MultimapBuilder$MultimapBuilderWithKeys$2
 androidx.core.util.Pools
 androidx.annotation.MenuRes
-com.google.firebase.auth.zzx
 com.google.firebase.firestore.FirestoreMultiDbComponent:
     synchronized com.google.firebase.firestore.FirebaseFirestore get(java.lang.String)
     public synchronized void remove(java.lang.String)
     public synchronized void onDeleted(java.lang.String,com.google.firebase.FirebaseOptions)
+com.google.firebase.auth.zzx
 androidx.room.PrimaryKey
 com.google.common.collect.Cut$BelowValue
 com.google.common.cache.CacheLoader$FunctionToCacheLoader
@@ -2281,7 +2278,6 @@ com.google.firebase.storage.ControllableTask:
     public abstract com.google.firebase.storage.ControllableTask addOnPausedListener(android.app.Activity,com.google.firebase.storage.OnPausedListener)
 com.google.api.MonitoredResourceDescriptor$Builder
 io.grpc.internal.RetriableStream$1CompressorEntry
-com.lamesa.lugu.activity.splash$4
 androidx.browser.browseractions.BrowserActionsFallbackMenuAdapter$ViewHolderItem
 com.google.gson.JsonDeserializationContext:
     public abstract java.lang.Object deserialize(com.google.gson.JsonElement,java.lang.reflect.Type)
@@ -4040,7 +4036,6 @@ com.google.common.base.Optional
 com.google.common.collect.ArrayListMultimap
 com.google.firebase.storage.DeleteStorageTask
 com.kongzue.dialog.util.SafelyHandlerWrapper
-com.google.firebase.database.DatabaseReference$CompletionListener
 com.google.common.util.concurrent.AbstractCatchingFuture$CatchingFuture
 com.google.android.material.snackbar.BaseTransientBottomBar$9
 com.google.android.gms.internal.firebase-auth-api.zzrt
@@ -4055,9 +4050,6 @@ at.huber.youtubeExtractor.VideoMeta:
     public java.lang.String getHqImageUrl()
     public java.lang.String getSdImageUrl()
     public java.lang.String getMaxResImageUrl()
-    public java.lang.String getVideoId()
-    public java.lang.String getTitle()
-    public java.lang.String getAuthor()
     public java.lang.String getChannelId()
     public long getVideoLength()
     public long getViewCount()
@@ -4393,7 +4385,6 @@ com.google.firebase.database.FirebaseDatabase:
     static com.google.firebase.database.FirebaseDatabase createForTests(com.google.firebase.FirebaseApp,com.google.firebase.database.core.RepoInfo,com.google.firebase.database.core.DatabaseConfig)
     static synthetic com.google.firebase.database.core.Repo access$000(com.google.firebase.database.FirebaseDatabase)
     public com.google.firebase.FirebaseApp getApp()
-    public com.google.firebase.database.DatabaseReference getReference(java.lang.String)
     public com.google.firebase.database.DatabaseReference getReferenceFromUrl(java.lang.String)
     public void purgeOutstandingWrites()
     public void goOnline()
@@ -4442,7 +4433,6 @@ com.google.firebase.auth.FacebookAuthCredential:
     public java.lang.String getSignInMethod()
 androidx.core.app.NotificationCompatSideChannelService
 com.google.android.gms.common.data.DataBufferObserverSet
-com.google.firebase.database.core.Repo$7
 com.google.common.util.concurrent.AbstractService$3
 com.google.firebase.firestore.local.SQLiteRemoteDocumentCache$$Lambda$4
 com.google.common.base.Suppliers$NonSerializableMemoizingSupplier
@@ -4470,7 +4460,6 @@ com.google.gson.stream.MalformedJsonException:
     private static final long serialVersionUID
 androidx.drawerlayout.R$styleable
 com.google.common.graph.MutableValueGraph
-com.google.firebase.database.DatabaseReference$1
 com.opencsv.bean.AbstractFieldMap
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineFromSuspendFunction$1
 com.google.gson.internal.LinkedHashTreeMap$KeySet$1
@@ -6076,7 +6065,6 @@ androidx.recyclerview.widget.DiffUtil
 com.google.firebase.crashlytics.internal.analytics.CrashlyticsOriginAnalyticsEventLogger:
     static final java.lang.String FIREBASE_ANALYTICS_ORIGIN_CRASHLYTICS
 com.google.firebase.messaging.FirebaseMessaging$$Lambda$5
-com.google.firebase.database.core.Repo$6
 androidx.transition.CircularPropagation
 okio.ByteString:
     public static synthetic okio.ByteString substring$default(okio.ByteString,int,int,int,java.lang.Object)
@@ -6124,7 +6112,6 @@ okio.ByteString:
     public final int -deprecated_size()
     private static final long serialVersionUID
 com.google.common.collect.ForwardingSortedSet
-com.lamesa.lugu.activity.splash$3
 com.google.common.util.concurrent.AbstractService$2
 io.grpc.internal.InUseStateAggregator
 androidx.work.R$drawable
@@ -6837,6 +6824,7 @@ com.naveed.ytextractor.model.PlayerResponse$Captions$PlayerCaptionsTracklistRend
 com.google.common.collect.CartesianList$1
 com.google.android.gms.auth.api.accounttransfer.zzo
 com.google.common.util.concurrent.ListenableScheduledFuture
+com.lamesa.lugu.activity.splash$1$1
 com.google.common.hash.Murmur3_32HashFunction
 com.opencsv.bean.CsvNumber
 com.google.firestore.v1.ListCollectionIdsResponse$1
@@ -7497,6 +7485,7 @@ kotlin.jvm.internal.ShortCompanionObject
 com.google.common.collect.StandardTable$ColumnMap$ColumnMapEntrySet
 androidx.core.content.pm.PackageInfoCompat
 com.google.firebase.database.collection.R$drawable
+com.lamesa.lugu.activity.splash$1$2
 okhttp3.Cache$CacheResponseBody$1
 com.google.common.collect.ForwardingTable
 androidx.swiperefreshlayout.widget.CircularProgressDrawable$ProgressDrawableSize
@@ -7585,6 +7574,7 @@ com.naveed.ytextractor.model.Response:
     private java.lang.String playerJs
 com.google.common.collect.Maps$KeySet
 com.google.firebase.firestore.local.SQLiteRemoteDocumentCache$$Lambda$3
+com.lamesa.lugu.activity.splash$1
 kotlin.coroutines.experimental.CoroutineContext$Element$DefaultImpls
 com.google.android.gms.common.api.internal.BaseImplementation$ApiMethodImpl:
     protected void <init>(com.google.android.gms.common.api.Api$AnyClientKey,com.google.android.gms.common.api.GoogleApiClient)
@@ -14322,7 +14312,6 @@ androidx.core.content.res.ResourcesCompat$ThemeCompat$ImplApi29:
 com.google.firebase.database.DatabaseReference:
     void <init>(java.lang.String,com.google.firebase.database.core.DatabaseConfig)
     private void <init>(com.google.firebase.database.core.utilities.ParsedUrl,com.google.firebase.database.core.DatabaseConfig)
-    private com.google.android.gms.tasks.Task setValueInternal(java.lang.Object,com.google.firebase.database.snapshot.Node,com.google.firebase.database.DatabaseReference$CompletionListener)
     private com.google.android.gms.tasks.Task setPriorityInternal(com.google.firebase.database.snapshot.Node,com.google.firebase.database.DatabaseReference$CompletionListener)
     private com.google.android.gms.tasks.Task updateChildrenInternal(java.util.Map,com.google.firebase.database.DatabaseReference$CompletionListener)
     public static void goOffline()
@@ -14331,7 +14320,6 @@ com.google.firebase.database.DatabaseReference:
     static void goOnline(com.google.firebase.database.core.DatabaseConfig)
     private static synchronized com.google.firebase.database.core.DatabaseConfig getDefaultConfig()
     public com.google.firebase.database.DatabaseReference push()
-    public com.google.android.gms.tasks.Task setValue(java.lang.Object)
     public com.google.android.gms.tasks.Task setValue(java.lang.Object,java.lang.Object)
     public void setValue(java.lang.Object,com.google.firebase.database.DatabaseReference$CompletionListener)
     public void setValue(java.lang.Object,java.lang.Object,com.google.firebase.database.DatabaseReference$CompletionListener)
@@ -15336,7 +15324,6 @@ com.kongzue.dialog.v3.MessageDialog:
     public com.kongzue.dialog.v3.MessageDialog setOtherButtonDrawable(android.graphics.drawable.Drawable)
     public int getButtonOrientation()
     public com.kongzue.dialog.interfaces.OnDismissListener getOnDismissListener()
-    public com.kongzue.dialog.v3.MessageDialog setOnDismissListener(com.kongzue.dialog.interfaces.OnDismissListener)
     public com.kongzue.dialog.interfaces.OnShowListener getOnShowListener()
     public com.kongzue.dialog.v3.MessageDialog setOnShowListener(com.kongzue.dialog.interfaces.OnShowListener)
     public com.kongzue.dialog.util.DialogSettings$STYLE getStyle()
@@ -16848,8 +16835,6 @@ com.google.firebase.database.core.Repo:
     public com.google.firebase.database.core.RepoInfo getRepoInfo()
     public long getServerTime()
     boolean hasListeners()
-    void callOnComplete(com.google.firebase.database.DatabaseReference$CompletionListener,com.google.firebase.database.DatabaseError,com.google.firebase.database.core.Path)
-    public void setValue(com.google.firebase.database.core.Path,com.google.firebase.database.snapshot.Node,com.google.firebase.database.DatabaseReference$CompletionListener)
     public void updateChildren(com.google.firebase.database.core.Path,com.google.firebase.database.core.CompoundWrite,com.google.firebase.database.DatabaseReference$CompletionListener,java.util.Map)
     public void purgeOutstandingWrites()
     public void onDisconnectSetValue(com.google.firebase.database.core.Path,com.google.firebase.database.snapshot.Node,com.google.firebase.database.DatabaseReference$CompletionListener)
@@ -18330,8 +18315,8 @@ kotlin.jvm.functions.Function5:
     public abstract java.lang.Object invoke(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
 com.google.firebase.firestore.core.UserData$1
 com.google.android.gms.internal.safetynet.zzo
-com.google.android.gms.internal.firebase-auth-api.zzrg
 com.google.android.gms.auth.api.identity.zzm
+com.google.android.gms.internal.firebase-auth-api.zzrg
 butterknife.BindViews:
     public abstract int[] value()
 androidx.recyclerview.widget.ViewBoundsCheck$BoundFlags:
@@ -19203,10 +19188,10 @@ com.google.common.cache.LocalCache$LocalManualCache$1
 kotlin.text.StringsKt___StringsKt$chunkedSequence$1
 com.google.rpc.Help$Link$Builder
 com.google.common.collect.TreeTraverser$BreadthFirstIterator
+com.google.android.gms.auth.api.proxy.ProxyApi$ProxyResult
 com.google.android.gms.auth.api.phone.SmsRetrieverClient:
     public void <init>(android.app.Activity)
     public abstract com.google.android.gms.tasks.Task startSmsUserConsent(java.lang.String)
-com.google.android.gms.auth.api.proxy.ProxyApi$ProxyResult
 com.google.firebase.crashlytics.internal.common.ExecutorUtils:
     private void <init>()
     public static java.util.concurrent.ScheduledExecutorService buildSingleThreadScheduledExecutorService(java.lang.String)
@@ -21501,7 +21486,6 @@ com.google.firebase.auth.internal.zzr:
 com.google.firebase.datatransport.R$layout
 com.lamesa.lugu.App:
     public static com.lamesa.lugu.App get()
-    private static com.lamesa.lugu.App instance
     public static boolean ignoreMobile
     public static java.lang.String idFilm
     public static java.lang.String tbIdioma
@@ -21510,6 +21494,7 @@ com.lamesa.lugu.App:
     public static java.lang.String tbTipoFilm
     public static java.lang.String tbImagenFilm
     public static java.lang.String tbCalidadFilm
+    private static com.lamesa.lugu.App instance
 com.google.firebase.firestore.model.mutation.SetMutation
 com.google.cloud.datastore.core.number.NumberIndexEncoder
 com.android.volley.Request$1
@@ -27018,11 +27003,11 @@ com.lamesa.lugu.otros.numberPicker.Scroller:
     public void <init>(android.content.Context)
     public final void setFriction(float)
     public final int getDuration()
+    public void setFinalX(int)
+    public void setFinalY(int)
     public void startScroll(int,int,int,int)
     public void abortAnimation()
     public void extendDuration(int)
-    public void setFinalX(int)
-    public void setFinalY(int)
     public boolean isScrollingInDirection(float,float)
     private static final int DEFAULT_DURATION
     private static final int SCROLL_MODE
@@ -27055,12 +27040,6 @@ com.google.common.util.concurrent.Striped$3
 com.google.common.collect.TreeRangeSet$SubRangeSet
 com.google.firebase.database.core.utilities.Validation:
     public void <init>()
-    private static boolean isWritableKey(java.lang.String)
-    private static void validateDoubleValue(double)
-    private static boolean isWritablePath(com.google.firebase.database.core.Path)
-    public static void validateWritableObject(java.lang.Object)
-    public static void validateWritableKey(java.lang.String)
-    public static void validateWritablePath(com.google.firebase.database.core.Path)
     public static java.util.Map parseAndValidateUpdate(com.google.firebase.database.core.Path,java.util.Map)
 com.google.android.gms.internal.ads.zzdyy:
     protected synthetic java.util.concurrent.Future zzbag()
@@ -30696,8 +30675,8 @@ com.google.common.cache.LocalCache$LocalManualCache
 com.google.android.datatransport.runtime.scheduling.jobscheduling.Uploader:
     private static final java.lang.String LOG_TAG
 com.google.android.gms.common.util.JsonUtils
-com.google.android.gms.internal.safetynet.zzk$zza
 com.google.android.gms.internal.auth.zzav
+com.google.android.gms.internal.safetynet.zzk$zza
 com.google.common.graph.EndpointPair$Ordered
 io.grpc.android.AndroidChannelBuilder$1
 com.google.android.gms.signin.zad:
@@ -30897,7 +30876,6 @@ androidx.appcompat.widget.ViewUtils:
     private void <init>()
     private static final java.lang.String TAG
 com.lamesa.lugu.otros.fuego$setData$1
-com.lamesa.lugu.activity.splash$3$1
 com.google.firebase.crashlytics.internal.common.DataTransportState:
     static final int REPORT_UPLOAD_VARIANT_LEGACY
     static final int REPORT_UPLOAD_VARIANT_DATATRANSPORT
@@ -31695,7 +31673,6 @@ com.google.firebase.database.core.RepoManager:
     private void resumeInternal(com.google.firebase.database.core.Context)
     static synthetic java.util.Map access$000(com.google.firebase.database.core.RepoManager)
 androidx.constraintlayout.widget.R
-com.google.firebase.database.core.utilities.Utilities$1
 androidx.transition.PropertyValuesHolderUtils:
     private void <init>()
 kotlin.experimental.ExperimentalTypeInference
@@ -32640,7 +32617,6 @@ com.google.api.HttpBody
 com.google.common.collect.HashMultimapGwtSerializationDependencies
 com.google.firebase.crashlytics.internal.common.CrashlyticsController$LogFileDirectoryProvider:
     private static final java.lang.String LOG_FILES_DIR
-com.lamesa.lugu.activity.splash$3$2
 com.amplitude.api.AmplitudeClient$10
 io.grpc.okhttp.internal.framed.Header
 androidx.transition.Styleable$Fade
@@ -32859,7 +32835,6 @@ com.lamesa.lugu.activity.splash:
     private void EnviarCategoria(android.content.Context,java.lang.String,java.lang.String)
     private void AgregarCancion(android.content.Context,java.lang.String)
     private void AgregarVideo(android.content.Context,java.lang.String)
-    public static void SubirCancion(android.content.Context,com.lamesa.lugu.model.ModelCancion)
     private void AgregarVideoSerie(android.content.Context,java.lang.String)
 com.google.android.gms.internal.measurement.zzck
 io.grpc.okhttp.OkHttpClientTransport$2
@@ -32968,11 +32943,11 @@ com.bumptech.glide.load.engine.Engine$EngineJobFactory:
     void shutdown()
 com.google.firebase.database.collection.R$style
 com.google.common.collect.TreeRangeSet
-com.google.firebase.auth.zzk
 com.google.firebase.analytics.connector.internal.zzd:
     public static boolean zzc(java.lang.String)
     public static boolean zzd(java.lang.String)
     public static java.lang.String zzf(java.lang.String)
+com.google.firebase.auth.zzk
 com.google.android.gms.internal.auth.zzax
 com.google.android.gms.internal.common.zzi:
     public void <init>()
@@ -34914,7 +34889,6 @@ com.google.firebase.database.core.utilities.Utilities:
     public void <init>()
     public static java.lang.Object castOrNull(java.lang.Object,java.lang.Class)
     public static java.lang.Object getOrNull(java.lang.Object,java.lang.String,java.lang.Class)
-    public static com.google.firebase.database.core.utilities.Pair wrapOnComplete(com.google.firebase.database.DatabaseReference$CompletionListener)
 com.google.api.BackendRule
 com.google.android.gms.internal.ads.zzekq$zzb:
     private final com.google.android.gms.internal.ads.zzekq$zzb zzb(com.google.android.gms.internal.ads.zzejr,com.google.android.gms.internal.ads.zzekd)
@@ -35148,8 +35122,8 @@ com.google.android.gms.tasks.Tasks:
     private void <init>()
 io.grpc.internal.ManagedChannelImpl$ExecutorHolder
 com.google.api.MetricDescriptor$ValueType$ValueTypeVerifier
-com.google.android.gms.internal.safetynet.zzk$zze
 com.google.android.gms.internal.auth.zzaz
+com.google.android.gms.internal.safetynet.zzk$zze
 androidx.core.R$dimen:
     private void <init>()
     public static final int compat_button_inset_horizontal_material
@@ -35389,11 +35363,8 @@ com.google.firebase.database.tubesock.package-info
 com.google.common.util.concurrent.AbstractExecutionThreadService$1$1
 com.google.firebase.database.core.utilities.encoding.CustomClassMapper:
     public void <init>()
-    public static java.lang.Object convertToPlainJavaTypes(java.lang.Object)
     public static java.util.Map convertToPlainJavaTypes(java.util.Map)
     public static java.lang.Object convertToCustomClass(java.lang.Object,com.google.firebase.database.GenericTypeIndicator)
-    private static java.lang.Object serialize(java.lang.Object)
-    static synthetic java.lang.Object access$200(java.lang.Object)
     private static final java.lang.String LOG_TAG
 com.google.firestore.v1.Target$TargetTypeCase
 com.google.common.collect.TreeRangeMap$RangeMapEntry
@@ -36613,6 +36584,7 @@ com.google.protobuf.FieldSet:
     public void writeTo(com.google.protobuf.CodedOutputStream)
     public void writeMessageSetTo(com.google.protobuf.CodedOutputStream)
     private static final int DEFAULT_FIELD_MAP_ARRAY_SIZE
+com.lamesa.lugu.activity.splash$8$1
 io.grpc.Context$CancellableContext$1CancelOnExpiration
 com.evgenii.jsevaluator.R$layout
 kotlin.collections.RingBuffer$iterator$1
@@ -36739,7 +36711,6 @@ com.naveed.ytextractor.model.YoutubeMeta:
     public boolean getUseChiper()
     public boolean getAllowRatings()
     public void setAllowRatings(boolean)
-    public java.lang.String getAuthor()
     public void setAuthor(java.lang.String)
     public java.lang.Float getAverageRating()
     public void setAverageRating(java.lang.Float)
@@ -36765,9 +36736,7 @@ com.naveed.ytextractor.model.YoutubeMeta:
     public void setShortDescription(java.lang.String)
     public com.naveed.ytextractor.model.YoutubeMeta$Thumbnail getThumbnail()
     public void setThumbnail(com.naveed.ytextractor.model.YoutubeMeta$Thumbnail)
-    public java.lang.String getTitle()
     public void setTitle(java.lang.String)
-    public java.lang.String getVideoId()
     public void setVideoId(java.lang.String)
     public java.lang.String getViewCount()
     public void setViewCount(java.lang.String)
@@ -37870,6 +37839,10 @@ com.google.android.gms.internal.ads.zzefi:
     public static final com.google.android.gms.internal.ads.zzeku zzep
 com.google.android.gms.internal.clearcut.zzcg$zzb:
     public com.google.android.gms.internal.clearcut.zzcg zzjs
+com.google.firebase.database.core.Repo$6:
+    public final synthetic com.google.firebase.database.core.Repo this$0
+com.lamesa.lugu.activity.splash$3:
+    public final synthetic com.lamesa.lugu.activity.splash this$0
 com.google.android.gms.internal.ads.zzckc:
     public final java.lang.String zzczr
 com.google.android.gms.internal.clearcut.zzbq:
@@ -38014,8 +37987,6 @@ okhttp3.internal.connection.RealConnection:
     public static final okhttp3.internal.connection.RealConnection$Companion Companion
 com.google.android.gms.internal.ads.zzbjh:
     public boolean zzfrc
-com.lamesa.lugu.activity.splash$1:
-    public final synthetic com.lamesa.lugu.activity.splash this$0
 com.google.android.gms.common.api.internal.BaseImplementation$ApiMethodImpl:
     public final com.google.android.gms.common.api.Api$AnyClientKey mClientKey
     public final com.google.android.gms.common.api.Api mApi
@@ -40395,6 +40366,8 @@ com.google.android.gms.internal.ads.zzdvw$zza
 com.google.android.gms.internal.measurement.zzdh:
     public static volatile boolean zzc
     public static final java.util.concurrent.atomic.AtomicReference zzd
+com.lamesa.lugu.mesa.DataYT$5:
+    public final synthetic com.lamesa.lugu.mesa.DataYT this$0
 com.google.gson.internal.ConstructorConstructor$1:
     public final synthetic com.google.gson.internal.ConstructorConstructor this$0
 com.google.android.gms.internal.ads.zzefh:
@@ -40605,8 +40578,8 @@ com.google.android.gms.internal.ads.zzcuz:
 com.google.android.gms.internal.ads.zzuc$zzm$zzb:
     public static final com.google.android.gms.internal.ads.zzeku zzep
 com.lamesa.lugu.player.MediaNotificationManager:
-    public final java.lang.String PRIMARY_CHANNEL
     public final int NOTIFICATION_ID
+    public final java.lang.String PRIMARY_CHANNEL
     public static android.support.v4.media.session.MediaControllerCompat$TransportControls transportControls
 com.google.android.gms.internal.measurement.zzmh:
     public static final com.google.android.gms.internal.measurement.zzdh zzc
@@ -40955,6 +40928,9 @@ com.google.firebase.storage.StreamDownloadTask:
     public com.google.firebase.storage.StreamDownloadTask$StreamProcessor processor
     public com.google.firebase.storage.network.NetworkRequest request
     public java.lang.String eTagVerification
+com.naveed.ytextractor.model.YoutubeMeta:
+    public java.lang.String getAuthor()
+    public java.lang.String getVideoId()
 androidx.loader.content.ModernAsyncTask:
     public static volatile java.util.concurrent.Executor sDefaultExecutor
 com.google.android.gms.internal.ads.zzbyl:

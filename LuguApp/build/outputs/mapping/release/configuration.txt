@@ -318,6 +318,7 @@
 -keep class com.lamesa.lugu.App { <init>(); }
 -keep class com.lamesa.lugu.activity.act_main { <init>(); }
 -keep class com.lamesa.lugu.activity.splash { <init>(); }
+-keep class com.lamesa.lugu.mesa.DataYT { <init>(); }
 -keep class com.lamesa.lugu.receiver.ActionReceiver { <init>(); }
 -keep class com.mixpanel.android.mpmetrics.MixpanelNotificationRouteActivity { <init>(); }
 -keep class com.mixpanel.android.mpmetrics.MixpanelPushNotificationDismissedReceiver { <init>(); }
@@ -784,6 +785,20 @@
 }
 
 # End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\cf3bf117ceaa0e7a3eba9dc4247bf173\jetified-play-services-measurement-impl-18.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\28ee6b1b8e6bc21f5100ee694dfd291f\jetified-play-services-measurement-api-18.0.0\proguard.txt
+# Can be removed once we pull in a dependency on firebase-common that includes
+# https://github.com/firebase/firebase-android-sdk/pull/1472/commits/856f1ca1151cdd88679bbc778892f23dfa34fc06#diff-a2ed34b5a38b4c6c686b09e54865eb48
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.measurement.zzhy {
+  <fields>;
+}
+
+# End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\28ee6b1b8e6bc21f5100ee694dfd291f\jetified-play-services-measurement-api-18.0.0\proguard.txt
 # The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\c606ca930227e0c23edbdd7e2a9d8ca5\jetified-firebase-auth-20.0.1\proguard.txt
 -dontwarn com.google.appengine.api.**
 -dontwarn okio.**
@@ -809,20 +824,6 @@
 }
 
 # End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\c606ca930227e0c23edbdd7e2a9d8ca5\jetified-firebase-auth-20.0.1\proguard.txt
-# The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\28ee6b1b8e6bc21f5100ee694dfd291f\jetified-play-services-measurement-api-18.0.0\proguard.txt
-# Can be removed once we pull in a dependency on firebase-common that includes
-# https://github.com/firebase/firebase-android-sdk/pull/1472/commits/856f1ca1151cdd88679bbc778892f23dfa34fc06#diff-a2ed34b5a38b4c6c686b09e54865eb48
--dontwarn com.google.auto.value.AutoValue
--dontwarn com.google.auto.value.AutoValue$Builder
-
-# We keep all fields for every generated proto file as the runtime uses
-# reflection over them that ProGuard cannot detect. Without this keep
-# rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.measurement.zzhy {
-  <fields>;
-}
-
-# End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\28ee6b1b8e6bc21f5100ee694dfd291f\jetified-play-services-measurement-api-18.0.0\proguard.txt
 # The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\4a78eb1e56908744e77048219705716f\jetified-firebase-common-19.4.0\proguard.txt
 -dontwarn com.google.firebase.platforminfo.KotlinDetector
 -dontwarn com.google.auto.value.AutoValue
@@ -1109,13 +1110,6 @@
 -dontwarn com.google.auto.value.AutoValue$Builder
 
 # End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\2d3085791c6a81cd65cd9656b6002266\jetified-transport-api-2.2.1\proguard.txt
-# The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\ce4a0c38d11370c637f4e347cb1a0ba0\jetified-firebase-components-16.0.1\proguard.txt
--dontwarn com.google.firebase.components.Component$Instantiation
--dontwarn com.google.firebase.components.Component$ComponentType
-
--keep class * implements com.google.firebase.components.ComponentRegistrar
-
-# End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\ce4a0c38d11370c637f4e347cb1a0ba0\jetified-firebase-components-16.0.1\proguard.txt
 # The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\671707a17329dfcc19b4b50aec8666bf\jetified-firebase-encoders-json-17.0.0\proguard.txt
 
 # End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\671707a17329dfcc19b4b50aec8666bf\jetified-firebase-encoders-json-17.0.0\proguard.txt
@@ -1206,6 +1200,13 @@
 -dontwarn javax.annotation.**
 
 # End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\ea1c2e8ffd49cfaa721322f0b59148e9\jetified-exoplayer-core-2.11.4\proguard.txt
+# The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\ce4a0c38d11370c637f4e347cb1a0ba0\jetified-firebase-components-16.0.1\proguard.txt
+-dontwarn com.google.firebase.components.Component$Instantiation
+-dontwarn com.google.firebase.components.Component$ComponentType
+
+-keep class * implements com.google.firebase.components.ComponentRegistrar
+
+# End of content from C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\ce4a0c38d11370c637f4e347cb1a0ba0\jetified-firebase-components-16.0.1\proguard.txt
 # The proguard configuration file for the following section is C:\Users\luisguzman\.gradle\caches\transforms-2\files-2.1\2353211fed2a28b50b3c529582539275\lifecycle-runtime-2.1.0\proguard.txt
 -keepattributes *Annotation*
 

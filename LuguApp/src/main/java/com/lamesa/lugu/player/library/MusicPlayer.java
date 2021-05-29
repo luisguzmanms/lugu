@@ -243,6 +243,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
         this.source = source;
         MediaSource mediaSource = buildMediaSource(source, null);
         if (mediaSource != null) {
+
             if (simpleExoPlayer != null) {
                 showProgress();
                 /*

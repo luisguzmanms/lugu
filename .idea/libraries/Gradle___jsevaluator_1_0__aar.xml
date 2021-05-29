@@ -2,11 +2,15 @@
   <library name="Gradle: :jsevaluator-1.0:@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/113f3712461d8b25bd500429bf8badc2/jetified-jsevaluator-1.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c253370461eceac4b5fafa102bffe42a/jetified-jsevaluator-1.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/113f3712461d8b25bd500429bf8badc2/jetified-jsevaluator-1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/113f3712461d8b25bd500429bf8badc2/jetified-jsevaluator-1.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/113f3712461d8b25bd500429bf8badc2/jetified-jsevaluator-1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c253370461eceac4b5fafa102bffe42a/jetified-jsevaluator-1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c253370461eceac4b5fafa102bffe42a/jetified-jsevaluator-1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c253370461eceac4b5fafa102bffe42a/jetified-jsevaluator-1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

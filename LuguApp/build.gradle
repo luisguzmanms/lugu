@@ -58,8 +58,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.firebase:firebase-messaging:20.1.4'
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
-    implementation project(path: ':youtubeExtractor')
-    implementation project(path: ':YoutubeExtractor2')
+
     implementation 'androidx.palette:palette:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
@@ -161,8 +160,9 @@ dependencies {
     //endregion
 
 
-
-    // youtube extractor
+    // at.huber.youtubeExtractor
+    implementation project(path: ':youtubeExtractor')
+    // com.naveed.ytextractor
     implementation project(path: ':YoutubeExtractor2')
     compile(name:'jsevaluator-1.0', ext:'aar')
 

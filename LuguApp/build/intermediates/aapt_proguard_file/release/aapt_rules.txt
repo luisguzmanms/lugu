@@ -52,6 +52,7 @@
 -keep class com.lamesa.lugu.App { <init>(); }
 -keep class com.lamesa.lugu.activity.act_main { <init>(); }
 -keep class com.lamesa.lugu.activity.splash { <init>(); }
+-keep class com.lamesa.lugu.mesa.DataYT { <init>(); }
 -keep class com.lamesa.lugu.receiver.ActionReceiver { <init>(); }
 -keep class com.mixpanel.android.mpmetrics.MixpanelNotificationRouteActivity { <init>(); }
 -keep class com.mixpanel.android.mpmetrics.MixpanelPushNotificationDismissedReceiver { <init>(); }

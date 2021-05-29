@@ -25,6 +25,7 @@ import java.util.List;
 import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
@@ -116,6 +117,10 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         holder.cdCancionHistorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // cambiar modo de categoria a apagado, se reproducira solo las canciones de la categoria seleccionada
+                CategoriaAleatoria(mContext, false, tinyDB);
+                // metodo para cargar cancion de la categoria seleccionada
 
                 CargarInterAleatorio(mContext, 15);
                 getLinkAndPlay(mContext, mListHistorial.get(position).getLinkYT(), 1);

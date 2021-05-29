@@ -10,8 +10,8 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 5,
-      "versionName": "1.2.1 beta",
+      "versionCode": 6,
+      "versionName": "1.2.2 beta",
       "outputFile": "resources-release.ap_"
     }
   ]

@@ -208,8 +208,10 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
     private SparseArray<YtFile> getStreamUrls() throws IOException, InterruptedException {
 
         String ytInfoUrl = (useHttp) ? "http://" : "https://";
+        // fix v 1.2.4 (8)
         ytInfoUrl += "www.youtube.com/get_video_info?html5=1&video_id=" + videoID + "&eurl="
-                + URLEncoder.encode("https://youtube.googleapis.com/v/" + videoID, "UTF-8");
+                + URLEncoder.encode("https://youtube.googleapis.com/v/" + videoID, "UTF-8")
+                + "&c=TVHTML5&cver=6.20180913";
 
         String streamMap;
         BufferedReader reader = null;

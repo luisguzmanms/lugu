@@ -65,7 +65,7 @@
             android:theme="@style/LearnerAppTheme"
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
 
-        <!-- solo en versiones admin -->
+        <!-- solo en versiones admin
                <activity
                    android:name=".mesa.DataYT"
                    android:theme="@style/Theme.MaterialComponents.Dialog.Alert"
@@ -79,7 +79,7 @@
                    </intent-filter>
 
                </activity>
-
+-->
 
                <meta-data
                    android:name="preloaded_fonts"

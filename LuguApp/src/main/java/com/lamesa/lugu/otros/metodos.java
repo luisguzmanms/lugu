@@ -365,13 +365,11 @@ public class metodos {
 
                 }
 
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     // Toast.makeText(mContext, "ha cambiado", Toast.LENGTH_LONG).show();
                 }
             });
-
 
             //endregion
 

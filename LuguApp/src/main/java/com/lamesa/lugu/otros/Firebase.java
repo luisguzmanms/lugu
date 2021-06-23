@@ -34,6 +34,7 @@ import java.util.Random;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.otros.metodos.EliminarDuplicadosModelCancion;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistCanciones;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
@@ -307,6 +308,7 @@ public class Firebase extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                setLogInfo(mContext, "getListaCategorias", "DatabaseError: " + databaseError, false);
 
             }
 

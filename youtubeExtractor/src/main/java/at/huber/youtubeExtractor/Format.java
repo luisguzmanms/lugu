@@ -1,5 +1,8 @@
 package at.huber.youtubeExtractor;
 
+
+import androidx.annotation.NonNull;
+
 public class Format {
 
     public enum VCodec {
@@ -156,6 +159,7 @@ public class Format {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Format{" +

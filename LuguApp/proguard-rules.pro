@@ -145,5 +145,7 @@
 -dontwarn com.samsung.multiscreen.BuildConfig
 -dontwarn lombok.**
 
+# se agrega para permitir extraer videos
+-keep class com.naveed.ytextractor.** { *; }
 
 -keep class com.google.android.exoplayer2.** {*;}

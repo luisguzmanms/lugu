@@ -1,9 +1,12 @@
 package at.huber.youtubeExtractor;
 
+
+import androidx.annotation.NonNull;
+
 public class YtFile {
 
     private final Format format;
-    private String url = "";
+    private final String url;
 
     YtFile(Format format, String url) {
         this.format = format;
@@ -50,6 +53,7 @@ public class YtFile {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "YtFile{" +

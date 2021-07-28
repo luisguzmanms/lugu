@@ -1,5 +1,8 @@
 package at.huber.youtubeExtractor;
 
+
+import androidx.annotation.NonNull;
+
 public class VideoMeta {
 
     private static final String IMAGE_BASE_URL = "http://i.ytimg.com/vi/";
@@ -119,6 +122,7 @@ public class VideoMeta {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "VideoMeta{" +

@@ -1510,7 +1510,7 @@ public class metodos {
                         }
                     }
 
-                }.extract(linkYT, true, false);
+                }.extract(linkYT);
 
 
             } else if (opcion == 2) {

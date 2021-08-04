@@ -1,6 +1,10 @@
 package com.lamesa.lugu.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +14,17 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.card.MaterialCardView;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
@@ -99,6 +108,34 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                 //.placeholder(R.drawable.placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade(300))
                 .into(holder.ivFondo);
+
+        Glide.with(mContext)
+                .asBitmap()
+                .load(mListCategorias.get(position).getImagen())
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
+
+                        // TODO Do some work: pass this bitmap
+
+                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
+
+                        Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
+                            @SuppressLint("UseCompatLoadingForDrawables")
+                            public void onGenerated(Palette palette) {
+                                // Do something with colors...
+                                holder.tvCategoria.setTextColor(palette.getLightMutedColor(Color.WHITE));
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
+                    }
+                });
 
 
         holder.tvCategoria.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +256,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final CardView rlCategoria;
+        private final MaterialCardView rlCategoria;
         private final ImageView ivFondo;
         private final TextView tvCategoria;
 
@@ -229,6 +266,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
             ivFondo = itemView.findViewById(R.id.iv_imagenFondo);
             tvCategoria = itemView.findViewById(R.id.tv_categoria);
             rlCategoria = itemView.findViewById(R.id.cd_categoria);
+
 
         }
 

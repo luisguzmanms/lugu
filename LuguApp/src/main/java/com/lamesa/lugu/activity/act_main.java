@@ -3,10 +3,14 @@ package com.lamesa.lugu.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -97,6 +101,7 @@ import static com.lamesa.lugu.otros.metodos.DialogoSupArtista;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
+import static com.lamesa.lugu.otros.metodos.SonidoVHS;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.initFirebase;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
@@ -130,11 +135,14 @@ public class act_main extends AppCompatActivity {
     public static LinearLayout contenidoSearch;
     public static TinyDB tinyDB;
     public static ImageView ivFondoGif;
+    public static ImageView ivFondoVHS;
     public static MusicPlayer musicPlayer;
     public static MediaNotificationManager mediaNotificationManager;
     public static List<ModelCancion> mlistCancion;
-    public static TextView tvCancion;
-    public static TextView tvArtista;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
+
     public static ProgressBar pbCargandoRadio;
     // recycler views
     public static RecyclerView mrvHistorial;
@@ -151,7 +159,6 @@ public class act_main extends AppCompatActivity {
     public static WaveView waveColor;
     public static WaveView waveBlack;
     public static ImageView ivLikeDislike;
-    public static TextView tvCategoria;
     public static LinearLayout ContenedorVacio;
     public static TextView tvVacio;
     public static ImageView ivSleep;
@@ -161,6 +168,8 @@ public class act_main extends AppCompatActivity {
     public static ImageView ivLupa;
     public static List<ModelCategoria> mlistCategoria = new ArrayList<>();
     public static ImageView ivStyle;
+    public static MediaPlayer soundVHS;
+
 
     //traer listas de firebase
     public static void getListas(Context mContext) {
@@ -170,10 +179,74 @@ public class act_main extends AppCompatActivity {
         Firebase.getListaImagenes(tinyDB);
     }
 
+    public static void CargarImagenFondo(Context mContext) {
+
+        SonidoVHS(mContext, soundVHS, false);
+
+        // cargar una imagen random
+        if (!tinyDB.getListString(TBlistImagenes).isEmpty() && tinyDB.getListString(TBlistImagenes) != null) {
+            Random random = new Random();
+            // obtener link alaeatorio
+            int numRandom = random.nextInt(tinyDB.getListString(TBlistImagenes).size());
+            // guardar link de imagen en tiny
+            tinyDB.putString(TBimagenFondo, tinyDB.getListString(TBlistImagenes).get(numRandom));
+        }
+
+        // cargar imagen en fondo
+        Glide.with(mContext)
+                .load(tinyDB.getString(TBimagenFondo))
+                //.error(R.drawable.ic_alert)
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .into(ivFondoGif);
+        // extraer colores de imagenes
+        Glide.with(mContext)
+                .asBitmap()
+                .load(tinyDB.getString(TBimagenFondo))
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
+
+                        // TODO Do some work: pass this bitmap
+
+                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
+                        Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
+                            @SuppressLint("UseCompatLoadingForDrawables")
+                            public void onGenerated(Palette palette) {
+                                // Do something with colors...
+                                waveBlack.setWaveColor(palette.getDominantColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                tvCancion.setTextColor(palette.getLightMutedColor(Color.WHITE));
+                                tvCategoria.setTextColor(palette.getMutedColor(Color.WHITE));
+                                tvArtista.setTextColor(palette.getLightVibrantColor(Color.WHITE));
+                                waveColor.setWaveColor(palette.getDominantColor(Color.WHITE));
+                                spinBuffering.setColor(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.ic_pausa).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.ic_play).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.ic_bucle).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.ic_aleatorio).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.learn_ic_dislike).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.learn_ic_like).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+
+                                bottomNavigationHis_Fav.setItemRippleColor(ColorStateList.valueOf(palette.getDarkVibrantColor(mContext.getResources().getColor(R.color.gray))));
+                                //   bottomNavigationHis_Fav.setItemIconTintList(ColorStateList.valueOf(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary))));
+
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
+                    }
+                });
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_main);
+        setContentView(R.layout.activity_act_main2);
 
 
         // INICAR MEDIANOTIFICACTION
@@ -206,6 +279,26 @@ public class act_main extends AppCompatActivity {
         // dialogo apra desactivar la optimizacion de la app
         DialogoOpBateria(act_main.this);
 
+
+        AppVersion();
+
+        soundVHS = MediaPlayer.create(act_main.this, R.raw.tv09);
+
+    }
+
+    private void AppVersion() {
+        PackageInfo pinfo = null;
+        try {
+            pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int versionNumber = pinfo.versionCode;
+            String versionName = pinfo.versionName;
+
+            TextView tvVersion = findViewById(R.id.tv_version);
+            tvVersion.setText("v" + versionName.replace("beta", "").replace("admin", "").trim());
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -369,14 +462,14 @@ public class act_main extends AppCompatActivity {
 
 
         tvCancion = findViewById(R.id.tv_cancion);
-        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
+        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
         tvCancion.setVisibility(VISIBLE);
         tvArtista = findViewById(R.id.tv_artista);
         tvArtista.setVisibility(VISIBLE);
-        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
+        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
         tvCategoria = findViewById(R.id.tv_categoria);
         tvCategoria.setVisibility(VISIBLE);
-        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
+        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
         pbCargandoRadio = findViewById(R.id.pb_cargandoradio);
 
         ivPlayPause = findViewById(R.id.iv_playPause);
@@ -404,7 +497,7 @@ public class act_main extends AppCompatActivity {
         ivLupa = findViewById(R.id.iv_lupa);
 
         ivStyle = findViewById(R.id.iv_style);
-        ivOpcionBucle = findViewById(R.id.iv_opcionBucle);
+        ivOpcionBucle = findViewById(R.id.iv_opcionBucle2);
         //region guardar ivOpcionBucle segun el icono
         if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
             // guardar modo de reproductor REPRODUCTOR_BUCLE
@@ -718,8 +811,8 @@ public class act_main extends AppCompatActivity {
                                 if (!musicPlayer.isPlaying()) {
                                     // comprobar que si haya una cancion guardada
                                     getLinkAndPlay(act_main.this, tinyDB.getString(TBlinkCancionSonando), 1);
-                                    tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
-                                    tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
+                                    tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+                                    tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
                                 }
                             } else {
                                 // primera ves que se da clic a play
@@ -871,10 +964,9 @@ public class act_main extends AppCompatActivity {
                         break;
 
 
-                    case R.id.iv_opcionBucle:
+                    case R.id.iv_opcionBucle2:
 
                         // comprobar si es la primera vez que se da clic a favorito
-
 
                         if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
                             // activar modo aleatorio
@@ -950,60 +1042,12 @@ public class act_main extends AppCompatActivity {
         tvCategoria.setOnClickListener(listener);
         ivStyle.setOnClickListener(listener);
 
-
         // cargar gif de fondo
         ivFondoGif = findViewById(R.id.iv_fondoGif);
         // traer link de imagen
-        CargarImagenFondo();
-        // cargar imagen en fondo
-        Glide.with(this)
-                .load(tinyDB.getString(TBimagenFondo))
-                //.error(R.drawable.ic_alert)
-                .transition(DrawableTransitionOptions.withCrossFade(200))
-                .into(ivFondoGif);
-        // extraer colores de imagenes
-        Glide.with(this)
-                .asBitmap()
-                .load(tinyDB.getString(TBimagenFondo))
-                .into(new CustomTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
-
-                        // TODO Do some work: pass this bitmap
-
-                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
-
-                        Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
-                            public void onGenerated(Palette palette) {
-                                // Do something with colors...
-                                waveColor.setWaveColor(palette.getLightMutedColor(Color.WHITE));
-                                tvCancion.setTextColor(palette.getMutedColor(Color.WHITE));
-                                tvArtista.setTextColor(palette.getDarkVibrantColor(Color.WHITE));
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-                        // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
-                    }
-                });
+        CargarImagenFondo(this);
 
 
-    }
-
-    private void CargarImagenFondo() {
-
-
-        // cargar una imagen random
-        if (!tinyDB.getListString(TBlistImagenes).isEmpty() && tinyDB.getListString(TBlistImagenes) != null) {
-            Random random = new Random();
-            // obtener link alaeatorio
-            int numRandom = random.nextInt(tinyDB.getListString(TBlistImagenes).size());
-            // guardar link de imagen en tiny
-            tinyDB.putString(TBimagenFondo, tinyDB.getListString(TBlistImagenes).get(numRandom));
-        }
     }
 
     private class CargarListas extends AsyncTask<Void, Integer, String> {

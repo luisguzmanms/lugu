@@ -25,6 +25,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.amplitude.api.Amplitude;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.github.matteobattilana.weather.PrecipType;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -67,11 +69,13 @@ import java.util.Random;
 
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.ivFondoGif;
 import static com.lamesa.lugu.activity.act_main.ivLupa;
 import static com.lamesa.lugu.activity.act_main.ivPlayPause;
 import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
+import static com.lamesa.lugu.activity.act_main.soundVHS;
 import static com.lamesa.lugu.activity.act_main.spinBuffering;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvArtista;
@@ -83,6 +87,7 @@ import static com.lamesa.lugu.activity.act_main.weatherView;
 import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
 import static com.lamesa.lugu.otros.metodos.NextSong;
+import static com.lamesa.lugu.otros.metodos.SonidoVHS;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
@@ -90,6 +95,7 @@ import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
@@ -632,13 +638,24 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
         switch (state) {
 
-
             case MediaNotificationManager.STATE_PLAY:
+
+
+                // cargar imagen en fondo
+                Glide.with(this)
+                        .load(tinyDB.getString(TBimagenFondo))
+                        //.error(R.drawable.ic_alert)
+                        .transition(DrawableTransitionOptions.withCrossFade(200))
+                        .into(ivFondoGif);
+
 
                 // reproducir
                 if (musicPlayer != null) {
                     musicPlayer.setPlayWhenReady(true);
                 }
+
+
+                // efecto de onda
                 if (waveColor != null && waveBlack != null) {
                     waveBlack.play();
                     waveColor.play();
@@ -669,6 +686,9 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     }
 
                 }
+
+
+                SonidoVHS(mContext, soundVHS, false);
 
                 break;
 
@@ -708,7 +728,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     weatherView.setWeatherData(PrecipType.CLEAR);
                 }
 
-
+                SonidoVHS(mContext, soundVHS, false);
                 break;
 
             case MediaNotificationManager.STATE_BUFFERING:
@@ -725,9 +745,11 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     spinBuffering.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
+
                 if (mediaNotificationManager != null) {
                     mediaNotificationManager.startNotify(MediaNotificationManager.STATE_BUFFERING);
                 }
+
 
 
                 Toast.makeText(mContext, R.string.loading_song, Toast.LENGTH_SHORT).show();
@@ -745,13 +767,13 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     spinBuffering.startAnimation(Animacion.exit_ios_anim(mContext));
                 }
 
-
                 if (ivPlayPause != null) {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_pausa));
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
+
 
                 break;
 
@@ -777,6 +799,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     waveColor.pause();
                 }
 
+                SonidoVHS(mContext, soundVHS, false);
                 break;
         }
     }
@@ -825,18 +848,18 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
                     // mostrar y animar texview dde cancion y artista solo si es diferente
                     if (tvCancion != null && tvArtista != null && tvCategoria != null) {
-                        tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
-                        tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
+                        //   tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
+                        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+                        //    tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
-                        tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
-                        tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
+                        //    tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
+                        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+                        //     tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
-                        tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
-                        tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
+                        //     tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
+                        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+                        //    tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
                     }

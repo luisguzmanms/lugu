@@ -3,8 +3,10 @@
 
     <gradient
         android:startColor="#9C000000"
+
         android:endColor="@color/controller_bg_light"
-        android:angle="90"
-        />
+        android:angle="90" />
+    <!-- 9C000000 -->
+
 
 </shape>

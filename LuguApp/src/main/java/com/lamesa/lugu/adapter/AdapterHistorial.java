@@ -1,6 +1,9 @@
 package com.lamesa.lugu.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,9 +15,15 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.lamesa.lugu.R;
 import com.lamesa.lugu.model.ModelCancion;
 import com.lamesa.lugu.model.ModelCategoria;
@@ -32,6 +41,7 @@ import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
 import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
 import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
@@ -104,6 +114,39 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_gradient_grey_1));
             holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_gradient_grey_1));
         }
+
+
+        // extraer colores de imagenes
+        Glide.with(mContext)
+                .asBitmap()
+                .load(tinyDB.getString(TBimagenFondo))
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
+
+                        // TODO Do some work: pass this bitmap
+
+                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
+
+                        Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
+                            @SuppressLint("UseCompatLoadingForDrawables")
+                            public void onGenerated(Palette palette) {
+                                // Do something with colors...
+                                if (holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))) {
+                                    holder.tvCancion.setTextColor(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                    holder.tvArtista.setTextColor(palette.getDarkVibrantColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                }
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
+                    }
+                });
 
         //region obtener nombre de categoria desde la id y mostrar en tvCategoria
         List<ModelCategoria> list = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);

@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -29,6 +30,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.FileProvider;
 
 import com.amplitude.api.Amplitude;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.coolerfall.download.DownloadCallback;
 import com.coolerfall.download.DownloadManager;
 import com.coolerfall.download.DownloadRequest;
@@ -99,10 +102,12 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.CargarImagenFondo;
 import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
 import static com.lamesa.lugu.activity.act_main.contenidoHome;
 import static com.lamesa.lugu.activity.act_main.contenidoSearch;
 import static com.lamesa.lugu.activity.act_main.getListas;
+import static com.lamesa.lugu.activity.act_main.ivFondoGif;
 import static com.lamesa.lugu.activity.act_main.ivLikeDislike;
 import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
 import static com.lamesa.lugu.activity.act_main.ivSleep;
@@ -113,6 +118,7 @@ import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
 import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
+import static com.lamesa.lugu.activity.act_main.soundVHS;
 import static com.lamesa.lugu.activity.act_main.tinyDB;
 import static com.lamesa.lugu.activity.act_main.tvSleep;
 import static com.lamesa.lugu.activity.splash.tinydb;
@@ -262,7 +268,7 @@ public class metodos {
 
                             int versionActual = BuildConfig.VERSION_CODE;
 
-                            if (estado == true && versionNueva > versionActual) {
+                            if (estado == true && versionNueva > versionActual && versionActual != 1) {
 
                                 try {
                                     if (mContext != null) {
@@ -1437,6 +1443,10 @@ public class metodos {
 
         CargarInterAleatorio(mContext, 50);
 
+        // cargar imagen en fondo VHS
+        CargarImagenVHS(mContext);
+
+
         if (!isNetworkAvailable(mContext)) {
             //  Toast.makeText(mContext, mContext.getResources().getString(R.string.coneccion_lenta), Toast.LENGTH_SHORT).show();
             Alerter.create((Activity) mContext).setTitle(mContext.getResources().getString(R.string.coneccion_lenta))
@@ -1649,6 +1659,11 @@ public class metodos {
             musicPlayer.setSource(linkCancion);
             // reproducir
             musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
+
+            // cargar una imagende fondo totalmente aleatoria
+            CargarImagenFondo(mContext);
+            // recargar opcion de modo reproductor para que se cargue el icono con el nuevo color
+            OpcionReproductor(mContext, tinyDB.getString(TBmodoReproductor));
 
             //region MIX mixPlaySong para estadisticas
             JSONObject props = new JSONObject();
@@ -2691,6 +2706,34 @@ public class metodos {
 
 
     }
+
+    public static void CargarImagenVHS(Context mContext) {
+
+        Glide.with(mContext)
+                .load("https://lugumusic.page.link/5mEq")
+                //.error(R.drawable.ic_alert)
+                .transition(DrawableTransitionOptions.withCrossFade(1000))
+                .into(ivFondoGif);
+
+        SonidoVHS(mContext, soundVHS, true);
+
+    }
+
+    public static void SonidoVHS(Context mContext, MediaPlayer mediaPlayer, boolean activo) {
+
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(mContext, R.raw.tv09);
+        } else {
+            if (activo) {
+                mediaPlayer.start();
+            } else {
+                mediaPlayer.pause();
+            }
+        }
+
+
+    }
+
 }
 
 

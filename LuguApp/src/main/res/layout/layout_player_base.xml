@@ -2,17 +2,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.lamesa.lugu.player.library.MusicPlayer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#00DDDDDD">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.lamesa.lugu.player.library.MusicPlayer">
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/simpleExoPlayerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00DDDDDD"
-        app:controller_layout_id="@layout/video_player_exo_controllers" />
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:buffered_color="#A15F5F"
+        app:controller_layout_id="@layout/video_player_exo_controllers"
+        app:shutter_background_color="@color/fondo_blancoazul" />
 
     <include
         android:id="@+id/linearLayoutRetry"

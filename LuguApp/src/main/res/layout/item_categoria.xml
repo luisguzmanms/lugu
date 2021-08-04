@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cd_categoria"
@@ -13,8 +13,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_categoria"
-        android:layout_width="135dp"
-        android:layout_height="65dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         app:cardBackgroundColor="@color/black">
 
         <com.github.ybq.android.spinkit.SpinKitView
@@ -35,21 +35,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/shape_controller_bottom_gradient" />
+            android:src="@drawable/shape_controller_bottom_gradient_categoria" />
 
         <ImageView
             android:id="@+id/imgFondoDestacado13"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/shape_controller_bottom_gradient" />
+            android:src="@drawable/shape_controller_bottom_gradient"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imgFondoDestacado9"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/shape_controller_bottom_gradient" />
+            android:src="@drawable/shape_controller_bottom_gradient"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_categoria"
@@ -78,7 +80,7 @@
             app:cardCornerRadius="3dp"
             app:cardElevation="3dp">
 
-          />
+            />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -91,11 +93,11 @@
             app:cardCornerRadius="3dp"
             app:cardElevation="3dp">
 
-           />
+            />
 
         </com.google.android.material.card.MaterialCardView>
 
     </com.google.android.material.card.MaterialCardView>
 
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

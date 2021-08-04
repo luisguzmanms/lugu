@@ -60,6 +60,54 @@ public class splash extends AppCompatActivity {
 
     public static TinyDB tinydb;
 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
+        tinydb = new TinyDB(this);
+
+
+        ImageView ivFondoSplash = findViewById(R.id.iv_fondoSplash);
+
+
+        Glide.with(this)
+                .load(tinydb.getString(TBimagenFondo))
+                //   .error(R.drawable.ic_alert)
+                //.placeholder(R.drawable.placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .into(ivFondoSplash);
+
+        ivFondoSplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                // AgregarCancion(splash.this,"lugu.csv");
+
+
+            }
+        });
+
+        AppVersion();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (tinydb.getBoolean(TBpoliticas)) {
+                    startActivity(new Intent(splash.this, act_main.class));
+                    finish();
+                } else {
+                    DialogoPoliticas2(splash.this);
+                }
+
+
+            }
+        }, 2000);
+
+
+    }
+
     public static void DialogoPoliticas(Context mContext) {
 
         //region Dialogo terminos y condiciones
@@ -225,53 +273,6 @@ public class splash extends AppCompatActivity {
 
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-        tinydb = new TinyDB(this);
-
-
-        ImageView ivFondoSplash = findViewById(R.id.iv_fondoSplash);
-
-
-        Glide.with(this)
-                .load(tinydb.getString(TBimagenFondo))
-                //   .error(R.drawable.ic_alert)
-                //.placeholder(R.drawable.placeholder)
-                .transition(DrawableTransitionOptions.withCrossFade(200))
-                .into(ivFondoSplash);
-
-        ivFondoSplash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                // AgregarCancion(splash.this,"lugu.csv");
-
-
-            }
-        });
-
-        AppVersion();
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                if (tinydb.getBoolean(TBpoliticas)) {
-                    startActivity(new Intent(splash.this, act_main.class));
-                    finish();
-                } else {
-                    DialogoPoliticas2(splash.this);
-                }
-
-
-            }
-        }, 2000);
-
-
-    }
 
     private void DialogoPase(Context mContext, TinyDB tiniDB) {
 

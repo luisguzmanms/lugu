@@ -62,7 +62,7 @@
         <activity android:name="com.lamesa.lugu.activity.act_main"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/LearnerAppTheme"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
 
         <!-- solo en versiones admin

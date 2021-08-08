@@ -1001,7 +1001,7 @@ public class metodos {
                 .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v) {
-                        DialogoSugerencia(mContext);
+
                         return false;
                     }
                 })

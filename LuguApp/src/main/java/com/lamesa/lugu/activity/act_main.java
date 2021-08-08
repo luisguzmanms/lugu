@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -48,6 +50,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
@@ -122,6 +125,7 @@ import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
 import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBreproduciendoRadio;
+import static com.lamesa.lugu.otros.statics.constantes.TBsizeReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 public class act_main extends AppCompatActivity {
@@ -169,6 +173,14 @@ public class act_main extends AppCompatActivity {
     public static List<ModelCategoria> mlistCategoria = new ArrayList<>();
     public static ImageView ivStyle;
     public static MediaPlayer soundVHS;
+    public static CardView cdMusicSeek;
+    private ImageView ivOpcionPlayer;
+    private MaterialCardView cdOpPlayer;
+    private MaterialCardView cdPlayer;
+    private int siguienteSize;
+    private ImageView ivOffline;
+    private int versionNumber;
+    private String versionName;
 
 
     //traer listas de firebase
@@ -220,12 +232,16 @@ public class act_main extends AppCompatActivity {
                                 tvArtista.setTextColor(palette.getLightVibrantColor(Color.WHITE));
                                 waveColor.setWaveColor(palette.getDominantColor(Color.WHITE));
                                 spinBuffering.setColor(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
-                                mContext.getResources().getDrawable(R.drawable.ic_pausa).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
-                                mContext.getResources().getDrawable(R.drawable.ic_play).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
-                                mContext.getResources().getDrawable(R.drawable.ic_bucle).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
-                                mContext.getResources().getDrawable(R.drawable.ic_aleatorio).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
-                                mContext.getResources().getDrawable(R.drawable.learn_ic_dislike).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.ic_pausa).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                mContext.getResources().getDrawable(R.drawable.ic_play).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                mContext.getResources().getDrawable(R.drawable.ic_bucle).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                mContext.getResources().getDrawable(R.drawable.ic_aleatorio).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                mContext.getResources().getDrawable(R.drawable.learn_ic_dislike).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
                                 mContext.getResources().getDrawable(R.drawable.learn_ic_like).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.ic_expandir).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                mContext.getResources().getDrawable(R.drawable.ic_contraer).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                mContext.getResources().getDrawable(R.drawable.ic_no_signal).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+
 
                                 bottomNavigationHis_Fav.setItemRippleColor(ColorStateList.valueOf(palette.getDarkVibrantColor(mContext.getResources().getColor(R.color.gray))));
                                 //   bottomNavigationHis_Fav.setItemIconTintList(ColorStateList.valueOf(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary))));
@@ -290,8 +306,8 @@ public class act_main extends AppCompatActivity {
         PackageInfo pinfo = null;
         try {
             pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            int versionNumber = pinfo.versionCode;
-            String versionName = pinfo.versionName;
+            versionNumber = pinfo.versionCode;
+            versionName = pinfo.versionName;
 
             TextView tvVersion = findViewById(R.id.tv_version);
             tvVersion.setText("v" + versionName.replace("beta", "").replace("admin", "").trim());
@@ -498,6 +514,8 @@ public class act_main extends AppCompatActivity {
 
         ivStyle = findViewById(R.id.iv_style);
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle2);
+        // cargar gif de fondo
+        ivFondoGif = findViewById(R.id.iv_fondoGif);
         //region guardar ivOpcionBucle segun el icono
         if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
             // guardar modo de reproductor REPRODUCTOR_BUCLE
@@ -509,9 +527,15 @@ public class act_main extends AppCompatActivity {
         }
         //endregion
 
+        ivOpcionPlayer = findViewById(R.id.iv_opReproductor);
+        cdOpPlayer = findViewById(R.id.cd_opPlayer);
+        cdPlayer = findViewById(R.id.cd_player);
+
         OpcionReproductor(act_main.this, tinyDB.getString(TBmodoReproductor));
 
         weatherView = findViewById(R.id.weather_view);
+        ivOffline = findViewById(R.id.iv_offline);
+        cdMusicSeek = findViewById(R.id.cd_musicSeek);
 
 
         bottomNavigationHis_Fav = findViewById(R.id.bottomNavigationHis_Fav);
@@ -576,18 +600,19 @@ public class act_main extends AppCompatActivity {
                         break;
 
 
+                        /*
                     case R.id.navigation_offline:
 
                         Dialogo5Estrellas(act_main.this);
                         DialogoModoOffline(act_main.this);
 
-
                         break;
+
+                         */
                 }
                 return false;
             }
         });
-
         bottomNavigationHis_Fav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
@@ -696,6 +721,7 @@ public class act_main extends AppCompatActivity {
                         List<String> opcionMenu = new ArrayList<>();
 
 
+                        opcionMenu.add(getString(R.string.visitar_website));
                         opcionMenu.add(getString(R.string.submitsong));
                         opcionMenu.add(getString(R.string.enviar_sugerencia));
                         opcionMenu.add(getString(R.string.compartir_app));
@@ -706,7 +732,7 @@ public class act_main extends AppCompatActivity {
 
                         DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
                         DialogSettings.theme = DialogSettings.THEME.DARK;
-                        DialogSettings.backgroundColor = getResources().getColor(R.color.black);
+                        DialogSettings.backgroundColor = getResources().getColor(R.color.fondo_main);
 
                         BaseAdapter baseAdapter = new ArrayAdapter(act_main.this, com.kongzue.dialog.R.layout.item_bottom_menu_material, opcionMenu);
 
@@ -718,32 +744,40 @@ public class act_main extends AppCompatActivity {
 
                                 switch (index) {
 
+
                                     case 0:
+
+                                        AbrirPagina(act_main.this, "https://lugumusic.page.link/website");
+
+                                        break;
+
+
+                                    case 1:
 
                                         DialogoMiCancion(act_main.this);
 
                                         break;
 
-                                    case 1:
+                                    case 2:
 
                                         DialogoSugerencia(act_main.this);
 
                                         break;
 
-                                    case 2:
+                                    case 3:
 
                                         CompartirApp(act_main.this);
 
                                         break;
 
 
-                                    case 3:
+                                    case 4:
 
                                         AboutUS(act_main.this, tinyDB, false);
 
                                         break;
 
-                                    case 4:
+                                    case 5:
 
                                         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
                                         DialogSettings.theme = DialogSettings.THEME.DARK;
@@ -785,7 +819,7 @@ public class act_main extends AppCompatActivity {
 
                                         break;
 
-                                    case 5:
+                                    case 6:
 
                                         DialogoPoliticas2(act_main.this);
 
@@ -794,7 +828,7 @@ public class act_main extends AppCompatActivity {
                                 }
 
                             }
-                        }).setCancelButtonText(act_main.this.getResources().getString(R.string.cerrar)).setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("MENU");
+                        }).setCancelButtonText(act_main.this.getResources().getString(R.string.cerrar)).setMenuTextInfo(new TextInfo().setGravity(Gravity.CENTER).setFontColor(Color.GRAY)).setTitle("MENU\n" + "LUGU - lofi music v" + versionName.replace("beta", "").replace("admin", "").trim());
 
                         break;
 
@@ -1020,13 +1054,73 @@ public class act_main extends AppCompatActivity {
 
                         break;
 
+
+                    case R.id.iv_opReproductor:
+
+                        if (ivOpcionPlayer.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_expandir).getConstantState())) {
+                            // mostrar opcines de reproductor
+                            ivOpcionPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ivOpcionPlayer.setImageDrawable(AppCompatResources.getDrawable(act_main.this, R.drawable.ic_contraer));
+                            ivOpcionPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
+
+                            ivReport.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ivReport.setVisibility(VISIBLE);
+                            ivReport.startAnimation(Animacion.enter_ios_anim(act_main.this));
+
+                            ivSupArt.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ivSupArt.setVisibility(VISIBLE);
+                            ivSupArt.startAnimation(Animacion.enter_ios_anim(act_main.this));
+
+
+                            cdOpPlayer.startAnimation(Animacion.fading_out_real(act_main.this));
+                            cdOpPlayer.setVisibility(View.VISIBLE);
+                            cdOpPlayer.startAnimation(Animacion.fade_in_real(act_main.this));
+
+
+                        } else if (ivOpcionPlayer.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_contraer).getConstantState())) {
+                            // mostrar opcines de reproductor
+                            ivOpcionPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                            ivOpcionPlayer.setImageDrawable(AppCompatResources.getDrawable(act_main.this, R.drawable.ic_expandir));
+                            ivOpcionPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
+
+                            ivReport.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                            ivReport.setVisibility(GONE);
+                            ivReport.startAnimation(Animacion.exit_ios_anim(act_main.this));
+
+                            ivSupArt.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                            ivSupArt.setVisibility(GONE);
+                            ivSupArt.startAnimation(Animacion.exit_ios_anim(act_main.this));
+
+                            cdOpPlayer.startAnimation(Animacion.fade_in_real(act_main.this));
+                            cdOpPlayer.setVisibility(GONE);
+                            cdOpPlayer.startAnimation(Animacion.fading_out_real(act_main.this));
+
+                        }
+
+                        break;
+
+                    case R.id.iv_fondoGif:
+
+                        ComprobarSizePlayer(siguienteSize);
+
+                        break;
+
+                    case R.id.iv_offline:
+
+                        DialogoModoOffline(act_main.this);
+                        Dialogo5Estrellas(act_main.this);
+
+
+                        break;
+
+
                 }
 
             }
         };
 
 
-        // asignar listener a views
+        //region asignar listener a views
         ivMenu.setOnClickListener(listener);
         ivLogo.setOnClickListener(listener);
         mtvVerEstrenos.setOnClickListener(listener);
@@ -1041,12 +1135,69 @@ public class act_main extends AppCompatActivity {
         ivLupa.setOnClickListener(listener);
         tvCategoria.setOnClickListener(listener);
         ivStyle.setOnClickListener(listener);
+        ivOpcionPlayer.setOnClickListener(listener);
+        cdPlayer.setOnClickListener(listener);
+        ivFondoGif.setOnClickListener(listener);
+        ivOffline.setOnClickListener(listener);
+        //endregion
 
-        // cargar gif de fondo
-        ivFondoGif = findViewById(R.id.iv_fondoGif);
+
+        ComprobarSizePlayer(tinyDB.getInt(TBsizeReproductor));
         // traer link de imagen
         CargarImagenFondo(this);
 
+
+    }
+
+    private void ComprobarSizePlayer(int opcion) {
+
+        if (ivOpcionPlayer.getVisibility() == GONE) {
+            ivOpcionPlayer.setVisibility(VISIBLE);
+        }
+
+        cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
+        if (opcion == 0) {
+            cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_300dp)));
+            tinyDB.putInt(TBsizeReproductor, opcion);
+            siguienteSize = 1;
+        } else if (opcion == 1) {
+            cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            tinyDB.putInt(TBsizeReproductor, opcion);
+            siguienteSize = 2;
+        } else if (opcion == 2) {
+            cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_200dp)));
+            tinyDB.putInt(TBsizeReproductor, opcion);
+            siguienteSize = 0;
+        }
+        cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
+
+    }
+
+    private void ComprobarSizePlayerClic() {
+        if (ivOpcionPlayer.getVisibility() == GONE) {
+            ivOpcionPlayer.setVisibility(VISIBLE);
+        }
+
+        switch (tinyDB.getInt(TBsizeReproductor)) {
+            case 0:
+                cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_300dp)));
+                cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                tinyDB.putInt(TBsizeReproductor, 1);
+                break;
+            case 2:
+                cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                ivOpcionPlayer.setVisibility(GONE);
+                tinyDB.putInt(TBsizeReproductor, 0);
+                break;
+            default:
+                cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
+                cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_200dp)));
+                cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
+                tinyDB.putInt(TBsizeReproductor, 2);
+        }
 
     }
 

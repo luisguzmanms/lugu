@@ -14,22 +14,22 @@
           android:endX="512.00006"
           android:type="linear">
           <item
-              android:color="#1EFF5252"
+              android:color="@color/item_disable"
               android:offset="0" />
           <item
-              android:color="#1EFF5252"
+              android:color="@color/item_disable"
               android:offset="0.0208" />
           <item
-              android:color="#1EFF5252"
+              android:color="@color/item_disable"
               android:offset="0.2931" />
           <item
-              android:color="#1EFF5252"
+              android:color="@color/item_disable"
               android:offset="0.5538" />
           <item
-              android:color="#1EFF5252"
+              android:color="@color/item_disable"
               android:offset="0.7956" />
           <item
-              android:color="#1EFF5252"
+              android:color="@color/item_disable"
               android:offset="1" />
       </gradient>
     </aapt:attr>

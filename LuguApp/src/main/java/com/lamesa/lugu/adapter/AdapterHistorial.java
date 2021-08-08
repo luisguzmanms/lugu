@@ -116,7 +116,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         }
 
 
-        // extraer colores de imagenes
+        //region extraer colores de imagenes
         Glide.with(mContext)
                 .asBitmap()
                 .load(tinyDB.getString(TBimagenFondo))
@@ -135,7 +135,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                                 // Do something with colors...
                                 if (holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))) {
                                     holder.tvCancion.setTextColor(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
-                                    holder.tvArtista.setTextColor(palette.getDarkVibrantColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                    holder.tvArtista.setTextColor(palette.getLightVibrantColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
                                 }
 
                             }
@@ -147,6 +147,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                         // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
                     }
                 });
+        //endregion
 
         //region obtener nombre de categoria desde la id y mostrar en tvCategoria
         List<ModelCategoria> list = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);

@@ -86,5 +86,6 @@
     <string name="title_alert_list">¡Información!</string>
     <string name="msg_alert_list">La lista de favorita y de canciones reproducidas se guardan en el dispositivo, si elimina la app las listas se eliminarán automaticamente.</string>
     <string name="msg_actua_playstore">Nueva versión disponible en la Play Store</string>
+    <string name="visitar_website">PAGINA WEB</string>
 
 </resources>

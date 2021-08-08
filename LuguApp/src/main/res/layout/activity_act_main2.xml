@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="#05070E"
+    android:background="@color/fondo_main"
     android:orientation="vertical"
     tools:context="com.lamesa.lugu.activity.act_main">
 
@@ -84,65 +84,13 @@
                         android:layout_weight="1" />
 
 
-                    <ImageView
-                        android:id="@+id/ivLogo"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_above="@+id/rvDestacado"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="5dp"
-                        android:layout_toStartOf="@+id/ivMenu"
-                        app:srcCompat="@mipmap/ic_launcher" />
-
-                    <ImageView
-                        android:id="@+id/ivMenu"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_above="@+id/rvDestacado"
-                        android:layout_alignParentEnd="true"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
-                        app:srcCompat="@drawable/ic_menu" />
-
                 </LinearLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="0dp"
-                    app:cardCornerRadius="5dp"
-                    app:cardElevation="10dp">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="0dp"
-                        android:orientation="vertical">
-
-                        <com.lamesa.lugu.player.library.MusicPlayer
-                            android:id="@+id/musicPlayer"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:andexo_aspect_ratio="aspect_mp3"
-                            app:andexo_full_screen="false"
-                            app:andexo_loop="finite"
-                            app:andexo_play_when_ready="true"
-                            app:andexo_resize_mode="Fit"
-                            app:andexo_show_controller="true" />
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
         </FrameLayout>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cd_player"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:cardCornerRadius="0dp"
@@ -254,7 +202,7 @@
                         android:layout_marginBottom="100dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="left"
-                        android:text="For you, with love"
+                        android:text="Hello!"
                         android:textColor="@color/learn_gradient_grey_1"
                         android:textSize="22dp"
                         android:textStyle="bold"
@@ -320,6 +268,19 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_cancion"
                         app:layout_constraintVertical_bias="0.0" />
 
+                    <ImageView
+                        android:id="@+id/iv_lupa"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:paddingLeft="5dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/tv_cancion"
+                        app:srcCompat="@drawable/ic_lupa"
+                        tools:layout_editor_absoluteY="172dp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -337,14 +298,6 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/iv_lupa"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_gravity="center"
-                                android:paddingLeft="5dp"
-                                android:visibility="invisible"
-                                app:srcCompat="@drawable/ic_lupa" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -358,7 +311,8 @@
                         android:indeterminate="true"
                         android:progressBackgroundTint="#00FFFFFF"
                         android:progressTint="#FF5252"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_opReproductor" />
 
                     <com.github.ybq.android.spinkit.SpinKitView
                         android:id="@+id/spinBuffering"
@@ -366,34 +320,52 @@
 
                         android:layout_width="51dp"
                         android:layout_height="50dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="24dp"
                         android:padding="10dp"
                         android:visibility="gone"
                         app:SpinKit_Color="@color/learn_colorPrimary"
                         app:SpinKit_Style="MultiplePulseRing"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.902"
+                        app:layout_constraintHorizontal_bias="0.988"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_cancion"
-                        app:layout_constraintVertical_bias="0.492" />
+                        app:layout_constraintVertical_bias="0.377" />
 
                     <ImageView
                         android:id="@+id/iv_report"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="right|top"
-                        android:layout_margin="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_fondoGif"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.067"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:srcCompat="@drawable/ic_report" />
 
                     <ImageView
                         android:id="@+id/iv_support_art"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="right|left"
-                        android:layout_margin="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_fondoGif"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.924"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:srcCompat="@drawable/ic_imagen" />
+
+                    <ImageView
+                        android:id="@+id/iv_opReproductor"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="5dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_fondoGif"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:srcCompat="@drawable/ic_expandir" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -402,12 +374,49 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cd_musicSeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="0dp"
+            android:visibility="gone"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:orientation="vertical">
+
+                <com.lamesa.lugu.player.library.MusicPlayer
+                    android:id="@+id/musicPlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:andexo_aspect_ratio="aspect_mp3"
+                    app:andexo_full_screen="false"
+                    app:andexo_loop="finite"
+                    app:andexo_play_when_ready="true"
+                    app:andexo_resize_mode="Fit"
+                    app:andexo_show_controller="true" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cd_opPlayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            app:cardBackgroundColor="#00000000"
+            android:visibility="gone"
+            app:cardBackgroundColor="#05070E"
             app:cardCornerRadius="5dp">
 
             <LinearLayout
@@ -416,6 +425,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_offline"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="bottom|right|left"
@@ -556,6 +566,28 @@
                                     android:layout_marginBottom="2dp"
                                     app:srcCompat="@drawable/ic_moon_off" />
 
+                                <ImageView
+                                    android:id="@+id/ivLogo"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_above="@+id/rvDestacado"
+                                    android:layout_gravity="center"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_toStartOf="@+id/ivMenu"
+                                    android:visibility="gone"
+                                    app:srcCompat="@mipmap/ic_launcher" />
+
+                                <ImageView
+                                    android:id="@+id/ivMenu"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_above="@+id/rvDestacado"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="2dp"
+                                    app:srcCompat="@drawable/ic_menu" />
+
                             </LinearLayout>
 
                         </LinearLayout>
@@ -628,16 +660,6 @@
                                     android:textSize="12sp"
                                     android:visibility="gone" />
 
-                                <TextView
-                                    android:id="@+id/tv_sleep"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:fontFamily="@font/poppins_bold"
-                                    android:text="00:00:00"
-                                    android:textColor="#63F0F0F5"
-                                    android:textSize="14sp"
-                                    android:visibility="gone" />
 
                                 <ImageView
                                     android:id="@+id/iv_add_list"
@@ -694,7 +716,7 @@
                     <com.google.android.material.bottomnavigation.BottomNavigationView
                         android:id="@+id/bottomNavigationHis_Fav"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_above="@+id/adViewMain"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"
@@ -704,7 +726,7 @@
                         android:background="#00000000"
                         android:visibility="visible"
                         app:elevation="@dimen/learn_spacing_control"
-                        app:itemIconSize="@dimen/_15sdp"
+                        app:itemIconSize="20dp"
                         app:itemTextColor="@color/learn_colorPrimary"
                         app:labelVisibilityMode="unlabeled"
                         app:menu="@menu/learn_bottom_navigation_his_fav">

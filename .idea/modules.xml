@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lugu.iml" filepath="$PROJECT_DIR$/.idea/modules/lugu.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.iml" filepath="$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.iml" filepath="$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buttom/lugu.buttom.iml" filepath="$PROJECT_DIR$/.idea/modules/buttom/lugu.buttom.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.iml" filepath="$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.iml" />
     </modules>
   </component>

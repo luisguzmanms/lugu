@@ -69,6 +69,7 @@ import java.util.Random;
 
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.cdMusicSeek;
 import static com.lamesa.lugu.activity.act_main.ivFondoGif;
 import static com.lamesa.lugu.activity.act_main.ivLupa;
 import static com.lamesa.lugu.activity.act_main.ivPlayPause;
@@ -823,6 +824,9 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
                     break;
                 case Player.STATE_READY:
+                    if (cdMusicSeek != null) {
+                        cdMusicSeek.setVisibility(GONE);
+                    }
                     /*
                     if(mixpanel!=null) {
                         mixpanel.track("TimeLoadingSong");
@@ -952,6 +956,9 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
         @Override
         public void onPlayerError(ExoPlaybackException error) {
+            if (cdMusicSeek != null) {
+                cdMusicSeek.setVisibility(VISIBLE);
+            }
             intentosError = intentosError + 1;
             showRetry();
 

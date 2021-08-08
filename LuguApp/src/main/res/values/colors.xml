@@ -82,6 +82,8 @@
     <color name="blackTransparent">#07DDDDDD</color>
     <color name="toolbarTransparent">#95000000</color>
     <color name="divider">#C0BEBE</color>
+    <color name="item_disable">#79676666</color>
+    <color name="fondo_main">#05070E</color>
 
 
 </resources>

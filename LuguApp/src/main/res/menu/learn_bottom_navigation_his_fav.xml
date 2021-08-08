@@ -10,12 +10,13 @@
         android:id="@+id/navigation_favoritos"
         android:icon="@drawable/learn_ic_like"
         android:title="Favoritos" />
+    <!--
+        <item
+            android:id="@+id/navigation_offline"
+            android:icon="@drawable/ic_no_signal"
+            android:title="Modo Offline" />
 
-    <item
-        android:id="@+id/navigation_offline"
-        android:icon="@drawable/ic_no_signal"
-        android:title="Modo Offline" />
-
+ -->
     <!--
 
     <item

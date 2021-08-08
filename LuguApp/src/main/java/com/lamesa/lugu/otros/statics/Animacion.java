@@ -66,4 +66,14 @@ public class Animacion {
     }
 
 
+    public static Animation scale_up(Context mContext) {
+        Animation exit_ios_anim = AnimationUtils.loadAnimation(mContext, R.anim.scale_up);
+        return exit_ios_anim;
+    }
+
+    public static Animation scale_down(Context mContext) {
+        Animation exit_ios_anim = AnimationUtils.loadAnimation(mContext, R.anim.scale_down);
+        return exit_ios_anim;
+    }
+
 }

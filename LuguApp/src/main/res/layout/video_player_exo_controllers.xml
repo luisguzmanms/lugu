@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:visibility="gone">
+        android:visibility="invisible">
 
 
         <!-- crear errores en algunos dispositivos -->
@@ -46,7 +46,8 @@
         android:padding="5dp"
         android:text="00:00:00"
         android:textColor="@color/white"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/exo_duration"
@@ -60,7 +61,7 @@
         android:text="00:00:00"
         android:textColor="@color/white"
         android:textSize="10sp"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <com.google.android.exoplayer2.ui.DefaultTimeBar
         android:id="@id/exo_progress"
@@ -72,6 +73,7 @@
         android:layout_toEndOf="@id/exo_position"
         android:layout_toRightOf="@id/exo_position"
 
+        android:visibility="invisible"
         app:buffered_color="#B4FD6F6D" />
 
 
@@ -79,7 +81,7 @@
         android:id="@+id/container_fullscreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="invisible">
 
 
         <!-- crear errores en algunos dispositivos -->

@@ -61,7 +61,7 @@ public class constantes {
 
     public static String TBreproduciendoRadio = "TBreproduciendoRadio";
     public static String TBmodoReproductor = "TBmodoReproductor";
-
+    public static String TBsizeReproductor = "TBsizeReproductor";
 
     //endregion
 

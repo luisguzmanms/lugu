@@ -301,5 +301,6 @@
     <string name="title_alert_list">"Information! "</string>
     <string name="msg_alert_list">Lists of favourite songs and songs played are saved on the device, if you delete the standard app they will be deleted automatically</string>
     <string name="msg_actua_playstore">New version available on Play Store</string>
+    <string name="visitar_website">OPEN WEBSITE</string>
 
 </resources>

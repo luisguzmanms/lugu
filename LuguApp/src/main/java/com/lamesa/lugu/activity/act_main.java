@@ -143,9 +143,7 @@ public class act_main extends AppCompatActivity {
     public static MusicPlayer musicPlayer;
     public static MediaNotificationManager mediaNotificationManager;
     public static List<ModelCancion> mlistCancion;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
+
 
     public static ProgressBar pbCargandoRadio;
     // recycler views
@@ -181,6 +179,9 @@ public class act_main extends AppCompatActivity {
     private ImageView ivOffline;
     private int versionNumber;
     private String versionName;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
 
 
     //traer listas de firebase
@@ -332,6 +333,20 @@ public class act_main extends AppCompatActivity {
         // guardar boolean de eque el reproducotor no estará sonando
         tinyDB.putBoolean(TBreproduciendoRadio, false);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        if (tvCategoria != null) {
+            tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+        }
+        if (tvCancion != null) {
+            tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+        }
+        if (tvArtista != null) {
+            tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+        }
+        super.onStart();
     }
 
     private void CargarBanner() {

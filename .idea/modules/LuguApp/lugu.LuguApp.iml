@@ -223,8 +223,6 @@
     <orderEntry type="library" name="Gradle: com.github.MatteoBattilana:WeatherView:3.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.khirr:Android-Privacy-Policy:1.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.tapadoo.android:alerter:7.0.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.hanks:htextview-base:0.1.6@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.hanks:htextview-evaporate:0.1.6@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-integration:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-library:1.3" level="project" />
@@ -242,5 +240,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13" level="project" />
     <orderEntry type="module" module-name="lugu.youtubeExtractor" />
     <orderEntry type="module" module-name="lugu.YoutubeExtractor2" />
+    <orderEntry type="module" module-name="lugu.htextview-base" />
+    <orderEntry type="module" module-name="lugu.htextview-evaporate" />
   </component>
 </module>

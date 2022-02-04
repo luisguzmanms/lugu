@@ -853,16 +853,16 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     // mostrar y animar texview dde cancion y artista solo si es diferente
                     if (tvCancion != null && tvArtista != null && tvCategoria != null) {
                         //   tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+                        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
                         //    tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
                         //    tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+                        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
                         //     tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
                         //     tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+                        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
                         //    tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
@@ -966,7 +966,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                 Alerter.create((Activity) mContext).setTitle(mContext.getResources().getString(R.string.coneccion_lenta))
                         // .setText("Se reproducirá canciones del estilo seleccionado.")
                         // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
-                        .setIcon(R.drawable.uvv_on_error)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
                         .setBackgroundColorRes(R.color.learn_light_red) // or setBackgroundColorInt(Color.CYAN)
                         .show();

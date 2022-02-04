@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: io.github.inflationx:calligraphy3:3.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e32fa6d07e7145b5630c3e24259208e5/jetified-calligraphy3-3.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e32fa6d07e7145b5630c3e24259208e5/jetified-calligraphy3-3.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e32fa6d07e7145b5630c3e24259208e5/jetified-calligraphy3-3.1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/578e5f7bada2d4e549cf112768402fd1/transformed/jetified-calligraphy3-3.1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/578e5f7bada2d4e549cf112768402fd1/transformed/jetified-calligraphy3-3.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/578e5f7bada2d4e549cf112768402fd1/transformed/jetified-calligraphy3-3.1.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.inflationx/calligraphy3/3.1.1/ee0e0d8fdcc92db6323063da61949dececb3b6ab/calligraphy3-3.1.1-javadoc.jar!/" />

@@ -1,5 +1,52 @@
 package com.lamesa.lugu.activity;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.otros.metodos.AboutUS;
+import static com.lamesa.lugu.otros.metodos.AbrirPagina;
+import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
+import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
+import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
+import static com.lamesa.lugu.otros.metodos.CompartirApp;
+import static com.lamesa.lugu.otros.metodos.Dialogo5Estrellas;
+import static com.lamesa.lugu.otros.metodos.DialogoMiCancion;
+import static com.lamesa.lugu.otros.metodos.DialogoModoOffline;
+import static com.lamesa.lugu.otros.metodos.DialogoOpBateria;
+import static com.lamesa.lugu.otros.metodos.DialogoPoliticas2;
+import static com.lamesa.lugu.otros.metodos.DialogoReport;
+import static com.lamesa.lugu.otros.metodos.DialogoSalir;
+import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
+import static com.lamesa.lugu.otros.metodos.DialogoSupArt;
+import static com.lamesa.lugu.otros.metodos.DialogoSupArtista;
+import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
+import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
+import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
+import static com.lamesa.lugu.otros.metodos.SonidoVHS;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.metodos.initFirebase;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.mob.inter.loadInterstitial;
+import static com.lamesa.lugu.otros.mob.inter.showInterstitial;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCustom;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
+import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBreproduciendoRadio;
+import static com.lamesa.lugu.otros.statics.constantes.TBsizeReproductor;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -81,53 +128,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.metodos.AboutUS;
-import static com.lamesa.lugu.otros.metodos.AbrirPagina;
-import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
-import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
-import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
-import static com.lamesa.lugu.otros.metodos.CompartirApp;
-import static com.lamesa.lugu.otros.metodos.Dialogo5Estrellas;
-import static com.lamesa.lugu.otros.metodos.DialogoMiCancion;
-import static com.lamesa.lugu.otros.metodos.DialogoModoOffline;
-import static com.lamesa.lugu.otros.metodos.DialogoOpBateria;
-import static com.lamesa.lugu.otros.metodos.DialogoPoliticas2;
-import static com.lamesa.lugu.otros.metodos.DialogoReport;
-import static com.lamesa.lugu.otros.metodos.DialogoSalir;
-import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
-import static com.lamesa.lugu.otros.metodos.DialogoSupArt;
-import static com.lamesa.lugu.otros.metodos.DialogoSupArtista;
-import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
-import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
-import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
-import static com.lamesa.lugu.otros.metodos.SonidoVHS;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
-import static com.lamesa.lugu.otros.metodos.initFirebase;
-import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.mob.inter.loadInterstitial;
-import static com.lamesa.lugu.otros.mob.inter.showInterstitial;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCustom;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
-import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBreproduciendoRadio;
-import static com.lamesa.lugu.otros.statics.constantes.TBsizeReproductor;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
-
 public class act_main extends AppCompatActivity {
 
 
@@ -179,9 +179,9 @@ public class act_main extends AppCompatActivity {
     private ImageView ivOffline;
     private int versionNumber;
     private String versionName;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
+    public static TextView tvCancion;
+    public static TextView tvCategoria;
+    public static TextView tvArtista;
 
 
     //traer listas de firebase
@@ -241,7 +241,7 @@ public class act_main extends AppCompatActivity {
                                 mContext.getResources().getDrawable(R.drawable.learn_ic_like).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
                                 mContext.getResources().getDrawable(R.drawable.ic_expandir).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
                                 mContext.getResources().getDrawable(R.drawable.ic_contraer).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
-                                mContext.getResources().getDrawable(R.drawable.ic_no_signal).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                              // mContext.getResources().getDrawable(R.drawable.ic_no_signal).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
 
 
                                 bottomNavigationHis_Fav.setItemRippleColor(ColorStateList.valueOf(palette.getDarkVibrantColor(mContext.getResources().getColor(R.color.gray))));
@@ -338,13 +338,13 @@ public class act_main extends AppCompatActivity {
     @Override
     protected void onStart() {
         if (tvCategoria != null) {
-            tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+            tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
         }
         if (tvCancion != null) {
-            tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+            tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
         }
         if (tvArtista != null) {
-            tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+            tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
         }
         super.onStart();
     }
@@ -493,14 +493,14 @@ public class act_main extends AppCompatActivity {
 
 
         tvCancion = findViewById(R.id.tv_cancion);
-        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
         tvCancion.setVisibility(VISIBLE);
         tvArtista = findViewById(R.id.tv_artista);
         tvArtista.setVisibility(VISIBLE);
-        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
         tvCategoria = findViewById(R.id.tv_categoria);
         tvCategoria.setVisibility(VISIBLE);
-        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
         pbCargandoRadio = findViewById(R.id.pb_cargandoradio);
 
         ivPlayPause = findViewById(R.id.iv_playPause);
@@ -860,8 +860,8 @@ public class act_main extends AppCompatActivity {
                                 if (!musicPlayer.isPlaying()) {
                                     // comprobar que si haya una cancion guardada
                                     getLinkAndPlay(act_main.this, tinyDB.getString(TBlinkCancionSonando), 1);
-                                    tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
-                                    tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+                                    tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
+                                    tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
                                 }
                             } else {
                                 // primera ves que se da clic a play
@@ -1088,7 +1088,7 @@ public class act_main extends AppCompatActivity {
 
 
                             cdOpPlayer.startAnimation(Animacion.fading_out_real(act_main.this));
-                            cdOpPlayer.setVisibility(View.VISIBLE);
+                            cdOpPlayer.setVisibility(VISIBLE);
                             cdOpPlayer.startAnimation(Animacion.fade_in_real(act_main.this));
 
 

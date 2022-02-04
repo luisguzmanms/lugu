@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kongzue.dialog.util.DialogSettings;
@@ -50,6 +51,11 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseApp.initializeApp(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 
         MobileAds.initialize(this,
                 "ca-app-pub-1553194436365145~2484820665");
@@ -64,9 +70,6 @@ public class App extends MultiDexApplication {
         Amplitude.getInstance().enableLocationListening();
 
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-// Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
 // Initialize the library with your

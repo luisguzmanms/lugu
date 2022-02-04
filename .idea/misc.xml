@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/LuguApp/src/main/res/drawable/ic_wait_meme.xml" />
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/luis4/.gradle/caches/transforms-3/54482bcb76cc5f391520dc9c60d71ece/transformed/jetified-alerter-7.0.1/res/drawable/alerter_ic_notifications.xml" value="0.1" />
+        <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/ic_contraer.xml" value="0.1" />
+        <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/ic_no_signal.xml" value="0.1" />
+      </map>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

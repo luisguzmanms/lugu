@@ -1,14 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.0"
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 31
     }
     buildTypes {
         release {
@@ -19,8 +16,8 @@ android {
 }
 
 dependencies {
-	compile 'com.google.code.gson:gson:2.8.5'
-	compile 'com.linsea:universalvideoview:1.1.0@aar'
-	compile  'org.mozilla:rhino:1.7.10'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+	implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.linsea:universalvideoview:1.1.0@aar'
+    implementation  'org.mozilla:rhino:1.7.10'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

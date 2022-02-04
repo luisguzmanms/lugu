@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.khirr:Android-Privacy-Policy:1.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/35ac8a836d51f1534b7b082ece755ce3/jetified-Android-Privacy-Policy-1.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/35ac8a836d51f1534b7b082ece755ce3/jetified-Android-Privacy-Policy-1.0.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/35ac8a836d51f1534b7b082ece755ce3/jetified-Android-Privacy-Policy-1.0.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8f28a97897478898a0b0e20fb131f864/transformed/jetified-Android-Privacy-Policy-1.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8f28a97897478898a0b0e20fb131f864/transformed/jetified-Android-Privacy-Policy-1.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8f28a97897478898a0b0e20fb131f864/transformed/jetified-Android-Privacy-Policy-1.0.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -4,8 +4,8 @@ package com.lamesa.lugu.otros.statics;
 public class constantes {
 
 
-    public static final String REPRODUCTOR_BUCLE = "MODE_BUCLE";
-    public static final String REPRODUCTOR_ALEATORIO = "MODE_ALEATORIO";
+    public static final String REPRODUCTOR_BUCLE = "REPRODUCTOR_BUCLE";
+    public static final String REPRODUCTOR_ALEATORIO = "REPRODUCTOR_ALEATORIO";
     public static boolean setDebugActivo = true;
     public static String UrlAppPlayStore = "https://rebrand.ly/luguplaystore";
     public static String UrlEncuestaSugerencia = "https://rebrand.ly/luguformfeedback";

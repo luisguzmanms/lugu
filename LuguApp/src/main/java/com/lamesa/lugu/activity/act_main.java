@@ -144,17 +144,21 @@ public class act_main extends AppCompatActivity {
     public static MediaNotificationManager mediaNotificationManager;
     public static List<ModelCancion> mlistCancion;
 
-
     public static ProgressBar pbCargandoRadio;
-    // recycler views
+
+    //region  recycler views
     public static RecyclerView mrvHistorial;
     public static RecyclerView mrvFavoritos;
     public static RecyclerView mrvMisListas;
-    // adapters
+    //endregion
+
+    //region adapters
     public static AdapterHistorial mAdapterHistorial;
     public static AdapterFavoritos mAdapterFavoritos;
     public static AdapterListCustom mAdapterListCustom;
     public static BottomNavigationView bottomNavigationHis_Fav;
+    //endregion
+
     // otros
     public static ImageView ivPlayPause;
     public static SpinKitView spinBuffering;
@@ -183,7 +187,47 @@ public class act_main extends AppCompatActivity {
     public static TextView tvCategoria;
     public static TextView tvArtista;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_act_main2);
 
+        // INICAR MEDIANOTIFICACTION
+        mediaNotificationManager = new MediaNotificationManager(this);
+        // reproductor exoplayer
+        musicPlayer = findViewById(R.id.musicPlayer);
+
+        // SolicitarPermisos(this);
+
+        tinyDB = new TinyDB(this);
+        // imagen por defecto de fondo
+        tinyDB.putString(TBimagenFondo, "https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
+
+        initFirebase(act_main.this, tinyDB);
+
+        VistasHome();
+        CargarRecyclerHome();
+
+        // Traer todas las listas desde Firebase
+        new CargarListas().execute();
+
+        CheckIsFavorite(act_main.this, tinyDB.getString(TBidCancionSonando));
+
+        // cargar adinter para ser mostrada
+        loadInterstitial(act_main.this);
+        CargarInterAleatorio(act_main.this, 4);
+        // cargar banner
+        CargarBanner();
+
+        // dialogo apra desactivar la optimizacion de la app
+        DialogoOpBateria(act_main.this);
+
+
+        AppVersion();
+
+        soundVHS = MediaPlayer.create(act_main.this, R.raw.tv09);
+
+    }
     //traer listas de firebase
     public static void getListas(Context mContext) {
         Firebase.getListaCanciones(mContext, mlistCategoria, mlistCancion, tinyDB);
@@ -257,49 +301,6 @@ public class act_main extends AppCompatActivity {
                         // setLogInfo(mContext,"MediaNotificationManager.startNotify.onLoadCleared","Cargar imagen en Notificacion",false);
                     }
                 });
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_main2);
-
-
-        // INICAR MEDIANOTIFICACTION
-        mediaNotificationManager = new MediaNotificationManager(this);
-        // reproductor exoplayer
-        musicPlayer = findViewById(R.id.musicPlayer);
-
-        // SolicitarPermisos(this);
-
-        tinyDB = new TinyDB(this);
-        // imagen por defecto de fondo
-        tinyDB.putString(TBimagenFondo, "https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
-
-        initFirebase(act_main.this, tinyDB);
-
-        VistasHome();
-        CargarRecyclerHome();
-
-        // Traer todas las listas desde Firebase
-        new CargarListas().execute();
-
-        CheckIsFavorite(act_main.this, tinyDB.getString(TBidCancionSonando));
-
-        // cargar adinter para ser mostrada
-        loadInterstitial(act_main.this);
-        CargarInterAleatorio(act_main.this, 4);
-        // cargar banner
-        CargarBanner();
-
-        // dialogo apra desactivar la optimizacion de la app
-        DialogoOpBateria(act_main.this);
-
-
-        AppVersion();
-
-        soundVHS = MediaPlayer.create(act_main.this, R.raw.tv09);
 
     }
 
@@ -505,7 +506,6 @@ public class act_main extends AppCompatActivity {
 
         ivPlayPause = findViewById(R.id.iv_playPause);
 
-
         spinBuffering = findViewById(R.id.spinBuffering);
 
         waveColor = findViewById(R.id.waveColor);
@@ -529,24 +529,26 @@ public class act_main extends AppCompatActivity {
 
         ivStyle = findViewById(R.id.iv_style);
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle2);
+
         // cargar gif de fondo
         ivFondoGif = findViewById(R.id.iv_fondoGif);
         //region guardar ivOpcionBucle segun el icono
-        if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
-            // guardar modo de reproductor REPRODUCTOR_BUCLE
-            tinyDB.putString(TBmodoReproductor, REPRODUCTOR_BUCLE);
-
-        } else if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_aleatorio).getConstantState())) {
+        if (ivOpcionBucle.getTag().toString().contains("ic_aleatorio")) {
             // guardar modo de reproductor REPRODUCTOR_ALEATORIO
             tinyDB.putString(TBmodoReproductor, REPRODUCTOR_ALEATORIO);
+        } else {
+            // guardar modo de reproductor REPRODUCTOR_BUCLE
+            tinyDB.putString(TBmodoReproductor, REPRODUCTOR_BUCLE);
         }
+        OpcionReproductor(act_main.this, tinyDB.getString(TBmodoReproductor));
         //endregion
+
+
 
         ivOpcionPlayer = findViewById(R.id.iv_opReproductor);
         cdOpPlayer = findViewById(R.id.cd_opPlayer);
         cdPlayer = findViewById(R.id.cd_player);
 
-        OpcionReproductor(act_main.this, tinyDB.getString(TBmodoReproductor));
 
         weatherView = findViewById(R.id.weather_view);
         ivOffline = findViewById(R.id.iv_offline);
@@ -849,9 +851,8 @@ public class act_main extends AppCompatActivity {
 
                     case R.id.iv_playPause:
 
-
                         // cambiar icono entre play y pause
-                        if (ivPlayPause.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_play).getConstantState())) {
+                         if(ivPlayPause.getTag().toString().contains("ic_play")) {
                             // reproducir
                             // comprobar si es la primera vez que se da clic a play
                             if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
@@ -868,7 +869,7 @@ public class act_main extends AppCompatActivity {
                                 Toast.makeText(act_main.this, R.string.elija_categoria, Toast.LENGTH_SHORT).show();
                             }
 
-                        } else if (ivPlayPause.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_pausa).getConstantState())) {
+                        } else  {
                             // pausar
                             musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
                         }
@@ -999,11 +1000,11 @@ public class act_main extends AppCompatActivity {
 
                          */
 
-                        if (ivSleep.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_moon_off).getConstantState())) {
+                        if (ivSleep.getTag().toString().contains("ic_moon_off")) {
                             // Iniciar dialogo de temporizador
                             DialogoTemporizador(act_main.this);
 
-                        } else if (ivSleep.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_moon_on).getConstantState())) {
+                        } else {
                             // apagar temporizador antes de iniciar uno nuevo
                             ApagarAutoApagado(act_main.this);
                             DialogoTemporizador(act_main.this);
@@ -1017,16 +1018,14 @@ public class act_main extends AppCompatActivity {
 
                         // comprobar si es la primera vez que se da clic a favorito
 
-                        if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_bucle).getConstantState())) {
-                            // activar modo aleatorio
-                            OpcionReproductor(act_main.this, REPRODUCTOR_ALEATORIO);
-                            Toast.makeText(act_main.this, R.string.modo_aleatorio, Toast.LENGTH_SHORT).show();
-
-                        } else if (ivOpcionBucle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_aleatorio).getConstantState())) {
+                        if (ivOpcionBucle.getTag().toString().contains("ic_aleatorio")) {
                             // activar modo bucle
                             OpcionReproductor(act_main.this, REPRODUCTOR_BUCLE);
                             Toast.makeText(act_main.this, R.string.modo_bucle_on, Toast.LENGTH_SHORT).show();
-
+                        } else {
+                            // activar modo aleatorio
+                            OpcionReproductor(act_main.this, REPRODUCTOR_ALEATORIO);
+                            Toast.makeText(act_main.this, R.string.modo_aleatorio, Toast.LENGTH_SHORT).show();
                         }
 
                         break;
@@ -1058,11 +1057,11 @@ public class act_main extends AppCompatActivity {
 
                     case R.id.iv_style:
 
-                        if (ivStyle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_intercambiar).getConstantState())) {
+                        if (ivStyle.getTag().toString().contains("ic_intercambiar_off")) {
                             // activar modo categoria aleatoria
                             CategoriaAleatoria(act_main.this, true, tinyDB);
 
-                        } else if (ivStyle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_intercambiar_on).getConstantState())) {
+                        } else {
                             // desactivar modo categoria aleatoria
                             CategoriaAleatoria(act_main.this, false, tinyDB);
                         }
@@ -1072,10 +1071,12 @@ public class act_main extends AppCompatActivity {
 
                     case R.id.iv_opReproductor:
 
-                        if (ivOpcionPlayer.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_expandir).getConstantState())) {
+                        if (ivOpcionPlayer.getTag().toString().contains("ic_expandir")) {
+
                             // mostrar opcines de reproductor
                             ivOpcionPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
                             ivOpcionPlayer.setImageDrawable(AppCompatResources.getDrawable(act_main.this, R.drawable.ic_contraer));
+                            ivOpcionPlayer.setTag("ic_contraer");
                             ivOpcionPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
 
                             ivReport.startAnimation(Animacion.exit_ios_anim(act_main.this));
@@ -1092,10 +1093,11 @@ public class act_main extends AppCompatActivity {
                             cdOpPlayer.startAnimation(Animacion.fade_in_real(act_main.this));
 
 
-                        } else if (ivOpcionPlayer.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.ic_contraer).getConstantState())) {
+                        } else {
                             // mostrar opcines de reproductor
                             ivOpcionPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
                             ivOpcionPlayer.setImageDrawable(AppCompatResources.getDrawable(act_main.this, R.drawable.ic_expandir));
+                            ivOpcionPlayer.setTag("ic_expandir");
                             ivOpcionPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
 
                             ivReport.startAnimation(Animacion.enter_ios_anim(act_main.this));

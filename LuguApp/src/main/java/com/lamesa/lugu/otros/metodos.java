@@ -1,5 +1,61 @@
 package com.lamesa.lugu.otros;
 
+import static android.content.Context.POWER_SERVICE;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.CargarImagenFondo;
+import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
+import static com.lamesa.lugu.activity.act_main.contenidoHome;
+import static com.lamesa.lugu.activity.act_main.contenidoSearch;
+import static com.lamesa.lugu.activity.act_main.getListas;
+import static com.lamesa.lugu.activity.act_main.ivFondoGif;
+import static com.lamesa.lugu.activity.act_main.ivLikeDislike;
+import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
+import static com.lamesa.lugu.activity.act_main.ivSleep;
+import static com.lamesa.lugu.activity.act_main.ivStyle;
+import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
+import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
+import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
+import static com.lamesa.lugu.activity.act_main.mrvHistorial;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
+import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
+import static com.lamesa.lugu.activity.act_main.soundVHS;
+import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tvSleep;
+import static com.lamesa.lugu.activity.splash.tinydb;
+import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.mob.video.createAndLoadRewardedAd;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
+import static com.lamesa.lugu.otros.statics.constantes.TBCategoriaAleatoria;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBfechaCambiosData;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCanciones;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
+import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
+import static com.lamesa.lugu.otros.statics.constantes.UrlAppPlayStore;
+import static com.lamesa.lugu.otros.statics.constantes.UrlEncuestaSugerencia;
+import static com.lamesa.lugu.otros.statics.constantes.UrlEnviarMiCancion;
+import static com.lamesa.lugu.otros.statics.constantes.mixActualizarApp;
+import static com.lamesa.lugu.otros.statics.constantes.mixCompartirApp;
+import static com.lamesa.lugu.otros.statics.constantes.mixExtractionGoesWrong;
+import static com.lamesa.lugu.otros.statics.constantes.mixFavoritos;
+import static com.lamesa.lugu.otros.statics.constantes.mixLogInfoError;
+import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
+import static com.lamesa.lugu.otros.statics.constantes.setDebugActivo;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -96,62 +152,6 @@ import at.huber.youtubeExtractor.VideoMeta;
 import at.huber.youtubeExtractor.YouTubeExtractor;
 import at.huber.youtubeExtractor.YtFile;
 import okhttp3.OkHttpClient;
-
-import static android.content.Context.POWER_SERVICE;
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.CargarImagenFondo;
-import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
-import static com.lamesa.lugu.activity.act_main.contenidoHome;
-import static com.lamesa.lugu.activity.act_main.contenidoSearch;
-import static com.lamesa.lugu.activity.act_main.getListas;
-import static com.lamesa.lugu.activity.act_main.ivFondoGif;
-import static com.lamesa.lugu.activity.act_main.ivLikeDislike;
-import static com.lamesa.lugu.activity.act_main.ivOpcionBucle;
-import static com.lamesa.lugu.activity.act_main.ivSleep;
-import static com.lamesa.lugu.activity.act_main.ivStyle;
-import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
-import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
-import static com.lamesa.lugu.activity.act_main.mrvFavoritos;
-import static com.lamesa.lugu.activity.act_main.mrvHistorial;
-import static com.lamesa.lugu.activity.act_main.musicPlayer;
-import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
-import static com.lamesa.lugu.activity.act_main.soundVHS;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
-import static com.lamesa.lugu.activity.act_main.tvSleep;
-import static com.lamesa.lugu.activity.splash.tinydb;
-import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
-import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.mob.video.createAndLoadRewardedAd;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
-import static com.lamesa.lugu.otros.statics.constantes.TBCategoriaAleatoria;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBfechaCambiosData;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCanciones;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
-import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
-import static com.lamesa.lugu.otros.statics.constantes.UrlAppPlayStore;
-import static com.lamesa.lugu.otros.statics.constantes.UrlEncuestaSugerencia;
-import static com.lamesa.lugu.otros.statics.constantes.UrlEnviarMiCancion;
-import static com.lamesa.lugu.otros.statics.constantes.mixActualizarApp;
-import static com.lamesa.lugu.otros.statics.constantes.mixCompartirApp;
-import static com.lamesa.lugu.otros.statics.constantes.mixExtractionGoesWrong;
-import static com.lamesa.lugu.otros.statics.constantes.mixFavoritos;
-import static com.lamesa.lugu.otros.statics.constantes.mixLogInfoError;
-import static com.lamesa.lugu.otros.statics.constantes.mixPlaySong;
-import static com.lamesa.lugu.otros.statics.constantes.setDebugActivo;
 
 
 public class metodos {
@@ -337,7 +337,7 @@ public class metodos {
                                 Alerter.create((AppCompatActivity) mContext).setTitle(titleAlert)
                                         .setText(msgAlert)
                                         // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
-                                        .setIcon(R.drawable.uvv_on_error)
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setDuration(20000)
                                         .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
                                         .setBackgroundColorRes(R.color.fondo_black2) // or setBackgroundColorInt(Color.CYAN)
@@ -1452,7 +1452,7 @@ public class metodos {
             Alerter.create((Activity) mContext).setTitle(mContext.getResources().getString(R.string.coneccion_lenta))
                     // .setText("Se reproducirá canciones del estilo seleccionado.")
                     // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
-                    .setIcon(R.drawable.uvv_on_error)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
                     .setBackgroundColorRes(R.color.learn_light_red) // or setBackgroundColorInt(Color.CYAN)
                     .show();
@@ -1472,7 +1472,7 @@ public class metodos {
             }
 
             if (opcion == 1) {
-                setLogInfo(mContext, "getLinkAndPlay.YouTubeExtractor", "Inicia extración opcion 1", false);
+                setLogInfo(mContext, "getLinkAndPlay.Inicia", "Inicia extración opcion 1", false);
 
                 // https://github.com/HaarigerHarald/android-youtubeExtractor
                 new YouTubeExtractor(mContext) {
@@ -1613,6 +1613,7 @@ public class metodos {
             if (ivStyle != null) {
                 ivStyle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivStyle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar_on));
+                ivStyle.setTag("ic_intercambiar_on");
                 ivStyle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
 
@@ -1632,18 +1633,19 @@ public class metodos {
         } else {
             tinyDB.putBoolean(TBCategoriaAleatoria, false);
             if (ivStyle != null) {
-                if (ivStyle.getDrawable().getConstantState() == (AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar_on).getConstantState())) {
+                if (ivStyle.getTag().toString().contains("ic_intercambiar_on")) {
                     // activar modo categoria aleatoria
                     Alerter.create((Activity) mContext).setTitle(R.string.text_cataleatoria_off)
                             .setText(R.string.msg_cataleatoria_off)
-                            .setIcon(R.drawable.ic_intercambiar)
+                            .setIcon(R.drawable.ic_intercambiar_off)
                             //.setBackgroundResource(R.drawable.shape_controller_top_gradient)
                             .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
                             .setBackgroundColorRes(R.color.fondo_black3) // or setBackgroundColorInt(Color.CYAN)
                             .show();
                 }
                 ivStyle.startAnimation(Animacion.exit_ios_anim(mContext));
-                ivStyle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar));
+                ivStyle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_intercambiar_off));
+                ivStyle.setTag("ic_intercambiar_off");
                 ivStyle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
         }
@@ -1988,6 +1990,7 @@ public class metodos {
             ivSleep.startAnimation(Animacion.exit_ios_anim(mContext));
             ivSleep.setVisibility(VISIBLE);
             ivSleep.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_moon_on));
+            ivSleep.setTag("ic_moon_on");
             ivSleep.startAnimation(Animacion.enter_ios_anim(mContext));
         }
 
@@ -2032,6 +2035,7 @@ public class metodos {
                     ivSleep.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivSleep.setVisibility(VISIBLE);
                     ivSleep.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_moon_off));
+                    ivSleep.setTag("ic_moon_off");
                     ivSleep.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
                 if (tvSleep != null) {
@@ -2066,6 +2070,7 @@ public class metodos {
                 ivSleep.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivSleep.setVisibility(VISIBLE);
                 ivSleep.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_moon_off));
+                ivSleep.setTag("ic_moon_off");
                 ivSleep.startAnimation(Animacion.enter_ios_anim(mContext));
 
                 tvSleep.startAnimation(Animacion.enter_ios_anim(mContext));
@@ -2086,12 +2091,14 @@ public class metodos {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_bucle));
+                ivOpcionBucle.setTag("ic_bucle");
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
         } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_aleatorio));
+                ivOpcionBucle.setTag("ic_aleatorio");
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
         }

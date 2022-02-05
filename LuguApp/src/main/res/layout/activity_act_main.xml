@@ -451,7 +451,7 @@
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:layout_marginBottom="2dp"
-                                    app:srcCompat="@drawable/ic_intercambiar" />
+                                    app:srcCompat="@drawable/ic_intercambiar_off" />
 
                                 <Space
                                     android:layout_width="wrap_content"

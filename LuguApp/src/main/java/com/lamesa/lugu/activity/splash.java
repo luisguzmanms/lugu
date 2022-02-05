@@ -80,9 +80,7 @@ public class splash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                // AgregarCancion(splash.this,"lugu.csv");
-
+                AgregarCancion(splash.this,"lugu.csv");
 
             }
         });
@@ -100,7 +98,6 @@ public class splash extends AppCompatActivity {
                 } else {
                     DialogoPoliticas2(splash.this);
                 }
-
 
             }
         }, 2000);
@@ -545,15 +542,8 @@ public class splash extends AppCompatActivity {
         //    List<modelAddFilm> mlistAddFilm = new ArrayList<>();
 
 
-        //region region
-
-
-        //endregion
-
-
         if (listCSV != null && !listCSV.isEmpty())
             for (int i = 0; i < listCSV.size(); i++) {
-
 
                 String linkYT = listCSV.get(i)[0];
                 String id = listCSV.get(i)[1];
@@ -562,8 +552,7 @@ public class splash extends AppCompatActivity {
                 String categoria = listCSV.get(i)[4];
 
                 ModelCancion modelCancion = new ModelCancion(id, artista, cancion, categoria, linkYT);
-                SubirCancion(mContext, modelCancion);
-
+           //     SubirCancion(mContext, modelCancion);
 
             }
 

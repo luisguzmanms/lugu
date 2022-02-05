@@ -5,7 +5,12 @@
       <map>
         <entry key="..\:/Users/luis4/.gradle/caches/transforms-3/54482bcb76cc5f391520dc9c60d71ece/transformed/jetified-alerter-7.0.1/res/drawable/alerter_ic_notifications.xml" value="0.1" />
         <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/ic_contraer.xml" value="0.1" />
+        <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/ic_intercambiar.xml" value="0.1075" />
+        <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/ic_intercambiar_off.xml" value="0.1075" />
         <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/ic_no_signal.xml" value="0.1" />
+        <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/t_iv_opcionbucle.xml" value="0.2335" />
+        <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/drawable/t_playpause.xml" value="0.177" />
+        <entry key="..\:/Users/luis4/GitHub/lugu/LuguApp/src/main/res/layout/activity_act_main2.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -667,6 +667,7 @@ public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListe
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                    ivPlayPause.setTag("ic_play");
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -726,6 +727,7 @@ public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListe
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pausa));
+                    ivPlayPause.setTag("ic_pausa");
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -748,6 +750,7 @@ public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListe
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                    ivPlayPause.setTag("ic_play");
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -838,6 +841,7 @@ public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListe
                         ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                         ivPlayPause.setVisibility(VISIBLE);
                         ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                        ivPlayPause.setTag("ic_play");
                         ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                     }
                     isPlaying = false;

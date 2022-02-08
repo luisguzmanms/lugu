@@ -1,5 +1,40 @@
 package com.lamesa.lugu.player.library;
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.cdMusicSeek;
+import static com.lamesa.lugu.activity.act_main.ivFondoGif;
+import static com.lamesa.lugu.activity.act_main.ivLupa;
+import static com.lamesa.lugu.activity.act_main.ivPlayPause;
+import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
+import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
+import static com.lamesa.lugu.activity.act_main.soundVHS;
+import static com.lamesa.lugu.activity.act_main.spinBuffering;
+import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tvArtista;
+import static com.lamesa.lugu.activity.act_main.tvCancion;
+import static com.lamesa.lugu.activity.act_main.tvCategoria;
+import static com.lamesa.lugu.activity.act_main.waveBlack;
+import static com.lamesa.lugu.activity.act_main.waveColor;
+import static com.lamesa.lugu.activity.act_main.weatherView;
+import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
+import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
+import static com.lamesa.lugu.otros.metodos.NextSong;
+import static com.lamesa.lugu.otros.metodos.SonidoVHS;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.mixOnPlayerError;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -66,41 +101,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.cdMusicSeek;
-import static com.lamesa.lugu.activity.act_main.ivFondoGif;
-import static com.lamesa.lugu.activity.act_main.ivLupa;
-import static com.lamesa.lugu.activity.act_main.ivPlayPause;
-import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
-import static com.lamesa.lugu.activity.act_main.musicPlayer;
-import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
-import static com.lamesa.lugu.activity.act_main.soundVHS;
-import static com.lamesa.lugu.activity.act_main.spinBuffering;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
-import static com.lamesa.lugu.activity.act_main.tvArtista;
-import static com.lamesa.lugu.activity.act_main.tvCancion;
-import static com.lamesa.lugu.activity.act_main.tvCategoria;
-import static com.lamesa.lugu.activity.act_main.waveBlack;
-import static com.lamesa.lugu.activity.act_main.waveColor;
-import static com.lamesa.lugu.activity.act_main.weatherView;
-import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
-import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
-import static com.lamesa.lugu.otros.metodos.NextSong;
-import static com.lamesa.lugu.otros.metodos.SonidoVHS;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
-import static com.lamesa.lugu.otros.metodos.setLogInfo;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.mixOnPlayerError;
 
 public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
@@ -666,6 +666,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_pausa));
+                    ivPlayPause.setTag("ic_pausa");
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -710,6 +711,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_play));
+                    ivPlayPause.setTag("ic_play");
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -772,6 +774,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_pausa));
+                    ivPlayPause.setTag("ic_pausa");
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -792,6 +795,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                     ivPlayPause.setVisibility(VISIBLE);
                     ivPlayPause.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_play));
+                    ivPlayPause.setTag("ic_play");
                     ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                 }
 
@@ -894,6 +898,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                         ivPlayPause.startAnimation(Animacion.exit_ios_anim(mContext));
                         ivPlayPause.setVisibility(VISIBLE);
                         ivPlayPause.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play));
+                        ivPlayPause.setTag("ic_play");
                         ivPlayPause.startAnimation(Animacion.enter_ios_anim(mContext));
                     }
                     isPlaying = false;
@@ -905,17 +910,17 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                         // reproducir la misma cancion
                         setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_BUCLE", false);
                         getLinkAndPlay(mContext, tinyDB.getString(TBlinkCancionSonando), 1);
-                        //  Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
-
+                        //    Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
 
                     } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
                         // reproducir otra cancion de la misma lista
                         setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_ALEATORIO", false);
-                        // Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
+                        //     Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
 
                         // cargar otra cancion de la misma categoria segun selección
                         NextSong(mContext, tinyDB);
-
+                    } else {
+                        setLogInfo(mContext, "Player.STATE_ENDED", "NINUGNO", false);
                     }
 
                     //endregion
@@ -966,7 +971,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                 Alerter.create((Activity) mContext).setTitle(mContext.getResources().getString(R.string.coneccion_lenta))
                         // .setText("Se reproducirá canciones del estilo seleccionado.")
                         // .setBackgroundResource(R.drawable.shape_controller_top_gradient)
-                        .setIcon(R.drawable.uvv_on_error)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTextTypeface(Typeface.createFromAsset(mContext.getAssets(), "poppins_regular.ttf"))
                         .setBackgroundColorRes(R.color.learn_light_red) // or setBackgroundColorInt(Color.CYAN)
                         .show();
@@ -992,20 +997,19 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
             //  setLogInfo(mContext, "AndExoPlayerView.onPlayerError", error.getMessage(),true);
 
 
+            if (exoPlayerCallBack != null) {
+                exoPlayerCallBack.onError();
+            }
+
             // si el numero de intentos es igual a 3, reproducir nuevamente la cancion
             if (IntentosPlay() < 3) {
                 // volver a reproducir
                 musicPlayer.setSource(source);
             } else {
-                PlayOrPause(MediaNotificationManager.STATE_PAUSE);
-                PlayOrPause(MediaNotificationManager.STATE_PLAY);
+                NextSong(mContext, tinyDB);
+                //    PlayOrPause(MediaNotificationManager.STATE_PAUSE);
+                //    PlayOrPause(MediaNotificationManager.STATE_PLAY);
             }
-
-
-            if (exoPlayerCallBack != null) {
-                exoPlayerCallBack.onError();
-            }
-
 
         }
 

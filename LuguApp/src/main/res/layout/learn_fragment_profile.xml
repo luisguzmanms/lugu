@@ -122,7 +122,7 @@
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/learn_shadoe"
-                    android:src="@drawable/learn_ic_like"
+                    android:src="@drawable/ic_like"
                     android:padding="@dimen/_13sdp"
                     />
                 <TextView

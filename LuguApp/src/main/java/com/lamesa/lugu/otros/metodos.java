@@ -1871,7 +1871,8 @@ public class metodos {
             // cambiar icono de ivLikeDislike a like
 
             ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
-            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.learn_ic_like));
+            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_like));
+            ivLikeDislike.setTag("ic_like");
             ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
@@ -1903,7 +1904,8 @@ public class metodos {
             // cambiar icono de ivLikeDislike a like
 
             ivLikeDislike.startAnimation(Animacion.exit_ios_anim(mContext));
-            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.learn_ic_dislike));
+            ivLikeDislike.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_dislike));
+            ivLikeDislike.setTag("ic_dislike");
             ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
@@ -1926,12 +1928,14 @@ public class metodos {
 
         // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
         if (tinyListFavoritos != null && tinyListFavoritos.size() > 0) {
-            ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_dislike));
+            ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_dislike));
+            ivLikeDislike.setTag("ic_dislike");
             for (ModelCancion cancionEnFavoritos : tinyListFavoritos) {
                 System.out.println("tinyListCancionxCategoria cancion " + cancionEnFavoritos.getCancion());
                 if (cancionEnFavoritos.getId().equals(idCancionSonando)) {
                     ivLikeDislike.startAnimation(Animacion.anim_alpha_out(mContext));
-                    ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.learn_ic_like));
+                    ivLikeDislike.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like));
+                    ivLikeDislike.setTag("ic_like");
                     ivLikeDislike.startAnimation(Animacion.anim_alpha_in(mContext));
                     System.out.println("tinyListCancionxCategoria cancionSonando ===== cancion ");
                 }

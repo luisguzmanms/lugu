@@ -212,7 +212,7 @@
                     android:layout_gravity="bottom|right"
                     android:layout_margin="10dp"
                     android:layout_marginBottom="50dp"
-                    app:srcCompat="@drawable/learn_ic_dislike" />
+                    app:srcCompat="@drawable/ic_dislike" />
 
                 <ImageView
                     android:id="@+id/iv_report"

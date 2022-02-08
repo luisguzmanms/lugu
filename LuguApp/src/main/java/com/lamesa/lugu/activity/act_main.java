@@ -183,9 +183,9 @@ public class act_main extends AppCompatActivity {
     private ImageView ivOffline;
     private int versionNumber;
     private String versionName;
-    public static TextView tvCancion;
-    public static TextView tvCategoria;
-    public static TextView tvArtista;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,7 +219,7 @@ public class act_main extends AppCompatActivity {
         // cargar banner
         CargarBanner();
 
-        // dialogo apra desactivar la optimizacion de la app
+        // dialogo para desactivar la optimizacion de la app
         DialogoOpBateria(act_main.this);
 
 
@@ -228,6 +228,7 @@ public class act_main extends AppCompatActivity {
         soundVHS = MediaPlayer.create(act_main.this, R.raw.tv09);
 
     }
+
     //traer listas de firebase
     public static void getListas(Context mContext) {
         Firebase.getListaCanciones(mContext, mlistCategoria, mlistCancion, tinyDB);
@@ -281,11 +282,11 @@ public class act_main extends AppCompatActivity {
                                 mContext.getResources().getDrawable(R.drawable.ic_play).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
                                 mContext.getResources().getDrawable(R.drawable.ic_bucle).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
                                 mContext.getResources().getDrawable(R.drawable.ic_aleatorio).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
-                                mContext.getResources().getDrawable(R.drawable.learn_ic_dislike).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
-                                mContext.getResources().getDrawable(R.drawable.learn_ic_like).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
+                                mContext.getResources().getDrawable(R.drawable.ic_dislike).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                mContext.getResources().getDrawable(R.drawable.ic_like).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
                                 mContext.getResources().getDrawable(R.drawable.ic_expandir).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
                                 mContext.getResources().getDrawable(R.drawable.ic_contraer).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
-                              // mContext.getResources().getDrawable(R.drawable.ic_no_signal).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
+                                // mContext.getResources().getDrawable(R.drawable.ic_no_signal).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
 
 
                                 bottomNavigationHis_Fav.setItemRippleColor(ColorStateList.valueOf(palette.getDarkVibrantColor(mContext.getResources().getColor(R.color.gray))));
@@ -339,13 +340,13 @@ public class act_main extends AppCompatActivity {
     @Override
     protected void onStart() {
         if (tvCategoria != null) {
-            tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
+            tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
         }
         if (tvCancion != null) {
-            tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
+            tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
         }
         if (tvArtista != null) {
-            tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
+            tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
         }
         super.onStart();
     }
@@ -494,14 +495,14 @@ public class act_main extends AppCompatActivity {
 
 
         tvCancion = findViewById(R.id.tv_cancion);
-        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
+        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
         tvCancion.setVisibility(VISIBLE);
         tvArtista = findViewById(R.id.tv_artista);
         tvArtista.setVisibility(VISIBLE);
-        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
+        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
         tvCategoria = findViewById(R.id.tv_categoria);
         tvCategoria.setVisibility(VISIBLE);
-        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
+        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
         pbCargandoRadio = findViewById(R.id.pb_cargandoradio);
 
         ivPlayPause = findViewById(R.id.iv_playPause);
@@ -544,8 +545,8 @@ public class act_main extends AppCompatActivity {
         //endregion
 
 
-
         ivOpcionPlayer = findViewById(R.id.iv_opReproductor);
+        ivOpcionPlayer.setVisibility(GONE);
         cdOpPlayer = findViewById(R.id.cd_opPlayer);
         cdPlayer = findViewById(R.id.cd_player);
 
@@ -852,7 +853,7 @@ public class act_main extends AppCompatActivity {
                     case R.id.iv_playPause:
 
                         // cambiar icono entre play y pause
-                         if(ivPlayPause.getTag().toString().contains("ic_play")) {
+                        if (ivPlayPause.getTag().toString().contains("ic_play")) {
                             // reproducir
                             // comprobar si es la primera vez que se da clic a play
                             if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
@@ -861,15 +862,15 @@ public class act_main extends AppCompatActivity {
                                 if (!musicPlayer.isPlaying()) {
                                     // comprobar que si haya una cancion guardada
                                     getLinkAndPlay(act_main.this, tinyDB.getString(TBlinkCancionSonando), 1);
-                                    tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
-                                    tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
+                                    tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+                                    tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
                                 }
                             } else {
                                 // primera ves que se da clic a play
                                 Toast.makeText(act_main.this, R.string.elija_categoria, Toast.LENGTH_SHORT).show();
                             }
 
-                        } else  {
+                        } else {
                             // pausar
                             musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PAUSE);
                         }
@@ -882,15 +883,15 @@ public class act_main extends AppCompatActivity {
 
                         // comprobar si es la primera vez que se da clic a favorito
                         if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
-                            if (ivLikeDislike.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.learn_ic_like).getConstantState())) {
+                            if (ivLikeDislike.getTag().toString().contains("ic_like")) {
                                 // Quitar de lista de favoritos
                                 //  Toast.makeText(act_main.this, "learn_ic_like", Toast.LENGTH_SHORT).show();
                                 GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), false);
 
 
-                            } else if (ivLikeDislike.getDrawable().getConstantState() == (AppCompatResources.getDrawable(act_main.this, R.drawable.learn_ic_dislike).getConstantState())) {
+                            } else if (ivLikeDislike.getTag().toString().contains("ic_dislike")) {
                                 // Guardar en favoritos
-                                //  Toast.makeText(act_main.this, "learn_ic_dislike", Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(act_main.this, "ic_dislike", Toast.LENGTH_SHORT).show();
                                 GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), true);
 
                                 /**
@@ -915,7 +916,6 @@ public class act_main extends AppCompatActivity {
                                                     }
                                                 }
                                             }).show();
-
                                 }
                             }
                         } else {
@@ -1087,11 +1087,13 @@ public class act_main extends AppCompatActivity {
                             ivSupArt.setVisibility(VISIBLE);
                             ivSupArt.startAnimation(Animacion.enter_ios_anim(act_main.this));
 
+                            ivLikeDislike.setVisibility(VISIBLE);
+                            ivOffline.setVisibility(VISIBLE);
+                            ivOpcionBucle.setVisibility(VISIBLE);
 
                             cdOpPlayer.startAnimation(Animacion.fading_out_real(act_main.this));
                             cdOpPlayer.setVisibility(VISIBLE);
                             cdOpPlayer.startAnimation(Animacion.fade_in_real(act_main.this));
-
 
                         } else {
                             // mostrar opcines de reproductor
@@ -1111,6 +1113,10 @@ public class act_main extends AppCompatActivity {
                             cdOpPlayer.startAnimation(Animacion.fade_in_real(act_main.this));
                             cdOpPlayer.setVisibility(GONE);
                             cdOpPlayer.startAnimation(Animacion.fading_out_real(act_main.this));
+
+                            ivLikeDislike.setVisibility(GONE);
+                            ivOffline.setVisibility(GONE);
+                            ivOpcionBucle.setVisibility(GONE);
 
                         }
 
@@ -1275,5 +1281,4 @@ public class act_main extends AppCompatActivity {
         }
     }
     //endregion
-
 }

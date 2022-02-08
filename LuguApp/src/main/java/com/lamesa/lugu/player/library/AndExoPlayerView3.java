@@ -806,16 +806,16 @@ public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListe
                     // mostrar y animar texview dde cancion y artista solo si es diferente
                     if (tvCancion != null && tvArtista != null && tvCategoria != null) {
                         //    tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCancion.setText(tinyDB.getString(TBnombreCancionSonando));
+                        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
                         //    tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
                         //    tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvArtista.setText(tinyDB.getString(TBartistaCancionSonando));
+                        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
                         //    tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
                         //    tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCategoria.setText(tinyDB.getString(TBcategoriaCancionSonando));
+                        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
                         //   tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
                     }
 

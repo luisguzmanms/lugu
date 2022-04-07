@@ -29,7 +29,6 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -39,9 +38,8 @@ import java.util.regex.Pattern;
 
 public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArray<YtFile>> {
 
-    private final static boolean CACHING = true;
-
-    private static final Pattern patPlayerResponse = Pattern.compile("var ytInitialPlayerResponse\\s*=\\s*(\\{.+?\\})\\s*;");
+    static boolean CACHING = true;
+    static boolean LOGGING = false;
 
     private final static String LOG_TAG = "YouTubeExtractor";
     private final static String CACHE_FILE_NAME = "decipher_js_funct";
@@ -60,20 +58,21 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
     private final Lock lock = new ReentrantLock();
     private final Condition jsExecuting = lock.newCondition();
 
-    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36";
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.98 Safari/537.36";
 
     private static final Pattern patYouTubePageLink = Pattern.compile("(http|https)://(www\\.|m.|)youtube\\.com/watch\\?v=(.+?)( |\\z|&)");
     private static final Pattern patYouTubeShortLink = Pattern.compile("(http|https)://(www\\.|)youtu.be/(.+?)( |\\z|&)");
+
+    private static final Pattern patPlayerResponse = Pattern.compile("var ytInitialPlayerResponse\\s*=\\s*(\\{.+?\\})\\s*;");
     private static final Pattern patSigEncUrl = Pattern.compile("url=(.+?)(\\u0026|$)");
     private static final Pattern patSignature = Pattern.compile("s=(.+?)(\\u0026|$)");
-    static boolean LOGGING = false;
 
     private static final Pattern patVariableFunction = Pattern.compile("([{; =])([a-zA-Z$][a-zA-Z0-9$]{0,2})\\.([a-zA-Z$][a-zA-Z0-9$]{0,2})\\(");
     private static final Pattern patFunction = Pattern.compile("([{; =])([a-zA-Z$_][a-zA-Z0-9$]{0,2})\\(");
 
     private static final Pattern patDecryptionJsFile = Pattern.compile("\\\\/s\\\\/player\\\\/([^\"]+?)\\.js");
     private static final Pattern patDecryptionJsFileWithoutSlash = Pattern.compile("/s/player/([^\"]+?).js");
-    private static final Pattern patSignatureDecFunction = Pattern.compile("(?:\\b|[^a-zA-Z0-9$])([a-zA-Z0-9$]{2})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*\\{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)");
+    private static final Pattern patSignatureDecFunction = Pattern.compile("(?:\\b|[^a-zA-Z0-9$])([a-zA-Z0-9$]{1,4})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*\\{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)");
 
     private static final SparseArray<Format> FORMAT_MAP = new SparseArray<>();
 
@@ -233,6 +232,14 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
             for (int i = 0; i < formats.length(); i++) {
 
                 JSONObject format = formats.getJSONObject(i);
+
+                // FORMAT_STREAM_TYPE_OTF(otf=1) requires downloading the init fragment (adding
+                // `&sq=0` to the URL) and parsing emsg box to determine the number of fragment that
+                // would subsequently requested with (`&sq=N`) (cf. youtube-dl)
+                String type = format.optString("type");
+                if (type != null && type.equals("FORMAT_STREAM_TYPE_OTF"))
+                    continue;
+
                 int itag = format.getInt("itag");
 
                 if (FORMAT_MAP.get(itag) != null) {
@@ -257,6 +264,11 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
             for (int i = 0; i < adaptiveFormats.length(); i++) {
 
                 JSONObject adaptiveFormat = adaptiveFormats.getJSONObject(i);
+
+                String type = adaptiveFormat.optString("type");
+                if (type != null && type.equals("FORMAT_STREAM_TYPE_OTF"))
+                    continue;
+
                 int itag = adaptiveFormat.getInt("itag");
 
                 if (FORMAT_MAP.get(itag) != null) {
@@ -475,7 +487,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         if (cacheFile.exists() && (System.currentTimeMillis() - cacheFile.lastModified()) < 1209600000) {
             BufferedReader reader = null;
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(cacheFile), StandardCharsets.UTF_8));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(cacheFile), "UTF-8"));
                 decipherJsFileName = reader.readLine();
                 decipherFunctionName = reader.readLine();
                 decipherFunctions = reader.readLine();
@@ -515,7 +527,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         File cacheFile = new File(cacheDirPath + "/" + CACHE_FILE_NAME);
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(cacheFile), StandardCharsets.UTF_8));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(cacheFile), "UTF-8"));
             writer.write(decipherJsFileName + "\n");
             writer.write(decipherFunctionName + "\n");
             writer.write(decipherFunctions);

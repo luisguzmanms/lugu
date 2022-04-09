@@ -32,7 +32,6 @@ public class ActionReceiver extends BroadcastReceiver {
             case MediaNotificationManager.ACTION_FAVORITE:
                 ActionFavorito(mContext);
                 //	Toast.makeText(mContext, MediaNotificationManager.ACTION_FAVORITE, Toast.LENGTH_SHORT).show();
-
                 break;
 
             case MediaNotificationManager.ACTION_PLAY:

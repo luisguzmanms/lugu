@@ -1,5 +1,7 @@
 package com.lamesa.lugu;
 
+import static com.lamesa.lugu.otros.statics.constantes.TBdiaIngreso;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -20,8 +22,6 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import java.util.Calendar;
 import java.util.Random;
-
-import static com.lamesa.lugu.otros.statics.constantes.TBdiaIngreso;
 
 
 /**
@@ -68,8 +68,6 @@ public class App extends MultiDexApplication {
 
         Amplitude.getInstance().initialize(this, "8461f9db2ddba9f48c66a867df909433").enableForegroundTracking(this);
         Amplitude.getInstance().enableLocationListening();
-
-
 
 
 // Initialize the library with your

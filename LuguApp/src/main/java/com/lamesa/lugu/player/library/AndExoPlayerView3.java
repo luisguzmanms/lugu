@@ -64,7 +64,7 @@ import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
 import static com.lamesa.lugu.activity.act_main.spinBuffering;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.activity.act_main.tvArtista;
 import static com.lamesa.lugu.activity.act_main.tvCancion;
 import static com.lamesa.lugu.activity.act_main.tvCategoria;
@@ -806,29 +806,29 @@ public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListe
                     // mostrar y animar texview dde cancion y artista solo si es diferente
                     if (tvCancion != null && tvArtista != null && tvCategoria != null) {
                         //    tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+                        tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
                         //    tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
                         //    tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+                        tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
                         //    tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
                         //    tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+                        tvCategoria.animateText(tinydb.getString(TBcategoriaCancionSonando));
                         //   tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
                     }
 
 
                     // al reproducirse guardar la cacnion en la lista de historila
-                    GuardarCancionHistorial(mContext, tinyDB.getString(TBidCancionSonando));
+                    GuardarCancionHistorial(mContext, tinydb.getString(TBidCancionSonando));
 
                     // ocultar icono de buffering
                     PlayOrPause(MediaNotificationManager.STATE_READY);
                     // reproducir cancion y animar icono a pausa
 
                     // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
-                    CheckIsFavorite(mContext, tinyDB.getString(TBidCancionSonando));
+                    CheckIsFavorite(mContext, tinydb.getString(TBidCancionSonando));
 
 
                     hideProgress();
@@ -849,29 +849,29 @@ public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListe
                     //region REPRODUCIR SEGUN LA OPCION DE BUCLE O ALEATORIO
                     // reproducir segun la opcion de bucle o aleatorio
 
-                    if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
+                    if (tinydb.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
                         // reproducir la misma cancion
                         setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_BUCLE", false);
-                        getLinkAndPlay(mContext, tinyDB.getString(TBlinkCancionSonando), 1);
+                        getLinkAndPlay(mContext, tinydb.getString(TBlinkCancionSonando), 1);
                         Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
 
 
-                    } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
+                    } else if (tinydb.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
                         // reproducir otra cancion de la misma lista
                         setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_ALEATORIO", false);
                         Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
-                        List<ModelCancion> listSonando = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
+                        List<ModelCancion> listSonando = tinydb.getListModelCancion(tinydb.getString(TBcategoriaCancionSonando), ModelCancion.class);
 
                         if (listSonando != null && listSonando.size() != 0) {
 
                             Random random = new Random();
                             int numRandom = random.nextInt(listSonando.size());
                             //region guardar datos de la cancion sonando en TinyDB
-                            tinyDB.putString(TBidCancionSonando, listSonando.get(numRandom).getId());
-                            tinyDB.putString(TBnombreCancionSonando, listSonando.get(numRandom).getCancion());
-                            tinyDB.putString(TBartistaCancionSonando, listSonando.get(numRandom).getArtista());
-                            tinyDB.putString(TBcategoriaCancionSonando, tinyDB.getString(TBcategoriaCancionSonando));
-                            tinyDB.putString(TBlinkCancionSonando, listSonando.get(numRandom).getLinkYT());
+                            tinydb.putString(TBidCancionSonando, listSonando.get(numRandom).getId());
+                            tinydb.putString(TBnombreCancionSonando, listSonando.get(numRandom).getCancion());
+                            tinydb.putString(TBartistaCancionSonando, listSonando.get(numRandom).getArtista());
+                            tinydb.putString(TBcategoriaCancionSonando, tinydb.getString(TBcategoriaCancionSonando));
+                            tinydb.putString(TBlinkCancionSonando, listSonando.get(numRandom).getLinkYT());
                             //endregion
                             getLinkAndPlay(mContext, listSonando.get(numRandom).getLinkYT(), 1);
 

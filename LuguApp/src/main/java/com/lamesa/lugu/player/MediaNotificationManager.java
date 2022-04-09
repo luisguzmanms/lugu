@@ -24,7 +24,7 @@ import com.lamesa.lugu.receiver.ActionReceiver;
 
 import java.util.Random;
 
-import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
@@ -88,8 +88,8 @@ public class MediaNotificationManager {
             actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
         };
 
-        String contentTitle = tinyDB.getString(TBnombreCancionSonando);
-        String contentText = tinyDB.getString(TBartistaCancionSonando);
+        String contentTitle = tinydb.getString(TBnombreCancionSonando);
+        String contentText = tinydb.getString(TBartistaCancionSonando);
 
         //image = Bitmap.CreateScaledBitmap(image, (int)(image.Width * multiplier), (int)(image.Height * multiplier), false);
         switch (playbackStatus) {
@@ -125,8 +125,8 @@ public class MediaNotificationManager {
             mediaSession.setActive(true);
             mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
             mediaSession.setMetadata(new MediaMetadataCompat.Builder()
-                    .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, tinyDB.getString(TBartistaCancionSonando))
-                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, tinyDB.getString(TBnombreCancionSonando)) // strLiveBroadcast
+                    .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, tinydb.getString(TBartistaCancionSonando))
+                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, tinydb.getString(TBnombreCancionSonando)) // strLiveBroadcast
                     .build());
             mediaSession.setCallback(mediasSessionCallback);
         }
@@ -233,7 +233,7 @@ public class MediaNotificationManager {
         //endregion
 
         // mostrar notificacion solo si se cargo los datos de la cancion en tinydb
-        if (!tinyDB.getString(TBnombreCancionSonando).isEmpty() && !tinyDB.getString(TBartistaCancionSonando).isEmpty()) {
+        if (!tinydb.getString(TBnombreCancionSonando).isEmpty() && !tinydb.getString(TBartistaCancionSonando).isEmpty()) {
             notificationManager.notify(String.valueOf(NOTIFICATION_ID), 1, builder.build());
         }
 

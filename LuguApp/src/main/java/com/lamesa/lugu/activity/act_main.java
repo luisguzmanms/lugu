@@ -4,6 +4,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.mesa.DataYT.getDataYT;
 import static com.lamesa.lugu.otros.metodos.AboutUS;
 import static com.lamesa.lugu.otros.metodos.AbrirPagina;
 import static com.lamesa.lugu.otros.metodos.ApagarAutoApagado;
@@ -19,7 +20,6 @@ import static com.lamesa.lugu.otros.metodos.DialogoReport;
 import static com.lamesa.lugu.otros.metodos.DialogoSalir;
 import static com.lamesa.lugu.otros.metodos.DialogoSugerencia;
 import static com.lamesa.lugu.otros.metodos.DialogoSupArt;
-import static com.lamesa.lugu.otros.metodos.DialogoSupArtista;
 import static com.lamesa.lugu.otros.metodos.DialogoTemporizador;
 import static com.lamesa.lugu.otros.metodos.GuardarCancionFavoritos;
 import static com.lamesa.lugu.otros.metodos.OpcionReproductor;
@@ -137,7 +137,7 @@ public class act_main extends AppCompatActivity {
     public static RecyclerView mrvCategoria;
     public static NestedScrollView contenidoHome;
     public static LinearLayout contenidoSearch;
-    public static TinyDB tinyDB;
+    public static TinyDB tinydb;
     public static ImageView ivFondoGif;
     public static ImageView ivFondoVHS;
     public static MusicPlayer musicPlayer;
@@ -199,19 +199,20 @@ public class act_main extends AppCompatActivity {
 
         // SolicitarPermisos(this);
 
-        tinyDB = new TinyDB(this);
+        tinydb = new TinyDB(this);
         // imagen por defecto de fondo
-        tinyDB.putString(TBimagenFondo, "https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
+        tinydb.putString(TBimagenFondo, "https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
 
-        initFirebase(act_main.this, tinyDB);
+        initFirebase(act_main.this, tinydb);
 
         VistasHome();
         CargarRecyclerHome();
 
         // Traer todas las listas desde Firebase
-        new CargarListas().execute();
+    //    new CargarListas().execute();
+       // getListas(act_main.this);
 
-        CheckIsFavorite(act_main.this, tinyDB.getString(TBidCancionSonando));
+        CheckIsFavorite(act_main.this, tinydb.getString(TBidCancionSonando));
 
         // cargar adinter para ser mostrada
         loadInterstitial(act_main.this);
@@ -230,7 +231,7 @@ public class act_main extends AppCompatActivity {
     }
 
     //traer listas de firebase
-    public static void getListas(Context mContext) {
+    public static void getListas(Context mContext, TinyDB tinyDB) {
         Firebase.getListaCanciones(mContext, mlistCategoria, mlistCancion, tinyDB);
         Firebase.getListaCategorias(mContext, mlistCategoria, mAdapterCategoria, tinyDB);
         Firebase.getListaPorCategoria(mContext, mlistCategoria, mlistCancion, tinyDB);
@@ -242,24 +243,24 @@ public class act_main extends AppCompatActivity {
         SonidoVHS(mContext, soundVHS, false);
 
         // cargar una imagen random
-        if (!tinyDB.getListString(TBlistImagenes).isEmpty() && tinyDB.getListString(TBlistImagenes) != null) {
+        if (!tinydb.getListString(TBlistImagenes).isEmpty() && tinydb.getListString(TBlistImagenes) != null) {
             Random random = new Random();
             // obtener link alaeatorio
-            int numRandom = random.nextInt(tinyDB.getListString(TBlistImagenes).size());
+            int numRandom = random.nextInt(tinydb.getListString(TBlistImagenes).size());
             // guardar link de imagen en tiny
-            tinyDB.putString(TBimagenFondo, tinyDB.getListString(TBlistImagenes).get(numRandom));
+            tinydb.putString(TBimagenFondo, tinydb.getListString(TBlistImagenes).get(numRandom));
         }
 
         // cargar imagen en fondo
         Glide.with(mContext)
-                .load(tinyDB.getString(TBimagenFondo))
+                .load(tinydb.getString(TBimagenFondo))
                 //.error(R.drawable.ic_alert)
                 .transition(DrawableTransitionOptions.withCrossFade(200))
                 .into(ivFondoGif);
         // extraer colores de imagenes
         Glide.with(mContext)
                 .asBitmap()
-                .load(tinyDB.getString(TBimagenFondo))
+                .load(tinydb.getString(TBimagenFondo))
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -333,20 +334,20 @@ public class act_main extends AppCompatActivity {
             mediaNotificationManager.cancelNotify();
         }
         // guardar boolean de eque el reproducotor no estará sonando
-        tinyDB.putBoolean(TBreproduciendoRadio, false);
+        tinydb.putBoolean(TBreproduciendoRadio, false);
         super.onDestroy();
     }
 
     @Override
     protected void onStart() {
         if (tvCategoria != null) {
-            tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+            tvCategoria.animateText(tinydb.getString(TBcategoriaCancionSonando));
         }
         if (tvCancion != null) {
-            tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+            tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
         }
         if (tvArtista != null) {
-            tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+            tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
         }
         super.onStart();
     }
@@ -419,20 +420,20 @@ public class act_main extends AppCompatActivity {
 
     private void CargarRecyclerHome() {
 
-        mlistCustom = tinyDB.getListModelListCustom(TBlistCustom, ModelListCustom.class);
+        mlistCustom = tinydb.getListModelListCustom(TBlistCustom, ModelListCustom.class);
         mlistCustom = new ArrayList<>();
         ModelListCustom listCustom = new ModelListCustom("dsasd", "https://indiehoy.com/wp-content/uploads/2020/05/playlists-lofi-hip-hop-1.jpg", "Mi lista para dormir");
 
         mlistCustom.add(listCustom);
 
-        tinyDB.putListModelListCustom(TBlistCustom, mlistCustom);
+        tinydb.putListModelListCustom(TBlistCustom, mlistCustom);
 
         //region LISTA CATEGORIAS
         mrvCategoria = findViewById(R.id.rv_categorias);
         mrvCategoria.setHasFixedSize(true);
         mrvCategoria.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mrvCategoria.setItemAnimator(new DefaultItemAnimator());
-        mlistCategoria = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
+        mlistCategoria = tinydb.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
         if (mlistCategoria == null) {
             mlistCategoria = new ArrayList<>();
         }
@@ -446,11 +447,11 @@ public class act_main extends AppCompatActivity {
         mrvHistorial.setHasFixedSize(true);
         mrvHistorial.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mrvHistorial.setItemAnimator(new DefaultItemAnimator());
-        mAdapterHistorial = new AdapterHistorial(this, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+        mAdapterHistorial = new AdapterHistorial(this, tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class));
         mrvHistorial.setAdapter(mAdapterHistorial);
 
         // comprobar que la lista de histoirla no esté vacia
-        if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
+        if (tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
             mrvHistorial.setVisibility(GONE);
             ContenedorVacio.setVisibility(VISIBLE);
         } else {
@@ -465,7 +466,7 @@ public class act_main extends AppCompatActivity {
         mrvFavoritos.setHasFixedSize(true);
         mrvFavoritos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mrvFavoritos.setItemAnimator(new DefaultItemAnimator());
-        mAdapterFavoritos = new AdapterFavoritos(this, tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+        mAdapterFavoritos = new AdapterFavoritos(this, tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class));
         mrvFavoritos.setAdapter(mAdapterFavoritos);
 
         //endregion
@@ -476,7 +477,7 @@ public class act_main extends AppCompatActivity {
         mrvMisListas.setHasFixedSize(true);
         mrvMisListas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mrvMisListas.setItemAnimator(new DefaultItemAnimator());
-        mAdapterListCustom = new AdapterListCustom(this, tinyDB.getListModelListCustom(TBlistCustom, ModelListCustom.class));
+        mAdapterListCustom = new AdapterListCustom(this, tinydb.getListModelListCustom(TBlistCustom, ModelListCustom.class));
         mrvMisListas.setAdapter(mAdapterListCustom);
 
         //endregion
@@ -495,14 +496,14 @@ public class act_main extends AppCompatActivity {
 
 
         tvCancion = findViewById(R.id.tv_cancion);
-        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+        tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
         tvCancion.setVisibility(VISIBLE);
         tvArtista = findViewById(R.id.tv_artista);
         tvArtista.setVisibility(VISIBLE);
-        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+        tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
         tvCategoria = findViewById(R.id.tv_categoria);
         tvCategoria.setVisibility(VISIBLE);
-        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+        tvCategoria.animateText(tinydb.getString(TBcategoriaCancionSonando));
         pbCargandoRadio = findViewById(R.id.pb_cargandoradio);
 
         ivPlayPause = findViewById(R.id.iv_playPause);
@@ -536,12 +537,12 @@ public class act_main extends AppCompatActivity {
         //region guardar ivOpcionBucle segun el icono
         if (ivOpcionBucle.getTag().toString().contains("ic_aleatorio")) {
             // guardar modo de reproductor REPRODUCTOR_ALEATORIO
-            tinyDB.putString(TBmodoReproductor, REPRODUCTOR_ALEATORIO);
+            tinydb.putString(TBmodoReproductor, REPRODUCTOR_ALEATORIO);
         } else {
             // guardar modo de reproductor REPRODUCTOR_BUCLE
-            tinyDB.putString(TBmodoReproductor, REPRODUCTOR_BUCLE);
+            tinydb.putString(TBmodoReproductor, REPRODUCTOR_BUCLE);
         }
-        OpcionReproductor(act_main.this, tinyDB.getString(TBmodoReproductor));
+        OpcionReproductor(act_main.this, tinydb.getString(TBmodoReproductor));
         //endregion
 
 
@@ -565,7 +566,7 @@ public class act_main extends AppCompatActivity {
                     case R.id.navigation_historial:
                         menuItem.setChecked(true);
 
-                        mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+                        mAdapterHistorial.setUpdateHistorial(tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class));
 
 
                         if (mrvFavoritos != null) {
@@ -574,7 +575,7 @@ public class act_main extends AppCompatActivity {
 
 
                         // comprobar que la lista de histoirla no esté vacia
-                        if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
+                        if (tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
                             //   Toast.makeText(mContext, "lista vacia", Toast.LENGTH_SHORT).show();
                             mrvHistorial.setVisibility(GONE);
                             ContenedorVacio.setVisibility(VISIBLE);
@@ -596,13 +597,13 @@ public class act_main extends AppCompatActivity {
                     case R.id.navigation_favoritos:
                         menuItem.setChecked(true);
 
-                        mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+                        mAdapterFavoritos.setUpdateFavoritos(tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class));
 
                         if (mrvHistorial != null) {
                             mrvHistorial.setVisibility(GONE);
                         }
 
-                        if (tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class) == null) {
+                        if (tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class) == null) {
                             tvVacio.setText(R.string.sin_favoritos);
                             ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
                             ContenedorVacio.setVisibility(VISIBLE);
@@ -637,7 +638,7 @@ public class act_main extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_historial:
 
-                        mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+                        mAdapterHistorial.setUpdateHistorial(tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class));
 
 
                         if (mrvFavoritos != null) {
@@ -651,7 +652,7 @@ public class act_main extends AppCompatActivity {
                         }
 
                         // comprobar que la lista de histoirla no esté vacia
-                        if (tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
+                        if (tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class).isEmpty()) {
                             //   Toast.makeText(mContext, "lista vacia", Toast.LENGTH_SHORT).show();
                             mrvHistorial.setVisibility(GONE);
                             ContenedorVacio.setVisibility(VISIBLE);
@@ -668,14 +669,14 @@ public class act_main extends AppCompatActivity {
 
                     case R.id.navigation_favoritos:
 
-                        mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+                        mAdapterFavoritos.setUpdateFavoritos(tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class));
 
 
                         if (mrvHistorial != null) {
                             mrvHistorial.setVisibility(GONE);
                         }
 
-                        if (tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class) == null) {
+                        if (tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class).isEmpty() || tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class) == null) {
                             tvVacio.setText(R.string.sin_favoritos);
                             ContenedorVacio.startAnimation(Animacion.exit_ios_anim(act_main.this));
                             ContenedorVacio.setVisibility(VISIBLE);
@@ -791,7 +792,7 @@ public class act_main extends AppCompatActivity {
 
                                     case 4:
 
-                                        AboutUS(act_main.this, tinyDB, false);
+                                        AboutUS(act_main.this, tinydb, false);
 
                                         break;
 
@@ -839,7 +840,7 @@ public class act_main extends AppCompatActivity {
 
                                     case 6:
 
-                                        DialogoPoliticas2(act_main.this);
+                                        DialogoPoliticas2(act_main.this,tinydb);
 
                                         break;
 
@@ -856,14 +857,14 @@ public class act_main extends AppCompatActivity {
                         if (ivPlayPause.getTag().toString().contains("ic_play")) {
                             // reproducir
                             // comprobar si es la primera vez que se da clic a play
-                            if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
+                            if (!tinydb.getString(TBidCancionSonando).isEmpty()) {
                                 musicPlayer.PlayOrPause(MediaNotificationManager.STATE_PLAY);
                                 // reproducir la ultima cancion reproducida unicamente si se incia la app sin clickear alguna lista
                                 if (!musicPlayer.isPlaying()) {
                                     // comprobar que si haya una cancion guardada
-                                    getLinkAndPlay(act_main.this, tinyDB.getString(TBlinkCancionSonando), 1);
-                                    tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
-                                    tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+                                    getLinkAndPlay(act_main.this, tinydb.getString(TBlinkCancionSonando), 1);
+                                    tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
+                                    tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
                                 }
                             } else {
                                 // primera ves que se da clic a play
@@ -882,24 +883,24 @@ public class act_main extends AppCompatActivity {
                     case R.id.iv_likeDislike:
 
                         // comprobar si es la primera vez que se da clic a favorito
-                        if (!tinyDB.getString(TBidCancionSonando).isEmpty()) {
+                        if (!tinydb.getString(TBidCancionSonando).isEmpty()) {
                             if (ivLikeDislike.getTag().toString().contains("ic_like")) {
                                 // Quitar de lista de favoritos
                                 //  Toast.makeText(act_main.this, "learn_ic_like", Toast.LENGTH_SHORT).show();
-                                GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), false);
+                                GuardarCancionFavoritos(act_main.this, tinydb.getString(TBidCancionSonando), false);
 
 
                             } else if (ivLikeDislike.getTag().toString().contains("ic_dislike")) {
                                 // Guardar en favoritos
                                 //  Toast.makeText(act_main.this, "ic_dislike", Toast.LENGTH_SHORT).show();
-                                GuardarCancionFavoritos(act_main.this, tinyDB.getString(TBidCancionSonando), true);
+                                GuardarCancionFavoritos(act_main.this, tinydb.getString(TBidCancionSonando), true);
 
                                 /**
                                  *  fix bug release v5
                                  */
 
                                 // alerta informar a usuario sobre las listas
-                                if (tinyDB.getBoolean("TBalertListas") == false) {
+                                if (tinydb.getBoolean("TBalertListas") == false) {
                                     Alerter.create(act_main.this).setTitle(R.string.title_alert_list)
                                             .setText(R.string.msg_alert_list)
                                             //.setBackgroundResource(R.drawable.shape_controller_top_gradient)
@@ -910,7 +911,7 @@ public class act_main extends AppCompatActivity {
                                             .addButton("OK", R.style.TabTextStyle, new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    tinyDB.putBoolean("TBalertListas", true);
+                                                    tinydb.putBoolean("TBalertListas", true);
                                                     if (Alerter.isShowing()) {
                                                         Alerter.hide();
                                                     }
@@ -1051,7 +1052,8 @@ public class act_main extends AppCompatActivity {
                     case R.id.tv_cancion:
                     case R.id.tv_artista:
                     case R.id.iv_lupa:
-                        DialogoSupArtista(act_main.this);
+                      //  DialogoSupArtista(act_main.this);
+                        getDataYT(act_main.this, tinydb.getString(TBlinkCancionSonando), 1);
                         break;
 
 
@@ -1059,11 +1061,11 @@ public class act_main extends AppCompatActivity {
 
                         if (ivStyle.getTag().toString().contains("ic_intercambiar_off")) {
                             // activar modo categoria aleatoria
-                            CategoriaAleatoria(act_main.this, true, tinyDB);
+                            CategoriaAleatoria(act_main.this, true, tinydb);
 
                         } else {
                             // desactivar modo categoria aleatoria
-                            CategoriaAleatoria(act_main.this, false, tinyDB);
+                            CategoriaAleatoria(act_main.this, false, tinydb);
                         }
 
                         break;
@@ -1165,7 +1167,7 @@ public class act_main extends AppCompatActivity {
         //endregion
 
 
-        ComprobarSizePlayer(tinyDB.getInt(TBsizeReproductor));
+        ComprobarSizePlayer(tinydb.getInt(TBsizeReproductor));
         // traer link de imagen
         CargarImagenFondo(this);
 
@@ -1181,15 +1183,15 @@ public class act_main extends AppCompatActivity {
         cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
         if (opcion == 0) {
             cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_300dp)));
-            tinyDB.putInt(TBsizeReproductor, opcion);
+            tinydb.putInt(TBsizeReproductor, opcion);
             siguienteSize = 1;
         } else if (opcion == 1) {
             cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            tinyDB.putInt(TBsizeReproductor, opcion);
+            tinydb.putInt(TBsizeReproductor, opcion);
             siguienteSize = 2;
         } else if (opcion == 2) {
             cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_200dp)));
-            tinyDB.putInt(TBsizeReproductor, opcion);
+            tinydb.putInt(TBsizeReproductor, opcion);
             siguienteSize = 0;
         }
         cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
@@ -1201,25 +1203,25 @@ public class act_main extends AppCompatActivity {
             ivOpcionPlayer.setVisibility(VISIBLE);
         }
 
-        switch (tinyDB.getInt(TBsizeReproductor)) {
+        switch (tinydb.getInt(TBsizeReproductor)) {
             case 0:
                 cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
                 cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_300dp)));
                 cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                tinyDB.putInt(TBsizeReproductor, 1);
+                tinydb.putInt(TBsizeReproductor, 1);
                 break;
             case 2:
                 cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
                 cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
                 ivOpcionPlayer.setVisibility(GONE);
-                tinyDB.putInt(TBsizeReproductor, 0);
+                tinydb.putInt(TBsizeReproductor, 0);
                 break;
             default:
                 cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
                 cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_200dp)));
                 cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                tinyDB.putInt(TBsizeReproductor, 2);
+                tinydb.putInt(TBsizeReproductor, 2);
         }
 
     }
@@ -1250,7 +1252,7 @@ public class act_main extends AppCompatActivity {
 
 
                             // traer lista de categorias desde FB
-                            getListas(act_main.this);
+                        //    getListas(act_main.this);
                             // getListaCategorias(act_main.this);
                             // getListaDeFirebase(act_main.this);
                             // getListaDestacados(act_main.this);

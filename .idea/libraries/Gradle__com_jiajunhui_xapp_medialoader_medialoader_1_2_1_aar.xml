@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.jiajunhui.xapp.medialoader:medialoader:1.2.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8ca96307f28b3a45708279a4225a6c1f/transformed/jetified-medialoader-1.2.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8ca96307f28b3a45708279a4225a6c1f/transformed/jetified-medialoader-1.2.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8ca96307f28b3a45708279a4225a6c1f/transformed/jetified-medialoader-1.2.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0e0d9f0b41b76d374786f5957df2a245/transformed/jetified-medialoader-1.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0e0d9f0b41b76d374786f5957df2a245/transformed/jetified-medialoader-1.2.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0e0d9f0b41b76d374786f5957df2a245/transformed/jetified-medialoader-1.2.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jiajunhui.xapp.medialoader/medialoader/1.2.1/f9b4c859036b24f13ed2e90524eac8b39c2e3eeb/medialoader-1.2.1-javadoc.jar!/" />

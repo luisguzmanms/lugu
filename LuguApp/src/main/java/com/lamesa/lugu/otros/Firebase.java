@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
+import static com.lamesa.lugu.App.get;
 import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.otros.metodos.EliminarDuplicadosModelCancion;
@@ -302,7 +303,9 @@ public class Firebase extends AppCompatActivity {
                     finalMlistCategoria.add(categoria);
 
                 }
-                mAdapterCategoria.notifyDataSetChanged();
+                if(mAdapterCategoria!=null) {
+                    mAdapterCategoria.notifyDataSetChanged();
+                }
                 tinyDB.putListModelCategoria(TBlistCategorias, finalMlistCategoria);
             }
 
@@ -334,7 +337,7 @@ public class Firebase extends AppCompatActivity {
         List<ModelCategoria> finalMlistCategoria = mlistCategoria;
 
 
-        Query database = FirebaseDatabase.getInstance().getReference().child("data").child("cancion").orderByChild("nombre");
+        Query database = FirebaseDatabase.getInstance().getReference().child("data").child("cancion");
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -404,10 +407,10 @@ public class Firebase extends AppCompatActivity {
     // traer imagenes gif
     public static void getListaImagenes(TinyDB tinyDB) {
 
-
-        ArrayList<String> mlistImagenes = tinyDB.getListString(TBlistImagenes);
+        ArrayList<String> mlistImagenes = new ArrayList<>();
 
         Query database = FirebaseDatabase.getInstance().getReference().child("data").child("imagen");
+        TinyDB finalTinyDB = tinyDB;
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -425,7 +428,7 @@ public class Firebase extends AppCompatActivity {
                     }
                 }
 
-                tinyDB.putListString(TBlistImagenes, mlistImagenes);
+                finalTinyDB.putListString(TBlistImagenes, mlistImagenes);
 
             }
 

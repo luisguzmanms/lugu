@@ -48,6 +48,7 @@ import net.khirr.android.privacypolicy.PrivacyPolicyDialog;
 import java.util.List;
 import java.util.Random;
 
+import static com.lamesa.lugu.activity.act_main.getListas;
 import static com.lamesa.lugu.otros.metodos.DialogoPoliticas2;
 import static com.lamesa.lugu.otros.metodos.ListaCSV;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
@@ -58,16 +59,14 @@ import static com.lamesa.lugu.otros.statics.constantes.TBpoliticas;
 
 public class splash extends AppCompatActivity {
 
-    public static TinyDB tinydb;
+    public TinyDB tinydb;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         tinydb = new TinyDB(this);
 
-
         ImageView ivFondoSplash = findViewById(R.id.iv_fondoSplash);
-
 
         Glide.with(this)
                 .load(tinydb.getString(TBimagenFondo))
@@ -80,7 +79,7 @@ public class splash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AgregarCancion(splash.this,"lugu.csv");
+              //  AgregarCancion(splash.this,"luguyescon.csv");
 
             }
         });
@@ -93,10 +92,12 @@ public class splash extends AppCompatActivity {
             public void run() {
 
                 if (tinydb.getBoolean(TBpoliticas)) {
-                    startActivity(new Intent(splash.this, act_main.class));
-                    finish();
+                   startActivity(new Intent(splash.this, act_main.class));
+                   finish();
                 } else {
-                    DialogoPoliticas2(splash.this);
+                    Toast.makeText(splash.this, "Loading content...", Toast.LENGTH_LONG).show();
+                    getListas(splash.this,tinydb);
+                    DialogoPoliticas2(splash.this,tinydb);
                 }
 
             }
@@ -105,7 +106,7 @@ public class splash extends AppCompatActivity {
 
     }
 
-    public static void DialogoPoliticas(Context mContext) {
+    public void DialogoPoliticas(Context mContext) {
 
         //region Dialogo terminos y condiciones
         DialogSettings.theme = DialogSettings.THEME.DARK;
@@ -241,32 +242,45 @@ public class splash extends AppCompatActivity {
         //  WaitDialog.show((AppCompatActivity) mContext, "Enviando canción...").setCancelable(true);
         Toast.makeText(mContext, "Enviando canción...", Toast.LENGTH_SHORT).show();
 
-        DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child("cancion").child(modelCancion.getId());
-        mref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        if(!modelCancion.getId().contains("[-\\\\[\\\\]^/,'*:.!><~@#$%+=?|\\\"\\\\\\\\()]")) {
+            if (!modelCancion.getId().contains(".")) {
+                if (!modelCancion.getId().contains("#")) {
+                    if (!modelCancion.getId().contains("[")) {
+                        if (!modelCancion.getId().contains("]")) {
 
-                dataSnapshot.getRef().child("linkYT").setValue(modelCancion.getLinkYT().trim());
-                dataSnapshot.getRef().child("id").setValue(modelCancion.getId().trim());
-                dataSnapshot.getRef().child("cancion").setValue(modelCancion.getCancion().trim());
-                dataSnapshot.getRef().child("artista").setValue(modelCancion.getArtista().trim());
-                dataSnapshot.getRef().child("categoria").setValue(modelCancion.getCategoria().trim());
+                            DatabaseReference mref = FirebaseDatabase.getInstance().getReference("data").child("cancion").child(modelCancion.getId().trim());
+                            mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    dataSnapshot.getRef().child("linkYT").setValue(modelCancion.getLinkYT().trim());
+                                    dataSnapshot.getRef().child("id").setValue(modelCancion.getId().trim());
+                                    dataSnapshot.getRef().child("cancion").setValue(modelCancion.getCancion().trim());
+                                    dataSnapshot.getRef().child("artista").setValue(modelCancion.getArtista().trim());
+                                    dataSnapshot.getRef().child("categoria").setValue(modelCancion.getCategoria().trim());
 
 
-                setLogInfo(mContext, "SubirCancion", "Cancion subida :: " + modelCancion.getId() + " :: " + modelCancion.getCancion(), false);
+                                    setLogInfo(mContext, "SubirCancion", "Cancion subida :: " + modelCancion.getId() + " :: " + modelCancion.getCancion(), false);
 
-                WaitDialog.dismiss();
-                //TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
-                Toast.makeText(mContext, "Cancion subida", Toast.LENGTH_SHORT).show();
+                                    WaitDialog.dismiss();
+                                    //TipDialog.show((AppCompatActivity) mContext, "Sugerencia enviada.", TipDialog.TYPE.SUCCESS);
+                                    Toast.makeText(mContext, "Cancion subida", Toast.LENGTH_SHORT).show();
 
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    WaitDialog.dismiss();
+                                    TipDialog.show((AppCompatActivity) mContext, "Error al enviar cancion", TipDialog.TYPE.ERROR);
+                                }
+                            });
+                        } else {
+                            setLogInfo(mContext, "SubirCancion", "NO SE SUBIO :: " + modelCancion.getId() + " :: " + modelCancion.getCancion(), false);
+                        }
+                    }
+                }
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                WaitDialog.dismiss();
-                TipDialog.show((AppCompatActivity) mContext, "Error al enviar film", TipDialog.TYPE.ERROR);
-            }
-        });
+        }
 
     }
 
@@ -552,9 +566,13 @@ public class splash extends AppCompatActivity {
                 String categoria = listCSV.get(i)[4];
 
                 ModelCancion modelCancion = new ModelCancion(id, artista, cancion, categoria, linkYT);
-           //     SubirCancion(mContext, modelCancion);
 
-            }
+                setLogInfo(mContext,"AgregarCancion"," modelCancion.getId() :: " + modelCancion.getId() +"\n modelCancion.getArtista() :: "+modelCancion.getArtista(),false);
+                SubirCancion(mContext, modelCancion);
+
+            } else {
+            Toast.makeText(mContext, "modelCancion listCSV != null && !listCSV.isEmpty()", Toast.LENGTH_SHORT).show();
+        }
 
 
     }

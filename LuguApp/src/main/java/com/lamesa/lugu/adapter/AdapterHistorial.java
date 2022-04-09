@@ -33,7 +33,7 @@ import java.util.List;
 
 import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
 import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
 import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
@@ -107,7 +107,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         holder.tvArtista.setText(mListHistorial.get(position).getArtista());
 
 
-        if (holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))) {
+        if (holder.tvCancion.getText().equals(tinydb.getString(TBnombreCancionSonando))) {
             holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
             holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
         } else {
@@ -119,7 +119,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         //region extraer colores de imagenes
         Glide.with(mContext)
                 .asBitmap()
-                .load(tinyDB.getString(TBimagenFondo))
+                .load(tinydb.getString(TBimagenFondo))
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -133,7 +133,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                             @SuppressLint("UseCompatLoadingForDrawables")
                             public void onGenerated(Palette palette) {
                                 // Do something with colors...
-                                if (holder.tvCancion.getText().equals(tinyDB.getString(TBnombreCancionSonando))) {
+                                if (holder.tvCancion.getText().equals(tinydb.getString(TBnombreCancionSonando))) {
                                     holder.tvCancion.setTextColor(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
                                     holder.tvArtista.setTextColor(palette.getLightVibrantColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
                                 }
@@ -150,7 +150,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         //endregion
 
         //region obtener nombre de categoria desde la id y mostrar en tvCategoria
-        List<ModelCategoria> list = tinyDB.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
+        List<ModelCategoria> list = tinydb.getListModelCategoria(TBlistCategorias, ModelCategoria.class);
         for (ModelCategoria categoria : list) {
             if (categoria.getId().equals(mListHistorial.get(position).getCategoria())) {
                 holder.tvCategoria.setText(categoria.getNombre());
@@ -163,18 +163,18 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             public void onClick(View v) {
 
                 // cambiar modo de categoria a apagado, se reproducira solo las canciones de la categoria seleccionada
-                CategoriaAleatoria(mContext, false, tinyDB);
+                CategoriaAleatoria(mContext, false, tinydb);
                 // metodo para cargar cancion de la categoria seleccionada
 
                 CargarInterAleatorio(mContext, 15);
                 getLinkAndPlay(mContext, mListHistorial.get(position).getLinkYT(), 1);
 
                 // guardar datos de la cancion sonando en TinyDB
-                tinyDB.putString(TBidCancionSonando, mListHistorial.get(position).getId());
-                tinyDB.putString(TBnombreCancionSonando, mListHistorial.get(position).getCancion());
-                tinyDB.putString(TBartistaCancionSonando, mListHistorial.get(position).getArtista());
-                tinyDB.putString(TBcategoriaCancionSonando, TBlistHistorial);
-                tinyDB.putString(TBlinkCancionSonando, mListHistorial.get(position).getLinkYT());
+                tinydb.putString(TBidCancionSonando, mListHistorial.get(position).getId());
+                tinydb.putString(TBnombreCancionSonando, mListHistorial.get(position).getCancion());
+                tinydb.putString(TBartistaCancionSonando, mListHistorial.get(position).getArtista());
+                tinydb.putString(TBcategoriaCancionSonando, TBlistHistorial);
+                tinydb.putString(TBlinkCancionSonando, mListHistorial.get(position).getLinkYT());
 
 
             }
@@ -182,7 +182,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         holder.cdCancionHistorial.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                DialogoEliminarLista(mContext, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class), TBlistHistorial);
+                DialogoEliminarLista(mContext, tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class), TBlistHistorial);
                 return false;
             }
         });
@@ -201,7 +201,7 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                         switch (item.getItemId()) {
                             case R.id.option_eliminar_item:
                                 mListHistorial.remove(position);
-                                tinyDB.putListModelCancion(TBlistHistorial, mListHistorial);
+                                tinydb.putListModelCancion(TBlistHistorial, mListHistorial);
                                 bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
 
                                 Toast.makeText(mContext, mContext.getResources().getString(R.string.item_eliminado), Toast.LENGTH_SHORT).show();
@@ -210,9 +210,9 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
                             case R.id.option_eliminar_lista:
                                 mListHistorial.removeAll(mListHistorial);
-                                List<ModelCancion> listhisto = tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class);
+                                List<ModelCancion> listhisto = tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class);
                                 listhisto.removeAll(listhisto);
-                                tinyDB.putListModelCancion(TBlistHistorial, listhisto);
+                                tinydb.putListModelCancion(TBlistHistorial, listhisto);
                                 bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
 
                                 Toast.makeText(mContext, mContext.getResources().getString(R.string.lista_eliminada), Toast.LENGTH_SHORT).show();

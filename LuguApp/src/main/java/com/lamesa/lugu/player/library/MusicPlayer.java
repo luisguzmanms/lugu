@@ -11,7 +11,7 @@ import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
 import static com.lamesa.lugu.activity.act_main.soundVHS;
 import static com.lamesa.lugu.activity.act_main.spinBuffering;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.activity.act_main.tvArtista;
 import static com.lamesa.lugu.activity.act_main.tvCancion;
 import static com.lamesa.lugu.activity.act_main.tvCategoria;
@@ -644,7 +644,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
 
                 // cargar imagen en fondo
                 Glide.with(this)
-                        .load(tinyDB.getString(TBimagenFondo))
+                        .load(tinydb.getString(TBimagenFondo))
                         //.error(R.drawable.ic_alert)
                         .transition(DrawableTransitionOptions.withCrossFade(200))
                         .into(ivFondoGif);
@@ -857,16 +857,16 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     // mostrar y animar texview dde cancion y artista solo si es diferente
                     if (tvCancion != null && tvArtista != null && tvCategoria != null) {
                         //   tvCancion.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCancion.animateText(tinyDB.getString(TBnombreCancionSonando));
+                        tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
                         //    tvCancion.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
                         //    tvArtista.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvArtista.animateText(tinyDB.getString(TBartistaCancionSonando));
+                        tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
                         //     tvArtista.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
                         //     tvCategoria.startAnimation(Animacion.anim_slide_bottom_out(mContext));
-                        tvCategoria.animateText(tinyDB.getString(TBcategoriaCancionSonando));
+                        tvCategoria.animateText(tinydb.getString(TBcategoriaCancionSonando));
                         //    tvCategoria.startAnimation(Animacion.anim_slide_bottom_in(mContext));
 
 
@@ -878,14 +878,14 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     }
 
                     // al reproducirse guardar la cancion en la lista de historila
-                    GuardarCancionHistorial(mContext, tinyDB.getString(TBidCancionSonando));
+                    GuardarCancionHistorial(mContext, tinydb.getString(TBidCancionSonando));
 
                     // ocultar icono de buffering
                     PlayOrPause(MediaNotificationManager.STATE_READY);
                     // reproducir cancion y animar icono a pausa
 
                     // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
-                    CheckIsFavorite(mContext, tinyDB.getString(TBidCancionSonando));
+                    CheckIsFavorite(mContext, tinydb.getString(TBidCancionSonando));
 
 
                     hideProgress();
@@ -906,19 +906,19 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                     //region REPRODUCIR SEGUN LA OPCION DE BUCLE O ALEATORIO
                     // reproducir segun la opcion de bucle o aleatorio
 
-                    if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
+                    if (tinydb.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
                         // reproducir la misma cancion
                         setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_BUCLE", false);
-                        getLinkAndPlay(mContext, tinyDB.getString(TBlinkCancionSonando), 1);
+                        getLinkAndPlay(mContext, tinydb.getString(TBlinkCancionSonando), 1);
                         //    Toast.makeText(mContext, "REPRODUCTOR_BUCLE", Toast.LENGTH_SHORT).show();
 
-                    } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
+                    } else if (tinydb.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
                         // reproducir otra cancion de la misma lista
                         setLogInfo(mContext, "Player.STATE_ENDED", "REPRODUCTOR_ALEATORIO", false);
                         //     Toast.makeText(mContext, "REPRODUCTOR_ALEATORIO", Toast.LENGTH_SHORT).show();
 
                         // cargar otra cancion de la misma categoria segun selección
-                        NextSong(mContext, tinyDB);
+                        NextSong(mContext, tinydb);
                     } else {
                         setLogInfo(mContext, "Player.STATE_ENDED", "NINUGNO", false);
                     }
@@ -1006,7 +1006,7 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                 // volver a reproducir
                 musicPlayer.setSource(source);
             } else {
-                NextSong(mContext, tinyDB);
+                NextSong(mContext, tinydb);
                 //    PlayOrPause(MediaNotificationManager.STATE_PAUSE);
                 //    PlayOrPause(MediaNotificationManager.STATE_PLAY);
             }

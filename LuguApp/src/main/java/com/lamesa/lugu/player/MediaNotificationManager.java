@@ -24,7 +24,7 @@ import com.lamesa.lugu.receiver.ActionReceiver;
 
 import java.util.Random;
 
-import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
 import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
@@ -79,20 +79,24 @@ public class MediaNotificationManager {
 
         int icon = R.drawable.ic_pause_white;
         Intent intentPlayPause = new Intent(mContext, ActionReceiver.class);
-        intentPlayPause.setAction(STATE_PAUSE);
-        PendingIntent actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
+        intentPlayPause.setAction(MediaNotificationManager.ACTION_PAUSE);
+        // PendingIntent actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
+        PendingIntent actionPlayPause;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
+        };
 
-
-        String contentTitle = tinyDB.getString(TBnombreCancionSonando);
-        String contentText = tinyDB.getString(TBartistaCancionSonando);
+        String contentTitle = tinydb.getString(TBnombreCancionSonando);
+        String contentText = tinydb.getString(TBartistaCancionSonando);
 
         //image = Bitmap.CreateScaledBitmap(image, (int)(image.Width * multiplier), (int)(image.Height * multiplier), false);
         switch (playbackStatus) {
             case STATE_PLAY:
                 setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_PLAY", false);
                 icon = R.drawable.ic_pause_white;
-                intentPlayPause.setAction(ACTION_PAUSE);
-                actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
+                intentPlayPause.setAction(MediaNotificationManager.ACTION_PAUSE);
                 break;
             case STATE_BUFFERING:
                 setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_BUFFERING", false);
@@ -102,12 +106,10 @@ public class MediaNotificationManager {
             case STATE_PAUSE:
                 setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_PAUSE", false);
                 icon = R.drawable.ic_play_white;
-                intentPlayPause.setAction(ACTION_PLAY);
-                actionPlayPause = PendingIntent.getBroadcast(mContext, 2, intentPlayPause, 0);
+                intentPlayPause.setAction(MediaNotificationManager.ACTION_PLAY);
                 break;
             case STATE_STOP:
                 setLogInfo(mContext, "MediaNotificationManager.startNotify", "STATE_STOP", false);
-
                 // this.cancelNotify();
                 break;
 
@@ -123,8 +125,8 @@ public class MediaNotificationManager {
             mediaSession.setActive(true);
             mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
             mediaSession.setMetadata(new MediaMetadataCompat.Builder()
-                    .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, tinyDB.getString(TBartistaCancionSonando))
-                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, tinyDB.getString(TBnombreCancionSonando)) // strLiveBroadcast
+                    .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, tinydb.getString(TBartistaCancionSonando))
+                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, tinydb.getString(TBnombreCancionSonando)) // strLiveBroadcast
                     .build());
             mediaSession.setCallback(mediasSessionCallback);
         }
@@ -134,13 +136,24 @@ public class MediaNotificationManager {
 
         Intent stopIntent = new Intent(mContext, ActionReceiver.class);
         stopIntent.setAction(MediaNotificationManager.ACTION_STOP);
-        PendingIntent stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent, 0);
+        // PendingIntent stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent, 0);
+        PendingIntent stopAction;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent, 0);
+        };
 
 
         // intent de clic favorito
         Intent intentFavorito = new Intent(mContext, ActionReceiver.class);
         intentFavorito.setAction(MediaNotificationManager.ACTION_FAVORITE);
-        PendingIntent actionFavorito = PendingIntent.getBroadcast(mContext, 3, intentFavorito, 0);
+       // PendingIntent actionFavorito = PendingIntent.getBroadcast(mContext, 3, intentFavorito, 0);
+        PendingIntent actionFavorito;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            actionFavorito = PendingIntent.getBroadcast(mContext, 2, intentFavorito, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        } else { actionFavorito = PendingIntent.getBroadcast(mContext, 2, intentFavorito, 0);
+        }
 
 
         Intent intentMainActivity = new Intent(mContext, act_main.class);
@@ -148,10 +161,14 @@ public class MediaNotificationManager {
         intentMainActivity.addCategory(Intent.CATEGORY_LAUNCHER);
         // para que no se creee una activity nueva si ya está creada
         intentMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, 0);
+      //  PendingIntent pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, 0);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, 0);
+        }
 
-
-        // notificationManager.cancel(NOTIFICATION_ID);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -216,7 +233,7 @@ public class MediaNotificationManager {
         //endregion
 
         // mostrar notificacion solo si se cargo los datos de la cancion en tinydb
-        if (!tinyDB.getString(TBnombreCancionSonando).isEmpty() && !tinyDB.getString(TBartistaCancionSonando).isEmpty()) {
+        if (!tinydb.getString(TBnombreCancionSonando).isEmpty() && !tinydb.getString(TBartistaCancionSonando).isEmpty()) {
             notificationManager.notify(String.valueOf(NOTIFICATION_ID), 1, builder.build());
         }
 

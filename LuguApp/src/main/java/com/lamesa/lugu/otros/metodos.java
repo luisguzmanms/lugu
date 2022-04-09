@@ -22,9 +22,8 @@ import static com.lamesa.lugu.activity.act_main.mrvHistorial;
 import static com.lamesa.lugu.activity.act_main.musicPlayer;
 import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
 import static com.lamesa.lugu.activity.act_main.soundVHS;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.activity.act_main.tvSleep;
-import static com.lamesa.lugu.activity.splash.tinydb;
 import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
 import static com.lamesa.lugu.otros.mob.video.createAndLoadRewardedAd;
@@ -181,7 +180,7 @@ public class metodos {
                         intent.setType("message/rfc822");
                         intent.setData(Uri.parse("mailto:lugulofimusic@gmail.com"));
                         intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT SONG");
-                        intent.putExtra(Intent.EXTRA_TEXT, "Report:\n\n song: " + tinyDB.getString(TBnombreCancionSonando) + "\nartist: " + tinyDB.getString(TBartistaCancionSonando) + " \n------------------------------------\nMessage:\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n");
+                        intent.putExtra(Intent.EXTRA_TEXT, "Report:\n\n song: " + tinydb.getString(TBnombreCancionSonando) + "\nartist: " + tinydb.getString(TBartistaCancionSonando) + " \n------------------------------------\nMessage:\n\n\n\n\n\n\n\n\n\n\n\n------------------------------------\n\n\n\n\n");
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         if (intent.resolveActivity(mContext.getPackageManager()) != null) {
                             mContext.startActivity(intent);
@@ -299,6 +298,7 @@ public class metodos {
 
                         //region POCESO DETECTAR CAMBIOS EN DATA
 
+
                         if (dataSnapshot.child("utilidad").child("fechaCambiosData").exists()) {
                             // se comprueba fechas
                             String fechaCambioData = (String) dataSnapshot.child("utilidad").child("fechaCambiosData").getValue();
@@ -310,8 +310,8 @@ public class metodos {
                             // si las fechas no coinciden, es porque hay cambios por realizar, se borra lista y se recarga
                             if (!fechaCambioData.toLowerCase().trim().contains(fechaUltimoCambio.toLowerCase().trim()) || fechaUltimoCambio.isEmpty()) {
 
-                                // Toast.makeText(mContext, "actualizando contenido", Toast.LENGTH_SHORT).show();
-                                getListas(mContext);
+                                Toast.makeText(mContext, "Uploading...", Toast.LENGTH_LONG).show();
+                                getListas(mContext,tinyDB);
                                 // guardar fecha nueva en tiny
                                 tinyDB.putString(TBfechaCambiosData, fechaCambioData);
 
@@ -1032,7 +1032,7 @@ public class metodos {
                         // eliminar contenido
                         mList.removeAll(mList);
 
-                        tinyDB.putListModelCancion(keyTinyDB, mList);
+                        tinydb.putListModelCancion(keyTinyDB, mList);
                         TipDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.contenido_eliminado), TipDialog.TYPE.SUCCESS);
                         if (keyTinyDB.contains(TBlistFavoritos)) {
                             UpdateAdapterFavoritos(mContext);
@@ -1584,7 +1584,7 @@ public class metodos {
 
 
                         // al onExtractionGoesWrong, cargar otra cancion de la misma categoria segun selección
-                        NextSong(mContext, tinyDB);
+                        NextSong(mContext, tinydb);
 
                         // ocultar progressBar de act_main
                         if (pbCargandoRadio != null) {
@@ -1665,22 +1665,22 @@ public class metodos {
             // cargar una imagende fondo totalmente aleatoria
             CargarImagenFondo(mContext);
             // recargar opcion de modo reproductor para que se cargue el icono con el nuevo color
-            OpcionReproductor(mContext, tinyDB.getString(TBmodoReproductor));
+            OpcionReproductor(mContext, tinydb.getString(TBmodoReproductor));
 
             //region MIX mixPlaySong para estadisticas
             JSONObject props = new JSONObject();
             try {
-                props.put("Id", tinyDB.getString(TBidCancionSonando));
-                props.put("Nombre", tinyDB.getString(TBnombreCancionSonando));
-                props.put("Artista", tinyDB.getString(TBartistaCancionSonando));
-                props.put("Categoria", tinyDB.getString(TBcategoriaCancionSonando));
-                props.put("LinkYT", tinyDB.getString(TBlinkCancionSonando));
+                props.put("Id", tinydb.getString(TBidCancionSonando));
+                props.put("Nombre", tinydb.getString(TBnombreCancionSonando));
+                props.put("Artista", tinydb.getString(TBartistaCancionSonando));
+                props.put("Categoria", tinydb.getString(TBcategoriaCancionSonando));
+                props.put("LinkYT", tinydb.getString(TBlinkCancionSonando));
                 Bundle params = new Bundle();
-                params.putString("Id", tinyDB.getString(TBidCancionSonando));
-                params.putString("Nombre", tinyDB.getString(TBnombreCancionSonando));
-                params.putString("Artista", tinyDB.getString(TBartistaCancionSonando));
-                params.putString("Categoria", tinyDB.getString(TBcategoriaCancionSonando));
-                params.putString("LinkYT", tinyDB.getString(TBlinkCancionSonando));
+                params.putString("Id", tinydb.getString(TBidCancionSonando));
+                params.putString("Nombre", tinydb.getString(TBnombreCancionSonando));
+                params.putString("Artista", tinydb.getString(TBartistaCancionSonando));
+                params.putString("Categoria", tinydb.getString(TBcategoriaCancionSonando));
+                params.putString("LinkYT", tinydb.getString(TBlinkCancionSonando));
 
 
                 mFirebaseAnalytics.logEvent(mixPlaySong, params);
@@ -1729,7 +1729,7 @@ public class metodos {
             getLinkAndPlay(mContext, listSonando.get(numCancionSonar).getLinkYT(), 1);
 
         } else {
-            getListas(mContext);
+            getListas(mContext,tinyDB);
         }
 
     }
@@ -1774,8 +1774,8 @@ public class metodos {
     public static void GuardarCancionHistorial(Context mContext, String idCancionSonando) {
         // agregar cancion a historial
 
-        List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
-        List<ModelCancion> tinyListHistorial = tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class);
+        List<ModelCancion> tinyListCancionxCategoria = tinydb.getListModelCancion(tinydb.getString(TBcategoriaCancionSonando), ModelCancion.class);
+        List<ModelCancion> tinyListHistorial = tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class);
 
         for (ModelCancion cancion : tinyListCancionxCategoria) {
             if (cancion.getId().equals(idCancionSonando)) {
@@ -1794,10 +1794,10 @@ public class metodos {
 
                 // agregar cancion a historial
                 tinyListHistorial.add(cancion);
-                tinyDB.putListModelCancion(TBlistHistorial, EliminarDuplicadosModelCancion(tinyListHistorial));
+                tinydb.putListModelCancion(TBlistHistorial, EliminarDuplicadosModelCancion(tinyListHistorial));
 
                 //region actualizar lista de historial
-                mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+                mAdapterHistorial.setUpdateHistorial(tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class));
                 //bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_historial);
                 //endregion
 
@@ -1817,9 +1817,9 @@ public class metodos {
 
 
         // buscar  el numero de la cancion en la catergoria que está sonando
-        List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
+        List<ModelCancion> tinyListCancionxCategoria = tinydb.getListModelCancion(tinydb.getString(TBcategoriaCancionSonando), ModelCancion.class);
         // obtener lista de favoritos desde tinydb
-        List<ModelCancion> tinyListFavoritos = tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class);
+        List<ModelCancion> tinyListFavoritos = tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class);
 
         if (favorito) {
             // agregar cancion a favoritos
@@ -1863,7 +1863,7 @@ public class metodos {
             }
 
             // guardar lista en tiny db y sin duplicados
-            tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
+            tinydb.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
 
             // actualizar lista de favoritos
             // UpdateAdapterFavoritos(mContext);
@@ -1876,7 +1876,7 @@ public class metodos {
             ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
-            mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+            mAdapterFavoritos.setUpdateFavoritos(tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class));
             bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
             //endregion
 
@@ -1897,7 +1897,7 @@ public class metodos {
 
 
             // guardar lista en tiny db y sin duplicados
-            tinyDB.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
+            tinydb.putListModelCancion(TBlistFavoritos, EliminarDuplicadosModelCancion(tinyListFavoritos));
             // actualizar lista de favoritos
             //  UpdateAdapterFavoritos(mContext);
 
@@ -1909,7 +1909,7 @@ public class metodos {
             ivLikeDislike.startAnimation(Animacion.enter_ios_anim(mContext));
 
             //region actualizar lista de favoritos
-            mAdapterFavoritos.setUpdateFavoritos(tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+            mAdapterFavoritos.setUpdateFavoritos(tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class));
             bottomNavigationHis_Fav.setSelectedItemId(R.id.navigation_favoritos);
             //endregion
 
@@ -1922,9 +1922,9 @@ public class metodos {
         // buscar  el numero de la cancion en la catergoria que está sonando
 
 
-        List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(tinyDB.getString(TBcategoriaCancionSonando), ModelCancion.class);
+        List<ModelCancion> tinyListCancionxCategoria = tinydb.getListModelCancion(tinydb.getString(TBcategoriaCancionSonando), ModelCancion.class);
         // obtener lista de favoritos desde tinydb
-        List<ModelCancion> tinyListFavoritos = tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class);
+        List<ModelCancion> tinyListFavoritos = tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class);
 
         // Checkear si la cancion que esta sonando esta en favoritos para marcarlo
         if (tinyListFavoritos != null && tinyListFavoritos.size() > 0) {
@@ -1959,11 +1959,11 @@ public class metodos {
 
         if (mAdapterHistorial != null && mrvHistorial != null) {
 
-            mAdapterHistorial = new AdapterHistorial(mContext, tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+            mAdapterHistorial = new AdapterHistorial(mContext, tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class));
             mrvHistorial.setAdapter(mAdapterHistorial);
             mAdapterHistorial.notifyDataSetChanged();
 
-            mAdapterHistorial.setUpdateHistorial(tinyDB.getListModelCancion(TBlistHistorial, ModelCancion.class));
+            mAdapterHistorial.setUpdateHistorial(tinydb.getListModelCancion(TBlistHistorial, ModelCancion.class));
         } else {
             Toast.makeText(mContext, "NULO", Toast.LENGTH_SHORT).show();
         }
@@ -1974,7 +1974,7 @@ public class metodos {
 
         if (mAdapterFavoritos != null && mrvFavoritos != null) {
 
-            mAdapterFavoritos = new AdapterFavoritos(mContext, tinyDB.getListModelCancion(TBlistFavoritos, ModelCancion.class));
+            mAdapterFavoritos = new AdapterFavoritos(mContext, tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class));
             mrvFavoritos.setAdapter(mAdapterFavoritos);
             mAdapterFavoritos.notifyDataSetChanged();
 
@@ -2089,16 +2089,16 @@ public class metodos {
 
     public static void OpcionReproductor(Context mContext, String modoReproductor) {
 
-        tinyDB.putString(TBmodoReproductor, modoReproductor);
+        tinydb.putString(TBmodoReproductor, modoReproductor);
 
-        if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
+        if (tinydb.getString(TBmodoReproductor).equals(REPRODUCTOR_BUCLE)) {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_bucle));
                 ivOpcionBucle.setTag("ic_bucle");
                 ivOpcionBucle.startAnimation(Animacion.enter_ios_anim(mContext));
             }
-        } else if (tinyDB.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
+        } else if (tinydb.getString(TBmodoReproductor).equals(REPRODUCTOR_ALEATORIO)) {
             if (ivOpcionBucle != null) {
                 ivOpcionBucle.startAnimation(Animacion.exit_ios_anim(mContext));
                 ivOpcionBucle.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_aleatorio));
@@ -2110,11 +2110,11 @@ public class metodos {
 
     public static void GuardarDatosCancion(String categoria, ModelCancion modelCancion) {
 
-        tinyDB.putString(TBidCancionSonando, modelCancion.getId());
-        tinyDB.putString(TBnombreCancionSonando, modelCancion.getCancion());
-        tinyDB.putString(TBartistaCancionSonando, modelCancion.getArtista());
-        tinyDB.putString(TBcategoriaCancionSonando, categoria.toLowerCase().trim());
-        tinyDB.putString(TBlinkCancionSonando, modelCancion.getLinkYT());
+        tinydb.putString(TBidCancionSonando, modelCancion.getId());
+        tinydb.putString(TBnombreCancionSonando, modelCancion.getCancion());
+        tinydb.putString(TBartistaCancionSonando, modelCancion.getArtista());
+        tinydb.putString(TBcategoriaCancionSonando, categoria.toLowerCase().trim());
+        tinydb.putString(TBlinkCancionSonando, modelCancion.getLinkYT());
     }
 
     public static int getDominantColor(Bitmap bitmap) {
@@ -2142,7 +2142,7 @@ public class metodos {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v) {
 
-                        AbrirPagina(mContext, "https://www.google.com/search?q=" + tinyDB.getString(TBartistaCancionSonando) + " - " + tinyDB.getString(TBnombreCancionSonando));
+                        AbrirPagina(mContext, "https://www.google.com/search?q=" + tinydb.getString(TBartistaCancionSonando) + " - " + tinydb.getString(TBnombreCancionSonando));
 
                         return false;
                     }
@@ -2171,7 +2171,7 @@ public class metodos {
                     @Override
                     public boolean onClick(BaseDialog baseDialog, View v) {
 
-                        AbrirPagina(mContext, tinyDB.getString(TBimagenFondo));
+                        AbrirPagina(mContext, tinydb.getString(TBimagenFondo));
 
                         return false;
                     }
@@ -2182,7 +2182,7 @@ public class metodos {
                 .show();
     }
 
-    public static void DialogoPoliticas2(Context mContext) {
+    public static void DialogoPoliticas2(Context mContext, TinyDB tinydb) {
 
         String saltoDeLinea = "\n";
         String titulo = mContext.getString(R.string.title_terms);

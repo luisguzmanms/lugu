@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +41,7 @@ import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.activity.act_main.getListas;
 import static com.lamesa.lugu.activity.act_main.mlistCategoria;
-import static com.lamesa.lugu.activity.act_main.tinyDB;
+import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
 import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
 import static com.lamesa.lugu.otros.metodos.setLogInfo;
@@ -148,10 +149,10 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
 
 
                 // cambiar modo de categoria a apagado, se reproducira solo las canciones de la categoria seleccionada
-                CategoriaAleatoria(mContext, false, tinyDB);
+                CategoriaAleatoria(mContext, false, tinydb);
                 // metodo para cargar cancion de la categoria seleccionada
 
-                List<ModelCancion> tinyListCancionxCategoria = tinyDB.getListModelCancion(mlistCategoria.get(position).getNombre().toLowerCase().trim(), ModelCancion.class);
+                List<ModelCancion> tinyListCancionxCategoria = tinydb.getListModelCancion(mlistCategoria.get(position).getNombre().toLowerCase().trim(), ModelCancion.class);
 
                 if (!tinyListCancionxCategoria.isEmpty()) {
                     setLogInfo(mContext, "Clic Categoria", "tinyListCancionxCategoria categoria " + mlistCategoria.get(position).getNombre() + " está vacia", false);
@@ -171,16 +172,17 @@ public class AdapterCategoria extends RecyclerView.Adapter<AdapterCategoria.MyVi
                     getLinkAndPlay(mContext, tinyListCancionxCategoria.get(numCancionSonar).getLinkYT(), 1);
 
                     // guardar datos de la cancion sonando en TinyDB
-                    tinyDB.putInt(TBnumeroCancionSonando, numCancionSonar);
-                    tinyDB.putString(TBidCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getId());
-                    tinyDB.putString(TBnombreCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getCancion());
-                    tinyDB.putString(TBartistaCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getArtista());
-                    tinyDB.putString(TBcategoriaCancionSonando, mListCategorias.get(position).getNombre().toLowerCase().trim());
-                    tinyDB.putString(TBlinkCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getLinkYT());
+                    tinydb.putInt(TBnumeroCancionSonando, numCancionSonar);
+                    tinydb.putString(TBidCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getId());
+                    tinydb.putString(TBnombreCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getCancion());
+                    tinydb.putString(TBartistaCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getArtista());
+                    tinydb.putString(TBcategoriaCancionSonando, mListCategorias.get(position).getNombre().toLowerCase().trim());
+                    tinydb.putString(TBlinkCancionSonando, tinyListCancionxCategoria.get(numCancionSonar).getLinkYT());
 
 
                 } else {
-                    getListas(mContext);
+                    Toast.makeText(mContext, "Loading content...", Toast.LENGTH_SHORT).show();
+                    getListas(mContext, tinydb);
                 }
 
 

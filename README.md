@@ -37,7 +37,7 @@
  <p align="center">
     <a href="#lugu---lofi-music">LUGU - Lofi Music</a>
     ·
-    <a href="#Features">Features</a>
+    <a href="#features">Features</a>
     ·
     <a href="#built-with-">Built With</a>
       ·
@@ -54,6 +54,8 @@ LUGU - Lofi Music es una aplicación para dispositivos Android gracias a la cual
 Escucha todas las creaciones de forma gratuita eligiendo el estilo que quieras.
 
 **Disponible para Android.**
+
+**NOTA: _LUGU - lofi music (2020) con Kotlin es la versión mejora de un prototipo realizado en el año 2019 Lofer - lofi radio con Java (https://github.com/luisguzmanms/lofiradio)_**
 
 <p>
 <img src="https://firebasestorage.googleapis.com/v0/b/itcloudme.appspot.com/o/recursos%2Fdise%C3%B1o%2Fapp%2Flugu%2Frecursos%2F5.png?alt=media&token=09711326-ca18-4f8e-b426-820e6ea74749" align="right"

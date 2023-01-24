@@ -48,7 +48,7 @@
 
 ## LUGU - Lofi Music
 
-![Current Version](https://img.shields.io/badge/version-1.3.3-green.svg)
+![Current Version](https://img.shields.io/badge/version-1.3.3-green.svg) Primer lanzamiento en GooglePlay: 9 de enero de 2021.
 
 LUGU - Lofi Music es una aplicación para dispositivos Android gracias a la cual podrás disfrutar de música del estilo Lofi sin límites. <br>
 Escucha todas las creaciones de forma gratuita eligiendo el estilo que quieras.

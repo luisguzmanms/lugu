@@ -83,10 +83,7 @@ public class constantes {
     public static String mixLogInfoError = "LogInfoError";
     public static String mixExtractionGoesWrong = "ExtractionGoesWrong";
 
-
     public static boolean NotiAbierta = false;
 
     //endregion
-
-
 }

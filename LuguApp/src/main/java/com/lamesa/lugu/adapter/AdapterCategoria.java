@@ -1,5 +1,22 @@
 package com.lamesa.lugu.adapter;
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.getListas;
+import static com.lamesa.lugu.activity.act_main.mlistCategoria;
+import static com.lamesa.lugu.activity.act_main.tinydb;
+import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -36,23 +53,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Random;
-
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.getListas;
-import static com.lamesa.lugu.activity.act_main.mlistCategoria;
-import static com.lamesa.lugu.activity.act_main.tinydb;
-import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
-import static com.lamesa.lugu.otros.metodos.setLogInfo;
-import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
 
 
 /**

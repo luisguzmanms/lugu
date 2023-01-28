@@ -1,5 +1,7 @@
 package com.lamesa.lugu.player.library.utils;
 
+import static com.lamesa.lugu.player.library.utils.PublicValues.REQUEST_ID_MULTIPLE_PERMISSIONS;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -13,8 +15,6 @@ import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.lamesa.lugu.player.library.utils.PublicValues.REQUEST_ID_MULTIPLE_PERMISSIONS;
 
 
 public class PublicFunctions {

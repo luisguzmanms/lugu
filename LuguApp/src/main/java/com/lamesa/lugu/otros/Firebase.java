@@ -1,6 +1,16 @@
 package com.lamesa.lugu.otros;
 
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.otros.metodos.EliminarDuplicadosModelCancion;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCanciones;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
+import static com.lamesa.lugu.otros.statics.constantes.mixFalloEpisodio;
+import static com.lamesa.lugu.otros.statics.constantes.mixReporteFilm;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -30,17 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-
-import static com.lamesa.lugu.App.get;
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.metodos.EliminarDuplicadosModelCancion;
-import static com.lamesa.lugu.otros.metodos.setLogInfo;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCanciones;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistImagenes;
-import static com.lamesa.lugu.otros.statics.constantes.mixFalloEpisodio;
-import static com.lamesa.lugu.otros.statics.constantes.mixReporteFilm;
 
 
 public class Firebase extends AppCompatActivity {
@@ -303,7 +302,7 @@ public class Firebase extends AppCompatActivity {
                     finalMlistCategoria.add(categoria);
 
                 }
-                if(mAdapterCategoria!=null) {
+                if (mAdapterCategoria != null) {
                     mAdapterCategoria.notifyDataSetChanged();
                 }
                 tinyDB.putListModelCategoria(TBlistCategorias, finalMlistCategoria);

@@ -311,7 +311,7 @@ public class metodos {
                             if (!fechaCambioData.toLowerCase().trim().contains(fechaUltimoCambio.toLowerCase().trim()) || fechaUltimoCambio.isEmpty()) {
 
                                 Toast.makeText(mContext, "Uploading...", Toast.LENGTH_LONG).show();
-                                getListas(mContext,tinyDB);
+                                getListas(mContext, tinyDB);
                                 // guardar fecha nueva en tiny
                                 tinyDB.putString(TBfechaCambiosData, fechaCambioData);
 
@@ -350,11 +350,11 @@ public class metodos {
                                                 }
                                             }
                                         }).addButton("WEBSITE", R.style.TabTextStyle, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        AbrirPagina(mContext, "https://lugumusic.page.link/website");
-                                    }
-                                })
+                                            @Override
+                                            public void onClick(View view) {
+                                                AbrirPagina(mContext, "https://lugumusic.page.link/website");
+                                            }
+                                        })
                                         .show();
                             }
 
@@ -1290,56 +1290,56 @@ public class metodos {
         MessageDialog.show((AppCompatActivity) mContext, mContext.getString(R.string.temporizador_apagado), mContext.getString(R.string.seleccione_tiempo), "OK")
                 .setBackgroundColor(mContext.getResources().getColor(R.color.fondo_blank)).setCustomView(R.layout.layout_send_notifi, new MessageDialog.OnBindView() {
 
-            @Override
-            public void onBind(MessageDialog dialog, View view) {
-
-
-                numberPicker = view.findViewById(R.id.number_picker);
-
-                numberPicker.setMaxValue(60);
-                numberPicker.setMinValue(0);
-                numberPicker.setValue(15);
-
-
-                // OnClickListener
-                numberPicker.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        Log.d("numberPicker", "Click on current value " + numberPicker.getValue());
+                    public void onBind(MessageDialog dialog, View view) {
 
+
+                        numberPicker = view.findViewById(R.id.number_picker);
+
+                        numberPicker.setMaxValue(60);
+                        numberPicker.setMinValue(0);
+                        numberPicker.setValue(15);
+
+
+                        // OnClickListener
+                        numberPicker.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.d("numberPicker", "Click on current value " + numberPicker.getValue());
+
+
+                            }
+                        });
+
+                        // OnValueChangeListener
+                        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                            @Override
+                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                                Log.d("numberPicker", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+                            }
+                        });
+
+                        // OnScrollListener
+                        numberPicker.setOnScrollListener(new NumberPicker.OnScrollListener() {
+                            @Override
+                            public void onScrollStateChange(NumberPicker picker, int scrollState) {
+                                if (scrollState == SCROLL_STATE_IDLE) {
+                                    Log.d("numberPicker", String.format(Locale.US, "newVal: %d", picker.getValue()));
+                                }
+                            }
+                        });
 
                     }
-                });
-
-                // OnValueChangeListener
-                numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                     @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        Log.d("numberPicker", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
-                    }
-                });
-
-                // OnScrollListener
-                numberPicker.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChange(NumberPicker picker, int scrollState) {
-                        if (scrollState == SCROLL_STATE_IDLE) {
-                            Log.d("numberPicker", String.format(Locale.US, "newVal: %d", picker.getValue()));
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+                        if (numberPicker.getValue() > 0) {
+                            ApagarAutoApagado(mContext);
+                            EncenderAutoApagado(mContext, numberPicker.getValue());
                         }
+                        return false;
                     }
                 });
-
-            }
-        }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
-            @Override
-            public boolean onClick(BaseDialog baseDialog, View v) {
-                if (numberPicker.getValue() > 0) {
-                    ApagarAutoApagado(mContext);
-                    EncenderAutoApagado(mContext, numberPicker.getValue());
-                }
-                return false;
-            }
-        });
 
     }
 
@@ -1383,9 +1383,9 @@ public class metodos {
             String saltoDeLinea = "\n";
 
             MessageDialog.show((AppCompatActivity) mContext, "About " + mContext.getResources().getString(R.string.app_name), mContext.getResources().getString(R.string.app_name) + mContext.getString(R.string.sobre_lugu) +
-                    "¡Welcome to " + mContext.getResources().getString(R.string.app_name) + ", enjoy!" +
-                    saltoDeLinea + saltoDeLinea +
-                    mContext.getString(R.string.apoyo_posible), "OK")
+                            "¡Welcome to " + mContext.getResources().getString(R.string.app_name) + ", enjoy!" +
+                            saltoDeLinea + saltoDeLinea +
+                            mContext.getString(R.string.apoyo_posible), "OK")
                     .setOnOkButtonClickListener(new OnDialogButtonClickListener() {
                         @Override
                         public boolean onClick(BaseDialog baseDialog, View v) {
@@ -1729,7 +1729,7 @@ public class metodos {
             getLinkAndPlay(mContext, listSonando.get(numCancionSonar).getLinkYT(), 1);
 
         } else {
-            getListas(mContext,tinyDB);
+            getListas(mContext, tinyDB);
         }
 
     }
@@ -2694,26 +2694,26 @@ public class metodos {
         MessageDialog
                 .show((AppCompatActivity) mContext, "\uD83C\uDF1F\uD83C\uDF1F\uD83C\uDF1F\uD83C\uDF1F\uD83C\uDF1F", mContext.getString(R.string.msg_etstrellas) + "\uD83D\uDE0A", "OK")
                 .setCancelButton(mContext.getResources().getString(R.string.cerrar)).setButtonOrientation(LinearLayout.HORIZONTAL).setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
-            @Override
-            public boolean onClick(BaseDialog baseDialog, View v) {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
 
-                DialogoSugerencia(mContext);
+                        DialogoSugerencia(mContext);
 
-                return false;
-            }
-        }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
-            @Override
-            public boolean onClick(BaseDialog baseDialog, View v) {
+                        return false;
+                    }
+                }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
 
-                try {
-                    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UrlAppPlayStore)));
-                } catch (Exception e) {
-                    //e.toString();
-                }
+                        try {
+                            mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UrlAppPlayStore)));
+                        } catch (Exception e) {
+                            //e.toString();
+                        }
 
-                return false;
-            }
-        });
+                        return false;
+                    }
+                });
 
 
     }

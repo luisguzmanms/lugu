@@ -58,11 +58,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -130,9 +126,7 @@ import java.util.Random;
 
 public class act_main extends AppCompatActivity {
 
-
     public static List<ModelListCustom> mlistCustom;
-
     public static AdapterCategoria mAdapterCategoria;
     public static RecyclerView mrvCategoria;
     public static NestedScrollView contenidoHome;
@@ -176,6 +170,9 @@ public class act_main extends AppCompatActivity {
     public static ImageView ivStyle;
     public static MediaPlayer soundVHS;
     public static CardView cdMusicSeek;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
+    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
     private ImageView ivOpcionPlayer;
     private MaterialCardView cdOpPlayer;
     private MaterialCardView cdPlayer;
@@ -183,52 +180,6 @@ public class act_main extends AppCompatActivity {
     private ImageView ivOffline;
     private int versionNumber;
     private String versionName;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_main2);
-
-        // INICAR MEDIANOTIFICACTION
-        mediaNotificationManager = new MediaNotificationManager(this);
-        // reproductor exoplayer
-        musicPlayer = findViewById(R.id.musicPlayer);
-
-        // SolicitarPermisos(this);
-
-        tinydb = new TinyDB(this);
-        // imagen por defecto de fondo
-        tinydb.putString(TBimagenFondo, "https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
-
-        initFirebase(act_main.this, tinydb);
-
-        VistasHome();
-        CargarRecyclerHome();
-
-        // Traer todas las listas desde Firebase
-    //    new CargarListas().execute();
-       // getListas(act_main.this);
-
-        CheckIsFavorite(act_main.this, tinydb.getString(TBidCancionSonando));
-
-        // cargar adinter para ser mostrada
-        loadInterstitial(act_main.this);
-        CargarInterAleatorio(act_main.this, 4);
-        // cargar banner
-        CargarBanner();
-
-        // dialogo para desactivar la optimizacion de la app
-        DialogoOpBateria(act_main.this);
-
-
-        AppVersion();
-
-        soundVHS = MediaPlayer.create(act_main.this, R.raw.tv09);
-
-    }
 
     //traer listas de firebase
     public static void getListas(Context mContext, TinyDB tinyDB) {
@@ -287,13 +238,7 @@ public class act_main extends AppCompatActivity {
                                 mContext.getResources().getDrawable(R.drawable.ic_like).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary)));
                                 mContext.getResources().getDrawable(R.drawable.ic_expandir).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
                                 mContext.getResources().getDrawable(R.drawable.ic_contraer).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
-                                // mContext.getResources().getDrawable(R.drawable.ic_no_signal).setTint(palette.getLightMutedColor(mContext.getResources().getColor(R.color.item_disable)));
-
-
                                 bottomNavigationHis_Fav.setItemRippleColor(ColorStateList.valueOf(palette.getDarkVibrantColor(mContext.getResources().getColor(R.color.gray))));
-                                //   bottomNavigationHis_Fav.setItemIconTintList(ColorStateList.valueOf(palette.getLightMutedColor(mContext.getResources().getColor(R.color.learn_colorPrimary))));
-
-
                             }
                         });
                     }
@@ -306,16 +251,49 @@ public class act_main extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_act_main2);
+
+        // INICAR MEDIANOTIFICACTION
+        mediaNotificationManager = new MediaNotificationManager(this);
+        // reproductor exoplayer
+        musicPlayer = findViewById(R.id.musicPlayer);
+
+        // SolicitarPermisos(this);
+
+        tinydb = new TinyDB(this);
+        // imagen por defecto de fondo
+        tinydb.putString(TBimagenFondo, "https://i.pinimg.com/originals/76/09/46/7609468e97e15d1da8d14d534be7366c.gif");
+
+        initFirebase(act_main.this, tinydb);
+
+        VistasHome();
+        CargarRecyclerHome();
+
+        CheckIsFavorite(act_main.this, tinydb.getString(TBidCancionSonando));
+
+        // cargar adinter
+        loadInterstitial(act_main.this);
+        CargarInterAleatorio(act_main.this, 4);
+        // cargar banner
+        CargarBanner();
+
+        // dialogo para desactivar la optimizacion de la app
+        DialogoOpBateria(act_main.this);
+        AppVersion();
+        soundVHS = MediaPlayer.create(act_main.this, R.raw.tv09);
+    }
+
     private void AppVersion() {
         PackageInfo pinfo = null;
         try {
             pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             versionNumber = pinfo.versionCode;
             versionName = pinfo.versionName;
-
             TextView tvVersion = findViewById(R.id.tv_version);
             tvVersion.setText("v" + versionName.replace("beta", "").replace("admin", "").trim());
-
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -353,7 +331,6 @@ public class act_main extends AppCompatActivity {
     }
 
     private void CargarBanner() {
-
         //   new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("830648A2D5D5AF09D0FAED08D38E2353"));
         AdView mAdView = findViewById(R.id.adViewMain);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("830648A2D5D5AF09D0FAED08D38E2353").build();
@@ -361,7 +338,6 @@ public class act_main extends AppCompatActivity {
         // mAdView.setAdSize(AdSize.FLUID);
         // listener
         mAdView.setAdListener(new AdListener() {
-
             @Override
             public void onAdLoaded() {
                 // TODO Auto-generated method stub
@@ -414,8 +390,6 @@ public class act_main extends AppCompatActivity {
             }
 
         });
-
-
     }
 
     private void CargarRecyclerHome() {
@@ -439,7 +413,6 @@ public class act_main extends AppCompatActivity {
         }
         mAdapterCategoria = new AdapterCategoria(this, mlistCategoria);
         mrvCategoria.setAdapter(mAdapterCategoria);
-
         //endregion
 
         //region LISTA HISTORIAL
@@ -468,33 +441,24 @@ public class act_main extends AppCompatActivity {
         mrvFavoritos.setItemAnimator(new DefaultItemAnimator());
         mAdapterFavoritos = new AdapterFavoritos(this, tinydb.getListModelCancion(TBlistFavoritos, ModelCancion.class));
         mrvFavoritos.setAdapter(mAdapterFavoritos);
-
         //endregion
 
         //region LISTA CUSTOM
-
         mrvMisListas = findViewById(R.id.rv_mislistas);
         mrvMisListas.setHasFixedSize(true);
         mrvMisListas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mrvMisListas.setItemAnimator(new DefaultItemAnimator());
         mAdapterListCustom = new AdapterListCustom(this, tinydb.getListModelListCustom(TBlistCustom, ModelListCustom.class));
         mrvMisListas.setAdapter(mAdapterListCustom);
-
         //endregion
-
 
     }
 
     private void VistasHome() {
-
         contenidoHome = findViewById(R.id.contenidoHome);
-
         ImageView ivMenu = findViewById(R.id.ivMenu);
-
         TextView mtvVerEstrenos = findViewById(R.id.tvVerEstrenos);
         ImageView ivLogo = findViewById(R.id.ivLogo);
-
-
         tvCancion = findViewById(R.id.tv_cancion);
         tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
         tvCancion.setVisibility(VISIBLE);
@@ -505,30 +469,20 @@ public class act_main extends AppCompatActivity {
         tvCategoria.setVisibility(VISIBLE);
         tvCategoria.animateText(tinydb.getString(TBcategoriaCancionSonando));
         pbCargandoRadio = findViewById(R.id.pb_cargandoradio);
-
         ivPlayPause = findViewById(R.id.iv_playPause);
-
         spinBuffering = findViewById(R.id.spinBuffering);
-
         waveColor = findViewById(R.id.waveColor);
         waveColor.pause();
         waveBlack = findViewById(R.id.waveBlack);
         waveBlack.pause();
-
         ivLikeDislike = findViewById(R.id.iv_likeDislike);
-
         ContenedorVacio = findViewById(R.id.contenedorVacio);
         tvVacio = findViewById(R.id.tv_textVacio);
-
         ivSleep = findViewById(R.id.iv_sleep);
         tvSleep = findViewById(R.id.tv_sleep);
-
         ImageView ivReport = findViewById(R.id.iv_report);
         ImageView ivSupArt = findViewById(R.id.iv_support_art);
-
-
         ivLupa = findViewById(R.id.iv_lupa);
-
         ivStyle = findViewById(R.id.iv_style);
         ivOpcionBucle = findViewById(R.id.iv_opcionBucle2);
 
@@ -545,18 +499,13 @@ public class act_main extends AppCompatActivity {
         OpcionReproductor(act_main.this, tinydb.getString(TBmodoReproductor));
         //endregion
 
-
         ivOpcionPlayer = findViewById(R.id.iv_opReproductor);
         ivOpcionPlayer.setVisibility(GONE);
         cdOpPlayer = findViewById(R.id.cd_opPlayer);
         cdPlayer = findViewById(R.id.cd_player);
-
-
         weatherView = findViewById(R.id.weather_view);
         ivOffline = findViewById(R.id.iv_offline);
         cdMusicSeek = findViewById(R.id.cd_musicSeek);
-
-
         bottomNavigationHis_Fav = findViewById(R.id.bottomNavigationHis_Fav);
         bottomNavigationHis_Fav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -803,31 +752,31 @@ public class act_main extends AppCompatActivity {
                                         DialogSettings.backgroundColor = getResources().getColor(R.color.black);
 
                                         MessageDialog.show(act_main.this, "DMCA", "" +
-                                                "" +
-                                                "No multimedia file is being hosted by us on this app.\n" +
-                                                "\n" +
-                                                "We are not associated with the list of contents found on remote servers. We have no connection or association with such content.\n" +
-                                                "The mp3, jpg, png files that are available are not hosted on (" + act_main.this.getResources().getString(R.string.app_name) + ") app and are hosted on other servers (therefore, not our host service).\n" +
-                                                "This app (" + act_main.this.getResources().getString(R.string.app_name) + ") functions as a lofi music search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to lugulofimusic@gmail.com\n" +
-                                                "In fact, we adhere to the rights of producers and artists. We assure you that your work will be safe and legal, which will result in a positive experience for each of you, whether you are a creator or a musical artist. Please note that if any person knowingly or intentionally misrepresents any material or activity listed in Section 512(f), it would be considered a violation of copyright law. Then, if you are doing so, you are liable for your own harm. But keep one thing in mind: Don’t make any false claims about the infringed content!\n" +
-                                                "\n" +
-                                                "The complete information contained in the legal notice may also be sent to the interested party providing the content that is being infringed.", "SI", "CANCELAR")
+                                                        "" +
+                                                        "No multimedia file is being hosted by us on this app.\n" +
+                                                        "\n" +
+                                                        "We are not associated with the list of contents found on remote servers. We have no connection or association with such content.\n" +
+                                                        "The mp3, jpg, png files that are available are not hosted on (" + act_main.this.getResources().getString(R.string.app_name) + ") app and are hosted on other servers (therefore, not our host service).\n" +
+                                                        "This app (" + act_main.this.getResources().getString(R.string.app_name) + ") functions as a lofi music search engine and does not store or host any files or other copyrighted material. We follow copyright laws, but if you find any search results that you feel are illegal, you are asked to complete the form and send an email to lugulofimusic@gmail.com\n" +
+                                                        "In fact, we adhere to the rights of producers and artists. We assure you that your work will be safe and legal, which will result in a positive experience for each of you, whether you are a creator or a musical artist. Please note that if any person knowingly or intentionally misrepresents any material or activity listed in Section 512(f), it would be considered a violation of copyright law. Then, if you are doing so, you are liable for your own harm. But keep one thing in mind: Don’t make any false claims about the infringed content!\n" +
+                                                        "\n" +
+                                                        "The complete information contained in the legal notice may also be sent to the interested party providing the content that is being infringed.", "SI", "CANCELAR")
                                                 .setOkButton(getString(R.string.open_email)).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
-                                            @Override
-                                            public boolean onClick(BaseDialog baseDialog, View v) {
+                                                    @Override
+                                                    public boolean onClick(BaseDialog baseDialog, View v) {
 
-                                                Intent intent = new Intent(Intent.ACTION_SEND);
-                                                intent.setType("message/rfc822");
-                                                intent.putExtra(Intent.EXTRA_EMAIL, "lugulofimusic@gmail.com");
-                                                intent.putExtra(Intent.EXTRA_SUBJECT, "DMCA");
-                                                intent.putExtra(Intent.EXTRA_STREAM, "");
-                                                if (intent.resolveActivity(getPackageManager()) != null) {
-                                                    startActivity(intent);
-                                                }
+                                                        Intent intent = new Intent(Intent.ACTION_SEND);
+                                                        intent.setType("message/rfc822");
+                                                        intent.putExtra(Intent.EXTRA_EMAIL, "lugulofimusic@gmail.com");
+                                                        intent.putExtra(Intent.EXTRA_SUBJECT, "DMCA");
+                                                        intent.putExtra(Intent.EXTRA_STREAM, "");
+                                                        if (intent.resolveActivity(getPackageManager()) != null) {
+                                                            startActivity(intent);
+                                                        }
 
-                                                return false;
-                                            }
-                                        })
+                                                        return false;
+                                                    }
+                                                })
                                                 .setOnCancelButtonClickListener(new OnDialogButtonClickListener() {
                                                     @Override
                                                     public boolean onClick(BaseDialog baseDialog, View v) {
@@ -840,7 +789,7 @@ public class act_main extends AppCompatActivity {
 
                                     case 6:
 
-                                        DialogoPoliticas2(act_main.this,tinydb);
+                                        DialogoPoliticas2(act_main.this, tinydb);
 
                                         break;
 
@@ -1052,21 +1001,16 @@ public class act_main extends AppCompatActivity {
                     case R.id.tv_cancion:
                     case R.id.tv_artista:
                     case R.id.iv_lupa:
-                      //  DialogoSupArtista(act_main.this);
+                        //  DialogoSupArtista(act_main.this);
                         getDataYT(act_main.this, tinydb.getString(TBlinkCancionSonando), 1);
                         break;
 
 
                     case R.id.iv_style:
 
-                        if (ivStyle.getTag().toString().contains("ic_intercambiar_off")) {
-                            // activar modo categoria aleatoria
-                            CategoriaAleatoria(act_main.this, true, tinydb);
-
-                        } else {
-                            // desactivar modo categoria aleatoria
-                            CategoriaAleatoria(act_main.this, false, tinydb);
-                        }
+                        // activar modo categoria aleatoria
+                        // desactivar modo categoria aleatoria
+                        CategoriaAleatoria(act_main.this, ivStyle.getTag().toString().contains("ic_intercambiar_off"), tinydb);
 
                         break;
 
@@ -1144,7 +1088,6 @@ public class act_main extends AppCompatActivity {
             }
         };
 
-
         //region asignar listener a views
         ivMenu.setOnClickListener(listener);
         ivLogo.setOnClickListener(listener);
@@ -1165,21 +1108,15 @@ public class act_main extends AppCompatActivity {
         ivFondoGif.setOnClickListener(listener);
         ivOffline.setOnClickListener(listener);
         //endregion
-
-
         ComprobarSizePlayer(tinydb.getInt(TBsizeReproductor));
         // traer link de imagen
         CargarImagenFondo(this);
-
-
     }
 
     private void ComprobarSizePlayer(int opcion) {
-
         if (ivOpcionPlayer.getVisibility() == GONE) {
             ivOpcionPlayer.setVisibility(VISIBLE);
         }
-
         cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
         if (opcion == 0) {
             cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_300dp)));
@@ -1195,92 +1132,6 @@ public class act_main extends AppCompatActivity {
             siguienteSize = 0;
         }
         cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
-
-    }
-
-    private void ComprobarSizePlayerClic() {
-        if (ivOpcionPlayer.getVisibility() == GONE) {
-            ivOpcionPlayer.setVisibility(VISIBLE);
-        }
-
-        switch (tinydb.getInt(TBsizeReproductor)) {
-            case 0:
-                cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_300dp)));
-                cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                tinydb.putInt(TBsizeReproductor, 1);
-                break;
-            case 2:
-                cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                ivOpcionPlayer.setVisibility(GONE);
-                tinydb.putInt(TBsizeReproductor, 0);
-                break;
-            default:
-                cdPlayer.startAnimation(Animacion.exit_ios_anim(act_main.this));
-                cdPlayer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) act_main.this.getResources().getDimension(R.dimen.dimen_player_200dp)));
-                cdPlayer.startAnimation(Animacion.enter_ios_anim(act_main.this));
-                tinydb.putInt(TBsizeReproductor, 2);
-        }
-
-    }
-
-    private class CargarListas extends AsyncTask<Void, Integer, String> {
-        String TAG = getClass().getSimpleName();
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(TAG + " PreExceute", "On pre Exceute......");
-            Toast.makeText(act_main.this, R.string.cargando, Toast.LENGTH_SHORT).show();
-
-        }
-
-        protected String doInBackground(Void... arg0) {
-            Log.d(TAG + " DoINBackGround", "On doInBackground...");
-
-
-            Thread thread = new Thread() {
-                @Override
-                public void run() {
-
-
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            //do stuff like remove view etc
-
-
-                            // traer lista de categorias desde FB
-                        //    getListas(act_main.this);
-                            // getListaCategorias(act_main.this);
-                            // getListaDeFirebase(act_main.this);
-                            // getListaDestacados(act_main.this);
-                        }
-                    });
-
-
-                }
-
-            };
-            thread.start();
-
-            return "You are at PostExecute";
-        }
-
-        protected void onProgressUpdate(Integer... a) {
-            super.onProgressUpdate(a);
-            Log.d(TAG + " onProgressUpdate", "You are in progress update ... " + a[0]);
-
-        }
-
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            // WaitDialog.show(act_main.this, "Cargando contenido...").setCancelable(true);
-
-            Log.d(TAG + " onPostExecute", "" + result);
-        }
     }
     //endregion
 }

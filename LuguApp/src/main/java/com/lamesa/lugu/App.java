@@ -56,7 +56,6 @@ public class App extends MultiDexApplication {
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-
         MobileAds.initialize(this,
                 "ca-app-pub-1553194436365145~2484820665");
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -65,24 +64,15 @@ public class App extends MultiDexApplication {
             }
         });
 
-
         Amplitude.getInstance().initialize(this, "8461f9db2ddba9f48c66a867df909433").enableForegroundTracking(this);
         Amplitude.getInstance().enableLocationListening();
-
-
-// Initialize the library with your
-// Mixpanel project token, MIXPANEL_TOKEN, and a reference
-// to your application context.
         mixpanel = MixpanelAPI.getInstance(this, "e96360802e958c55420b964f66ff0809");
-
-
         CondiguracionDialogos();
         tinyDB = new TinyDB(this);
 
         // Toast.makeText(this, "JAJAJAJ", Toast.LENGTH_SHORT).show();
         Random random = new Random();
         int numRandom = random.nextInt(5);
-
         if (numRandom == 5) {
             BorrarCache(this, tinyDB);
         }
@@ -91,9 +81,7 @@ public class App extends MultiDexApplication {
     private void BorrarCache(Context mContext, TinyDB tinyDB) {
         Calendar c = Calendar.getInstance();
         int DiaActual = c.get(Calendar.DAY_OF_WEEK);
-
         int tbDiaIngreso = tinyDB.getInt(TBdiaIngreso);
-
         if (DiaActual != tbDiaIngreso) {
             // This method must be called on a background thread.
             class TestAsync extends AsyncTask<Void, Integer, Void> {
@@ -137,12 +125,7 @@ public class App extends MultiDexApplication {
         DialogSettings.DEBUGMODE = false;
         DialogSettings.isUseBlur = false;
         DialogSettings.autoShowInputKeyboard = true;
-        //DialogSettings.backgroundColor = Color.BLUE;
-        //DialogSettings.titleTextInfo = new TextInfo().setFontSize(50);
-        //DialogSettings.buttonPositiveTextInfo = new TextInfo().setFontColor(Color.GREEN);
         DialogSettings.theme = DialogSettings.THEME.DARK;
-
-
     }
 
 

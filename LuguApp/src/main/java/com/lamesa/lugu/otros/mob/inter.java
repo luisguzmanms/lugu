@@ -1,5 +1,9 @@
 package com.lamesa.lugu.otros.mob;
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -13,10 +17,6 @@ import org.json.JSONObject;
 
 import java.util.Random;
 
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
-
 public class inter {
     // Remove the below line after defining your own ad unit ID.
 
@@ -28,7 +28,6 @@ public class inter {
         interstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-
             }
 
             @Override

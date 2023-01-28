@@ -1,5 +1,22 @@
 package com.lamesa.lugu.adapter;
 
+import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
+import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
+import static com.lamesa.lugu.activity.act_main.tinydb;
+import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
+import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -30,23 +47,6 @@ import com.lamesa.lugu.model.ModelCategoria;
 
 import java.util.Collections;
 import java.util.List;
-
-import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
-import static com.lamesa.lugu.activity.act_main.mAdapterFavoritos;
-import static com.lamesa.lugu.activity.act_main.tinydb;
-import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
-import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
-import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistFavoritos;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
 
 /**
  * Created by Aws on 28/01/2018.
@@ -126,12 +126,6 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
-
-                        // TODO Do some work: pass this bitmap
-
-                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
-
                         Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
                             @SuppressLint("UseCompatLoadingForDrawables")
                             public void onGenerated(Palette palette) {
@@ -155,16 +149,12 @@ public class AdapterFavoritos extends RecyclerView.Adapter<AdapterFavoritos.MyVi
         holder.cdCancionFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 // cambiar modo de categoria a apagado, se reproducira solo las canciones de la categoria seleccionada
                 CategoriaAleatoria(mContext, false, tinydb);
                 // metodo para cargar cancion de la categoria seleccionada
 
-
                 CargarInterAleatorio(mContext, 10);
                 getLinkAndPlay(mContext, mListFavoritos.get(position).getLinkYT(), 1);
-
 
                 //region guardar datos de la cancion sonando en TinyDB
                 tinydb.putString(TBidCancionSonando, mListFavoritos.get(position).getId());

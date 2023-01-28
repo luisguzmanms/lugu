@@ -1,5 +1,8 @@
 package com.lamesa.lugu.otros;
 
+import static android.content.Context.AUDIO_SERVICE;
+import static com.lamesa.lugu.otros.constantes.TINYi_DIA_GUARDADO;
+
 import android.content.Context;
 import android.media.AudioManager;
 import android.util.Log;
@@ -7,9 +10,6 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static android.content.Context.AUDIO_SERVICE;
-import static com.lamesa.lugu.otros.constantes.TINYi_DIA_GUARDADO;
 
 public class Utils {
 

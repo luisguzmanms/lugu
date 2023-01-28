@@ -1,5 +1,22 @@
 package com.lamesa.lugu.adapter;
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.activity.act_main.getListas;
+import static com.lamesa.lugu.activity.act_main.mlistCategoria;
+import static com.lamesa.lugu.activity.act_main.tinydb;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,22 +44,6 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Random;
 
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.activity.act_main.getListas;
-import static com.lamesa.lugu.activity.act_main.mlistCategoria;
-import static com.lamesa.lugu.activity.act_main.tinydb;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
-import static com.lamesa.lugu.otros.metodos.setLogInfo;
-import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBnumeroCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
-
 
 /**
  * Created by Aws on 28/01/2018.
@@ -53,10 +54,7 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
     private final Context mContext;
     private final List<ModelListCustom> mListCustom;
 
-    //   private InterstitialAd mInterstitialAd;
-
     private int lastPosition = -1;
-
 
     public AdapterListCustom(Context mContext, List<ModelListCustom> mListCustom) {
 
@@ -67,18 +65,6 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
-        /*
-        mAuth = FirebaseAuth.getInstance();
-
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-        //     MobileAds.initialize(mContext, "ca-app-pub-4887224789758978~2509724130");
-        Amplitude.getInstance().initialize(mContext, "d261f53264579f9554bd244eef7cc2e1").enableForegroundTracking((Application) mContext.getApplicationContext());
-
-
-         */
-
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.item_categoria, parent, false);
@@ -86,7 +72,7 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         setAnimation(holder.rlCategoria, position);
 
@@ -166,39 +152,6 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
 
     }
 
-
-    /*
-
-    private void EliminarFavorito(int idfavorito) {
-
-        //login aunth
-        // get el usuario
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser u = mAuth.getCurrentUser();
-
-
-        if (u != null) {
-
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference clientesRef = ref.child("lofiradio").child("usuario").child(u.getUid()).child("favoritos").child("canciones").child(String.valueOf(idfavorito));
-
-
-            ((DatabaseReference) clientesRef).child("idfavorito").removeValue();
-            ((DatabaseReference) clientesRef).child("LinkYT").removeValue();
-            ((DatabaseReference) clientesRef).child("NombreCancionSonando").removeValue();
-
-
-            Toast.makeText(mContext, mContext.getString(R.string.cancionelimfavoritos), Toast.LENGTH_SHORT).show();
-
-
-        }
-    }
-
-
-     */
-
-
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
@@ -214,21 +167,16 @@ public class AdapterListCustom extends RecyclerView.Adapter<AdapterListCustom.My
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         private final CardView rlCategoria;
         private final ImageView ivFondo;
         private final TextView tvCategoria;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
             ivFondo = itemView.findViewById(R.id.iv_imagenFondo);
             tvCategoria = itemView.findViewById(R.id.tv_categoria);
             rlCategoria = itemView.findViewById(R.id.cd_categoria);
-
         }
-
-
     }
 
 

@@ -1,5 +1,30 @@
 package com.lamesa.lugu.player.library;
 
+import static com.lamesa.lugu.activity.act_main.ivPlayPause;
+import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
+import static com.lamesa.lugu.activity.act_main.musicPlayer;
+import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
+import static com.lamesa.lugu.activity.act_main.spinBuffering;
+import static com.lamesa.lugu.activity.act_main.tinydb;
+import static com.lamesa.lugu.activity.act_main.tvArtista;
+import static com.lamesa.lugu.activity.act_main.tvCancion;
+import static com.lamesa.lugu.activity.act_main.tvCategoria;
+import static com.lamesa.lugu.activity.act_main.waveBlack;
+import static com.lamesa.lugu.activity.act_main.waveColor;
+import static com.lamesa.lugu.activity.act_main.weatherView;
+import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
+import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
+import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -58,31 +83,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import static com.lamesa.lugu.activity.act_main.ivPlayPause;
-import static com.lamesa.lugu.activity.act_main.mediaNotificationManager;
-import static com.lamesa.lugu.activity.act_main.musicPlayer;
-import static com.lamesa.lugu.activity.act_main.pbCargandoRadio;
-import static com.lamesa.lugu.activity.act_main.spinBuffering;
-import static com.lamesa.lugu.activity.act_main.tinydb;
-import static com.lamesa.lugu.activity.act_main.tvArtista;
-import static com.lamesa.lugu.activity.act_main.tvCancion;
-import static com.lamesa.lugu.activity.act_main.tvCategoria;
-import static com.lamesa.lugu.activity.act_main.waveBlack;
-import static com.lamesa.lugu.activity.act_main.waveColor;
-import static com.lamesa.lugu.activity.act_main.weatherView;
-import static com.lamesa.lugu.otros.metodos.CheckIsFavorite;
-import static com.lamesa.lugu.otros.metodos.GuardarCancionHistorial;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
-import static com.lamesa.lugu.otros.metodos.setLogInfo;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
-import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 
 
 public class AndExoPlayerView3 extends LinearLayout implements View.OnClickListener {

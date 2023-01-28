@@ -1,5 +1,9 @@
 package com.lamesa.lugu.otros.mob;
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -11,10 +15,6 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 public class video {
     // Remove the below line after defining your own ad unit ID.

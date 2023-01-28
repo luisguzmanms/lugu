@@ -1,6 +1,10 @@
 package com.lamesa.lugu.otros;
 
 
+import static com.lamesa.lugu.otros.Utils.setLogCat;
+import static com.lamesa.lugu.otros.constantes.LogActivo;
+import static com.lamesa.lugu.otros.constantes.TAG_FUEGO;
+
 import android.content.Context;
 import android.net.Uri;
 import android.widget.Toast;
@@ -14,10 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import static com.lamesa.lugu.otros.Utils.setLogCat;
-import static com.lamesa.lugu.otros.constantes.LogActivo;
-import static com.lamesa.lugu.otros.constantes.TAG_FUEGO;
 
 public class fuego extends AppCompatActivity {
 
@@ -53,7 +53,7 @@ public class fuego extends AppCompatActivity {
             final DatabaseReference mref = FirebaseDatabase.getInstance().getReference(Ruta);
             mref.getRef().removeValue();
             Toast.makeText(mContext, "DATO ELIMINADO", Toast.LENGTH_SHORT).show();
-            System.out.println("REFB " + mref.getRef().toString());
+            System.out.println("REFB " + mref.getRef());
             Toast.makeText(mContext, mref.getRef().toString(), Toast.LENGTH_LONG).show();
 
         }

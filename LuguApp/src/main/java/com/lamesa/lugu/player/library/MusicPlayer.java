@@ -754,7 +754,6 @@ public class MusicPlayer extends LinearLayout implements View.OnClickListener {
                 }
 
 
-
                 Toast.makeText(mContext, R.string.loading_song, Toast.LENGTH_SHORT).show();
                 break;
 

@@ -1,5 +1,10 @@
 package com.lamesa.lugu.player;
 
+import static com.lamesa.lugu.activity.act_main.tinydb;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -23,11 +28,6 @@ import com.lamesa.lugu.otros.TinyDB;
 import com.lamesa.lugu.receiver.ActionReceiver;
 
 import java.util.Random;
-
-import static com.lamesa.lugu.activity.act_main.tinydb;
-import static com.lamesa.lugu.otros.metodos.setLogInfo;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 
 
 public class MediaNotificationManager {
@@ -83,10 +83,10 @@ public class MediaNotificationManager {
         // PendingIntent actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
         PendingIntent actionPlayPause;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+            actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         } else {
             actionPlayPause = PendingIntent.getBroadcast(mContext, 1, intentPlayPause, 0);
-        };
+        }
 
         String contentTitle = tinydb.getString(TBnombreCancionSonando);
         String contentText = tinydb.getString(TBartistaCancionSonando);
@@ -139,20 +139,21 @@ public class MediaNotificationManager {
         // PendingIntent stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent, 0);
         PendingIntent stopAction;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+            stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         } else {
             stopAction = PendingIntent.getBroadcast(mContext, 3, stopIntent, 0);
-        };
+        }
 
 
         // intent de clic favorito
         Intent intentFavorito = new Intent(mContext, ActionReceiver.class);
         intentFavorito.setAction(MediaNotificationManager.ACTION_FAVORITE);
-       // PendingIntent actionFavorito = PendingIntent.getBroadcast(mContext, 3, intentFavorito, 0);
+        // PendingIntent actionFavorito = PendingIntent.getBroadcast(mContext, 3, intentFavorito, 0);
         PendingIntent actionFavorito;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             actionFavorito = PendingIntent.getBroadcast(mContext, 2, intentFavorito, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-        } else { actionFavorito = PendingIntent.getBroadcast(mContext, 2, intentFavorito, 0);
+        } else {
+            actionFavorito = PendingIntent.getBroadcast(mContext, 2, intentFavorito, 0);
         }
 
 
@@ -161,7 +162,7 @@ public class MediaNotificationManager {
         intentMainActivity.addCategory(Intent.CATEGORY_LAUNCHER);
         // para que no se creee una activity nueva si ya está creada
         intentMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-      //  PendingIntent pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, 0);
+        //  PendingIntent pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, 0);
         PendingIntent pendingIntent;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getActivity(mContext, new Random().nextInt(), intentMainActivity, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);

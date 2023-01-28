@@ -1,5 +1,9 @@
 package com.lamesa.lugu.otros;
 
+import static com.lamesa.lugu.App.mFirebaseAnalytics;
+import static com.lamesa.lugu.App.mixpanel;
+import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +16,6 @@ import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
-import static com.lamesa.lugu.App.mixpanel;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 
 public class AdMesa {
@@ -94,7 +94,7 @@ public class AdMesa {
         // mAdView = (AdView) view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().
                 addTestDevice("830648A2D5D5AF09D0FAED08D38E2353").//ca-app-pub-3940256099942544/6300978111
-                build();
+                        build();
         mAdView.loadAd(adRequest);
 
         mAdView.setAdListener(new AdListener() {

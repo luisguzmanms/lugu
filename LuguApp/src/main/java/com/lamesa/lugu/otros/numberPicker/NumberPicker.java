@@ -1,5 +1,7 @@
 package com.lamesa.lugu.otros.numberPicker;
 
+import static java.lang.annotation.RetentionPolicy.SOURCE;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -45,8 +47,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * A widget that enables the user to select a number from a predefined range.

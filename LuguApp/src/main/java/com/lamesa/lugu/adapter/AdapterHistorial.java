@@ -1,5 +1,21 @@
 package com.lamesa.lugu.adapter;
 
+import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
+import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
+import static com.lamesa.lugu.activity.act_main.tinydb;
+import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
+import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
+import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
+import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
+import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
+import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
+import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,81 +47,32 @@ import com.lamesa.lugu.model.ModelCategoria;
 import java.util.Collections;
 import java.util.List;
 
-import static com.lamesa.lugu.activity.act_main.bottomNavigationHis_Fav;
-import static com.lamesa.lugu.activity.act_main.mAdapterHistorial;
-import static com.lamesa.lugu.activity.act_main.tinydb;
-import static com.lamesa.lugu.otros.metodos.CategoriaAleatoria;
-import static com.lamesa.lugu.otros.metodos.DialogoEliminarLista;
-import static com.lamesa.lugu.otros.metodos.getLinkAndPlay;
-import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.statics.constantes.TBartistaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBcategoriaCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBidCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBimagenFondo;
-import static com.lamesa.lugu.otros.statics.constantes.TBlinkCancionSonando;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistHistorial;
-import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
-
 
 public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyViewHolder> {
 
     private final Context mContext;
     private final List<ModelCancion> mListHistorial;
 
-    //   private InterstitialAd mInterstitialAd;
-
     private int lastPosition = -1;
 
-
     public AdapterHistorial(Context mContext, List<ModelCancion> mListHistorial) {
-
         this.mContext = mContext;
         this.mListHistorial = mListHistorial;
-
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        /*
-        mAuth = FirebaseAuth.getInstance();
-
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-        //     MobileAds.initialize(mContext, "ca-app-pub-4887224789758978~2509724130");
-        Amplitude.getInstance().initialize(mContext, "d261f53264579f9554bd244eef7cc2e1").enableForegroundTracking((Application) mContext.getApplicationContext());
-
-         */
-
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.item_historial, parent, false);
-
-
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-
-
-     /*   List<Integer> ListaHistorial = tinyDB.getListInt("historial-" + tbIdFilm);
-
-        for (int historial : ListaHistorial) {
-            if (historial == position) {
-                holder.ivVisto.setVisibility(View.VISIBLE);
-                // setAnimation(holder.ivVisto, position);
-                // break;
-            }
-        }
-
-      */
-
-
+    public void onBindViewHolder(final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         setAnimation(holder.cdCancionHistorial, position);
         holder.tvCancion.setText(mListHistorial.get(position).getCancion());
         holder.tvArtista.setText(mListHistorial.get(position).getArtista());
-
 
         if (holder.tvCancion.getText().equals(tinydb.getString(TBnombreCancionSonando))) {
             holder.tvCancion.setTextColor(mContext.getResources().getColor(R.color.learn_colorPrimary));
@@ -115,7 +82,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
             holder.tvArtista.setTextColor(mContext.getResources().getColor(R.color.learn_gradient_grey_1));
         }
 
-
         //region extraer colores de imagenes
         Glide.with(mContext)
                 .asBitmap()
@@ -123,12 +89,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        //   setLogInfo(this,"MediaNotificationManager.startNotify.onResourceReady","Cargar imagen en Notificacion",false);
-
-                        // TODO Do some work: pass this bitmap
-
-                        //  Toast.makeText(act_main.this, getDominantColor(resource), Toast.LENGTH_SHORT).show();
-
                         Palette.generateAsync(resource, new Palette.PaletteAsyncListener() {
                             @SuppressLint("UseCompatLoadingForDrawables")
                             public void onGenerated(Palette palette) {
@@ -175,8 +135,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
                 tinydb.putString(TBartistaCancionSonando, mListHistorial.get(position).getArtista());
                 tinydb.putString(TBcategoriaCancionSonando, TBlistHistorial);
                 tinydb.putString(TBlinkCancionSonando, mListHistorial.get(position).getLinkYT());
-
-
             }
         });
         holder.cdCancionHistorial.setOnLongClickListener(new View.OnLongClickListener() {
@@ -228,38 +186,6 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
 
     }
 
-
-    /*
-
-    private void EliminarFavorito(int idfavorito) {
-
-        //login aunth
-        // get el usuario
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser u = mAuth.getCurrentUser();
-
-
-        if (u != null) {
-
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference clientesRef = ref.child("lofiradio").child("usuario").child(u.getUid()).child("favoritos").child("canciones").child(String.valueOf(idfavorito));
-
-
-            ((DatabaseReference) clientesRef).child("idfavorito").removeValue();
-            ((DatabaseReference) clientesRef).child("LinkYT").removeValue();
-            ((DatabaseReference) clientesRef).child("NombreCancionSonando").removeValue();
-
-
-            Toast.makeText(mContext, mContext.getString(R.string.cancionelimfavoritos), Toast.LENGTH_SHORT).show();
-
-
-        }
-    }
-
-
-     */
-
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
@@ -281,11 +207,8 @@ public class AdapterHistorial extends RecyclerView.Adapter<AdapterHistorial.MyVi
         this.mListHistorial.addAll(mListHistorial);
         Collections.reverse(this.mListHistorial);
         if (mAdapterHistorial != null) {
-
             mAdapterHistorial.notifyDataSetChanged();
         }
-
-
     }
 
 

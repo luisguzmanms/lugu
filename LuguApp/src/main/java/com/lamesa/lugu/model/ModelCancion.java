@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class ModelCancion implements Serializable {
 
-
     String id;
     String artista;
     String cancion;

@@ -1,6 +1,12 @@
 package com.lamesa.lugu.mesa;
 
 
+import static android.view.View.VISIBLE;
+import static com.lamesa.lugu.activity.splash.SubirCancion;
+import static com.lamesa.lugu.otros.metodos.isNetworkAvailable;
+import static com.lamesa.lugu.otros.metodos.setLogInfo;
+import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +28,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firestore.v1.Precondition;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnDismissListener;
 import com.kongzue.dialog.util.BaseDialog;
@@ -45,23 +50,16 @@ import at.huber.youtubeExtractor.VideoMeta;
 import at.huber.youtubeExtractor.YouTubeExtractor;
 import at.huber.youtubeExtractor.YtFile;
 
-import static android.view.View.VISIBLE;
-import static com.lamesa.lugu.activity.splash.SubirCancion;
-import static com.lamesa.lugu.otros.metodos.isNetworkAvailable;
-import static com.lamesa.lugu.otros.metodos.setLogInfo;
-import static com.lamesa.lugu.otros.statics.constantes.TBlistCategorias;
-import static com.lamesa.lugu.otros.statics.constantes.mixCategoriaClic;
-
 
 public class DataYT extends AppCompatActivity {
 
 
-    public static  ImageView ivExiste;
+    public static ImageView ivExiste;
     public static String idCancion;
     public static String nombreCancion;
     public static String nombreArtista;
     public static String linkMp3;
-    public static  String nombreCanal;
+    public static String nombreCanal;
     public static String nombreLink;
     public static String youtubeLink;
     public static EditText etLinkYT;
@@ -93,55 +91,6 @@ public class DataYT extends AppCompatActivity {
 
 
         });
-
-
-    }
-
-    /**
-     * DataYT solo en versiones admin
-     */
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.layout_vacio);
-
-        Intent receiverdIntent = getIntent();
-        String receivedAction = receiverdIntent.getAction();
-        String receivedType = receiverdIntent.getType();
-
-        if (receivedAction.equals(Intent.ACTION_SEND)) {
-
-            // check mime type
-
-            if (savedInstanceState == null && Intent.ACTION_SEND.equals(getIntent().getAction())
-                    && getIntent().getType() != null && "text/plain".equals(getIntent().getType())) {
-
-                String ytLink = receiverdIntent
-                        .getStringExtra(Intent.EXTRA_TEXT);
-
-
-                if (ytLink != null
-                        && (ytLink.contains("://youtu.be/") || ytLink.contains("youtube.com/watch?v="))) {
-                    youtubeLink = ytLink;
-                    // We have a valid link
-                    //   getYoutubeDownloadUrl(youtubeLink);
-                    Toast.makeText(this, youtubeLink, Toast.LENGTH_SHORT).show();
-
-                 //   getDataYT(mc,youtubeLink, 1);
-                } else {
-                    Toast.makeText(this, "error no link YT", Toast.LENGTH_LONG).show();
-                    finish();
-                }
-
-
-            } else if (receivedAction.equals(Intent.ACTION_MAIN)) {
-
-                Log.e("TAG", "onSharedIntent: nothing shared");
-                Toast.makeText(this, "onSharedIntent: nothing shared", Toast.LENGTH_SHORT).show();
-
-            }
-        }
 
 
     }
@@ -196,7 +145,7 @@ public class DataYT extends AppCompatActivity {
                                         linkMp3 = ytFiles.get(itag).getUrl();
                                         nombreCanal = vMeta.getAuthor();
 
-                                        DialogoData(mContext,linkYT);
+                                        DialogoData(mContext, linkYT);
 
 
                                         System.out.println("newlofi downloadUrl itag == " + " ytFiles " + ytFiles.get(itag).getFormat().getAudioBitrate() + linkMp3);
@@ -212,7 +161,7 @@ public class DataYT extends AppCompatActivity {
                             }
 
                         } else {
-                            getDataYT(mContext,linkYT, 2);
+                            getDataYT(mContext, linkYT, 2);
                         }
                     }
 
@@ -253,7 +202,7 @@ public class DataYT extends AppCompatActivity {
                                 nombreCanal = meta.getAuthor();
 
 
-                                DialogoData(mContext,linkYT);
+                                DialogoData(mContext, linkYT);
 
 
                                 break;
@@ -274,7 +223,7 @@ public class DataYT extends AppCompatActivity {
         }
     }
 
-    public static void DialogoData( Context mContext, String youtubeLink) {
+    public static void DialogoData(Context mContext, String youtubeLink) {
 
         DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
         DialogSettings.theme = DialogSettings.THEME.DARK;
@@ -334,20 +283,69 @@ public class DataYT extends AppCompatActivity {
 
                     }
                 }).setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v) {
+
+                        ModelCancion cancion = new ModelCancion(etIdCancion.getText().toString(), etArtistaCancion.getText().toString(), etNombreCancion.getText().toString(), idCategoria, etLinkYT.getText().toString());
+                        SubirCancion(mContext, cancion);
+
+                        return false;
+                    }
+                });
+
+    }
+
+    /**
+     * DataYT solo en versiones admin
+     */
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.layout_vacio);
+
+        Intent receiverdIntent = getIntent();
+        String receivedAction = receiverdIntent.getAction();
+        String receivedType = receiverdIntent.getType();
+
+        if (receivedAction.equals(Intent.ACTION_SEND)) {
+
+            // check mime type
+
+            if (savedInstanceState == null && Intent.ACTION_SEND.equals(getIntent().getAction())
+                    && getIntent().getType() != null && "text/plain".equals(getIntent().getType())) {
+
+                String ytLink = receiverdIntent
+                        .getStringExtra(Intent.EXTRA_TEXT);
+
+
+                if (ytLink != null
+                        && (ytLink.contains("://youtu.be/") || ytLink.contains("youtube.com/watch?v="))) {
+                    youtubeLink = ytLink;
+                    // We have a valid link
+                    //   getYoutubeDownloadUrl(youtubeLink);
+                    Toast.makeText(this, youtubeLink, Toast.LENGTH_SHORT).show();
+
+                    //   getDataYT(mc,youtubeLink, 1);
+                } else {
+                    Toast.makeText(this, "error no link YT", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+
+
+            } else if (receivedAction.equals(Intent.ACTION_MAIN)) {
+
+                Log.e("TAG", "onSharedIntent: nothing shared");
+                Toast.makeText(this, "onSharedIntent: nothing shared", Toast.LENGTH_SHORT).show();
 
             }
-        }).setOnOkButtonClickListener(new OnDialogButtonClickListener() {
-            @Override
-            public boolean onClick(BaseDialog baseDialog, View v) {
+        }
 
-                ModelCancion cancion = new ModelCancion(etIdCancion.getText().toString(), etArtistaCancion.getText().toString(), etNombreCancion.getText().toString(), idCategoria, etLinkYT.getText().toString());
-                SubirCancion(mContext, cancion);
-
-                return false;
-            }
-        });
 
     }
 

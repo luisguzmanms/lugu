@@ -4,10 +4,19 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lugu.iml" filepath="$PROJECT_DIR$/.idea/modules/lugu.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.iml" filepath="$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.main.iml" filepath="$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/LuguApp/lugu.LuguApp.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.iml" filepath="$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/YoutubeExtractor2/lugu.YoutubeExtractor2.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/htextview-base/lugu.htextview-base.iml" filepath="$PROJECT_DIR$/.idea/modules/htextview-base/lugu.htextview-base.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/htextview-evaporate/lugu.htextview-evaporate.iml" filepath="$PROJECT_DIR$/.idea/modules/htextview-evaporate/lugu.htextview-evaporate.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.iml" filepath="$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.main.iml" filepath="$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/youtubeExtractor/lugu.youtubeExtractor.unitTest.iml" />
     </modules>
   </component>
 </project>

@@ -2,7 +2,6 @@ package com.lamesa.lugu.activity;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.lamesa.lugu.App.mFirebaseAnalytics;
 import static com.lamesa.lugu.App.mixpanel;
 import static com.lamesa.lugu.mesa.DataYT.getDataYT;
 import static com.lamesa.lugu.otros.metodos.AboutUS;
@@ -45,7 +44,6 @@ import static com.lamesa.lugu.otros.statics.constantes.TBmodoReproductor;
 import static com.lamesa.lugu.otros.statics.constantes.TBnombreCancionSonando;
 import static com.lamesa.lugu.otros.statics.constantes.TBreproduciendoRadio;
 import static com.lamesa.lugu.otros.statics.constantes.TBsizeReproductor;
-import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -86,16 +84,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.matteobattilana.weather.WeatherView;
 import com.github.ybq.android.spinkit.SpinKitView;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
@@ -120,9 +114,6 @@ import com.lamesa.lugu.player.MediaNotificationManager;
 import com.lamesa.lugu.player.library.MusicPlayer;
 import com.narayanacharya.waveview.WaveView;
 import com.tapadoo.alerter.Alerter;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,9 +174,9 @@ public class act_main extends AppCompatActivity {
     private ImageView ivOffline;
     private int versionNumber;
     private String versionName;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCancion;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvCategoria;
-    public static com.hanks.htextview.evaporate.EvaporateTextView tvArtista;
+    public static TextView tvCancion;
+    public static TextView tvCategoria;
+    public static TextView tvArtista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,7 +209,7 @@ public class act_main extends AppCompatActivity {
         loadInterstitial(act_main.this);
         CargarInterAleatorio(act_main.this, 4);
         // cargar banner
-        CargarBanner();
+        // CargarBanner();
 
         // dialogo para desactivar la optimizacion de la app
         DialogoOpBateria(act_main.this);
@@ -341,17 +332,18 @@ public class act_main extends AppCompatActivity {
     @Override
     protected void onStart() {
         if (tvCategoria != null) {
-            tvCategoria.animateText(tinydb.getString(TBcategoriaCancionSonando));
+            tvCategoria.setText(tinydb.getString(TBcategoriaCancionSonando));
         }
         if (tvCancion != null) {
-            tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
+            tvCancion.setText(tinydb.getString(TBnombreCancionSonando));
         }
         if (tvArtista != null) {
-            tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
+            tvArtista.setText(tinydb.getString(TBartistaCancionSonando));
         }
         super.onStart();
     }
 
+    /*
     private void CargarBanner() {
 
         //   new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("830648A2D5D5AF09D0FAED08D38E2353"));
@@ -417,7 +409,7 @@ public class act_main extends AppCompatActivity {
 
 
     }
-
+     */
     private void CargarRecyclerHome() {
 
         mlistCustom = tinydb.getListModelListCustom(TBlistCustom, ModelListCustom.class);
@@ -496,14 +488,14 @@ public class act_main extends AppCompatActivity {
 
 
         tvCancion = findViewById(R.id.tv_cancion);
-        tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
+        tvCancion.setText(tinydb.getString(TBnombreCancionSonando));
         tvCancion.setVisibility(VISIBLE);
         tvArtista = findViewById(R.id.tv_artista);
         tvArtista.setVisibility(VISIBLE);
-        tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
+        tvArtista.setText(tinydb.getString(TBartistaCancionSonando));
         tvCategoria = findViewById(R.id.tv_categoria);
         tvCategoria.setVisibility(VISIBLE);
-        tvCategoria.animateText(tinydb.getString(TBcategoriaCancionSonando));
+        tvCategoria.setText(tinydb.getString(TBcategoriaCancionSonando));
         pbCargandoRadio = findViewById(R.id.pb_cargandoradio);
 
         ivPlayPause = findViewById(R.id.iv_playPause);
@@ -863,8 +855,8 @@ public class act_main extends AppCompatActivity {
                                 if (!musicPlayer.isPlaying()) {
                                     // comprobar que si haya una cancion guardada
                                     getLinkAndPlay(act_main.this, tinydb.getString(TBlinkCancionSonando), 1);
-                                    tvCancion.animateText(tinydb.getString(TBnombreCancionSonando));
-                                    tvArtista.animateText(tinydb.getString(TBartistaCancionSonando));
+                                    tvCancion.setText(tinydb.getString(TBnombreCancionSonando));
+                                    tvArtista.setText(tinydb.getString(TBartistaCancionSonando));
                                 }
                             } else {
                                 // primera ves que se da clic a play

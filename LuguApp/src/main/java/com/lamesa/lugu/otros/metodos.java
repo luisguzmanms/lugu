@@ -26,7 +26,6 @@ import static com.lamesa.lugu.activity.act_main.tinydb;
 import static com.lamesa.lugu.activity.act_main.tvSleep;
 import static com.lamesa.lugu.otros.Firebase.EnviarSolicitud;
 import static com.lamesa.lugu.otros.mob.inter.CargarInterAleatorio;
-import static com.lamesa.lugu.otros.mob.video.createAndLoadRewardedAd;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_ALEATORIO;
 import static com.lamesa.lugu.otros.statics.constantes.REPRODUCTOR_BUCLE;
 import static com.lamesa.lugu.otros.statics.constantes.TBCategoriaAleatoria;
@@ -1281,7 +1280,7 @@ public class metodos {
 
 
         // video mob
-        createAndLoadRewardedAd(mContext);
+        // createAndLoadRewardedAd(mContext);
 
         DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI;
         DialogSettings.theme = DialogSettings.THEME.DARK;
@@ -1430,7 +1429,7 @@ public class metodos {
 
         if (numPosibilidad == 3) {
 
-            AdMesa.createLoadInterstitial(mContext, ad_unit_id, null);
+            // AdMesa.createLoadInterstitial(mContext, ad_unit_id, null);
         }
 
 

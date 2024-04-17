@@ -8,6 +8,7 @@ android {
         targetSdkVersion 31
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    namespace 'at.huber.youtubeExtractor'
 }
 
 dependencies {

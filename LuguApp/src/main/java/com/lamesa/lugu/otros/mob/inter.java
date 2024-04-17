@@ -4,9 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.amplitude.api.Amplitude;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +17,7 @@ import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 public class inter {
     // Remove the below line after defining your own ad unit ID.
 
+    /*
     private static InterstitialAd mInterstitialAd;
 
     private static InterstitialAd newInterstitialAd(Context mContext) {
@@ -42,11 +40,15 @@ public class inter {
                 loadInterstitial(mContext);
             }
         });
+
+
         return interstitialAd;
     }
+    */
 
     public static void showInterstitial(Context mContext) {
         // Show the ad if it"s ready. Otherwise toast and reload the ad.
+        /*
         if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
             //region MIX mixAdClic para estadisticas
@@ -69,14 +71,15 @@ public class inter {
             // Toast.makeText(mContext, "Ad did not load", Toast.LENGTH_SHORT).show();
             loadInterstitial(mContext);
         }
+         */
     }
 
     public static void loadInterstitial(Context mContext) {
         // Show the next level and reload the ad to prepare for the level after.
-        mInterstitialAd = newInterstitialAd(mContext);
+        // mInterstitialAd = newInterstitialAd(mContext);
         // Disable the next level button and load the ad.
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mInterstitialAd.loadAd(adRequest);
+        // AdRequest adRequest = new AdRequest.Builder().build();
+        // mInterstitialAd.loadAd(adRequest);
     }
 
     public static void CargarInterAleatorio(Context mContext, int numProbabilidad) {

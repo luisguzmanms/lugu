@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.mozilla:rhino:1.7.10">
+  <library name="Gradle: org.mozilla:rhino:1.7.10" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla/rhino/1.7.10/24650bd98b1041df2eb1be5cb64dd1ad5b2e7c55/rhino-1.7.10.jar!/" />
     </CLASSES>

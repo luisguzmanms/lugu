@@ -10,9 +10,6 @@ import androidx.multidex.MultiDexApplication;
 
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
@@ -57,6 +54,7 @@ public class App extends MultiDexApplication {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
+        /*
         MobileAds.initialize(this,
                 "ca-app-pub-1553194436365145~2484820665");
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -65,6 +63,8 @@ public class App extends MultiDexApplication {
             }
         });
 
+
+         */
 
         Amplitude.getInstance().initialize(this, "8461f9db2ddba9f48c66a867df909433").enableForegroundTracking(this);
         Amplitude.getInstance().enableLocationListening();

@@ -194,7 +194,7 @@
                         app:layout_constraintVertical_bias="0.377"
                         app:srcCompat="@drawable/ic_play"/>
 
-                    <com.hanks.htextview.evaporate.EvaporateTextView
+                    <TextView
                         android:id="@+id/tv_cancion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                         android:src="@drawable/shape_controller_bottom_gradient"
                         android:visibility="gone" />
 
-                    <com.hanks.htextview.evaporate.EvaporateTextView
+                    <TextView
                         android:id="@+id/tv_categoria"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -251,7 +251,7 @@
                         app:layout_constraintStart_toStartOf="@+id/tv_artista"
                         app:layout_constraintTop_toBottomOf="@+id/tv_artista" />
 
-                    <com.hanks.htextview.evaporate.EvaporateTextView
+                    <TextView
                         android:id="@+id/tv_artista"
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
@@ -292,7 +292,8 @@
                         android:layout_marginBottom="15dp"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:ignore="MissingConstraints">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -784,19 +785,6 @@
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
-
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adViewMain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="0dp"
-                android:visibility="visible"
-                app:adSize="BANNER"
-                app:adUnitId="ca-app-pub-1553194436365145/3922025411">
-
-            </com.google.android.gms.ads.AdView>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigation"

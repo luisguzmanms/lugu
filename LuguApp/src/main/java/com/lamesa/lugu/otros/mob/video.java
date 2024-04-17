@@ -4,10 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.amplitude.api.Amplitude;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +15,7 @@ import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 public class video {
     // Remove the below line after defining your own ad unit ID.
 
+    /*
     public static RewardedAd rewardedAd;
 
 
@@ -62,9 +59,12 @@ public class video {
     }
 
 
+
+
     public static void onRewardedAdClosed(Context mContext) {
         rewardedAd = createAndLoadRewardedAd(mContext);
     }
 
+     */
 
 }

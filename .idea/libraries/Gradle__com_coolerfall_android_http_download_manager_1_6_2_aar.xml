@@ -1,9 +1,8 @@
 <component name="libraryTable">
-  <library name="Gradle: com.coolerfall:android-http-download-manager:1.6.2@aar">
+  <library name="Gradle: com.coolerfall:android-http-download-manager:1.6.2@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/83176890b82ae2aff5cd0ba88148face/transformed/jetified-android-http-download-manager-1.6.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/83176890b82ae2aff5cd0ba88148face/transformed/jetified-android-http-download-manager-1.6.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/83176890b82ae2aff5cd0ba88148face/transformed/jetified-android-http-download-manager-1.6.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9243808d3b02c6bff7c1730b24e418a0/transformed/jetified-android-http-download-manager-1.6.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9243808d3b02c6bff7c1730b24e418a0/transformed/jetified-android-http-download-manager-1.6.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.coolerfall/android-http-download-manager/1.6.2/df6172f6a449135ea4f267b225fc605ae914fcb9/android-http-download-manager-1.6.2-javadoc.jar!/" />

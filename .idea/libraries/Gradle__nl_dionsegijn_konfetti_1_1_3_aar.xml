@@ -1,9 +1,9 @@
 <component name="libraryTable">
-  <library name="Gradle: nl.dionsegijn:konfetti:1.1.3@aar">
+  <library name="Gradle: nl.dionsegijn:konfetti:1.1.3@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8d8d27941f3b3cc943fa553e09ebb80d/transformed/jetified-konfetti-1.1.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8d8d27941f3b3cc943fa553e09ebb80d/transformed/jetified-konfetti-1.1.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8d8d27941f3b3cc943fa553e09ebb80d/transformed/jetified-konfetti-1.1.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b644d68122c36bcb99b5e65aa04cab9e/transformed/jetified-konfetti-1.1.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b644d68122c36bcb99b5e65aa04cab9e/transformed/jetified-konfetti-1.1.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b644d68122c36bcb99b5e65aa04cab9e/transformed/jetified-konfetti-1.1.3/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/nl.dionsegijn/konfetti/1.1.3/e40238e36003dda9d1da1095ff11d745ea941031/konfetti-1.1.3-javadoc.jar!/" />

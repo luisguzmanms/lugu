@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.apache.commons:commons-collections4:4.2">
+  <library name="Gradle: org.apache.commons:commons-collections4:4.2" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.2/54ebea0a5b653d3c680131e73fe807bb8f78c4ed/commons-collections4-4.2.jar!/" />
     </CLASSES>

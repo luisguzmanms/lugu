@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.github.bumptech.glide:annotations:4.10.0">
+  <library name="Gradle: com.github.bumptech.glide:annotations:4.10.0" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.10.0/bbe80fe87e3a3a08c995557f3b8e66f479bf9363/annotations-4.10.0.jar!/" />
     </CLASSES>

@@ -5,10 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.amplitude.api.Amplitude;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +16,15 @@ import static com.lamesa.lugu.otros.statics.constantes.mixAdOpened;
 
 public class AdMesa {
 
+    /*
     public static InterstitialAd mInterstitial; // Interstital
     private static AdView mAdView; // banner
 
+     */
+
     public static void createLoadInterstitial(final Context context, String ad_unit_id, View view) {
 
+        /*
         mInterstitial = new InterstitialAd(context);
         mInterstitial.setAdUnitId(ad_unit_id);
         mInterstitial.setAdListener(new AdListener() {
@@ -85,6 +85,7 @@ public class AdMesa {
             }
 
         });
+         */
 
 
     }
@@ -92,6 +93,7 @@ public class AdMesa {
 
     public static void createLoadBanner(final Context context, View view) {
         // mAdView = (AdView) view.findViewById(R.id.adView);
+        /*
         AdRequest adRequest = new AdRequest.Builder().
                 addTestDevice("830648A2D5D5AF09D0FAED08D38E2353").//ca-app-pub-3940256099942544/6300978111
                 build();
@@ -139,7 +141,7 @@ public class AdMesa {
             }
 
         });
-
+         */
     }
 
 }

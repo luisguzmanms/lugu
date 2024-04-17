@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.amplitude:android-sdk:2.23.2">
+  <library name="Gradle: com.amplitude:android-sdk:2.23.2" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.amplitude/android-sdk/2.23.2/1b98c66d460d9f96950f10e868ee3209bcd821a/android-sdk-2.23.2.jar!/" />
     </CLASSES>
